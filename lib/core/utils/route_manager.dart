@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
-
-import '../../feature/add_product/view/add_product_view.dart';
+import 'package:fruit_hub_dashboard/feature/add_product/presentation/view/add_product_view.dart';
 
 class RouteManager {
   static const String addProductView = '/addProductView';
