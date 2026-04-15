@@ -1,13 +1,15 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/core/helper_function/custom_show_snake_bar.dart';
 import 'package:fruit_hub_dashboard/core/widgets/custom_button.dart';
 import 'package:fruit_hub_dashboard/core/widgets/custom_image_picker.dart';
 import 'package:fruit_hub_dashboard/core/widgets/custom_text_form_field.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/add_product_entity.dart';
-import 'package:fruit_hub_dashboard/feature/add_product/presentation/widgets/custom_is_featured.dart'
-    show CustomIsFeatured;
+import 'package:fruit_hub_dashboard/feature/add_product/presentation/widgets/custom_is_featured.dart';
+
+import '../view_model/add_product_cubit.dart';
 
 class AddProductViewBody extends StatefulWidget {
   const AddProductViewBody({super.key});
@@ -101,34 +103,39 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                       isFeatured = !isFeatured;
                     },
                   ),
-                  CustomButton(
-                    child: Text(
-                      'اضافه المنتج',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .labelSmall,
-                    ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
-                        if (image != null) {
-                          AddProductEntity addProductEntity = AddProductEntity(
-                            name: name,
-                            code: code,
-                            price: price,
-                            description: description,
-                            imageFile: image!,
-                            isFeatured: isFeatured,
-                          );
-                        } else {
-                          customShowSnakeBar(context, color: Colors.red,
-                              label: 'برجاء ادخال صوره للمنتج');
-                        }
-                        setState(() {
-                          autoValidateMode = AutovalidateMode.always;
-                        });
-                      }
+                  BlocBuilder<AddProductCubit, AddProductState>(
+                    builder: (context, state) {
+                      return CustomButton(
+                        child: Text(
+                          'اضافه المنتج',
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .labelSmall,
+                        ),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState!.save();
+                            if (image == null) {
+                              AddProductEntity addProductEntity = AddProductEntity(
+                                name: name,
+                                code: code,
+                                price: price,
+                                description: description,
+                                imageFile: image!,
+                                isFeatured: isFeatured,
+                              );
+                              context.read<AddProductCubit>().addProduct(addProductEntity);
+                            } else {
+                              customShowSnakeBar(context, color: Colors.red,
+                                  label: 'برجاء ادخال صوره للمنتج');
+                            }
+                            setState(() {
+                              autoValidateMode = AutovalidateMode.always;
+                            });
+                          }
+                        },
+                      );
                     },
                   ),
                 ],
