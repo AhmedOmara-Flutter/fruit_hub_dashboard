@@ -8,6 +8,7 @@ class AddProductModel extends AddProductEntity {
     required super.description,
     required super.imageFile,
     required super.isFeatured,
+    super.image,
   });
 
   factory AddProductModel.fromEntity(AddProductEntity entity) {
@@ -18,6 +19,7 @@ class AddProductModel extends AddProductEntity {
       description: entity.description,
       imageFile: entity.imageFile,
       isFeatured: entity.isFeatured,
+      image: entity.image,
     );
   }
 
@@ -29,6 +31,7 @@ class AddProductModel extends AddProductEntity {
       description: json['description'],
       imageFile: json['imageFile'],
       isFeatured: json['isFeatured'],
+      image: json['image'],
     );
   }
 
@@ -38,8 +41,8 @@ class AddProductModel extends AddProductEntity {
       'code': code,
       'price': price,
       'description': description,
-      'imageFile': imageFile,
       'isFeatured': isFeatured,
+      'image': image,
     };
   }
 }

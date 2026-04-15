@@ -21,7 +21,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
         try {
           final ImagePicker picker = ImagePicker();
           final XFile? image = await picker.pickImage(
-            source: ImageSource.gallery,
+            source: ImageSource.camera,
           );
           if (image != null) {
             setState(() {

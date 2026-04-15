@@ -16,18 +16,19 @@ class AddProductCubit extends Cubit<AddProductState> {
 
   Future<void> addProduct(AddProductEntity addProductEntity) async {
     emit(AddProductLoading());
-    // var result = await _uploadImageRepo.uploadImage(addProductEntity.imageFile);
-    // result.fold((failure) {
-    //   emit(AddProductFailure(failure.errMessage));
-    // }, (url) async {
-    //   addProductEntity.image = url;
+    var result = await _uploadImageRepo.uploadImage(addProductEntity.imageFile);
+    result.fold((failure) {
+      emit(AddProductFailure(failure.errMessage));
+    }, (url) async {
+      print(url);
+      addProductEntity.image = url;
       var result = await _addRepo.addProduct(addProductEntity);
       result.fold((failure) {
         emit(AddProductFailure(failure.errMessage));
       }, (success) {
         emit(AddProductSuccess());
       });
-   // });
+    });
   }
 
 

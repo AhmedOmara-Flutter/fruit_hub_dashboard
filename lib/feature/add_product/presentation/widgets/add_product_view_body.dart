@@ -116,7 +116,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
-                            if (image == null) {
+                            if (image != null) {
                               AddProductEntity addProductEntity = AddProductEntity(
                                 name: name,
                                 code: code,

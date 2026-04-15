@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fruit_hub_dashboard/core/utils/theme_manager.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'core/utils/route_manager.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
@@ -12,10 +13,13 @@ void main()async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  final supabase = SupabaseClient('supabaseUrl', 'supabaseKey');
-  final storageResponse = await supabase
-      .storage
-      .createBucket('avatars');
+  await Supabase.initialize(
+    url: 'https://wplubouwksawibitfhlj.supabase.co',
+    anonKey: 'sb_publishable_28OdrvHF22OZhJIOnmQGFQ_T98mgadn',
+  );
+
+
+
   runApp(const MyApp());
 }
 
