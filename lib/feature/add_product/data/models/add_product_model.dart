@@ -9,6 +9,12 @@ class AddProductModel extends AddProductEntity {
     required super.imageFile,
     required super.isFeatured,
     super.image,
+    required super.expirationMonth,
+    required super.unitAmount,
+    required super.numberOfCalories,
+    super.isOrganic = false,
+    super.rating = 0.0,
+    super.reviews = 0,
   });
 
   factory AddProductModel.fromEntity(AddProductEntity entity) {
@@ -20,6 +26,12 @@ class AddProductModel extends AddProductEntity {
       imageFile: entity.imageFile,
       isFeatured: entity.isFeatured,
       image: entity.image,
+      expirationMonth: entity.expirationMonth,
+      unitAmount: entity.unitAmount,
+      numberOfCalories: entity.numberOfCalories,
+      isOrganic: entity.isOrganic,
+      rating: entity.rating,
+      reviews: entity.reviews,
     );
   }
 
@@ -32,6 +44,12 @@ class AddProductModel extends AddProductEntity {
       imageFile: json['imageFile'],
       isFeatured: json['isFeatured'],
       image: json['image'],
+      expirationMonth: json['expirationMonth'],
+      unitAmount: json['unitAmount'],
+      numberOfCalories: json['numberOfCalories'],
+      isOrganic: json['isOrganic'],
+      rating: json['rating'],
+      reviews: json['reviews'],
     );
   }
 
@@ -43,6 +61,12 @@ class AddProductModel extends AddProductEntity {
       'description': description,
       'isFeatured': isFeatured,
       'image': image,
+      'expirationMonth': expirationMonth,
+      'unitAmount': unitAmount,
+      'numberOfCalories': numberOfCalories,
+      'isOrganic': isOrganic,
+      'rating': rating,
+      'reviews': reviews,
     };
   }
 }

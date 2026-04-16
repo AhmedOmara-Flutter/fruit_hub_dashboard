@@ -8,6 +8,7 @@ import 'package:fruit_hub_dashboard/core/widgets/custom_image_picker.dart';
 import 'package:fruit_hub_dashboard/core/widgets/custom_text_form_field.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/add_product_entity.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/presentation/widgets/custom_is_featured.dart';
+import 'package:fruit_hub_dashboard/feature/add_product/presentation/widgets/custom_is_organic.dart';
 
 import '../view_model/add_product_cubit.dart';
 
@@ -20,9 +21,10 @@ class AddProductViewBody extends StatefulWidget {
 
 class _AddProductViewBodyState extends State<AddProductViewBody> {
   late String name, code, description;
-  late num price;
+  late num price, expirationMonth, unitAmount, numberOfCalories;
   File ?image;
   bool isFeatured = false;
+  bool isOrganic = false;
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
 
 
@@ -79,6 +81,45 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                     },
                   ),
                   CustomTextFormField(
+                    hintText: 'تاريخ الانتهاء',
+                    onSaved: (value) {
+                      expirationMonth = num.parse(value!);
+                    },
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'الحقل مطلوب';
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextFormField(
+                    hintText: 'عدد الوحدات',
+                    onSaved: (value) {
+                      unitAmount = num.parse(value!);
+                    },
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'الحقل مطلوب';
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextFormField(
+                    hintText: 'عدد السعرات',
+                    onSaved: (value) {
+                      numberOfCalories = num.parse(value!);
+                    },
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'الحقل مطلوب';
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextFormField(
                     hintText: 'وصف المنتج',
                     onSaved: (value) {
                       description = value!;
@@ -103,6 +144,13 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                       isFeatured = !isFeatured;
                     },
                   ),
+                  CustomIsOrganic(
+                    isOrganic: isOrganic,
+                    onTap: () {
+                      setState(() {});
+                      isOrganic = !isOrganic;
+                    },
+                  ),
                   BlocBuilder<AddProductCubit, AddProductState>(
                     builder: (context, state) {
                       return CustomButton(
@@ -124,6 +172,12 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                                 description: description,
                                 imageFile: image!,
                                 isFeatured: isFeatured,
+
+                                expirationMonth: expirationMonth,
+                                unitAmount: unitAmount,
+                                numberOfCalories: numberOfCalories,
+                                isOrganic: isOrganic,
+
                               );
                               context.read<AddProductCubit>().addProduct(addProductEntity);
                             } else {
