@@ -1,6 +1,6 @@
-import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/add_product_entity.dart';
+import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
 
-class AddProductModel extends AddProductEntity {
+class AddProductModel extends ProductEntity {
   AddProductModel({
     required super.name,
     required super.code,
@@ -17,7 +17,7 @@ class AddProductModel extends AddProductEntity {
     super.reviews = 0,
   });
 
-  factory AddProductModel.fromEntity(AddProductEntity entity) {
+  factory AddProductModel.fromEntity(ProductEntity entity) {
     return AddProductModel(
       name: entity.name,
       code: entity.code,
