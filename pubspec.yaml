@@ -44,6 +44,8 @@ dependencies:
   cloud_firestore: ^6.3.0
   flutter_bloc: ^9.1.1
   supabase_flutter: ^2.12.2
+  conditional_builder_null_safety: ^0.0.6
+
 
 
 

@@ -13,8 +13,9 @@ class AddProductModel extends ProductEntity {
     required super.unitAmount,
     required super.numberOfCalories,
     super.isOrganic = false,
-    super.rating = 0.0,
-    super.reviews = 0,
+    super.avgRating = 0.0,
+    super.ratingCount = 0,
+    super.sellingCount=0,
   });
 
   factory AddProductModel.fromEntity(ProductEntity entity) {
@@ -30,8 +31,9 @@ class AddProductModel extends ProductEntity {
       unitAmount: entity.unitAmount,
       numberOfCalories: entity.numberOfCalories,
       isOrganic: entity.isOrganic,
-      rating: entity.rating,
-      reviews: entity.reviews,
+      avgRating: entity.avgRating,
+      ratingCount: entity.ratingCount,
+      sellingCount: entity.sellingCount,
     );
   }
 
@@ -48,8 +50,9 @@ class AddProductModel extends ProductEntity {
       unitAmount: json['unitAmount'],
       numberOfCalories: json['numberOfCalories'],
       isOrganic: json['isOrganic'],
-      rating: json['rating'],
-      reviews: json['reviews'],
+      avgRating: json['avgRating'],
+      ratingCount: json['ratingCount'],
+      sellingCount: json['sellingCount'],
     );
   }
 
@@ -65,8 +68,9 @@ class AddProductModel extends ProductEntity {
       'unitAmount': unitAmount,
       'numberOfCalories': numberOfCalories,
       'isOrganic': isOrganic,
-      'rating': rating,
-      'reviews': reviews,
+      'avgRating': avgRating,
+      'ratingCount': ratingCount,
+      'sellingCount': sellingCount,
     };
   }
 }

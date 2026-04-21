@@ -26,178 +26,215 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
   bool isFeatured = false;
   bool isOrganic = false;
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
+  final nameController = TextEditingController();
+  final codeController = TextEditingController();
+  final priceController = TextEditingController();
+  final descriptionController = TextEditingController();
+  final expirationMonthController = TextEditingController();
+  final unitAmountController = TextEditingController();
+  final numberOfCaloriesController = TextEditingController();
 
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      autovalidateMode: autoValidateMode,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: Column(
-                spacing: 20,
-                children: [
-                  CustomTextFormField(
-                    hintText: 'اسم المنتج',
-                    onSaved: (value) {
-                      name = value!;
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'الحقل مطلوب';
-                      }
-                      return null;
-                    },
-                  ),
-                  CustomTextFormField(
-                    hintText: 'كود المنتج',
-                    onSaved: (value) {
-                      code = value!.toLowerCase();
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'الحقل مطلوب';
-                      }
-                      return null;
-                    },
-                  ),
-                  CustomTextFormField(
-                    hintText: 'سعر المنتج',
-                    onSaved: (value) {
-                      price = num.parse(value!);
-                    },
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'الحقل مطلوب';
-                      }
-                      return null;
-                    },
-                  ),
-                  CustomTextFormField(
-                    hintText: 'تاريخ الانتهاء',
-                    onSaved: (value) {
-                      expirationMonth = num.parse(value!);
-                    },
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'الحقل مطلوب';
-                      }
-                      return null;
-                    },
-                  ),
-                  CustomTextFormField(
-                    hintText: 'عدد الوحدات',
-                    onSaved: (value) {
-                      unitAmount = num.parse(value!);
-                    },
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'الحقل مطلوب';
-                      }
-                      return null;
-                    },
-                  ),
-                  CustomTextFormField(
-                    hintText: 'عدد السعرات',
-                    onSaved: (value) {
-                      numberOfCalories = num.parse(value!);
-                    },
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'الحقل مطلوب';
-                      }
-                      return null;
-                    },
-                  ),
-                  CustomTextFormField(
-                    hintText: 'وصف المنتج',
-                    onSaved: (value) {
-                      description = value!;
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'الحقل مطلوب';
-                      }
-                      return null;
-                    },
-                    maxLines: 5,
-                  ),
-                  CustomImagePicker(
-                    onImagePicked: (image) {
-                      this.image = image;
-                    },
-                  ),
-                  CustomIsFeatured(
-                    isFeatured: isFeatured,
-                    onTap: () {
-                      setState(() {});
-                      isFeatured = !isFeatured;
-                    },
-                  ),
-                  CustomIsOrganic(
-                    isOrganic: isOrganic,
-                    onTap: () {
-                      setState(() {});
-                      isOrganic = !isOrganic;
-                    },
-                  ),
-                  BlocBuilder<AddProductCubit, AddProductState>(
-                    builder: (context, state) {
-                      return CustomButton(
-                        child: Text(
-                          'اضافه المنتج',
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .labelSmall,
-                        ),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            _formKey.currentState!.save();
-                            if (image != null) {
-                              ProductEntity addProductEntity = ProductEntity(
-                                name: name,
-                                code: code,
-                                price: price,
-                                description: description,
-                                imageFile: image!,
-                                isFeatured: isFeatured,
+    return BlocBuilder<AddProductCubit, AddProductState>(
+      builder: (context, state) {
+        return Stack(
+          children: [
+            Form(
+              key: _formKey,
+              autovalidateMode: autoValidateMode,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: CustomScrollView(
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: Column(
+                        spacing: 20,
+                        children: [
+                          CustomTextFormField(
+                            controller: nameController,
+                            hintText: 'اسم المنتج',
+                            onSaved: (value) {
+                              name = value!;
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'الحقل مطلوب';
+                              }
+                              return null;
+                            },
+                          ),
+                          CustomTextFormField(
+                            controller: codeController,
+                            hintText: 'كود المنتج',
+                            onSaved: (value) {
+                              code = value!.toLowerCase();
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'الحقل مطلوب';
+                              }
+                              return null;
+                            },
+                          ),
+                          CustomTextFormField(
+                            controller: priceController,
+                            hintText: 'سعر المنتج',
+                            onSaved: (value) {
+                              price = num.parse(value!);
+                            },
+                            keyboardType: TextInputType.number,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'الحقل مطلوب';
+                              }
+                              return null;
+                            },
+                          ),
+                          CustomTextFormField(
+                            controller: expirationMonthController,
+                            hintText: 'تاريخ الانتهاء',
+                            onSaved: (value) {
+                              expirationMonth = num.parse(value!);
+                            },
+                            keyboardType: TextInputType.number,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'الحقل مطلوب';
+                              }
+                              return null;
+                            },
+                          ),
+                          CustomTextFormField(
+                            controller: unitAmountController,
+                            hintText: 'عدد الوحدات',
+                            onSaved: (value) {
+                              unitAmount = num.parse(value!);
+                            },
+                            keyboardType: TextInputType.number,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'الحقل مطلوب';
+                              }
+                              return null;
+                            },
+                          ),
+                          CustomTextFormField(
+                            controller: numberOfCaloriesController,
+                            hintText: 'عدد السعرات',
+                            onSaved: (value) {
+                              numberOfCalories = num.parse(value!);
+                            },
+                            keyboardType: TextInputType.number,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'الحقل مطلوب';
+                              }
+                              return null;
+                            },
+                          ),
+                          CustomTextFormField(
+                            controller: descriptionController,
+                            hintText: 'وصف المنتج',
+                            onSaved: (value) {
+                              description = value!;
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'الحقل مطلوب';
+                              }
+                              return null;
+                            },
+                            maxLines: 5,
+                          ),
+                          CustomImagePicker(
+                            onImagePicked: (image) {
+                              this.image = image;
+                            },
+                          ),
+                          CustomIsFeatured(
+                            isFeatured: isFeatured,
+                            onTap: () {
+                              setState(() {});
+                              isFeatured = !isFeatured;
+                            },
+                          ),
+                          CustomIsOrganic(
+                            isOrganic: isOrganic,
+                            onTap: () {
+                              setState(() {});
+                              isOrganic = !isOrganic;
+                            },
+                          ),
+                          CustomButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                _formKey.currentState!.save();
+                                if (image != null) {
+                                  ProductEntity addProductEntity = ProductEntity(
+                                    name: name,
+                                    code: code,
+                                    price: price,
+                                    description: description,
+                                    imageFile: image!,
+                                    isFeatured: isFeatured,
+                                    expirationMonth: expirationMonth,
+                                    unitAmount: unitAmount,
+                                    numberOfCalories: numberOfCalories,
+                                    isOrganic: isOrganic,
 
-                                expirationMonth: expirationMonth,
-                                unitAmount: unitAmount,
-                                numberOfCalories: numberOfCalories,
-                                isOrganic: isOrganic,
-
-                              );
-                              context.read<AddProductCubit>().addProduct(addProductEntity);
-                            } else {
-                              customShowSnakeBar(context, color: Colors.red,
-                                  label: 'برجاء ادخال صوره للمنتج');
-                            }
-                            setState(() {
-                              autoValidateMode = AutovalidateMode.always;
-                            });
-                          }
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
+                                  );
+                                  context
+                                      .read<AddProductCubit>()
+                                      .addProduct(addProductEntity);
+                                } else {
+                                  customShowSnakeBar(
+                                      context, color: Colors.red,
+                                      label: 'برجاء ادخال صوره للمنتج');
+                                }
+                                setState(() {
+                                  autoValidateMode =
+                                      AutovalidateMode.always;
+                                });
+                              }
+                            },
+                            child: Text(
+                              'اضافه المنتج ',
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .labelSmall,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
           ],
         ),
-      ),
+              ),
+            ),
+
+            /// 🔒 Overlay وقت التحميل
+            if (state is AddProductLoading)
+              Positioned.fill(
+                child: AbsorbPointer(
+                  absorbing: true,
+                  child: Container(
+                    color: Colors.black.withOpacity(0.3),
+                    child: const Center(
+                      child: CircularProgressIndicator(
+                          color: Color(0xff1B5E37)
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 }
