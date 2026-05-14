@@ -9,7 +9,6 @@ import 'package:fruit_hub_dashboard/core/widgets/custom_text_form_field.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/presentation/widgets/custom_is_featured.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/presentation/widgets/custom_is_organic.dart';
-
 import '../view_model/add_product_cubit.dart';
 
 class AddProductViewBody extends StatefulWidget {

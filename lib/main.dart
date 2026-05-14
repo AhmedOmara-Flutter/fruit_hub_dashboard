@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fruit_hub_dashboard/core/utils/theme_manager.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
 import 'core/utils/route_manager.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';

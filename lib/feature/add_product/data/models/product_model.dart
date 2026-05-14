@@ -1,7 +1,8 @@
+import 'package:fruit_hub_dashboard/feature/add_product/data/models/review_model.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
 
-class AddProductModel extends ProductEntity {
-  AddProductModel({
+class ProductModel extends ProductEntity {
+  ProductModel({
     required super.name,
     required super.code,
     required super.price,
@@ -18,8 +19,8 @@ class AddProductModel extends ProductEntity {
     super.sellingCount=0,
   });
 
-  factory AddProductModel.fromEntity(ProductEntity entity) {
-    return AddProductModel(
+  factory ProductModel.fromEntity(ProductEntity entity) {
+    return ProductModel(
       name: entity.name,
       code: entity.code,
       price: entity.price,
@@ -37,8 +38,8 @@ class AddProductModel extends ProductEntity {
     );
   }
 
-  factory AddProductModel.fromJson(Map<String, dynamic> json) {
-    return AddProductModel(
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    return ProductModel(
       name: json['name'],
       code: json['code'],
       price: json['price'],
@@ -74,3 +75,4 @@ class AddProductModel extends ProductEntity {
     };
   }
 }
+

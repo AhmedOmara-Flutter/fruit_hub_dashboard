@@ -16,7 +16,7 @@ class AddProductRepoImpl implements AddProductRepo {
       ProductEntity addProductEntity) async {
     try {
       var result=await _databaseRemoteDataSource.addData(
-        path: 'products', data: AddProductModel.fromEntity(addProductEntity).toJson(),);
+        path: 'products', data: ProductModel.fromEntity(addProductEntity).toJson(),);
       return Right(result);
 
     } on Exception catch (e) {

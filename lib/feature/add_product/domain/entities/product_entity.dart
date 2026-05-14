@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/review_entity.dart';
+
 class ProductEntity {
   final String name;
   final String code;
@@ -31,5 +33,6 @@ class ProductEntity {
     this.avgRating = 0.0,
     this.ratingCount = 0,
     this.sellingCount=0,
+
   });
 }

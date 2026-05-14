@@ -30,8 +30,6 @@ class AddProductCubit extends Cubit<AddProductState> {
       });
     });
   }
-
-
 }
 
 
