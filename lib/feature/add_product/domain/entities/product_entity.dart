@@ -15,7 +15,8 @@ class ProductEntity {
   final double avgRating;
   final int ratingCount;
   final int sellingCount;
-  final List<File> subImages;
+  final List<File> subImagesFiles;
+  List<String> ?subImages;
 
   ProductEntity({
     required this.name,
@@ -32,6 +33,8 @@ class ProductEntity {
     this.avgRating = 0.0,
     this.ratingCount = 0,
     this.sellingCount = 0,
-    required this.subImages,
+    required this.subImagesFiles,
+    this.subImages,
+
   });
 }

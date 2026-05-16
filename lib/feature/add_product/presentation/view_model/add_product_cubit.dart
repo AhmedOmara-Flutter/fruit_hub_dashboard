@@ -9,29 +9,45 @@ part 'add_product_state.dart';
 
 class AddProductCubit extends Cubit<AddProductState> {
   AddProductCubit(this._addRepo, this._uploadImageRepo)
-      : super(AddProductInitial());
+    : super(AddProductInitial());
 
   final AddProductRepo _addRepo;
   final UploadImageRepo _uploadImageRepo;
 
   Future<void> addProduct(ProductEntity productEntity) async {
     emit(AddProductLoading());
-    var result = await _uploadImageRepo.uploadImage(productEntity.imageFile);
-    result.fold((failure) {
-      emit(AddProductFailure(failure.errMessage));
-    }, (url) async {
-      print(url);
-      productEntity.image = url;
-      var result = await _addRepo.addProduct(productEntity);
-      result.fold((failure) {
+    // رفع الصورة الرئيسية
+    var mainImageResult = await _uploadImageRepo.uploadImage(
+      productEntity.imageFile,
+    );
+    await mainImageResult.fold(
+      (failure) async {
         emit(AddProductFailure(failure.errMessage));
-      }, (success) {
-        emit(AddProductSuccess());
-      });
-    });
+      },
+      (mainImageResult) async {
+        // رفع الصور الفرعية
+        final subImagesResult = await _uploadImageRepo.uploadSubImages(
+          productEntity.subImagesFiles,
+        );
+        await subImagesResult.fold(
+          (failure) async {
+            emit(AddProductFailure(failure.errMessage));
+          },
+          (subImagesResult) async {
+            productEntity.image = mainImageResult;
+            productEntity.subImages = subImagesResult;
+            final result = await _addRepo.addProduct(productEntity);
+            await result.fold(
+              (failure) async {
+                emit(AddProductFailure(failure.errMessage));
+              },
+              (success) async {
+                emit(AddProductSuccess());
+              },
+            );
+          },
+        );
+      },
+    );
   }
 }
-
-
-
-

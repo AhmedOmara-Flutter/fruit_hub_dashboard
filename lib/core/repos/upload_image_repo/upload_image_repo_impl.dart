@@ -1,21 +1,48 @@
 import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:fruit_hub_dashboard/core/errors/failure.dart';
 import 'package:fruit_hub_dashboard/core/repos/upload_image_repo/upload_image_repo.dart';
-import 'package:fruit_hub_dashboard/feature/add_product/data/data_source/storage_data_source.dart';
+import 'package:fruit_hub_dashboard/core/services/storage_services.dart';
 
 class UploadImageRepoImpl implements UploadImageRepo {
-  SupabaseStorage storage = SupabaseStorage();
+  final StorageServices _storageServices;
 
+  UploadImageRepoImpl(this._storageServices);
   @override
   Future<Either<Failure, String>> uploadImage(File imageFile) async {
     try {
-      var imageUploaded = await storage.uploadImage(imageFile, 'images');
+      final compressedImage = await _storageServices.compressedImage(imageFile);
+      var imageUploaded = await _storageServices.uploadImage(
+        compressedImage,
+        'images',
+      );
       return Right(imageUploaded);
     } catch (e) {
-
       return Left(ServerFailure(errMessage: e.toString()));
     }
   }
 
+  Future<Either<Failure, List<String>>> uploadSubImages(
+    List<File> subImages,
+  ) async {
+    try {
+      List<String> imageUrls = [];
+
+      for (File image in subImages) {
+        final compressedImage = await _storageServices.compressedImage(image);
+
+        final imageUrl = await _storageServices.uploadImage(
+          compressedImage,
+          'images',
+        );
+
+        imageUrls.add(imageUrl);
+      }
+
+      return Right(imageUrls);
+    } catch (e) {
+      return Left(ServerFailure(errMessage: e.toString()));
+    }
+  }
 }

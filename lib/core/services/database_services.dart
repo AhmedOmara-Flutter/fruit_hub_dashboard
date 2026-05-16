@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-abstract class DatabaseRemoteDataSource {
+abstract class DatabaseServices {
   Future<void> addData({
     required String path,
     required Map<String, dynamic> data,
@@ -13,7 +13,7 @@ abstract class DatabaseRemoteDataSource {
   });
 }
 
-class DatabaseRemoteDataSourceImpl implements DatabaseRemoteDataSource {
+class FirestoreDatabase implements DatabaseServices {
   @override
   Future<void> addData({
     required String path,

@@ -26,7 +26,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
   late String name, code, description;
   late num price, expirationMonth, unitAmount, numberOfCalories;
   File ?image;
-  List<File> ?subImages;
+  List<File> ?subImagesFiles;
   bool isFeatured = false;
   bool isOrganic = false;
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
@@ -185,8 +185,8 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                           ),
                           CustomSubImages(
                             onImagesPicked: (images) {
-                              subImages = images;
-                              print(subImages!.length);
+                              subImagesFiles = images;
+                              print(subImagesFiles!.length);
                             },
                           ),
                           CustomIsFeatured(
@@ -207,7 +207,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState!.save();
-                                if (image != null&&subImages !=null) {
+                                if (image != null&&subImagesFiles !=null) {
                                   ProductEntity addProductEntity = ProductEntity(
                                     name: name,
                                     code: code,
@@ -219,7 +219,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                                     unitAmount: unitAmount,
                                     numberOfCalories: numberOfCalories,
                                     isOrganic: isOrganic,
-                                    subImages: subImages!,
+                                    subImagesFiles: subImagesFiles!,
                                   );
                                   context
                                       .read<AddProductCubit>()

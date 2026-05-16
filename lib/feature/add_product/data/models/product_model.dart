@@ -15,7 +15,10 @@ class ProductModel extends ProductEntity {
     super.isOrganic = false,
     super.avgRating = 0.0,
     super.ratingCount = 0,
-    super.sellingCount=0, required super.subImages,
+    super.sellingCount=0,
+ super.subImages,
+    required super.subImagesFiles,
+
   });
 
   factory ProductModel.fromEntity(ProductEntity entity) {
@@ -35,6 +38,7 @@ class ProductModel extends ProductEntity {
       ratingCount: entity.ratingCount,
       sellingCount: entity.sellingCount,
       subImages: entity.subImages,
+      subImagesFiles: entity.subImagesFiles,
     );
   }
 
@@ -55,6 +59,7 @@ class ProductModel extends ProductEntity {
       ratingCount: json['ratingCount'],
       sellingCount: json['sellingCount'],
       subImages: json['subImages'],
+      subImagesFiles: json['subImagesFiles'],
     );
   }
 
@@ -73,6 +78,7 @@ class ProductModel extends ProductEntity {
       'avgRating': avgRating,
       'ratingCount': ratingCount,
       'sellingCount': sellingCount,
+      'subImages': subImages,
     };
   }
 }
