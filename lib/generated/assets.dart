@@ -14,6 +14,12 @@ class $AssetsImagesGen {
   final AssetGenImage appIcon = const AssetGenImage(
     'assets/images/appIcon.png',
   );
+  final AssetGenImage gallery = const AssetGenImage(
+    'assets/images/gallery.png',
+  );
+  final AssetGenImage subGallery = const AssetGenImage(
+    'assets/images/subGallery.png',
+  );
 }
 
 class AssetGenImage {

@@ -4,10 +4,12 @@ import 'package:fruit_hub_dashboard/feature/add_product/data/data_source/databas
 import 'package:fruit_hub_dashboard/feature/add_product/data/models/product_model.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
 
+import '../upload_image_repo/upload_image_repo.dart';
 import 'add_product_repo.dart';
 
 class AddProductRepoImpl implements AddProductRepo {
   final DatabaseRemoteDataSourceImpl _databaseRemoteDataSource;
+
 
   AddProductRepoImpl(this._databaseRemoteDataSource);
 

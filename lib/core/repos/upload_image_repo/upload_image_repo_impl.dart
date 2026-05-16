@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:fruit_hub_dashboard/core/errors/failure.dart';
 import 'package:fruit_hub_dashboard/core/repos/upload_image_repo/upload_image_repo.dart';
@@ -18,4 +17,5 @@ class UploadImageRepoImpl implements UploadImageRepo {
       return Left(ServerFailure(errMessage: e.toString()));
     }
   }
+
 }

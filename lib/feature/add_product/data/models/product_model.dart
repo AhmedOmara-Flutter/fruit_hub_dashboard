@@ -1,4 +1,3 @@
-import 'package:fruit_hub_dashboard/feature/add_product/data/models/review_model.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
 
 class ProductModel extends ProductEntity {
@@ -16,7 +15,7 @@ class ProductModel extends ProductEntity {
     super.isOrganic = false,
     super.avgRating = 0.0,
     super.ratingCount = 0,
-    super.sellingCount=0,
+    super.sellingCount=0, required super.subImages,
   });
 
   factory ProductModel.fromEntity(ProductEntity entity) {
@@ -35,6 +34,7 @@ class ProductModel extends ProductEntity {
       avgRating: entity.avgRating,
       ratingCount: entity.ratingCount,
       sellingCount: entity.sellingCount,
+      subImages: entity.subImages,
     );
   }
 
@@ -54,6 +54,7 @@ class ProductModel extends ProductEntity {
       avgRating: json['avgRating'],
       ratingCount: json['ratingCount'],
       sellingCount: json['sellingCount'],
+      subImages: json['subImages'],
     );
   }
 

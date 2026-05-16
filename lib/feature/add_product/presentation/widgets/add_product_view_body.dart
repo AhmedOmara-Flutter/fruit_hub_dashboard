@@ -1,14 +1,18 @@
 import 'dart:io';
 
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/core/helper_function/custom_show_snake_bar.dart';
+import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/widgets/custom_button.dart';
 import 'package:fruit_hub_dashboard/core/widgets/custom_image_picker.dart';
 import 'package:fruit_hub_dashboard/core/widgets/custom_text_form_field.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/presentation/widgets/custom_is_featured.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/presentation/widgets/custom_is_organic.dart';
+
+import '../../../../core/widgets/custom_sub_images.dart';
 import '../view_model/add_product_cubit.dart';
 
 class AddProductViewBody extends StatefulWidget {
@@ -22,6 +26,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
   late String name, code, description;
   late num price, expirationMonth, unitAmount, numberOfCalories;
   File ?image;
+  List<File> ?subImages;
   bool isFeatured = false;
   bool isOrganic = false;
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
@@ -51,6 +56,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                   slivers: [
                     SliverToBoxAdapter(
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         spacing: 20,
                         children: [
                           CustomTextFormField(
@@ -149,9 +155,38 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                             },
                             maxLines: 5,
                           ),
-                          CustomImagePicker(
-                            onImagePicked: (image) {
-                              this.image = image;
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('الصوره الرئيسيه', style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .copyWith(
+                                  color: AppColor.mainColor
+                              ),),
+                              Text(
+                                'اختر صوره واحده فقط لتكون الصوره الرئيسيه للمنتج',
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(
+                                    color: Color(0xff949D9E)
+
+                                ),),
+                              SizedBox(height: 10,),
+                              CustomImagePicker(
+                                onImagePicked: (image) {
+                                  this.image = image;
+                                },
+                              ),
+                            ],
+                          ),
+                          CustomSubImages(
+                            onImagesPicked: (images) {
+                              subImages = images;
+                              print(subImages!.length);
                             },
                           ),
                           CustomIsFeatured(
@@ -172,7 +207,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState!.save();
-                                if (image != null) {
+                                if (image != null&&subImages !=null) {
                                   ProductEntity addProductEntity = ProductEntity(
                                     name: name,
                                     code: code,
@@ -184,7 +219,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                                     unitAmount: unitAmount,
                                     numberOfCalories: numberOfCalories,
                                     isOrganic: isOrganic,
-
+                                    subImages: subImages!,
                                   );
                                   context
                                       .read<AddProductCubit>()
@@ -215,7 +250,6 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
         ),
               ),
             ),
-
             /// 🔒 Overlay وقت التحميل
             if (state is AddProductLoading)
               Positioned.fill(
@@ -237,3 +271,5 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
     );
   }
 }
+
+

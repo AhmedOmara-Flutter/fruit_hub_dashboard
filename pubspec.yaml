@@ -45,6 +45,8 @@ dependencies:
   flutter_bloc: ^9.1.1
   supabase_flutter: ^2.12.2
   conditional_builder_null_safety: ^0.0.6
+  dotted_border: ^2.1.0
+  image: ^4.8.0
 
 
 
@@ -60,6 +62,8 @@ flutter_launcher_icons:
   ios: true
   image_path: 'assets/images/appIcon.png'
 
+  #flutter pub get
+  #flutter pub run flutter_launcher_icons:main
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
