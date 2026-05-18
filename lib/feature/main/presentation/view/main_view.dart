@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../view_model/main_cubit.dart';
@@ -37,11 +38,20 @@ class _MainViewState extends State<MainView> {
         ),
         automaticallyImplyLeading: false,
         backgroundColor: Color(0xff1B5E37),
-        actions: [
-          IconButton(onPressed: (){}, icon:Icon(Icons.search,color: Colors.white,))
-        ],
       ),
-      body: cubit.screens[cubit.selectedIndex],
+      body: PopScope(
+          canPop: false,
+          onPopInvoked: (didPop) {
+            final cubit = context.read<MainCubit>();
+
+            if (cubit.selectedIndex != 0) {
+              cubit.changeIndex(0);
+            } else {
+              SystemNavigator.pop();
+            }
+          },
+          child: cubit.screens[cubit.selectedIndex]
+      ),
     );
   },
 );

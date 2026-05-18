@@ -1,7 +1,5 @@
 
 import 'package:flutter/material.dart';
-
-import '../../data/drawer_item_model.dart';
 import 'active_and_inactive_item.dart';
 
 class DrawerItem extends StatelessWidget {
@@ -20,4 +18,13 @@ class DrawerItem extends StatelessWidget {
         ? ActiveDrawerItem(drawerItemModel: drawerItemModel)
         : InActiveDrawerItem(drawerItemModel: drawerItemModel);
   }
+}
+
+
+class DrawerItemModel {
+  final String title;
+  final IconData inactiveIcon;
+  final IconData activeIcon;
+
+  const DrawerItemModel({required this.title, required this.inactiveIcon, required this.activeIcon});
 }

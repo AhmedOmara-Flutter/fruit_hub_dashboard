@@ -7,7 +7,7 @@ class ClientsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(backgroundColor: Colors.grey.shade200,
       body: ClientsViewBody(),
     );
   }

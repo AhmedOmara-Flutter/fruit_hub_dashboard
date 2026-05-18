@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../data/drawer_item_model.dart';
+import 'drawer_item.dart';
 
 class InActiveDrawerItem extends StatelessWidget {
   const InActiveDrawerItem({super.key, required this.drawerItemModel});
