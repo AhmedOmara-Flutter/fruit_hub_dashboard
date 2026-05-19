@@ -26,7 +26,13 @@ class _MainViewState extends State<MainView> {
       appBar: AppBar(
         title: Text(
           cubit.drawerItems[cubit.selectedIndex].title,
-          style: TextStyle(color: Colors.white),
+          style: Theme
+              .of(context)
+              .textTheme
+              .displaySmall!
+              .copyWith(
+              color: Colors.white
+          ),
         ),
        centerTitle: true,
         leading: IconButton(

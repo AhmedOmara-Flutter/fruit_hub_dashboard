@@ -54,6 +54,8 @@ class ThemeManager {
       labelMedium: StyleManager.font16Weight600,
       //button in featured item
       labelLarge: StyleManager.font13Weight700,
+      displaySmall: StyleManager.font19Weight700,
+
 
     ),
 

@@ -2,11 +2,16 @@
 // ignore_for_file: dangling_library_doc_comments, implementation_imports
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
+import 'package:lottie/src/lottie_builder.dart';
+import 'package:lottie/src/composition.dart';
 
 class Assets {
   Assets._();
 
+  static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsJsonGen json = $AssetsJsonGen();
 }
 
 class $AssetsImagesGen {
@@ -15,13 +20,44 @@ class $AssetsImagesGen {
   final AssetGenImage appIcon = const AssetGenImage(
     'assets/images/appIcon.png',
   );
+  final SvgGenImage arrowBack = const SvgGenImage(
+    'assets/images/arrow back.svg',
+  );
   final AssetGenImage gallery = const AssetGenImage(
     'assets/images/gallery.png',
   );
   final AssetGenImage img = const AssetGenImage('assets/images/img.png');
+  final SvgGenImage splashBottom = const SvgGenImage(
+    'assets/images/splash_bottom.svg',
+  );
+  final SvgGenImage splashCenter = const SvgGenImage(
+    'assets/images/splash_center.svg',
+  );
+  final SvgGenImage splashTop = const SvgGenImage(
+    'assets/images/splash_top.svg',
+  );
   final AssetGenImage subGallery = const AssetGenImage(
     'assets/images/subGallery.png',
   );
+}
+
+class $AssetsFontsGen {
+  const $AssetsFontsGen();
+
+  final String cairoBlack = 'assets/fonts/Cairo-Black.ttf';
+  final String cairoBold = 'assets/fonts/Cairo-Bold.ttf';
+  final String cairoExtraBold = 'assets/fonts/Cairo-ExtraBold.ttf';
+  final String cairoExtraLight = 'assets/fonts/Cairo-ExtraLight.ttf';
+  final String cairoLight = 'assets/fonts/Cairo-Light.ttf';
+  final String cairoMedium = 'assets/fonts/Cairo-Medium.ttf';
+  final String cairoRegular = 'assets/fonts/Cairo-Regular.ttf';
+  final String cairoSemiBold = 'assets/fonts/Cairo-SemiBold.ttf';
+}
+
+class $AssetsJsonGen {
+  const $AssetsJsonGen();
+
+  final String empty = 'assets/json/empty.json';
 }
 
 class AssetGenImage {
@@ -169,6 +205,55 @@ class LottieGenImage {
   const LottieGenImage(this._assetName);
 
   final String _assetName;
+
+  LottieBuilder lottie({
+    Animation<double>? controller,
+    bool? animate,
+    FrameRate? frameRate,
+    bool? repeat,
+    bool? reverse,
+    LottieDelegates? delegates,
+    LottieOptions? options,
+    void Function(LottieComposition)? onLoaded,
+    LottieImageProviderFactory? imageProviderFactory,
+    Key? key,
+    AssetBundle? bundle,
+    LottieFrameBuilder? frameBuilder,
+    ImageErrorWidgetBuilder? errorBuilder,
+    double? width,
+    double? height,
+    BoxFit? fit,
+    AlignmentGeometry? alignment,
+    String? package,
+    bool? addRepaintBoundary,
+    FilterQuality? filterQuality,
+    WarningCallback? onWarning,
+  }) {
+    return Lottie.asset(
+      _assetName,
+      controller: controller,
+      animate: animate,
+      frameRate: frameRate,
+      repeat: repeat,
+      reverse: reverse,
+      delegates: delegates,
+      options: options,
+      onLoaded: onLoaded,
+      imageProviderFactory: imageProviderFactory,
+      key: key,
+      bundle: bundle,
+      frameBuilder: frameBuilder,
+      errorBuilder: errorBuilder,
+      width: width,
+      height: height,
+      fit: fit,
+      alignment: alignment,
+      package: package,
+      addRepaintBoundary: addRepaintBoundary,
+      filterQuality: filterQuality,
+      onWarning: onWarning,
+    );
+  }
 
   Widget custom({
     Key? key,

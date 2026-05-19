@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/presentation/view/add_product_view.dart';
 import 'package:fruit_hub_dashboard/feature/main/presentation/widgets/drawer_item.dart';
+import 'package:fruit_hub_dashboard/feature/my_products/presentation/view/my_products_view.dart';
 import '../../../clients/presentation/view/clients_view.dart';
 part 'main_state.dart';
 
@@ -17,11 +18,6 @@ class MainCubit extends Cubit<MainState> {
     ),
     DrawerItemModel(
       title: 'المنتجات',
-      inactiveIcon: Icons.apps,
-      activeIcon: Icons.apps,
-    ),
-    DrawerItemModel(
-      title: 'اصناف',
       inactiveIcon: Icons.category_outlined,
       activeIcon: Icons.category_rounded,
     ),
@@ -64,8 +60,7 @@ class MainCubit extends Cubit<MainState> {
 
   final List<Widget> screens = [
     SizedBox(),
-    SizedBox(),
-    SizedBox(),
+    MyProductsView(),
     AddProductView(),
     SizedBox(),
     SizedBox(),

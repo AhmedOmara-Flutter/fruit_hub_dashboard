@@ -2,10 +2,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:fruit_hub_dashboard/core/services/database_services.dart';
 import 'package:fruit_hub_dashboard/core/utils/theme_manager.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
+import 'core/repos/orders_repo/orders_repo.dart';
 import 'core/utils/route_manager.dart';
+import 'feature/clients/data/repos/clients_repo_impl.dart';
+import 'feature/clients/presentation/view_model/clients_cubit.dart';
 import 'feature/main/presentation/view_model/main_cubit.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
@@ -28,7 +31,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => MainCubit())],
+      providers: [
+        BlocProvider(create: (context) => MainCubit()),
+        BlocProvider(create: (context) =>
+            ClientsCubit(ClientsRepoImpl(FirestoreDatabase()),
+                OrdersRepoImpl(FirestoreDatabase()),
+                )),
+      ],
       child: MaterialApp(
         localizationsDelegates: [
           S.delegate,
@@ -41,7 +50,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeManager.lightTheme,
         debugShowCheckedModeBanner: false,
         onGenerateRoute: GenerateRoute.generateRoute,
-        initialRoute: RouteManager.main,
+        initialRoute: RouteManager.splash,
       ),
     );
   }

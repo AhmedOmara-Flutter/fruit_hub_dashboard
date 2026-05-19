@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruit_hub_dashboard/core/entities/user_entity.dart';
 import 'package:fruit_hub_dashboard/feature/clients/presentation/widgets/custom_text_field.dart';
-import 'package:fruit_hub_dashboard/feature/clients/presentation/widgets/statistics_card.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
+import '../view_model/clients_cubit.dart';
 import 'customer_card.dart';
 import 'customer_statistics_section.dart';
 
@@ -24,22 +26,70 @@ class ClientsViewBody extends StatelessWidget {
                     SizedBox(height: 10),
                     CustomerStatisticsSection(),
                     SizedBox(height: 10),
-                    CustomTextField(),
+                    CustomTextField(
+                      onChanged: (value) {
+                        context.read<ClientsCubit>().searchClients(value);
+                      },
+                    ),
                     SizedBox(height: 10),
                   ],
                 ),
               ),
-              CustomerCard(),
-              CustomerCard(),
-              CustomerCard(),
-              CustomerCard(),
-              CustomerCard(),
-              CustomerCard(),
             ],
           ),
+        ),
+        SliverToBoxAdapter(
+          child: SizedBox(height: 5,),
+        ),
+        BlocBuilder<ClientsCubit, ClientsState>(
+          builder: (context, state) {
+            if (state is SearchClientsEmpty) {
+              return SliverFillRemaining(
+                child: Center(
+                  child: Text('لا يوجد عميل بهذا الاسم'),
+                ),
+              );
+            }
+
+            if (state is GetClientsSuccess) {
+
+              final clients = context
+                  .read<ClientsCubit>()
+                  .filteredClients;
+
+              return SliverList.builder(
+                itemBuilder: (context, index) {
+                  String uId = clients[index].uId;
+                  final orders = context
+                      .read<ClientsCubit>()
+                      .getOrdersForUser(uId);
+                  return CustomerCard(
+                    user: clients[index],
+                    orders: orders,
+                  );
+                },
+                itemCount: clients.length,
+              );
+            }
+
+            return SliverList.builder(
+              itemBuilder: (context, index) =>
+                  Skeletonizer(
+                    child: CustomerCard(
+                      user: UserEntity(
+                        userName: '---------------------',
+                        email: '--------------------------------',
+                        uId: '---------------------',
+                        image: '------------------------------',
+                        phone: '---------------------',
+                      ), orders: [],
+                    ),
+                  ),
+              itemCount: 10,
+            );
+          },
         ),
       ],
     );
   }
 }
-

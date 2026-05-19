@@ -5,7 +5,7 @@ class ProductEntity {
   final String code;
   final num price;
   final String description;
-  final File imageFile;
+  final File ?imageFile;
   final bool isFeatured;
   String? image;
   final num expirationMonth;
@@ -15,15 +15,17 @@ class ProductEntity {
   final double avgRating;
   final int ratingCount;
   final int sellingCount;
-  final List<File> subImagesFiles;
+  final List<File> ?subImagesFiles;
   List<String> ?subImages;
+  final String category;
+  final String createdAt;
 
   ProductEntity({
     required this.name,
     required this.code,
     required this.price,
     required this.description,
-    required this.imageFile,
+     this.imageFile,
     required this.isFeatured,
     this.image,
     required this.expirationMonth,
@@ -33,8 +35,9 @@ class ProductEntity {
     this.avgRating = 0.0,
     this.ratingCount = 0,
     this.sellingCount = 0,
-    required this.subImagesFiles,
+     this.subImagesFiles,
     this.subImages,
-
+    required this.category,
+    required this.createdAt,
   });
 }

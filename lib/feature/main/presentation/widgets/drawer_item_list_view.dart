@@ -17,7 +17,6 @@ class _DrawerItemListViewState extends State<DrawerItemListView> {
     return BlocBuilder<MainCubit, MainState>(
       builder: (context, state) {
         final cubit = context.read<MainCubit>();
-
         return SliverPadding(
           padding: const EdgeInsets.only(
             left: 24,

@@ -18,7 +18,7 @@ class AddProductCubit extends Cubit<AddProductState> {
     emit(AddProductLoading());
     // رفع الصورة الرئيسية
     var mainImageResult = await _uploadImageRepo.uploadImage(
-      productEntity.imageFile,
+      productEntity.imageFile!,
     );
     await mainImageResult.fold(
       (failure) async {
@@ -27,7 +27,7 @@ class AddProductCubit extends Cubit<AddProductState> {
       (mainImageResult) async {
         // رفع الصور الفرعية
         final subImagesResult = await _uploadImageRepo.uploadSubImages(
-          productEntity.subImagesFiles,
+          productEntity.subImagesFiles!,
         );
         await subImagesResult.fold(
           (failure) async {

@@ -6,7 +6,7 @@ class ProductModel extends ProductEntity {
     required super.code,
     required super.price,
     required super.description,
-    required super.imageFile,
+    super.imageFile,
     required super.isFeatured,
     super.image,
     required super.expirationMonth,
@@ -16,9 +16,10 @@ class ProductModel extends ProductEntity {
     super.avgRating = 0.0,
     super.ratingCount = 0,
     super.sellingCount=0,
- super.subImages,
-    required super.subImagesFiles,
-
+    super.subImages,
+    super.subImagesFiles,
+    required super.category,
+    required super.createdAt,
   });
 
   factory ProductModel.fromEntity(ProductEntity entity) {
@@ -39,30 +40,54 @@ class ProductModel extends ProductEntity {
       sellingCount: entity.sellingCount,
       subImages: entity.subImages,
       subImagesFiles: entity.subImagesFiles,
+      category: entity.category,
+      createdAt: entity.createdAt,
+    );
+  }
+
+  ProductEntity toEntity() {
+    return ProductEntity(
+      name: name,
+      price: price,
+      image: image,
+      code: code,
+      description: description,
+      isFeatured: isFeatured,
+      expirationMonth: expirationMonth,
+      unitAmount: unitAmount,
+      numberOfCalories: numberOfCalories,
+      isOrganic: isOrganic,
+      avgRating: avgRating,
+      ratingCount: ratingCount,
+      imageFile: imageFile,
+      sellingCount: sellingCount,
+      subImages: subImages,
+      subImagesFiles: subImagesFiles,
+      category: category,
+      createdAt: createdAt,
     );
   }
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
-      name: json['name'],
-      code: json['code'],
-      price: json['price'],
-      description: json['description'],
-      imageFile: json['imageFile'],
-      isFeatured: json['isFeatured'],
-      image: json['image'],
-      expirationMonth: json['expirationMonth'],
-      unitAmount: json['unitAmount'],
-      numberOfCalories: json['numberOfCalories'],
-      isOrganic: json['isOrganic'],
-      avgRating: json['avgRating'],
-      ratingCount: json['ratingCount'],
-      sellingCount: json['sellingCount'],
-      subImages: json['subImages'],
-      subImagesFiles: json['subImagesFiles'],
+      name: json['name'] ?? '',
+      code: json['code'] ?? '',
+      price: (json['price'] ?? 0).toDouble(),
+      description: json['description'] ?? '',
+      isFeatured: json['isFeatured'] ?? false,
+      image: json['image'] ?? '',
+      expirationMonth: json['expirationMonth'] ?? 0,
+      unitAmount: json['unitAmount'] ?? 0,
+      numberOfCalories: json['numberOfCalories'] ?? 0,
+      isOrganic: json['isOrganic'] ?? false,
+      avgRating: (json['avgRating'] ?? 0).toDouble(),
+      ratingCount: json['ratingCount'] ?? 0,
+      sellingCount: json['sellingCount'] ?? 0,
+      subImages: List<String>.from(json['subImages'] ?? []),
+      category: json['category'] ?? '',
+      createdAt: json['createdAt'] ?? '',
     );
   }
-
   Map<String, dynamic> toJson() {
     return {
       'name': name,
@@ -79,6 +104,8 @@ class ProductModel extends ProductEntity {
       'ratingCount': ratingCount,
       'sellingCount': sellingCount,
       'subImages': subImages,
+      'category': category,
+      'createdAt': createdAt,
     };
   }
 }
