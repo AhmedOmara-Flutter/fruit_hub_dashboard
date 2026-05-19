@@ -19,6 +19,15 @@ class $AssetsImagesGen {
     'assets/images/gallery.png',
   );
   final AssetGenImage img = const AssetGenImage('assets/images/img.png');
+  final SvgGenImage splashBottom = const SvgGenImage(
+    'assets/images/splash_bottom.svg',
+  );
+  final SvgGenImage splashCenter = const SvgGenImage(
+    'assets/images/splash_center.svg',
+  );
+  final SvgGenImage splashTop = const SvgGenImage(
+    'assets/images/splash_top.svg',
+  );
   final AssetGenImage subGallery = const AssetGenImage(
     'assets/images/subGallery.png',
   );
