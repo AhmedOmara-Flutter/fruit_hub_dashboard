@@ -29,9 +29,9 @@ class AdminViewBody extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: RecentOrdersCard(),
-          )
-          // SizedBox(height: 10),
-          // BestSellerCard(),
+          ),
+          SliverToBoxAdapter(child: SizedBox(height: 10)),
+           SliverToBoxAdapter(child: BestSellerCard()),
 
 
         ],

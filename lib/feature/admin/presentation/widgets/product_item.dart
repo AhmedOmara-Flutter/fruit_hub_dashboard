@@ -1,4 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+
+import '../../../../generated/assets.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({
@@ -21,8 +25,8 @@ class ProductItem extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 32,
-            height: 32,
+            width: 28,
+            height: 28,
             decoration: BoxDecoration(
               color: Colors.green.shade700,
               borderRadius: BorderRadius.circular(8),
@@ -30,17 +34,31 @@ class ProductItem extends StatelessWidget {
             child: Center(
               child: Text(
                 quantity.toString(),
-                style: const TextStyle(
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .labelLarge!
+                      .copyWith(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+                  ))
             ),
           ),
 
           const SizedBox(width: 12),
 
-          ClipRRect(borderRadius: BorderRadiusGeometry.circular(8),child: Image.network(image, width: 47, height: 47, fit: BoxFit.contain)),
+          ClipRRect(borderRadius: BorderRadiusGeometry.circular(8),
+            child: CachedNetworkImage(
+              imageUrl: image,
+              width: 50,
+              height: 50,
+              fit: BoxFit.contain,
+              placeholder: (context, url) =>
+                  Skeletonizer(child: Image.asset(Assets.images.img.path),),
+              errorWidget: (context, url, error) =>
+                  Icon(Icons.error, color: Colors.red),
+            ),
+
+          ),
 
           const SizedBox(width: 12),
 

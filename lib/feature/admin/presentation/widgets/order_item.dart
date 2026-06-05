@@ -1,5 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+
+import '../../../../generated/assets.dart';
 
 class OrderItem extends StatelessWidget {
   final String image;
@@ -43,9 +47,24 @@ class OrderItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CircleAvatar(
-            radius: 28,
-            backgroundImage: NetworkImage(image),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(200),
+            child: Container(
+              height: 70,
+              width: 70,
+              decoration:BoxDecoration(
+                shape: BoxShape.circle
+              ) ,
+              child: CachedNetworkImage(imageUrl: image,
+                fit: BoxFit.cover,
+                placeholder: (context, url) =>
+                    Skeletonizer(child: CircleAvatar(
+                      backgroundImage: AssetImage(Assets.images.img.path),
+                    ),),
+                errorWidget: (context, url, error) =>
+                    Icon(Icons.error, color: Colors.red),
+              ),
+            ),
           ),
 
           const SizedBox(width: 12),
@@ -56,9 +75,8 @@ class OrderItem extends StatelessWidget {
               children: [
                 Text(
                   customerName,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: Colors.black,
                   ),
                 ),
 
@@ -66,11 +84,7 @@ class OrderItem extends StatelessWidget {
 
                 Text(
                   products,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey.shade700,
-                    height: 1.4,
-                  ),
+                  style:Theme.of(context).textTheme.titleSmall,
                 ),
 
                 const SizedBox(height: 8),
@@ -85,10 +99,7 @@ class OrderItem extends StatelessWidget {
                     const SizedBox(width: 4),
                     Text(
                       time,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey.shade600,
-                      ),
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ],
                 ),
@@ -124,10 +135,8 @@ class OrderItem extends StatelessWidget {
 
               Text(
                 '$amount ج.م',
-                style: const TextStyle(
-                  color: AppColor.mainColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
+                style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                  color: AppColor.mainColor
                 ),
               ),
             ],

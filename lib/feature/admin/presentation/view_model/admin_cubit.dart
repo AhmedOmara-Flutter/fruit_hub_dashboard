@@ -9,6 +9,8 @@ import '../../../../core/entities/order_entity.dart';
 import '../../../../core/entities/user_entity.dart';
 import '../../../../core/models/user_model.dart';
 import '../../../../core/repos/product_repo/product_repo.dart';
+import '../widgets/best_seller_card.dart';
+import '../widgets/best_seller_list_view.dart';
 
 part 'admin_state.dart';
 
@@ -63,6 +65,7 @@ class AdminCubit extends Cubit<AdminState> {
   }
 
   Future<void> getOrders() async {
+    emit(GetOrdersLoading());
     final result = await _ordersRepo.getOrders();
 
     result.fold(
@@ -88,4 +91,37 @@ class AdminCubit extends Cubit<AdminState> {
   List<OrderEntity> get recentOrders =>
       orders.take(3).toList();
 
+
+  List<TopProduct> get topProducts {
+    final Map<String, TopProduct> products = {};
+
+    for (var order in orders) {
+      for (var item in order.cartEntity.cartItems) {
+        final name = item.product.name;
+
+        if (products.containsKey(name)) {
+          products[name] = TopProduct(
+            name: name,
+            image: item.product.image!,
+            totalOrders:
+            products[name]!.totalOrders + item.quantity,
+          );
+        } else {
+          products[name] = TopProduct(
+            name: name,
+            image: item.product.image!,
+            totalOrders: item.quantity,
+          );
+        }
+      }
+    }
+
+    final result = products.values.toList();
+
+    result.sort(
+          (a, b) => b.totalOrders.compareTo(a.totalOrders),
+    );
+
+    return result;
+  }
 }

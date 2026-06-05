@@ -1,4 +1,5 @@
-import '../../domain/entities/review_entity.dart';
+
+import 'package:fruit_hub_dashboard/feature/reviews/domain/entities/review_entity.dart';
 
 class ReviewModel extends ReviewEntity {
   ReviewModel({

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/product_item.dart';
 
-import '../view/admin_view.dart';
+import '../view_model/admin_cubit.dart';
+import 'best_seller_list_view.dart';
 
 class BestSellerCard extends StatelessWidget {
   const BestSellerCard({super.key});
@@ -25,33 +27,20 @@ class BestSellerCard extends StatelessWidget {
                   context,
                 ).textTheme.titleSmall!.copyWith(color: Colors.black),
               ),
-              const Spacer(),
-              Text(
-                'عرض الكل',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleSmall!.copyWith(color: Colors.green.shade600),
-              ),
+              // const Spacer(),
+              // Text(
+              //   'عرض الكل',
+              //   style: Theme.of(
+              //     context,
+              //   ).textTheme.titleSmall!.copyWith(color: Colors.green.shade600),
+              // ),
             ],
           ),
           const SizedBox(height: 20),
-          ProductItem(
-            productName: 'تفاح أحمر طازج',
-            orderCount: '1250',
-            quantity: 1,
-            image: 'https://i.pravatar.cc/150?img=3',
-          ),
-          Divider(color: Colors.grey.shade200),
-          ProductItem(
-            productName: 'تفاح أحمر طازج',
-            orderCount: '1250',
-            quantity: 1,
-            image: 'https://i.pravatar.cc/150?img=3',
-          ),
-          Divider(color: Colors.grey.shade200),
-
+          BestSellerListView(),
         ],
       ),
     );
   }
 }
+
