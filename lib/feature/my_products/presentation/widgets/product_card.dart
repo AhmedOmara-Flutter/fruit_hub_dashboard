@@ -5,9 +5,10 @@ import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/pro
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/product_header_section.dart';
 
 class ProductCard extends StatelessWidget {
-  final ProductEntity products;
+  final ProductEntity product;
 
-  const ProductCard(this.products, {super.key});
+
+  const ProductCard(this.product, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +29,11 @@ class ProductCard extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            ProductHeaderSection(products),
+            ProductHeaderSection(product),
             const SizedBox(height: 8),
-            ProductActionsSection(),
+            ProductActionsSection(product),
             SizedBox(height: 10),
-            ProductDetailsSection(products),
+            ProductDetailsSection(product),
           ],
         ),
       ),

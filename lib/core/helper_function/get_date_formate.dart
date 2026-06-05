@@ -1,14 +1,32 @@
 import 'package:intl/intl.dart';
 
+DateTime? safeParseDate(String dateString) {
+  try {
+    return DateTime.parse(dateString);
+  } catch (e) {
+    return null;
+  }
+}
+
+String getDateOnly(String dateString) {
+  final dateTime = safeParseDate(dateString);
+  if (dateTime == null) return '';
+
+  return DateFormat('d MMMM yyyy', 'ar').format(dateTime);
+}
+
+String getTimeOnly(String dateString) {
+  final dateTime = safeParseDate(dateString);
+  if (dateTime == null) return '';
+
+  return DateFormat('h:mm a', 'ar').format(dateTime);
+}
+
 String getDateFormate(String dateString) {
-  DateTime dateTime = DateTime.parse(dateString);
+  final dateTime = safeParseDate(dateString);
+  if (dateTime == null) return '';
 
-  String formattedDate = DateFormat(
-    'h:mm a - d MMMM yyyy',
-    'ar',
-  ).format(dateTime);
-
-  return formattedDate;
+  return DateFormat('h:mm a - d MMMM yyyy', 'ar').format(dateTime);
 }
 
 String getMonthName(int month) {

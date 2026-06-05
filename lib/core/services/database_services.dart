@@ -36,7 +36,9 @@ class FirestoreDatabase implements DatabaseServices {
       if (uId != null) {
         await FirebaseFirestore.instance.collection(path).doc(uId).set(data);
       } else {
-        await FirebaseFirestore.instance.collection(path).add(data);
+       final docRef = await FirebaseFirestore.instance.collection(path).add(data);
+        data['id'] = docRef.id;
+        await docRef.update(data);
       }
     } on Exception catch (e) {
       throw (e.toString());
@@ -55,6 +57,7 @@ class FirestoreDatabase implements DatabaseServices {
             .collection(path)
             .doc(uId)
             .get();
+        print('print user id is when uid!=null is  ${user.id}');
         if (!user.exists || user.data() == null) {
           throw Exception('المستخدم ليس موجود في قاعده البيانات');
         }

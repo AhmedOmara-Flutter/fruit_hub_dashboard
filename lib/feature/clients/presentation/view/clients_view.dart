@@ -21,9 +21,6 @@ class _ClientsViewState extends State<ClientsView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade200,
-      body: ClientsViewBody(),
-    );
+    return ClientsViewBody();
   }
 }

@@ -11,3 +11,9 @@ final class GetFilteredProductsError extends MyProductsState {
 }
 final class GetFilteredProductsSuccess extends MyProductsState {}
 final class GetFilteredProductsEmpty extends MyProductsState {}
+final class DeleteProductLoading extends MyProductsState {}
+final class DeleteProductSuccess extends MyProductsState {}
+final class DeleteProductError extends MyProductsState {
+  final String errMessage;
+  DeleteProductError(this.errMessage);
+}

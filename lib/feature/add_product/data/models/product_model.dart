@@ -20,6 +20,7 @@ class ProductModel extends ProductEntity {
     super.subImagesFiles,
     required super.category,
     required super.createdAt,
+    super.id,
   });
 
   factory ProductModel.fromEntity(ProductEntity entity) {
@@ -42,6 +43,7 @@ class ProductModel extends ProductEntity {
       subImagesFiles: entity.subImagesFiles,
       category: entity.category,
       createdAt: entity.createdAt,
+      id: entity.id,
     );
   }
 
@@ -65,6 +67,7 @@ class ProductModel extends ProductEntity {
       subImagesFiles: subImagesFiles,
       category: category,
       createdAt: createdAt,
+      id: id,
     );
   }
 
@@ -86,6 +89,7 @@ class ProductModel extends ProductEntity {
       subImages: List<String>.from(json['subImages'] ?? []),
       category: json['category'] ?? '',
       createdAt: json['createdAt'] ?? '',
+      id: json['id'] ?? '',
     );
   }
   Map<String, dynamic> toJson() {
@@ -106,6 +110,7 @@ class ProductModel extends ProductEntity {
       'subImages': subImages,
       'category': category,
       'createdAt': createdAt,
+      'id': id,
     };
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_hub_dashboard/core/helper_function/get_date_formate.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/product_detail_item.dart';
 
@@ -31,8 +32,8 @@ class ProductDetailsSection extends StatelessWidget {
           Expanded(
             child: ProductDetailItem(
               title: 'تاريخ الإضافة',
-              value: product.createdAt,
-              subValue: '11:15 ص',
+              value: getDateOnly(product.createdAt),
+              subValue: getTimeOnly(product.createdAt),
             ),
           ),
         ],

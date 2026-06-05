@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../../generated/assets.dart';
+import '../../../../../generated/assets.dart';
 
 class EmptyProductsWidget extends StatelessWidget {
   const EmptyProductsWidget({super.key});

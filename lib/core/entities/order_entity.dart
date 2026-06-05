@@ -1,5 +1,6 @@
 import 'package:fruit_hub_dashboard/core/entities/address_entity.dart';
 import 'package:fruit_hub_dashboard/core/entities/cart_entity.dart';
+import 'package:fruit_hub_dashboard/core/entities/user_entity.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_constants.dart';
 
 class OrderEntity {
@@ -8,6 +9,7 @@ class OrderEntity {
   final CartEntity cartEntity;
   bool? isCashOnDelivery;
   AddressEntity? addressEntity;
+  UserEntity?userEntity;
 
   OrderEntity({
     required this.cartEntity,
@@ -15,6 +17,7 @@ class OrderEntity {
     this.addressEntity,
     required this.uId,
     this.createdAt,
+    this.userEntity
   });
 
   @override

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
+import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/view_model/my_products_cubit.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/empty_products_widget.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/product_card.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class TapBarViewBody extends StatefulWidget {
   final String category;
@@ -47,24 +46,25 @@ class _TapBarViewBodyState extends State<TapBarViewBody> {
           return EmptyProductsWidget();
         }
 
-        return ListView.separated(
-            padding: EdgeInsets.only(left: 8, right: 8, top: 10),
-            itemBuilder: (context, index) =>
-                Skeletonizer(child: ProductCard(
-                    ProductEntity(name: '',
-                    code: '',
-                    price: 0,
-                    description: '',
-                    isFeatured: false,
-                    expirationMonth: 1,
-                    unitAmount: 1,
-                    numberOfCalories: 1,
-                    category: '',
-                      createdAt: '',
-                    )),),
-                  separatorBuilder: (context, index) => SizedBox(height: 5),
-                  itemCount: 5,
-                );
+        return Center(child: CircularProgressIndicator(color: AppColor.mainColor,));
+        // return ListView.separated(
+        //     padding: EdgeInsets.only(left: 8, right: 8, top: 10),
+        //     itemBuilder: (context, index) =>
+        //         Skeletonizer(child: ProductCard(
+        //             ProductEntity(name: '',
+        //             code: '',
+        //             price: 0,
+        //             description: '',
+        //             isFeatured: false,
+        //             expirationMonth: 1,
+        //             unitAmount: 1,
+        //             numberOfCalories: 1,
+        //             category: '',
+        //               createdAt: '',
+        //             )),),
+        //           separatorBuilder: (context, index) => SizedBox(height: 5),
+        //           itemCount: 5,
+        //         );
 
         },
 

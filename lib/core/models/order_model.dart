@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fruit_hub_dashboard/core/entities/order_entity.dart';
+import 'package:fruit_hub_dashboard/core/models/user_model.dart';
+
 import '../entities/cart_entity.dart';
 import 'address_model.dart';
 import 'order_item_model.dart';
@@ -11,6 +13,7 @@ class OrderModel {
   final num totalPrice;
   final AddressModel address;
   final List<OrderItemModel> items;
+  final UserModel userModel;
 
 
 
@@ -20,7 +23,7 @@ class OrderModel {
     required this.address,
      required this.items,
     required this.totalPrice,
-   required this.createdAt,
+    required this.createdAt, required this.userModel,
   });
 
   factory OrderModel.fromEntity(OrderEntity entity) {
@@ -30,7 +33,9 @@ class OrderModel {
       createdAt: DateTime.now(),
       address: AddressModel.fromEntity(entity.addressEntity!),
       totalPrice: entity.cartEntity.getTotalPrice(),
-      items: entity.cartEntity.cartItems.map((cartItem) => OrderItemModel.fromEntity(cartItem)).toList(),
+      items: entity.cartEntity.cartItems.map((cartItem) =>
+          OrderItemModel.fromEntity(cartItem)).toList(),
+      userModel: UserModel.fromEntity(entity.userEntity!),
     );
   }
 
@@ -43,6 +48,7 @@ class OrderModel {
       cartEntity: CartEntity(
         cartItems: items.map((item) => item.toEntity()).toList(),
       ),
+      userEntity: userModel.toEntity(),
     );
   }
   factory OrderModel.fromJson(Map<String, dynamic> json) {
@@ -53,6 +59,7 @@ class OrderModel {
       address: AddressModel.fromJson(json['address']),
       paymentMethod: json['paymentMethod'],
       items: List<OrderItemModel>.from(json['items'].map((item) => OrderItemModel.fromJson(item))),
+      userModel: UserModel.fromJson(json['userModel']),
     );
   }
 
@@ -64,6 +71,7 @@ class OrderModel {
       'createdAt': createdAt ?? FieldValue.serverTimestamp(),
       'address': address.toJson(),
       'items': items.map((item) => item.toJson()).toList(),
+      'userModel': userModel.toJson(),
     };
   }
 

@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../../core/utils/app_color.dart';
-
 class ProductImage extends StatelessWidget {
   final ProductEntity product;
   const ProductImage(this.product, {super.key});

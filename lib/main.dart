@@ -5,8 +5,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fruit_hub_dashboard/core/services/database_services.dart';
 import 'package:fruit_hub_dashboard/core/utils/theme_manager.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
 import 'core/repos/orders_repo/orders_repo.dart';
+import 'core/repos/product_repo/product_repo_impl.dart';
 import 'core/utils/route_manager.dart';
+import 'feature/admin/presentation/view_model/admin_cubit.dart';
 import 'feature/clients/data/repos/clients_repo_impl.dart';
 import 'feature/clients/presentation/view_model/clients_cubit.dart';
 import 'feature/main/presentation/view_model/main_cubit.dart';
@@ -37,6 +40,12 @@ class MyApp extends StatelessWidget {
             ClientsCubit(ClientsRepoImpl(FirestoreDatabase()),
                 OrdersRepoImpl(FirestoreDatabase()),
                 )),
+        BlocProvider(create: (context) =>
+            AdminCubit(
+              ProductRepoImpl(FirestoreDatabase()),
+              OrdersRepoImpl(FirestoreDatabase()),
+            )
+          ,)
       ],
       child: MaterialApp(
         localizationsDelegates: [

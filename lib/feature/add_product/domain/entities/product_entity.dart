@@ -1,6 +1,7 @@
 import 'dart:io';
 
 class ProductEntity {
+  final String ?id;
   final String name;
   final String code;
   final num price;
@@ -39,5 +40,6 @@ class ProductEntity {
     this.subImages,
     required this.category,
     required this.createdAt,
+    this.id,
   });
 }

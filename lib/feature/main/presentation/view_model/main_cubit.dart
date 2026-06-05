@@ -1,9 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/presentation/view/add_product_view.dart';
+import 'package:fruit_hub_dashboard/feature/clients/presentation/view/clients_view.dart';
 import 'package:fruit_hub_dashboard/feature/main/presentation/widgets/drawer_item.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/view/my_products_view.dart';
-import '../../../clients/presentation/view/clients_view.dart';
+
+import '../../../admin/presentation/view/admin_view.dart';
 part 'main_state.dart';
 
 class MainCubit extends Cubit<MainState> {
@@ -59,7 +61,7 @@ class MainCubit extends Cubit<MainState> {
   ];
 
   final List<Widget> screens = [
-    SizedBox(),
+    AdminView(),
     MyProductsView(),
     AddProductView(),
     SizedBox(),

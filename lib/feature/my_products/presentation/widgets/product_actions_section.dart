@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruit_hub_dashboard/core/helper_function/custom_show_dialog.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
+import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
+
+import '../view_model/my_products_cubit.dart';
 
 class ProductActionsSection extends StatelessWidget {
-  const ProductActionsSection({super.key});
+  final ProductEntity product;
+
+  const ProductActionsSection(this.product, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return BlocBuilder<MyProductsCubit, MyProductsState>(
+      builder: (context, state) {
+        return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
@@ -41,8 +50,28 @@ class ProductActionsSection extends StatelessWidget {
               border: Border.all(color: Colors.grey.shade300),
             ),
             child: InkWell(
-              onTap: () {},
-              child: Text(
+                  onTap: () {
+                    customShowDialog(
+                      context,
+                      title: 'حذف المنتج',
+                      content: Text(
+                        'هل أنت متأكد أنك تريد حذف هذا المنتج؟',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(
+                          context,
+                        ).textTheme.titleMedium!.copyWith(color: Colors.grey),
+                      ),
+                      cancel: () {
+                        Navigator.pop(context);
+                      },
+                      accept: () {
+                        context.read<MyProductsCubit>().deleteProduct(
+                          product.id ?? '',
+                        );
+                      },
+                    );
+                  },
+                  child: Text(
                 'حذف',
                 textAlign: TextAlign.center,
                 style: Theme.of(
@@ -53,6 +82,8 @@ class ProductActionsSection extends StatelessWidget {
           ),
         ),
       ],
+    );
+      },
     );
   }
 }
