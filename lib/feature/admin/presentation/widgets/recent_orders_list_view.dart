@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/recent_order_loading.dart';
+import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/skeletonizer_order_item.dart';
 
 import '../../../../core/helper_function/get_date_formate.dart';
 import '../view_model/admin_cubit.dart';
@@ -25,14 +25,26 @@ class RecentOrdersListView extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 1,
             itemBuilder: (context, index) =>
-            const OrderItemSkeleton(),
+            const SkeletonizerOrderItem(
+              image: 'https://i.pravatar.cc/300',
+              amount: '1212',
+              status: '',
+              statusColor: Color(0xff214215),
+              customerName: 'metgoekgmteit',
+              time: '5454545',
+              products: '554545545555455',
+            ),
             separatorBuilder: (context, index) =>
                 Divider(color: Colors.grey.shade200),
           );
        }
 
         if (recentOrders.isEmpty) {
-          return const SizedBox();
+          return Container(margin: EdgeInsets.only(bottom: 10),
+              child: Text('لا يوجد حاليا طلبات حديثه', style: Theme
+                  .of(context)
+                  .textTheme
+                  .labelLarge,));
         }
 
         return ListView.separated(
@@ -41,7 +53,6 @@ class RecentOrdersListView extends StatelessWidget {
           itemCount: recentOrders.length,
           itemBuilder: (context, index) {
             final order = recentOrders[index];
-
             return OrderItem(
               image: order.userEntity!.image,
               amount: '${order.allOrdersPrice()}',

@@ -22,6 +22,7 @@ class AdminCubit extends Cubit<AdminState> {
   List<ProductEntity> products = [];
   List<OrderEntity> orders = [];
   Map<String, UserEntity> users = {};
+
   Future<List<ProductEntity>> getProducts() async {
     emit(GetProductsLoading());
     final result = await _productRepo.getProducts();

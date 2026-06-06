@@ -4,6 +4,7 @@ import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/feature/reviews/presentation/view_model/get_reviews/get_reviews_cubit.dart';
 import 'package:fruit_hub_dashboard/feature/reviews/presentation/widgets/product_review_card.dart';
 import 'package:fruit_hub_dashboard/feature/reviews/presentation/widgets/review_card.dart';
+import 'package:fruit_hub_dashboard/feature/reviews/presentation/widgets/skeletonizer_review_card.dart';
 
 import '../../../../core/widgets/custom_back_button.dart';
 import '../../../add_product/domain/entities/product_entity.dart';
@@ -46,6 +47,7 @@ class _ProductReviewsViewBodyState extends State<ProductReviewsViewBody> {
 
           BlocBuilder<GetReviewsCubit, GetReviewsState>(
             builder: (context, state) {
+
               if (state is ReviewError) {
                 return SliverToBoxAdapter(child: Center(child: Text(state.errMessage)));
               }
@@ -74,8 +76,27 @@ class _ProductReviewsViewBodyState extends State<ProductReviewsViewBody> {
                   },
                 );
               }
-
-              return SliverToBoxAdapter(child: Center(child: CircularProgressIndicator()));
+              return  SliverList.separated(
+                itemCount: 5,
+                separatorBuilder: (context, index) =>
+                const SizedBox(height: 10),
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      SizedBox(height: 10),
+                      SkeletonizerReviewCard(
+                        review: ReviewEntity(
+                          name: 'reviews[index].name',
+                          image: "https://i.pravatar.cc/300",
+                          reviewDescription: 'reviews[index].reviewDescription',
+                          rating: 0.0,
+                          date: 'reviews[index].date',
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
             },
           ),
         ],

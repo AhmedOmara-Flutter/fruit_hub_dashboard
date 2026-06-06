@@ -83,9 +83,6 @@ class ReviewCard extends StatelessWidget {
                   ],
                 ),
               ),
-
-              // ================= RATING =================
-
             ],
           ),
         ],

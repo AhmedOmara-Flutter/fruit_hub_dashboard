@@ -30,6 +30,7 @@ class RecentOrdersCard extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           RecentOrdersListView(),
+          if(context.watch<AdminCubit>().orders.isNotEmpty)
           Container(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
             decoration: BoxDecoration(
