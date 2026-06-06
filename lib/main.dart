@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fruit_hub_dashboard/core/services/database_services.dart';
 import 'package:fruit_hub_dashboard/core/utils/theme_manager.dart';
+import 'package:fruit_hub_dashboard/feature/reviews/presentation/view_model/get_reviews/get_reviews_cubit.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/repos/orders_repo/orders_repo.dart';
@@ -13,6 +14,8 @@ import 'feature/admin/presentation/view_model/admin_cubit.dart';
 import 'feature/clients/data/repos/clients_repo_impl.dart';
 import 'feature/clients/presentation/view_model/clients_cubit.dart';
 import 'feature/main/presentation/view_model/main_cubit.dart';
+import 'feature/reviews/data/repos/review_repo_impl.dart';
+import 'feature/reviews/presentation/view_model/get_products_with_review/get_product_with_reviews_cubit.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
 
@@ -44,8 +47,11 @@ class MyApp extends StatelessWidget {
             AdminCubit(
               ProductRepoImpl(FirestoreDatabase()),
               OrdersRepoImpl(FirestoreDatabase()),
-            )
-          ,)
+            ),),
+        BlocProvider(create: (context) =>
+            GetProductWithReviewsCubit(ReviewRepoImpl(FirestoreDatabase()))),
+        BlocProvider(create: (context) =>
+            GetReviewsCubit(ReviewRepoImpl(FirestoreDatabase()))),
       ],
       child: MaterialApp(
         localizationsDelegates: [

@@ -13,13 +13,15 @@ class ProductEntity {
   final num unitAmount;
   final num numberOfCalories;
   final bool isOrganic;
-  final double avgRating;
-  final int ratingCount;
   final int sellingCount;
   final List<File> ?subImagesFiles;
   List<String> ?subImages;
   final String category;
   final String createdAt;
+  double averageRating;
+  int reviewsCount;
+  double ratingSum;
+
 
   ProductEntity({
     required this.name,
@@ -33,13 +35,16 @@ class ProductEntity {
     required this.unitAmount,
     required this.numberOfCalories,
     this.isOrganic = false,
-    this.avgRating = 0.0,
-    this.ratingCount = 0,
     this.sellingCount = 0,
      this.subImagesFiles,
     this.subImages,
     required this.category,
     required this.createdAt,
     this.id,
+    this.averageRating = 0.0,
+    this.reviewsCount = 0,
+    this.ratingSum = 0.0,
   });
 }
+
+

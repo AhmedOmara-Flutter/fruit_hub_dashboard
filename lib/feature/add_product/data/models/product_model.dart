@@ -13,14 +13,15 @@ class ProductModel extends ProductEntity {
     required super.unitAmount,
     required super.numberOfCalories,
     super.isOrganic = false,
-    super.avgRating = 0.0,
-    super.ratingCount = 0,
     super.sellingCount=0,
     super.subImages,
     super.subImagesFiles,
     required super.category,
     required super.createdAt,
     super.id,
+    super.averageRating = 0.0,
+    super.reviewsCount = 0,
+    super.ratingSum = 0.0,
   });
 
   factory ProductModel.fromEntity(ProductEntity entity) {
@@ -36,14 +37,15 @@ class ProductModel extends ProductEntity {
       unitAmount: entity.unitAmount,
       numberOfCalories: entity.numberOfCalories,
       isOrganic: entity.isOrganic,
-      avgRating: entity.avgRating,
-      ratingCount: entity.ratingCount,
       sellingCount: entity.sellingCount,
       subImages: entity.subImages,
       subImagesFiles: entity.subImagesFiles,
       category: entity.category,
       createdAt: entity.createdAt,
       id: entity.id,
+      averageRating: entity.averageRating,
+      reviewsCount: entity.reviewsCount,
+      ratingSum: entity.ratingSum,
     );
   }
 
@@ -59,8 +61,6 @@ class ProductModel extends ProductEntity {
       unitAmount: unitAmount,
       numberOfCalories: numberOfCalories,
       isOrganic: isOrganic,
-      avgRating: avgRating,
-      ratingCount: ratingCount,
       imageFile: imageFile,
       sellingCount: sellingCount,
       subImages: subImages,
@@ -68,6 +68,9 @@ class ProductModel extends ProductEntity {
       category: category,
       createdAt: createdAt,
       id: id,
+      averageRating: averageRating,
+      reviewsCount: reviewsCount,
+      ratingSum: ratingSum,
     );
   }
 
@@ -83,13 +86,14 @@ class ProductModel extends ProductEntity {
       unitAmount: json['unitAmount'] ?? 0,
       numberOfCalories: json['numberOfCalories'] ?? 0,
       isOrganic: json['isOrganic'] ?? false,
-      avgRating: (json['avgRating'] ?? 0).toDouble(),
-      ratingCount: json['ratingCount'] ?? 0,
       sellingCount: json['sellingCount'] ?? 0,
       subImages: List<String>.from(json['subImages'] ?? []),
       category: json['category'] ?? '',
       createdAt: json['createdAt'] ?? '',
       id: json['id'] ?? '',
+      averageRating: (json['averageRating'] ?? 0).toDouble(),
+      reviewsCount: json['reviewsCount'] ?? 0,
+      ratingSum: (json['ratingSum'] ?? 0).toDouble(),
     );
   }
   Map<String, dynamic> toJson() {
@@ -104,13 +108,14 @@ class ProductModel extends ProductEntity {
       'unitAmount': unitAmount,
       'numberOfCalories': numberOfCalories,
       'isOrganic': isOrganic,
-      'avgRating': avgRating,
-      'ratingCount': ratingCount,
       'sellingCount': sellingCount,
       'subImages': subImages,
       'category': category,
       'createdAt': createdAt,
       'id': id,
+      'averageRating': averageRating,
+      'reviewsCount': reviewsCount,
+      'ratingSum': ratingSum,
     };
   }
 }
