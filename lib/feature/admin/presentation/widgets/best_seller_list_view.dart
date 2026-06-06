@@ -17,7 +17,7 @@ class BestSellerListView extends StatelessWidget {
         bool isLoading = cubit.state is GetOrdersLoading;
         final topProducts = cubit.topProducts;
 
-       // if (isLoading)
+        if (isLoading)
           return ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
