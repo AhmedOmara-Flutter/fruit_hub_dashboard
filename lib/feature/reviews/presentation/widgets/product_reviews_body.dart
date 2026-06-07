@@ -7,9 +7,9 @@ import 'package:fruit_hub_dashboard/feature/reviews/presentation/widgets/review_
 import 'package:fruit_hub_dashboard/feature/reviews/presentation/widgets/skeletonizer_review_card.dart';
 
 import '../../../../core/widgets/custom_back_button.dart';
+import '../../../../generated/assets.dart';
 import '../../../add_product/domain/entities/product_entity.dart';
 import '../../domain/entities/review_entity.dart';
-import '../view_model/review_cubit.dart';
 
 class ProductReviewsViewBody extends StatefulWidget {
   final ProductEntity product;
@@ -87,7 +87,7 @@ class _ProductReviewsViewBodyState extends State<ProductReviewsViewBody> {
                       SkeletonizerReviewCard(
                         review: ReviewEntity(
                           name: 'reviews[index].name',
-                          image: "https://i.pravatar.cc/300",
+                          image: Assets.images.img.path,
                           reviewDescription: 'reviews[index].reviewDescription',
                           rating: 0.0,
                           date: 'reviews[index].date',

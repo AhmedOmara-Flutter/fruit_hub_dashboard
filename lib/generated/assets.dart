@@ -27,6 +27,14 @@ class $AssetsImagesGen {
     'assets/images/gallery.png',
   );
   final AssetGenImage img = const AssetGenImage('assets/images/img.png');
+  final AssetGenImage medal = const AssetGenImage('assets/images/medal.png');
+  final AssetGenImage medal1 = const AssetGenImage(
+    'assets/images/medal (1).png',
+  );
+  final AssetGenImage medal2 = const AssetGenImage(
+    'assets/images/medal (2).png',
+  );
+  final AssetGenImage rise = const AssetGenImage('assets/images/rise.png');
   final SvgGenImage splashBottom = const SvgGenImage(
     'assets/images/splash_bottom.svg',
   );
@@ -58,6 +66,9 @@ class $AssetsJsonGen {
   const $AssetsJsonGen();
 
   final String empty = 'assets/json/empty.json';
+  final LottieGenImage emptyCommit = const LottieGenImage(
+    'assets/json/empty_commit.json',
+  );
 }
 
 class AssetGenImage {

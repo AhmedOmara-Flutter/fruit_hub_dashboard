@@ -9,7 +9,7 @@ part 'get_product_with_reviews_state.dart';
 class GetProductWithReviewsCubit extends Cubit<GetProductWithReviewsState> {
   GetProductWithReviewsCubit(this._reviewRepo) : super(GetProductWithReviewsInitial());
   final ReviewRepo _reviewRepo;
-
+  final List<ProductEntity> products = [];
 
   Future<void> getProductsWithReviews() async {
     emit(GetProductsWithReviewsLoading());
@@ -20,7 +20,8 @@ class GetProductWithReviewsCubit extends Cubit<GetProductWithReviewsState> {
         emit(GetProductsWithReviewsError(failure.errMessage));
       },
           (products) {
-        print('products is ${products}');
+            this.products.clear();
+            this.products.addAll(products);
         emit(GetProductsWithReviewsSuccess(products));
       },
     );

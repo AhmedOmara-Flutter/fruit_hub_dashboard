@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
 import 'package:fruit_hub_dashboard/feature/reviews/presentation/widgets/review_item.dart';
 import 'package:fruit_hub_dashboard/feature/reviews/presentation/widgets/skeletonizer_review_item.dart';
-import 'package:skeletonizer/skeletonizer.dart';
+import 'package:lottie/lottie.dart';
 
+import '../../../../generated/assets.dart';
 import '../view_model/get_products_with_review/get_product_with_reviews_cubit.dart';
-import '../view_model/review_cubit.dart';
 
 class ReviewsViewBody extends StatelessWidget {
   const ReviewsViewBody({
@@ -32,10 +33,36 @@ class ReviewsViewBody extends StatelessWidget {
           ),
           BlocBuilder<GetProductWithReviewsCubit, GetProductWithReviewsState>(
             builder: (context, state) {
+              final products = context
+                  .read<GetProductWithReviewsCubit>()
+                  .products;
               if (state is GetProductsWithReviewsError) {
                 return SliverToBoxAdapter(
                   child: Center(
                     child: Text(state.errMessage),
+                  ),
+                );
+              }
+              if (products.isEmpty) {
+                return SliverToBoxAdapter(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: MediaQuery
+                          .of(context)
+                          .size
+                          .height * 0.4),
+                      Lottie.asset(Assets.json.emptyCommit.path),
+                      SizedBox(height: 10,),
+
+                      Center(
+                        child: Text('لا يوجد حاليا اراء العملاء', style: Theme
+                            .of(context)
+                            .textTheme
+                            .labelLarge!.copyWith(color: AppColor.mainColor),),
+                      ),
+
+                    ],
                   ),
                 );
               }
@@ -49,9 +76,9 @@ class ReviewsViewBody extends StatelessWidget {
                   )
                   ,
                   itemBuilder: (context, index) =>
-                      GestureDetector(onTap: () {}, child: ReviewItem(
+                      ReviewItem(
                         product: state.products[index],
-                      )),
+                      ),
                   itemCount: state.products.length,
                 );
               }
@@ -67,7 +94,7 @@ class ReviewsViewBody extends StatelessWidget {
                       product: ProductEntity(name: 'name',
                         code: 'code',
                         price: 0,
-                        image: "https://i.pravatar.cc/300",
+                        image: Assets.images.img.path,
                         averageRating: 0,
                         reviewsCount: 1,
                         description: 'description',

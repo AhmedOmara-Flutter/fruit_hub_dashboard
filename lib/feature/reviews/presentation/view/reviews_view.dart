@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/feature/reviews/presentation/view_model/get_products_with_review/get_product_with_reviews_cubit.dart';
 import 'package:fruit_hub_dashboard/feature/reviews/presentation/widgets/reviews_view_body.dart';
 
-import '../view_model/review_cubit.dart';
-
 class ReviewsView extends StatefulWidget {
   const ReviewsView({super.key});
 

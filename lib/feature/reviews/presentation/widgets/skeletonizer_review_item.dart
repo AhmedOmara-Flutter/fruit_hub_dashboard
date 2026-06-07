@@ -4,6 +4,8 @@ import 'package:fruit_hub_dashboard/core/utils/route_manager.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../../../generated/assets.dart';
+
 class SkeletonizerReviewItem extends StatelessWidget {
   final ProductEntity product;
 
@@ -44,32 +46,10 @@ class SkeletonizerReviewItem extends StatelessWidget {
             SizedBox(height: 5),
             Column(
               children: [
-                CachedNetworkImage(
+                Image.asset(
+                  product.image??Assets.images.img.path,
                   width: 110,
                   height: 110,
-                  imageUrl: product.image!,
-                  placeholder: (context, url) =>
-                  const Center(child: Skeletonizer(child: SizedBox())),
-                  errorWidget: (context, url, error) => Center(
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                          color: Colors.grey.shade200,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Center(
-                        child: Icon(
-                          Icons.image_not_supported_outlined,
-                          size: 50,
-                          color: Colors.grey.shade300,
-                        ),
-                      ),
-                    ),
-                  ),
                   fit: BoxFit.cover,
                 ),
                 SizedBox(height: 10),

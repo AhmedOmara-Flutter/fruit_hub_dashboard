@@ -16,10 +16,8 @@ class _AdminViewState extends State<AdminView> {
   @override
   void initState() {
     super.initState();
-    context.read<AdminCubit>().getProducts();
     context.read<ClientsCubit>().loadData();
-    context.read<AdminCubit>().getTotalOrders();
-    context.read<AdminCubit>().getOrders();
+    context.read<AdminCubit>().loadDashboard();
   }
 
   @override

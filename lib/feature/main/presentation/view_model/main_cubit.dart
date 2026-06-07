@@ -30,11 +30,6 @@ class MainCubit extends Cubit<MainState> {
       activeIcon: Icons.add,
     ),
     DrawerItemModel(
-      title: 'الجرد',
-      inactiveIcon: Icons.inventory_2_outlined,
-      activeIcon: Icons.inventory,
-    ),
-    DrawerItemModel(
       title: 'آراء العملاء',
       inactiveIcon: Icons.star_border_rounded,
       activeIcon: Icons.star,
@@ -65,7 +60,6 @@ class MainCubit extends Cubit<MainState> {
     AdminView(),
     MyProductsView(),
     AddProductView(),
-    SizedBox(),
     ReviewsView(),
     SizedBox(),
     ClientsView(),

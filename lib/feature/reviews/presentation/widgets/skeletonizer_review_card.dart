@@ -1,9 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fruit_hub_dashboard/feature/reviews/domain/entities/review_entity.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-
-import '../../../../generated/assets.dart';
 
 class SkeletonizerReviewCard extends StatelessWidget {
   final ReviewEntity review;
@@ -36,14 +33,7 @@ class SkeletonizerReviewCard extends StatelessWidget {
                     decoration:BoxDecoration(
                         shape: BoxShape.circle
                     ) ,
-                    child: CachedNetworkImage(imageUrl: review.image,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) =>
-                          Skeletonizer(child: CircleAvatar(
-                            backgroundImage: AssetImage(Assets.images.img.path),
-                          ),),
-                      errorWidget: (context, url, error) =>
-                          Icon(Icons.error, color: Colors.red),
+                    child: Image.asset(review.image,
                     ),
                   ),
                 ),              const SizedBox(width: 10),

@@ -18,7 +18,9 @@ class AdminViewBody extends StatelessWidget {
           slivers: [
             BlocBuilder<AdminCubit, AdminState>(
               builder: (context, state) {
-                if (state is GetProductsSuccess) {
+                final cubit = context.watch<AdminCubit>();
+
+                if (cubit.products.isNotEmpty) {
                   return SliverToBoxAdapter(
                     child: StatisticsSection(),
                   );

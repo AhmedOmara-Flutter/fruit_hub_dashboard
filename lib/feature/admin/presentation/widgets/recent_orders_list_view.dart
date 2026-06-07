@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/skeletonizer_order_item.dart';
 
 import '../../../../core/helper_function/get_date_formate.dart';
+import '../../../../generated/assets.dart';
 import '../view_model/admin_cubit.dart';
 import 'order_item.dart';
 
@@ -25,8 +26,8 @@ class RecentOrdersListView extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 1,
             itemBuilder: (context, index) =>
-            const SkeletonizerOrderItem(
-              image: 'https://i.pravatar.cc/300',
+             SkeletonizerOrderItem(
+              image:Assets.images.img.path,
               amount: '1212',
               status: '',
               statusColor: Color(0xff214215),

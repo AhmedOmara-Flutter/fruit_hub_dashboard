@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/feature/admin/presentation/view_model/admin_cubit.dart';
-import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/best_seller_loading.dart';
 import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/product_item.dart';
 import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/skeletonizer_product_item.dart';
-import 'package:skeletonizer/skeletonizer.dart';
+
+import '../../../../generated/assets.dart';
 
 class BestSellerListView extends StatelessWidget {
   const BestSellerListView({super.key});
@@ -13,6 +13,7 @@ class BestSellerListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AdminCubit, AdminState>(
       builder: (context, state) {
+
         final cubit = context.read<AdminCubit>();
         bool isLoading = cubit.state is GetOrdersLoading;
         final topProducts = cubit.topProducts;
@@ -23,10 +24,11 @@ class BestSellerListView extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 2,
             itemBuilder: (context, index) =>SkeletonizerProductItem(
-              productName: 'topProducts[index]',
+              productName: 'topProducts',
               orderCount:'00.00',
-              quantity:01,
-              image:'https://i.pravatar.cc/300',
+              image: Assets.images.img.path,
+              medal: Assets.images.rise.path,
+
             ),
             separatorBuilder: (_, __) =>
                 Divider(color: Colors.grey.shade200),
@@ -46,8 +48,8 @@ class BestSellerListView extends StatelessWidget {
           itemBuilder: (context, index) => ProductItem(
             productName: topProducts[index].name,
             orderCount: topProducts[index].totalOrders.toString(),
-            quantity: index + 1,
             image: topProducts[index].image,
+            medal: cubit.medals[index],
           ),
           separatorBuilder: (context, index) =>
               Divider(color: Colors.grey.shade200),
@@ -60,6 +62,7 @@ class TopProduct {
   final String name;
   final String image;
   final int totalOrders;
+
 
   TopProduct({
     required this.name,

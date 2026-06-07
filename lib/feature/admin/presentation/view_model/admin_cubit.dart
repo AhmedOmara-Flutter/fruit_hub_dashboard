@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 import 'package:fruit_hub_dashboard/core/repos/orders_repo/orders_repo.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
@@ -7,9 +5,8 @@ import 'package:meta/meta.dart';
 
 import '../../../../core/entities/order_entity.dart';
 import '../../../../core/entities/user_entity.dart';
-import '../../../../core/models/user_model.dart';
 import '../../../../core/repos/product_repo/product_repo.dart';
-import '../widgets/best_seller_card.dart';
+import '../../../../generated/assets.dart';
 import '../widgets/best_seller_list_view.dart';
 
 part 'admin_state.dart';
@@ -18,11 +15,23 @@ class AdminCubit extends Cubit<AdminState> {
   AdminCubit(this._productRepo, this._ordersRepo) : super(AdminInitial());
   final ProductRepo _productRepo;
   final OrdersRepo _ordersRepo;
-
+  final List medals = [
+    Assets.images.medal.path,
+    Assets.images.medal1.path,
+    Assets.images.medal2.path,
+  ];
   List<ProductEntity> products = [];
   List<OrderEntity> orders = [];
   Map<String, UserEntity> users = {};
 
+  Future<void> loadDashboard() async {
+    await Future.wait([
+      getProducts(),
+      getOrders(),
+      getTotalOrders(),
+    ]);
+    emit(DashboardLoading());
+  }
   Future<List<ProductEntity>> getProducts() async {
     emit(GetProductsLoading());
     final result = await _productRepo.getProducts();
@@ -95,17 +104,15 @@ class AdminCubit extends Cubit<AdminState> {
 
   List<TopProduct> get topProducts {
     final Map<String, TopProduct> products = {};
-
     for (var order in orders) {
       for (var item in order.cartEntity.cartItems) {
         final name = item.product.name;
-
+print('object========== ${item.product.category}');
         if (products.containsKey(name)) {
           products[name] = TopProduct(
             name: name,
             image: item.product.image!,
-            totalOrders:
-            products[name]!.totalOrders + item.quantity,
+            totalOrders: products[name]!.totalOrders + item.quantity,
           );
         } else {
           products[name] = TopProduct(

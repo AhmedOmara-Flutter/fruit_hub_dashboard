@@ -56,7 +56,7 @@ class SkeletonizerOrderItem extends StatelessWidget {
                 decoration:BoxDecoration(
                     shape: BoxShape.circle
                 ) ,
-                child: Image.network(image)
+                child: Image.asset(image)
               ),
             ),
       
