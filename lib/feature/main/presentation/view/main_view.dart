@@ -56,7 +56,10 @@ class _MainViewState extends State<MainView> {
               SystemNavigator.pop();
             }
           },
-          child: cubit.screens[cubit.selectedIndex]
+        child: IndexedStack(
+          index: cubit.selectedIndex,
+          children: cubit.screens,
+        ),
       ),
     );
   },

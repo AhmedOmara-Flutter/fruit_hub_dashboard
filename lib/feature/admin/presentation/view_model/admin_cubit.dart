@@ -30,7 +30,6 @@ class AdminCubit extends Cubit<AdminState> {
       getOrders(),
       getTotalOrders(),
     ]);
-    emit(DashboardLoading());
   }
   Future<List<ProductEntity>> getProducts() async {
     emit(GetProductsLoading());
@@ -107,7 +106,6 @@ class AdminCubit extends Cubit<AdminState> {
     for (var order in orders) {
       for (var item in order.cartEntity.cartItems) {
         final name = item.product.name;
-print('object========== ${item.product.category}');
         if (products.containsKey(name)) {
           products[name] = TopProduct(
             name: name,

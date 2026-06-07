@@ -34,7 +34,6 @@ class GenerateRoute {
       case RouteManager.productReviews:
         final  product= settings.arguments as ProductEntity;;
         return MaterialPageRoute(builder: (_) => ProductReviewsView(product: product,));
-
       default:
         return _errorRoute();
     }

@@ -54,7 +54,10 @@ class ThemeManager {
       labelMedium: StyleManager.font16Weight600,
       //button in featured item
       labelLarge: StyleManager.font13Weight700,
+
       displaySmall: StyleManager.font19Weight700,
+      bodyLarge: StyleManager.font11Weight400,
+      bodyMedium: StyleManager.font14Weight600
 
 
     ),
@@ -63,8 +66,9 @@ class ThemeManager {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: Color(0xffF9FAFA),
-        hintStyle: StyleManager.font13Weight700,
-        labelStyle: StyleManager.font13Weight700,
+
+        hintStyle: StyleManager.font11Weight400,
+        labelStyle: StyleManager.font11Weight400,
         suffixIconColor: Color(0xffC9CECF),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Color(0xffE6E9EA)),

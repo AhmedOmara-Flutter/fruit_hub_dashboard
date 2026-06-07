@@ -8,6 +8,18 @@ class StyleManager {
     fontSize: 13,
     fontWeight: FontWeight.w400,
   );
+  static TextStyle font11Weight400 = TextStyle(
+    color: Color(0xff949D9E),
+    fontFamily: 'Cairo',
+    fontSize: 11,
+    fontWeight: FontWeight.w400,
+  );
+  static TextStyle font14Weight600 = TextStyle(
+    color: Color(0xff949D9E),
+    fontFamily: 'Cairo',
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+  );
 
   static TextStyle font23Weight700 = TextStyle(
     color: Color(0xff0C0D0D),

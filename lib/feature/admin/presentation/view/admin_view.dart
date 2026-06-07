@@ -16,9 +16,14 @@ class _AdminViewState extends State<AdminView> {
   @override
   void initState() {
     super.initState();
-    context.read<ClientsCubit>().loadData();
-    context.read<AdminCubit>().loadDashboard();
-  }
+
+    final adminCubit = context.read<AdminCubit>();
+
+    if (adminCubit.products.isEmpty &&
+        adminCubit.orders.isEmpty) {
+      adminCubit.loadDashboard();
+      context.read<ClientsCubit>().loadData();
+    }  }
 
   @override
   Widget build(BuildContext context) {
