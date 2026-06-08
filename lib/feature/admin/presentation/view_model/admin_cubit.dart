@@ -25,24 +25,35 @@ class AdminCubit extends Cubit<AdminState> {
   Map<String, UserEntity> users = {};
 
   Future<void> loadDashboard() async {
-    await Future.wait([
-      getProducts(),
-      getOrders(),
-      getTotalOrders(),
-    ]);
+    emit(DashboardLoading());
+
+    try {
+      await Future.wait([
+        getProducts(),
+        getOrders(),
+        getTotalOrders(),
+      ]);
+
+      emit(DashboardSuccess());
+    } catch (e) {
+      emit(DashboardError(e.toString()));
+    }
   }
   Future<List<ProductEntity>> getProducts() async {
-    emit(GetProductsLoading());
+    // emit(GetProductsLoading());
     final result = await _productRepo.getProducts();
     return result.fold(
       (f) {
+
         print(f.errMessage);
-        emit(GetProductsError(f.errMessage));
+        // emit(GetProductsError(f.errMessage));
         return [];
       },
       (data) {
+        print('PRODUCTS LOADED => ${data.length}');
+
         products = data;
-        emit(GetProductsSuccess());
+        // emit(GetProductsSuccess());
         return products;
       },
     );
@@ -55,7 +66,7 @@ class AdminCubit extends Cubit<AdminState> {
 
     result.fold(
       (failure) {
-        emit(GetProductsError(failure.errMessage));
+        // emit(GetProductsError(failure.errMessage));
       },
       (data) {
         totalSales = data.fold(
@@ -68,18 +79,18 @@ class AdminCubit extends Cubit<AdminState> {
               ),
         );
 
-        emit(GetProductsSuccess());
+        // emit(GetProductsSuccess());
       },
     );
   }
 
   Future<void> getOrders() async {
-    emit(GetOrdersLoading());
+    // emit(GetOrdersLoading());
     final result = await _ordersRepo.getOrders();
 
     result.fold(
           (failure) {
-        emit(GetOrdersError(failure.errMessage));
+        // emit(GetOrdersError(failure.errMessage));
       },
           (data) {
         orders = data;
@@ -91,7 +102,7 @@ class AdminCubit extends Cubit<AdminState> {
               (a, b) => b.createdAt!.compareTo(a.createdAt!),
         );
 
-        emit(GetOrdersSuccess(orders));
+        // emit(GetOrdersSuccess(orders));
       },
     );
   }

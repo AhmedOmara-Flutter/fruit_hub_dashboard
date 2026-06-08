@@ -15,10 +15,10 @@ class RecentOrdersListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AdminCubit, AdminState>(
       builder: (context, state) {
-        final cubit = context.read<AdminCubit>();
+        final cubit = context.watch<AdminCubit>();
         final recentOrders = cubit.recentOrders;
 
-        final isLoading = state is GetOrdersLoading;
+        final isLoading = state is DashboardLoading;
 
         if (isLoading) {
           return ListView.separated(

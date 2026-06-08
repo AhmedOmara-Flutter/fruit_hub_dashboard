@@ -12,25 +12,26 @@ class AdminViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
         padding: const EdgeInsets.all(10),
         child: CustomScrollView(
           slivers: [
             BlocBuilder<AdminCubit, AdminState>(
               builder: (context, state) {
-                final cubit = context.watch<AdminCubit>();
+                print('STATE => ${state.runtimeType}');
 
-                if (cubit.products.isNotEmpty) {
+                final cubit = context.read<AdminCubit>();
+                if (cubit.products.isNotEmpty || state is DashboardSuccess) {
                   return SliverToBoxAdapter(
                     child: StatisticsSection(),
                   );
                 }
-                else if (state is GetProductsError) {
+                else if (state is DashboardError) {
                   return SliverToBoxAdapter(
                     child: Text(state.errMessage),
                   );
                 }
-
                 return SliverToBoxAdapter(
                   child: SkeletonizerStatisticsSection(),
                 );

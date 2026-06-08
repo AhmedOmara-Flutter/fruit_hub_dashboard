@@ -15,6 +15,8 @@ class ProductActionsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MyProductsCubit, MyProductsState>(
       builder: (context, state) {
+        print('CURRENT STATE => ${state.runtimeType}');
+
         return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

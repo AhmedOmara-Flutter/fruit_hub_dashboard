@@ -5,7 +5,6 @@ import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_
 import 'package:fruit_hub_dashboard/feature/reviews/presentation/widgets/review_item.dart';
 import 'package:fruit_hub_dashboard/feature/reviews/presentation/widgets/skeletonizer_review_item.dart';
 import 'package:lottie/lottie.dart';
-
 import '../../../../generated/assets.dart';
 import '../view_model/get_products_with_review/get_product_with_reviews_cubit.dart';
 
@@ -20,6 +19,7 @@ class ReviewsViewBody extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: CustomScrollView(
         slivers: [
+         if(!context.watch<GetProductWithReviewsCubit>().products.isEmpty)
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),

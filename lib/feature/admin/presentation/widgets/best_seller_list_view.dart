@@ -14,8 +14,8 @@ class BestSellerListView extends StatelessWidget {
     return BlocBuilder<AdminCubit, AdminState>(
       builder: (context, state) {
 
-        final cubit = context.read<AdminCubit>();
-        bool isLoading = cubit.state is GetOrdersLoading;
+        final cubit = context.watch<AdminCubit>();
+        bool isLoading = cubit.state is  DashboardLoading;
         final topProducts = cubit.topProducts;
 
         if (isLoading)
