@@ -43,7 +43,6 @@ class CustomerCard extends StatelessWidget {
                     width: 80,
                     height: 80,
                     fit: BoxFit.cover,
-
                     placeholder: (context, url) => Skeletonizer(
                       enabled: true,
                       child: Container(

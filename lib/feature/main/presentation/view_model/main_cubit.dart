@@ -6,6 +6,7 @@ import 'package:fruit_hub_dashboard/feature/main/presentation/widgets/drawer_ite
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/view/my_products_view.dart';
 
 import '../../../admin/presentation/view/admin_view.dart';
+import '../../../offers/presentation/view/offers_view.dart';
 import '../../../reviews/presentation/view/reviews_view.dart';
 import '../../../settings/presentation/view/settings_view.dart';
 part 'main_state.dart';
@@ -64,7 +65,7 @@ class MainCubit extends Cubit<MainState> {
     ReviewsView(),
     SizedBox(),
     ClientsView(),
-    SizedBox(),
+    OffersView(),
     SettingsView(),
   ];
 
