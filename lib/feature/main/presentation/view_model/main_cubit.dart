@@ -7,6 +7,7 @@ import 'package:fruit_hub_dashboard/feature/my_products/presentation/view/my_pro
 
 import '../../../admin/presentation/view/admin_view.dart';
 import '../../../reviews/presentation/view/reviews_view.dart';
+import '../../../settings/presentation/view/settings_view.dart';
 part 'main_state.dart';
 
 class MainCubit extends Cubit<MainState> {
@@ -64,7 +65,7 @@ class MainCubit extends Cubit<MainState> {
     SizedBox(),
     ClientsView(),
     SizedBox(),
-    SizedBox(),
+    SettingsView(),
   ];
 
   void changeIndex(int index) {

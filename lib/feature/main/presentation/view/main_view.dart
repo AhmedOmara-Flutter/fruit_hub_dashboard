@@ -49,7 +49,6 @@ class _MainViewState extends State<MainView> {
           canPop: false,
           onPopInvoked: (didPop) {
             final cubit = context.read<MainCubit>();
-
             if (cubit.selectedIndex != 0) {
               cubit.changeIndex(0);
             } else {
