@@ -12,6 +12,7 @@ class CustomTextFormField extends StatelessWidget {
   final AutovalidateMode? autoValidateMode;
   final int? maxLines;
   final String? label;
+  final bool readOnly;
 
   const CustomTextFormField({
     super.key,
@@ -23,7 +24,8 @@ class CustomTextFormField extends StatelessWidget {
     this.onSaved,
     this.maxLines,
     this.labelText,
-    this.label,
+    this.label, this.readOnly=false,
+
   });
 
   @override
@@ -50,6 +52,8 @@ class CustomTextFormField extends StatelessWidget {
         if (label != null)
         SizedBox(height: 8),
         TextFormField(
+          readOnly: readOnly,
+          style: Theme.of(context).textTheme.bodyMedium,
           maxLines: maxLines,
           onSaved: onSaved,
           autovalidateMode: autoValidateMode,

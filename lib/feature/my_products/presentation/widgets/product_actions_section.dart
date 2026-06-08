@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/core/helper_function/custom_show_dialog.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
-
 import '../view_model/my_products_cubit.dart';
+import 'add_offer_bottom_sheet.dart';
 
 class ProductActionsSection extends StatelessWidget {
   final ProductEntity product;
@@ -83,9 +83,47 @@ class ProductActionsSection extends StatelessWidget {
             ),
           ),
         ),
+        const SizedBox(width: 5),
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.only(top: 10),
+            padding: EdgeInsets.symmetric(vertical: 10),
+            decoration: BoxDecoration(
+              color: Colors.orange,
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(color: Colors.grey.shade300),
+            ),
+            child: InkWell(
+              onTap: () {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  backgroundColor: Colors.white,
+                  context: context,
+                  builder: (context) =>
+                      AddOfferBottomSheet(
+                        product: product,
+
+                      ),
+                );
+              },
+              child: Text(
+                'اضافه عرض',
+                textAlign: TextAlign.center,
+                style: Theme
+                    .of(
+                  context,
+                )
+                    .textTheme
+                    .titleSmall!
+                    .copyWith(color: Colors.white),
+              ),
+            ),
+          ),
+        ),
       ],
     );
       },
     );
   }
 }
+
