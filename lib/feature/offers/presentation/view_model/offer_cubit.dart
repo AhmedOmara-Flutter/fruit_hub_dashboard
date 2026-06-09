@@ -56,4 +56,8 @@ class OfferCubit extends Cubit<OfferState> {
       },
     );
   }
+
+  void resetState() {
+    emit(OffersInitial());
+  }
 }
