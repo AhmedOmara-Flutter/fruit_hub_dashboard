@@ -4,11 +4,16 @@ import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/pro
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/product_details_section.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/product_header_section.dart';
 
+import '../../../offers/domain/entities/offer_entity.dart';
+
 class ProductCard extends StatelessWidget {
   final ProductEntity product;
+  final OfferEntity? offer;
+
+  const ProductCard({super.key, required this.product, this.offer});
 
 
-  const ProductCard(this.product, {super.key});
+
 
   @override
   Widget build(BuildContext context) {

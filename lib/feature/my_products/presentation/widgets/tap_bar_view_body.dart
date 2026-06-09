@@ -37,7 +37,7 @@ class _TapBarViewBodyState extends State<TapBarViewBody> {
 
           return ListView.separated(
             padding: EdgeInsets.only(left: 8, right: 8, top: 10),
-            itemBuilder: (context, index) => ProductCard(products[index]),
+            itemBuilder: (context, index) => ProductCard(product: products[index]),
             separatorBuilder: (context, index) => SizedBox(height: 5),
             itemCount: products.length,
           );

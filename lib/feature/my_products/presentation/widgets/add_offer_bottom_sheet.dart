@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/build_date_picker_tile.dart';
+import 'package:fruit_hub_dashboard/feature/offers/domain/entities/offer_entity.dart';
 
-import '../../../../core/utils/app_color.dart';
 import '../../../../core/widgets/custom_text_form_field.dart';
 import '../../../add_product/domain/entities/product_entity.dart';
+import '../../../offers/presentation/view_model/offer_cubit.dart';
 
 class AddOfferBottomSheet extends StatefulWidget {
   final ProductEntity product;
@@ -47,7 +50,11 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
       priceAfterDiscount.text = result % 1 == 0
           ? result.toInt().toString()
           : result.toStringAsFixed(2);
-    });  }
+    });
+    setState(() {
+
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -121,7 +128,7 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
 
               const SizedBox(height: 16),
 
-              buildDatePickerTile(
+              BuildDatePickerTile(
                 title: 'تاريخ بداية العرض',
                 date: startDate,
                 onTap: () async {
@@ -142,7 +149,7 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
 
               const SizedBox(height: 12),
 
-              buildDatePickerTile(
+              BuildDatePickerTile(
                 title: 'تاريخ انتهاء العرض',
                 date: endDate,
                 onTap: () async {
@@ -164,18 +171,23 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed:canSave?() {
+                  onPressed: canSave ? () async {
                     if (_formKey.currentState!.validate()) {
-                      final discount =
-                      double.parse(discountController.text);
+                      OfferEntity offer = OfferEntity(
+                        productId: widget.product.id!,
+                        discountPercentage: double.parse(discountController
+                            .text),
 
-                      // cubit.addOffer(
-                      //   productId: widget.productId,
-                      //   discountPercentage: discount,
-                      //   expiresAt: expiresAt,
-                      // );
-
-                      Navigator.pop(context);
+                        startDate: startDate?? DateTime.now(),
+                        endDate: endDate?? DateTime.now(),
+                        image: widget.product.image ?? "",
+                        name: widget.product.name,
+                        priceBeforeDiscount: double.parse(priceBeforeDiscount
+                            .text),
+                        priceAfterDiscount: double.parse(priceAfterDiscount
+                            .text),
+                      );
+                      await context.read<OfferCubit>().addOffer(offer);
                     }
                   }:null,
                   child: Text(
@@ -190,67 +202,13 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
       ),
     );
   }
-  Widget buildDatePickerTile({
-    required String title,
-    required DateTime? date,
-    required VoidCallback onTap,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 14,
-          vertical: 14,
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: AppColor.mainColor.withOpacity(.3),
-          ),
-          color: Colors.grey.shade50,
-        ),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: AppColor.mainColor.withOpacity(.1),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Icon(
-                Icons.calendar_month_rounded,
-                color: AppColor.mainColor,
-              ),
-            ),
 
-            const SizedBox(width: 12),
-
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.grey,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    date == null
-                        ? 'اختر التاريخ'
-                        : '${date.day}/${date.month}/${date.year}',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                ],
-              ),
-            ),
-
-            const Icon(Icons.arrow_forward_ios_rounded, size: 16),
-          ],
-        ),
-      ),
-    );
+  @override
+  void dispose() {
+    discountController.dispose();
+    priceBeforeDiscount.dispose();
+    priceAfterDiscount.dispose();
+    super.dispose();
   }
 }
+
