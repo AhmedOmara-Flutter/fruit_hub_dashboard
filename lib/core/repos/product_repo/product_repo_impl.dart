@@ -32,8 +32,13 @@ class ProductRepoImpl implements ProductRepo {
   }
 
   @override
-  Future<void> deleteProduct(String productId) async {
-    return await _databaseServices.deleteData(path: 'products', uId: productId);
+  Future<Either<Failure,void>> deleteProduct(String productId) async {
+    try {
+      final res= await _databaseServices.deleteData(path: 'products', uId: productId);
+      return Right(res);
+    } on Exception catch (e) {
+      return Left(ServerFailure(errMessage: e.toString()));
+    }
   }
 
   @override
@@ -46,6 +51,25 @@ class ProductRepoImpl implements ProductRepo {
       return Right(products);
     } on Exception catch (e) {
       return Left(ServerFailure(errMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<ProductEntity>>> getFilteredProducts(
+      String category,) async {
+    try {
+      final result = await _databaseServices.getData(
+        path: 'products',
+        query: {'where': 'category', 'isEqualTo': category},
+      ) as List<Map<String, dynamic>>;
+
+      List<ProductEntity> products = result
+          .map((product) => ProductModel.fromJson(product).toEntity())
+          .toList();
+      return Right(products);
+    } catch (e) {
+      print('error from getFilteredProducts is $e');
+      return Left(Failure(errMessage: e.toString()));
     }
   }
 }

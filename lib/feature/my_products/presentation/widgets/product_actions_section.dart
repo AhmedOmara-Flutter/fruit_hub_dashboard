@@ -1,29 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/core/helper_function/custom_show_dialog.dart';
+import 'package:fruit_hub_dashboard/core/helper_function/custom_show_snake_bar.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
-import '../view_model/my_products_cubit.dart';
+
+import '../../../offers/domain/entities/offer_entity.dart';
+import '../../../offers/presentation/view_model/offer_cubit.dart';
 import 'add_offer_bottom_sheet.dart';
 
 class ProductActionsSection extends StatelessWidget {
   final ProductEntity product;
+  final bool hasOffer;
+  final OfferEntity? offer;
 
-  const ProductActionsSection(this.product, {super.key});
+  const ProductActionsSection({
+    super.key,
+    required this.hasOffer,
+    required this.product,
+    this.offer,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MyProductsCubit, MyProductsState>(
-      builder: (context, state) {
-        print('CURRENT STATE => ${state.runtimeType}');
+    return BlocListener<OfferCubit, OfferState>(
+      listener: (context, state) {
+        if (state is DeleteOfferSuccess) {
+          Navigator.pop(context);
+        }
 
-        return Row(
+        if (state is DeleteOfferFailure) {
+          Navigator.pop(context);
+          customShowSnakeBar(context, color: Colors.red, label: state.message);
+        }
+      },
+      child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           child: Container(
-            margin: EdgeInsets.only(top: 10),
-            padding: EdgeInsets.symmetric(vertical: 10),
+            margin: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
               color: AppColor.mainColor,
               borderRadius: BorderRadius.circular(5),
@@ -34,9 +51,11 @@ class ProductActionsSection extends StatelessWidget {
               child: Text(
                 'تعديل',
                 textAlign: TextAlign.center,
-                style: Theme.of(
-                  context,
-                ).textTheme.titleSmall!.copyWith(color: Colors.white),
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .titleSmall!
+                    .copyWith(color: Colors.white),
               ),
             ),
           ),
@@ -44,41 +63,42 @@ class ProductActionsSection extends StatelessWidget {
         const SizedBox(width: 5),
         Expanded(
           child: Container(
-            margin: EdgeInsets.only(top: 10),
-            padding: EdgeInsets.symmetric(vertical: 10),
+            margin: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
               color: Colors.red,
               borderRadius: BorderRadius.circular(5),
               border: Border.all(color: Colors.grey.shade300),
             ),
             child: InkWell(
-                  onTap: () {
-                    customShowDialog(
-                      context,
-                      title: 'حذف المنتج',
-                      content: Text(
-                        'هل أنت متأكد أنك تريد حذف هذا المنتج؟',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(
-                          context,
-                        ).textTheme.titleMedium!.copyWith(color: Colors.grey),
-                      ),
-                      cancel: () {
-                        Navigator.pop(context);
-                      },
-                      accept: () {
-                        context.read<MyProductsCubit>().deleteProduct(
-                          product.id ?? '',
-                        );
-                      },
-                    );
+              onTap: () {
+                customShowDialog(
+                  context,
+                  title: 'حذف المنتج',
+                  content: Text(
+                    'هل أنت متأكد أنك تريد حذف هذا المنتج؟',
+                    textAlign: TextAlign.center,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(color: Colors.grey),
+                  ),
+                  cancel: () => Navigator.pop(context),
+                  accept: () {
+                    // context.read<MyProductsCubit>().deleteProduct(product.id ?? '');
                   },
-                  child: Text(
+                  icon: Icons.shopping_bag_outlined,
+                );
+              },
+              child: Text(
                 'حذف',
                 textAlign: TextAlign.center,
-                style: Theme.of(
-                  context,
-                ).textTheme.titleSmall!.copyWith(color: Colors.white),
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .titleSmall!
+                    .copyWith(color: Colors.white),
               ),
             ),
           ),
@@ -86,33 +106,89 @@ class ProductActionsSection extends StatelessWidget {
         const SizedBox(width: 5),
         Expanded(
           child: Container(
-            margin: EdgeInsets.only(top: 10),
-            padding: EdgeInsets.symmetric(vertical: 10),
+            margin: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
               color: Colors.orange,
               borderRadius: BorderRadius.circular(5),
               border: Border.all(color: Colors.grey.shade300),
             ),
-            child: InkWell(
+            child: hasOffer
+                ? InkWell(
+              onTap: () {
+                customShowDialog(
+                  context,
+                  title: 'حذف العرض',
+                  content: Text(
+                    'هل أنت متأكد أنك تريد حذف هذا العرض؟',
+                    textAlign: TextAlign.center,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(color: Colors.grey),
+                  ),
+                  cancel: () => Navigator.pop(context),
+                  accept: () {
+                    context
+                        .read<OfferCubit>()
+                        .deleteOffer(offer?.id ?? '');
+                  },
+                  icon: Icons.local_offer_outlined,
+                  confirmChild: BlocBuilder<OfferCubit, OfferState>(
+                    builder: (context, state) {
+                      final isLoading =
+                      state is DeleteOfferLoading;
+
+                      return isLoading
+                          ? const SizedBox(
+                        height: 18,
+                        width: 18,
+                        child:
+                        CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.white,
+                        ),
+                      )
+                          : Text(
+                        'تأكيد الحذف',
+                        textAlign: TextAlign.center,
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(
+                            color: Colors.white),
+                      );
+                    },
+                  ),
+                );
+              },
+              child: Text(
+                'حذف عرض',
+                textAlign: TextAlign.center,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .titleSmall!
+                    .copyWith(color: Colors.white),
+              ),
+            )
+                : InkWell(
               onTap: () {
                 showModalBottomSheet(
                   isScrollControlled: true,
                   backgroundColor: Colors.white,
                   context: context,
                   builder: (context) =>
-                      AddOfferBottomSheet(
-                        product: product,
-
-                      ),
+                      AddOfferBottomSheet(product: product),
                 );
               },
               child: Text(
                 'اضافه عرض',
                 textAlign: TextAlign.center,
                 style: Theme
-                    .of(
-                  context,
-                )
+                    .of(context)
                     .textTheme
                     .titleSmall!
                     .copyWith(color: Colors.white),
@@ -121,9 +197,7 @@ class ProductActionsSection extends StatelessWidget {
           ),
         ),
       ],
-    );
-      },
+      ),
     );
   }
 }
-

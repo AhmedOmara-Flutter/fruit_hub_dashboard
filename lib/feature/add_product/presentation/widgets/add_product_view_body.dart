@@ -12,8 +12,10 @@ import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_
 import 'package:fruit_hub_dashboard/feature/add_product/presentation/widgets/background_card.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/presentation/widgets/custom_is_featured.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/presentation/widgets/custom_is_organic.dart';
+import 'package:fruit_hub_dashboard/feature/my_products/presentation/view_model/my_products_cubit.dart';
 
 import '../../../../core/widgets/custom_sub_images.dart';
+import '../../../main/presentation/view_model/main_cubit.dart';
 import '../view_model/add_product_cubit.dart';
 
 class AddProductViewBody extends StatefulWidget {
@@ -49,7 +51,20 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddProductCubit, AddProductState>(
+    return BlocConsumer<AddProductCubit, AddProductState>(
+      listener: (context, state) {
+        if (state is AddProductFailure) {
+          customShowSnakeBar(
+              context, color: Colors.red, label: state.errMessage);
+        }
+        if (state is AddProductSuccess) {
+          clearForm();
+          context.read<MainCubit>().changeIndex(0);
+          customShowSnakeBar(
+              context, color: Colors.green, label: 'تم الاضافه بنجاح');
+        }
+      },
+
       builder: (context, state) {
         return Stack(
           children: [
@@ -363,9 +378,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
 
                                         );
                                     context.read<AddProductCubit>().addProduct(
-                                      addProductEntity,
-
-                                    );
+                                      addProductEntity,);
                                   } else {
                                     customShowSnakeBar(
                                       context,
@@ -417,6 +430,40 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
         );
       },
     );
+  }
+
+  void clearForm() {
+    print('before: ${nameController.text}');
+    setState(() {
+      nameController.clear();
+    codeController.clear();
+    priceController.clear();
+    descriptionController.clear();
+    expirationMonthController.clear();
+    unitAmountController.clear();
+    numberOfCaloriesController.clear();
+    print('after: ${nameController.text}');
+     image = null;
+      subImagesFiles = null;
+      selectedCategory = null;
+      isFeatured = false;
+      isOrganic = false;
+      autoValidateMode = AutovalidateMode.disabled;
+    });
+
+    _formKey.currentState?.reset();
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    codeController.dispose();
+    priceController.dispose();
+    descriptionController.dispose();
+    expirationMonthController.dispose();
+    unitAmountController.dispose();
+    numberOfCaloriesController.dispose();
+    super.dispose();
   }
 }
 

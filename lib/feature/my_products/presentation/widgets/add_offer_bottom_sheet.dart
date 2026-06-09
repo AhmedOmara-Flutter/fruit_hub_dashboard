@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruit_hub_dashboard/core/helper_function/custom_show_snake_bar.dart';
+import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/build_date_picker_tile.dart';
 import 'package:fruit_hub_dashboard/feature/offers/domain/entities/offer_entity.dart';
-
 import '../../../../core/widgets/custom_text_form_field.dart';
 import '../../../add_product/domain/entities/product_entity.dart';
 import '../../../offers/presentation/view_model/offer_cubit.dart';
@@ -21,11 +22,9 @@ class AddOfferBottomSheet extends StatefulWidget {
 
 class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
   final _formKey = GlobalKey<FormState>();
-
   final TextEditingController discountController = TextEditingController();
   final TextEditingController priceBeforeDiscount = TextEditingController();
   final TextEditingController priceAfterDiscount = TextEditingController();
-
   DateTime? startDate;
   DateTime? endDate;
 
@@ -34,19 +33,16 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
           startDate != null &&
           endDate != null &&
           !endDate!.isBefore(startDate!);
+
   @override
   void initState() {
     super.initState();
-
     priceBeforeDiscount.text = widget.product.price.toString();
     priceAfterDiscount.text = widget.product.price.toString();
-
     discountController.addListener(() {
       final discount = double.tryParse(discountController.text) ?? 0;
-
       final result = widget.product.price -
           (widget.product.price * discount / 100);
-
       priceAfterDiscount.text = result % 1 == 0
           ? result.toInt().toString()
           : result.toStringAsFixed(2);
@@ -55,6 +51,7 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
 
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -168,33 +165,66 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                 },
               ),
               const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: canSave ? () async {
-                    if (_formKey.currentState!.validate()) {
-                      OfferEntity offer = OfferEntity(
-                        productId: widget.product.id!,
-                        discountPercentage: double.parse(discountController
-                            .text),
+              BlocConsumer<OfferCubit, OfferState>(
+                  listener: (context, state) {
+                    print(state.runtimeType);
 
-                        startDate: startDate?? DateTime.now(),
-                        endDate: endDate?? DateTime.now(),
-                        image: widget.product.image ?? "",
-                        name: widget.product.name,
-                        priceBeforeDiscount: double.parse(priceBeforeDiscount
-                            .text),
-                        priceAfterDiscount: double.parse(priceAfterDiscount
-                            .text),
+                    if (state is OffersFailure) {
+                      customShowSnakeBar(
+                        context,
+                        color: Colors.red,
+                        label: state.errMessage,
                       );
-                      await context.read<OfferCubit>().addOffer(offer);
                     }
-                  }:null,
-                  child: Text(
-                    'حفظ العرض',
-                    style: Theme.of(context).textTheme.labelSmall,
-                  ),
-                ),
+
+                    if (state is OffersSuccess) {
+                      print('SUCCESS');
+
+                      Navigator.pop(context);
+
+                      customShowSnakeBar(
+                        context,
+                        color: AppColor.mainColor,
+                        label: 'تم حفظ العرض بنجاح',
+                      );
+                    }
+                  },
+                builder: (context, state) {
+                  return state is OffersLoading == true
+                      ? CircularProgressIndicator(color: AppColor.mainColor,)
+                      : SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: canSave ? () async {
+                        if (_formKey.currentState!.validate()) {
+                          OfferEntity offer = OfferEntity(
+                            productId: widget.product.id!,
+                            discountPercentage: double.parse(discountController
+                                .text),
+
+                            startDate: startDate ?? DateTime.now(),
+                            endDate: endDate ?? DateTime.now(),
+                            image: widget.product.image ?? "",
+                            name: widget.product.name,
+                            priceBeforeDiscount: double.parse(
+                                priceBeforeDiscount
+                                    .text),
+                            priceAfterDiscount: double.parse(priceAfterDiscount
+                                .text),
+                          );
+                          await context.read<OfferCubit>().addOffer(offer);
+                        }
+                      } : null,
+                      child: Text(
+                        'حفظ العرض',
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .labelSmall,
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           ),

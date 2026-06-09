@@ -7,10 +7,10 @@ import '../../../../core/repos/upload_image_repo/upload_image_repo.dart';
 part 'add_product_state.dart';
 
 class AddProductCubit extends Cubit<AddProductState> {
-  AddProductCubit(this._addRepo, this._uploadImageRepo)
+  AddProductCubit(this._productRepo, this._uploadImageRepo)
     : super(AddProductInitial());
 
-  final ProductRepo _addRepo;
+  final ProductRepo _productRepo;
   final UploadImageRepo _uploadImageRepo;
 
   Future<void> addProduct(ProductEntity productEntity) async {
@@ -35,7 +35,7 @@ class AddProductCubit extends Cubit<AddProductState> {
           (subImagesResult) async {
             productEntity.image = mainImageResult;
             productEntity.subImages = subImagesResult;
-            final result = await _addRepo.addProduct(productEntity);
+            final result = await _productRepo.addProduct(productEntity);
             await result.fold(
               (failure) async {
                 emit(AddProductFailure(failure.errMessage));

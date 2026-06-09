@@ -1,21 +1,39 @@
 import 'package:bloc/bloc.dart';
 import 'package:fruit_hub_dashboard/core/repos/product_repo/product_repo.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
-import 'package:fruit_hub_dashboard/feature/my_products/domain/repos/my_product_repo.dart';
 import 'package:meta/meta.dart';
-
 part 'my_products_state.dart';
 
 class MyProductsCubit extends Cubit<MyProductsState> {
-  MyProductsCubit(this._myProductRepo, this._productRepo)
+  MyProductsCubit(this._productRepo)
     : super(MyProductsInitial());
-  final MyProductRepo _myProductRepo;
   final ProductRepo _productRepo;
   List<ProductEntity> filteredProducts = [];
 
+
+
+  Future<void> getProducts() async {
+    emit(GetFilteredProductsLoading());
+
+    final result = await _productRepo.getProducts();
+
+    result.fold(
+          (failure) => emit(GetFilteredProductsError(failure.errMessage)),
+          (products) {
+        filteredProducts = products;
+
+        if (filteredProducts.isEmpty) {
+          emit(GetFilteredProductsEmpty());
+        } else {
+          emit(GetFilteredProductsSuccess());
+        }
+      },
+    );
+  }
+
   Future<void> getFilteredProducts(String category) async {
     emit(GetFilteredProductsLoading());
-    final result = await _myProductRepo.getFilteredProducts(category);
+    final result = await _productRepo.getFilteredProducts(category);
     result.fold(
       (failure) => emit(GetFilteredProductsError(failure.errMessage)),
       (data) {
@@ -29,15 +47,15 @@ class MyProductsCubit extends Cubit<MyProductsState> {
     );
   }
 
-  Future<void> deleteProduct(String productId) async {
-    emit(DeleteProductLoading());
-    try {
-      await _productRepo.deleteProduct(productId);
-      filteredProducts.removeWhere((p) => p.id == productId);
-
-      emit(DeleteProductSuccess());
-    } catch (e) {
-      emit(DeleteProductError(e.toString()));
-    }
-  }
+  // Future<void> deleteProduct(String productId) async {
+  //   emit(DeleteProductLoading());
+  //   try {
+  //     await _productRepo.deleteProduct(productId);
+  //     filteredProducts.removeWhere((p) => p.id == productId);
+  //
+  //     emit(DeleteProductSuccess());
+  //   } catch (e) {
+  //     emit(DeleteProductError(e.toString()));
+  //   }
+  // }
 }

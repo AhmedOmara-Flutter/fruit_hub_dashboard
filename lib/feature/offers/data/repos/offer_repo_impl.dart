@@ -24,9 +24,14 @@ class OfferRepoImpl implements OfferRepo {
   }
 
   @override
-  Future<Either<Failure, void>> deleteOffer(String offerId) {
-    // TODO: implement deleteOffer
-    throw UnimplementedError();
+  Future<Either<Failure, void>> deleteOffer(String offerId) async {
+    try {
+      final res = await _databaseServices.deleteData(
+          path: 'offers', uId: offerId);
+      return Right(res);
+    } on Exception catch (e) {
+      return Left(ServerFailure(errMessage: e.toString()));
+    }
   }
 
   @override

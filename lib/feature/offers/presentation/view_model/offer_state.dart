@@ -21,3 +21,10 @@ final class  GeOffersSuccess extends OfferState {
   final List<OfferEntity> offers;
   GeOffersSuccess(this.offers);
 }
+
+class DeleteOfferLoading extends OfferState {}
+class DeleteOfferSuccess extends OfferState {}
+class DeleteOfferFailure extends OfferState {
+  final String message;
+  DeleteOfferFailure(this.message);
+}

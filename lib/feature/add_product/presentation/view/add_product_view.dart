@@ -22,21 +22,7 @@ class AddProductView extends StatelessWidget {
               UploadImageRepoImpl(SupabaseStorage()),
             ),
 
-        child: BlocConsumer<AddProductCubit, AddProductState>(
-          listener: (context, state) {
-            if (state is AddProductFailure) {
-              customShowSnakeBar(
-                  context, color: Colors.red, label: state.errMessage);
-            }
-            if (state is AddProductSuccess) {
-              customShowSnakeBar(
-                  context, color: Colors.green, label: 'تم الاضافه بنجاح');
-            }
-          },
-          builder: (context, state) {
-            return AddProductViewBody();
-          },
-        )
+        child: AddProductViewBody()
     );
   }
 }

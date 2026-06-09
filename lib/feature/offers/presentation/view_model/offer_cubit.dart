@@ -19,7 +19,8 @@ class OfferCubit extends Cubit<OfferState> {
         emit(OffersFailure(failure.errMessage));
       },
       (success) async {
-        emit(OffersSuccess());
+       emit(OffersSuccess());
+       await getOffers();
       },
     );
   }
@@ -38,6 +39,20 @@ class OfferCubit extends Cubit<OfferState> {
         } else {
           emit(GeOffersSuccess(offers));
         }
+      },
+    );
+  }
+
+  Future<void> deleteOffer(String offerId) async {
+    emit(DeleteOfferLoading());
+    final result = await _offerRepo.deleteOffer(offerId);
+    await result.fold(
+      (failure) async {
+        emit(DeleteOfferFailure(failure.errMessage));
+      },
+      (success) async {
+        emit(DeleteOfferSuccess());
+        await getOffers();
       },
     );
   }

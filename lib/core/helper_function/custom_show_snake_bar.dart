@@ -9,6 +9,7 @@ void customShowSnakeBar(
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       backgroundColor: color,
+      behavior:SnackBarBehavior.floating,
       content: Text(label),
     ),
   );

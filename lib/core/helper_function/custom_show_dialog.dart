@@ -5,10 +5,14 @@ import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 customShowDialog(
   BuildContext context, {
   required String title,
+      required IconData icon,
   required Widget content,
   void Function()? cancel,
   void Function()? accept,
-}) {
+      Widget? confirmChild,
+
+
+    }) {
   return showDialog(
     context: context,
     barrierDismissible: true,
@@ -23,8 +27,8 @@ customShowDialog(
             CircleAvatar(
               radius: 35,
               backgroundColor: AppColor.mainColor.withOpacity(0.08),
-              child: const Icon(
-                Icons.payment_rounded,
+              child: Icon(
+                icon,
                 color: AppColor.mainColor,
                 size: 35,
               ),
@@ -55,11 +59,13 @@ customShowDialog(
                 Expanded(
                   child: ElevatedButton(
                     onPressed: accept,
-                    child: Text(
+                    child: confirmChild ?? Text(
                       'تأكيد',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.titleMedium!.copyWith(color: Colors.white),
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .titleMedium!
+                          .copyWith(color: Colors.white),
                     ),
                   ),
                 ),

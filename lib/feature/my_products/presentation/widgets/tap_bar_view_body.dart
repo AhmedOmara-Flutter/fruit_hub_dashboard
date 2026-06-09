@@ -6,6 +6,8 @@ import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/pro
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/skeletonizer_product_card.dart';
 
 import '../../../../core/helper_function/get_dummy_products.dart';
+import '../../../offers/domain/entities/offer_entity.dart';
+import '../../../offers/presentation/view_model/offer_cubit.dart';
 
 class TapBarViewBody extends StatefulWidget {
   final String category;
@@ -28,16 +30,33 @@ class _TapBarViewBodyState extends State<TapBarViewBody> {
   Widget build(BuildContext context) {
     return BlocBuilder<MyProductsCubit, MyProductsState>(
       builder: (context, state) {
-        final cubit = context.read<MyProductsCubit>();
-        if (state is GetFilteredProductsError) {
-          return Center(child: Text(state.errMessage));
-        }
-        if (state is GetFilteredProductsSuccess) {
-          final products = cubit.filteredProducts;
-
+        final products = context
+            .read<MyProductsCubit>()
+            .filteredProducts;
+        final offers = context
+            .watch<OfferCubit>()
+            .offers;
+        if (state is GetFilteredProductsLoading) {
           return ListView.separated(
             padding: EdgeInsets.only(left: 8, right: 8, top: 10),
-            itemBuilder: (context, index) => ProductCard(product: products[index]),
+            itemBuilder: (context, index) =>
+                SkeletonizerProductCard(getDummyProduct),
+            separatorBuilder: (context, index) => SizedBox(height: 5),
+            itemCount: getDummyProducts.length,
+          );
+        }
+        if (state is GetFilteredProductsSuccess) {
+          return ListView.separated(
+            padding: EdgeInsets.only(left: 8, right: 8, top: 10),
+            itemBuilder: (context, index) {
+              final product = products[index];
+
+              final offer = offers.cast<OfferEntity?>().firstWhere(
+                    (e) => e?.productId == product.id,
+                orElse: () => null,
+              );
+              return ProductCard(product: products[index], offer: offer,);
+            },
             separatorBuilder: (context, index) => SizedBox(height: 5),
             itemCount: products.length,
           );
@@ -45,13 +64,11 @@ class _TapBarViewBodyState extends State<TapBarViewBody> {
         if (state is GetFilteredProductsEmpty) {
           return EmptyProductsWidget();
         }
-        return ListView.separated(
-          padding: EdgeInsets.only(left: 8, right: 8, top: 10),
-          itemBuilder: (context, index) =>
-              SkeletonizerProductCard(getDummyProduct),
-          separatorBuilder: (context, index) => SizedBox(height: 5),
-          itemCount: getDummyProducts.length,
-        );
+        if (state is GetFilteredProductsError) {
+          return Center(child: Text(state.errMessage));
+        }
+
+        return SizedBox.shrink();
       },
     );
   }

@@ -7,5 +7,5 @@ abstract class ProductRepo {
   Future<Either<Failure, void>> updateProduct(ProductEntity productEntity);
   Future<void> deleteProduct(String productId);
   Future<Either<Failure, List<ProductEntity>>> getProducts();
-
+  Future<Either<Failure,List<ProductEntity>>>getFilteredProducts(String category);
 }
