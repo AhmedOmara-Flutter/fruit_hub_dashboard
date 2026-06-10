@@ -9,8 +9,8 @@ class MyProductsViewBody extends StatelessWidget{
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 10),
-        CustomTextField(onChanged: (value) {}),
+        // SizedBox(height: 10),
+        // CustomTextField(onChanged: (value) {}),
         Expanded(child: CategoryTabs()),
       ],
     );

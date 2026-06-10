@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:fruit_hub_dashboard/core/repos/product_repo/product_repo.dart';
-import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
+import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
 import 'package:meta/meta.dart';
 part 'my_products_state.dart';
 
@@ -9,8 +9,6 @@ class MyProductsCubit extends Cubit<MyProductsState> {
     : super(MyProductsInitial());
   final ProductRepo _productRepo;
   List<ProductEntity> filteredProducts = [];
-
-
 
   Future<void> getProducts() async {
     emit(GetFilteredProductsLoading());

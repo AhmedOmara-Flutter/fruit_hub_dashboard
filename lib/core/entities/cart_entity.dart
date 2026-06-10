@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_constants.dart';
-import '../../feature/add_product/domain/entities/product_entity.dart';
+import 'product_entity.dart';
 import 'cart_item_entity.dart';
 
 class CartEntity extends Equatable{

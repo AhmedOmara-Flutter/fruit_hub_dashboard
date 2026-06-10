@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:fruit_hub_dashboard/feature/reviews/domain/repos/review_repo.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../add_product/domain/entities/product_entity.dart';
+import '../../../../../core/entities/product_entity.dart';
 
 part 'get_product_with_reviews_state.dart';
 

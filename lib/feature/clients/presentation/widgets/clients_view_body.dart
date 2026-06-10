@@ -4,6 +4,7 @@ import 'package:fruit_hub_dashboard/core/entities/user_entity.dart';
 import 'package:fruit_hub_dashboard/feature/clients/presentation/widgets/custom_text_field.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../../../core/widgets/empty_widget.dart';
 import '../view_model/clients_cubit.dart';
 import 'customer_card.dart';
 import 'customer_statistics_section.dart';
@@ -56,6 +57,26 @@ class ClientsViewBody extends StatelessWidget {
               final clients = context
                   .read<ClientsCubit>()
                   .filteredClients;
+
+              if (clients.isEmpty) {
+                return SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Stack(
+                  //  alignment: Alignment.bottomCenter,
+                    children: [
+                      SizedBox(child: EmptyWidget()),
+                      // Center(
+                      //   child: Container(margin: EdgeInsets.only(top: 10),
+                      //       child: Text('لا يوجد حاليا عملاء', style: Theme
+                      //           .of(context)
+                      //           .textTheme
+                      //           .labelLarge,)),
+                      //),
+                    ],
+                  ),
+                );
+
+              }
 
               return SliverList.builder(
                 itemBuilder: (context, index) {

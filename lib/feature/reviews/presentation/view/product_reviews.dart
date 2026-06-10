@@ -3,7 +3,7 @@ import 'package:fruit_hub_dashboard/feature/reviews/presentation/widgets/product
 
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/widgets/custom_back_button.dart';
-import '../../../add_product/domain/entities/product_entity.dart';
+import '../../../../core/entities/product_entity.dart';
 
 class ProductReviewsView extends StatelessWidget {
  final ProductEntity product;

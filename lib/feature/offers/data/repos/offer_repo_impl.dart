@@ -15,7 +15,7 @@ class OfferRepoImpl implements OfferRepo {
     try {
       final result = await _databaseServices.addData(
         path: 'offers',
-        data: OffersModel.fromEntity(offer).toJson(),
+        data: OfferModel.fromEntity(offer).toJson(),
       );
       return Right(result);
     } on Exception catch (e) {
@@ -41,7 +41,7 @@ class OfferRepoImpl implements OfferRepo {
           await _databaseServices.getData(path: 'offers')
               as List<Map<String, dynamic>>;
       List<OfferEntity> offers = result
-          .map((e) => OffersModel.fromJson(e).toEntity())
+          .map((e) => OfferModel.fromJson(e).toEntity())
           .toList();
       return Right(offers);
     } on Exception catch (e) {

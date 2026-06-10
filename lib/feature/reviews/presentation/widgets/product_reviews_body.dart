@@ -6,7 +6,7 @@ import 'package:fruit_hub_dashboard/feature/reviews/presentation/widgets/review_
 import 'package:fruit_hub_dashboard/feature/reviews/presentation/widgets/skeletonizer_review_card.dart';
 
 import '../../../../generated/assets.dart';
-import '../../../add_product/domain/entities/product_entity.dart';
+import '../../../../core/entities/product_entity.dart';
 import '../../domain/entities/review_entity.dart';
 
 class ProductReviewsViewBody extends StatefulWidget {

@@ -4,6 +4,7 @@ import 'package:fruit_hub_dashboard/feature/admin/presentation/view_model/admin_
 import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/product_item.dart';
 import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/skeletonizer_product_item.dart';
 
+import '../../../../core/widgets/empty_widget.dart';
 import '../../../../generated/assets.dart';
 
 class BestSellerListView extends StatelessWidget {

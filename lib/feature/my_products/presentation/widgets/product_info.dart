@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
+import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
 
 import '../../../../../core/utils/app_color.dart';
 

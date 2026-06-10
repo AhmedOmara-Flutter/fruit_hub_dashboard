@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:fruit_hub_dashboard/core/repos/product_repo/product_repo.dart';
-import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
+import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
 import 'package:meta/meta.dart';
 import '../../../../core/repos/upload_image_repo/upload_image_repo.dart';
 

@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruit_hub_dashboard/core/widgets/empty_widget.dart';
 import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/skeletonizer_order_item.dart';
 
 import '../../../../core/helper_function/get_date_formate.dart';
@@ -41,7 +42,8 @@ class RecentOrdersListView extends StatelessWidget {
        }
 
         if (recentOrders.isEmpty) {
-          return Container(margin: EdgeInsets.only(bottom: 10),
+
+          return   Container(margin: EdgeInsets.only(bottom: 10),
               child: Text('لا يوجد حاليا طلبات حديثه', style: Theme
                   .of(context)
                   .textTheme

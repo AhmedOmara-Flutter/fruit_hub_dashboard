@@ -6,7 +6,7 @@ import 'package:fruit_hub_dashboard/feature/clients/presentation/view/display_or
 import 'package:fruit_hub_dashboard/feature/main/presentation/view/main_view.dart';
 import 'package:fruit_hub_dashboard/feature/splash/view/splash_view.dart';
 
-import '../../feature/add_product/domain/entities/product_entity.dart';
+import '../entities/product_entity.dart';
 import '../../feature/reviews/domain/entities/review_entity.dart';
 import '../../feature/reviews/presentation/view/product_reviews.dart';
 

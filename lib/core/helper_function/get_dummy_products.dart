@@ -1,4 +1,4 @@
-import '../../feature/add_product/domain/entities/product_entity.dart';
+import '../entities/product_entity.dart';
 
 ProductEntity getDummyProduct = ProductEntity(
   name: 'Organic Apple',

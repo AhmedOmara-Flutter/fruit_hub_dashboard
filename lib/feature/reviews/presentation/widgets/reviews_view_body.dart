@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
-import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
+import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
 import 'package:fruit_hub_dashboard/feature/reviews/presentation/widgets/review_item.dart';
 import 'package:fruit_hub_dashboard/feature/reviews/presentation/widgets/skeletonizer_review_item.dart';
 import 'package:lottie/lottie.dart';

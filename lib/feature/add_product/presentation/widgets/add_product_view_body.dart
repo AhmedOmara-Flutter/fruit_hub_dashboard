@@ -8,7 +8,7 @@ import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/widgets/custom_button.dart';
 import 'package:fruit_hub_dashboard/core/widgets/custom_image_picker.dart';
 import 'package:fruit_hub_dashboard/core/widgets/custom_text_form_field.dart';
-import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
+import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/presentation/widgets/background_card.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/presentation/widgets/custom_is_featured.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/presentation/widgets/custom_is_organic.dart';
@@ -374,7 +374,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                                           subImagesFiles: subImagesFiles!,
                                           category: selectedCategory!,
                                           createdAt: DateTime.now()
-                                              .toString()
+                                              .toString(),
 
                                         );
                                     context.read<AddProductCubit>().addProduct(

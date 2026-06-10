@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/app_color.dart';
-import '../../../add_product/domain/entities/product_entity.dart';
+import '../../../../core/entities/product_entity.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/app_color.dart';
-import '../../../add_product/domain/entities/product_entity.dart';
+import '../../../../core/entities/product_entity.dart';
 
 class ProductReviewCard extends StatelessWidget {
   const ProductReviewCard({

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
+import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/product_actions_section.dart';
 import 'package:fruit_hub_dashboard/feature/offers/domain/entities/offer_entity.dart';
 
@@ -154,32 +154,16 @@ class ProductCard extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Colors.red.withOpacity(.08),
+                  color: Colors.green.withOpacity(.08),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.red.withOpacity(.2)),
+                  border: Border.all(color: Colors.green.withOpacity(.2)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        const Icon(
-                            Icons.local_offer_outlined, color: Colors.red),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            'خصم ${offer!.discountPercentage}%',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                        Text(
-                          '📅  من ${_formatDate(offer!.startDate)} → إلى ${_formatDate(offer!.endDate)}',
-                          style:Theme.of(context).textTheme.titleMedium ,)
-
-                      ],
-                    ),
+                    Text(
+                      '📅  من ${_formatDate(offer!.startDate)} ← إلى ${_formatDate(offer!.endDate)}',
+                      style:Theme.of(context).textTheme.titleMedium ,),
                   ],
                 ),),
                  const SizedBox(height: 10),

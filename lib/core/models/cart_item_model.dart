@@ -1,7 +1,7 @@
 
 import 'package:fruit_hub_dashboard/core/entities/cart_item_entity.dart';
 
-import '../../feature/add_product/data/models/product_model.dart';
+import 'product_model.dart';
 
 class CartItemModel extends CartItemEntity {
   CartItemModel({

@@ -1,4 +1,4 @@
-import 'package:fruit_hub_dashboard/feature/add_product/domain/entities/product_entity.dart';
+import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
 
 class ProductModel extends ProductEntity {
   ProductModel({
@@ -22,6 +22,7 @@ class ProductModel extends ProductEntity {
     super.averageRating = 0.0,
     super.reviewsCount = 0,
     super.ratingSum = 0.0,
+    super.offerId,
   });
 
   factory ProductModel.fromEntity(ProductEntity entity) {
@@ -46,6 +47,7 @@ class ProductModel extends ProductEntity {
       averageRating: entity.averageRating,
       reviewsCount: entity.reviewsCount,
       ratingSum: entity.ratingSum,
+      offerId: entity.offerId,
     );
   }
 
@@ -71,6 +73,7 @@ class ProductModel extends ProductEntity {
       averageRating: averageRating,
       reviewsCount: reviewsCount,
       ratingSum: ratingSum,
+      offerId: offerId,
     );
   }
 
@@ -94,6 +97,7 @@ class ProductModel extends ProductEntity {
       averageRating: (json['averageRating'] ?? 0).toDouble(),
       reviewsCount: json['reviewsCount'] ?? 0,
       ratingSum: (json['ratingSum'] ?? 0).toDouble(),
+      offerId: json['offerId'],
     );
   }
   Map<String, dynamic> toJson() {
@@ -116,6 +120,7 @@ class ProductModel extends ProductEntity {
       'averageRating': averageRating,
       'reviewsCount': reviewsCount,
       'ratingSum': ratingSum,
+      'offerId': offerId
     };
   }
 }

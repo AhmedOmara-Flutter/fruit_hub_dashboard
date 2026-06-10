@@ -4,8 +4,8 @@ import 'package:fruit_hub_dashboard/core/services/database_services.dart';
 import 'package:fruit_hub_dashboard/feature/reviews/data/models/review_model.dart';
 import 'package:fruit_hub_dashboard/feature/reviews/domain/entities/review_entity.dart';
 
-import '../../../add_product/data/models/product_model.dart';
-import '../../../add_product/domain/entities/product_entity.dart';
+import '../../../../core/models/product_model.dart';
+import '../../../../core/entities/product_entity.dart';
 import '../../domain/repos/review_repo.dart';
 
 class ReviewRepoImpl implements ReviewRepo {
