@@ -38,6 +38,7 @@ class AddProductCubit extends Cubit<AddProductState> {
             final result = await _productRepo.addProduct(productEntity);
             await result.fold(
               (failure) async {
+                print(failure.errMessage);
                 emit(AddProductFailure(failure.errMessage));
               },
               (success) async {

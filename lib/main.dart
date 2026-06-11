@@ -60,9 +60,8 @@ class MyApp extends StatelessWidget {
               FirestoreDatabase(),
             ))),
         BlocProvider(create: (context) =>
-            OfferCubit(
-              OfferRepoImpl(FirestoreDatabase()),
-            )),
+            OfferCubit(OfferRepoImpl(FirestoreDatabase()),
+                ProductRepoImpl(FirestoreDatabase()))),
 
 
       ],

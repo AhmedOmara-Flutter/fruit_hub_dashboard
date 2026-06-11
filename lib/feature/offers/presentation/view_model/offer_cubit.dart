@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:fruit_hub_dashboard/core/repos/product_repo/product_repo.dart';
 import 'package:meta/meta.dart';
 
 import '../../domain/entities/offer_entity.dart';
@@ -7,18 +8,26 @@ import '../../domain/repos/offer_repo.dart';
 part 'offer_state.dart';
 
 class OfferCubit extends Cubit<OfferState> {
-  OfferCubit(this._offerRepo) : super(OffersInitial());
+  OfferCubit(this._offerRepo, this._productsRepo) : super(OffersInitial());
   final OfferRepo _offerRepo;
+  final ProductRepo _productsRepo;
   List<OfferEntity> offers = [];
 
-  Future<void> addOffer(OfferEntity offerEntity) async {
+  Future<void> addOffer(OfferEntity offer) async {
     emit(OffersLoading());
-    final result = await _offerRepo.addOffer(offerEntity);
+    final result = await _offerRepo.addOffer(offer);
     await result.fold(
       (failure) async {
         emit(OffersFailure(failure.errMessage));
       },
-      (success) async {
+      (offerId) async {
+        await _productsRepo.updateProductField(
+          productId: offer.productId,
+          data: {
+            'offerId': offerId,
+          },
+        );
+        print('offerId is $offerId');
        emit(OffersSuccess());
        await getOffers();
       },

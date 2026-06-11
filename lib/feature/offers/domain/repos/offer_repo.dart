@@ -3,7 +3,7 @@ import 'package:fruit_hub_dashboard/feature/offers/domain/entities/offer_entity.
 import '../../../../core/errors/failure.dart';
 
 abstract class OfferRepo {
-  Future<Either<Failure, void>> addOffer(OfferEntity offer,);
+  Future<Either<Failure, String>> addOffer(OfferEntity offer,);
 
   Future<Either<Failure, List<OfferEntity>>> getOffers();
 

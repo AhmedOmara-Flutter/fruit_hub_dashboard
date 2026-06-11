@@ -11,13 +11,13 @@ class OfferRepoImpl implements OfferRepo {
   OfferRepoImpl(this._databaseServices);
 
   @override
-  Future<Either<Failure, void>> addOffer(OfferEntity offer) async {
+  Future<Either<Failure, String>> addOffer(OfferEntity offer) async {
     try {
-      final result = await _databaseServices.addData(
+      final docRef = await _databaseServices.addData(
         path: 'offers',
         data: OfferModel.fromEntity(offer).toJson(),
       );
-      return Right(result);
+      return Right(docRef);
     } on Exception catch (e) {
       return Left(ServerFailure(errMessage: e.toString()));
     }

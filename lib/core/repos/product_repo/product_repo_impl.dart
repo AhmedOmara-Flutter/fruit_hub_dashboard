@@ -72,4 +72,20 @@ class ProductRepoImpl implements ProductRepo {
       return Left(Failure(errMessage: e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> updateProductField({required String productId, required Map<String, dynamic> data}) async{
+    try {
+      await _databaseServices.updateData(
+        path: 'products',
+        docId: productId,
+        data: data,
+      );
+
+      return const Right(null);
+    } catch (e) {
+      return Left(ServerFailure(errMessage: e.toString()));
+    }
+
+  }
 }
