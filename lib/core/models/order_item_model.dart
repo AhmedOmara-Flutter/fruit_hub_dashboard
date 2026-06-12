@@ -6,14 +6,14 @@ class OrderItemModel {
   final String code;
   final String name;
   final String imageUrl;
-  final num price;
+  final num unitPrice;
   final int quantity;
 
   OrderItemModel({
     required this.code,
     required this.name,
     required this.imageUrl,
-    required this.price,
+    required this.unitPrice,
     required this.quantity,
   });
 
@@ -22,7 +22,7 @@ class OrderItemModel {
       code: entity.product.code,
       name: entity.product.name,
       imageUrl: entity.product.image!,
-      price: entity.product.price,
+      unitPrice: entity.unitPrice,
       quantity: entity.quantity,
     );
   }
@@ -34,8 +34,8 @@ class OrderItemModel {
         'code': code,
         'name': name,
         'image': imageUrl,
-        'price': price,
       },
+      'unitPrice': unitPrice,
       'quantity': quantity,
     }).toEntity();
   }
@@ -44,7 +44,7 @@ class OrderItemModel {
       code: json['code'],
       name: json['name'],
       imageUrl: json['imageUrl'],
-      price: json['price'],
+      unitPrice: json['unitPrice'],
       quantity: json['quantity'],
     );
   }
@@ -54,7 +54,7 @@ class OrderItemModel {
       'code': code,
       'name': name,
       'imageUrl': imageUrl,
-      'price': price,
+      'unitPrice': unitPrice,
       'quantity': quantity,
     };
 

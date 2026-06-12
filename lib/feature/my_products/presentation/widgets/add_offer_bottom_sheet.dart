@@ -4,8 +4,9 @@ import 'package:fruit_hub_dashboard/core/helper_function/custom_show_snake_bar.d
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/build_date_picker_tile.dart';
 import 'package:fruit_hub_dashboard/feature/offers/domain/entities/offer_entity.dart';
-import '../../../../core/widgets/custom_text_form_field.dart';
+
 import '../../../../core/entities/product_entity.dart';
+import '../../../../core/widgets/custom_text_form_field.dart';
 import '../../../offers/presentation/view_model/offer_cubit.dart';
 
 class AddOfferBottomSheet extends StatefulWidget {

@@ -4,11 +4,14 @@ import 'product_entity.dart';
 // ignore_for_file: must_be_immutable
 class CartItemEntity extends Equatable  {
   final ProductEntity product;
+  final num unitPrice;
   int quantity;
+
 
   CartItemEntity({
     required this.product,
     this.quantity = 1,
+    required this.unitPrice,
   });
 
   void increase() {
@@ -21,9 +24,8 @@ class CartItemEntity extends Equatable  {
     }
   }
 
-  num get totalPrice {
-    return product.price * quantity;
-  }
+  num get totalPrice => unitPrice * quantity;
+
 
   String get totalWeightText {
     final totalGrams = product.unitAmount * quantity;

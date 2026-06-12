@@ -131,7 +131,7 @@ class ProductActionsSection extends StatelessWidget {
                   cancel: () => Navigator.pop(context),
                   accept: () {
                     final cubit = context.read<OfferCubit>();
-                    cubit.deleteOffer(offer?.id ?? '');
+                    cubit.deleteOffer(offer!);
                   },
                   icon: Icons.local_offer_outlined,
                   confirmChild: BlocBuilder<OfferCubit, OfferState>(

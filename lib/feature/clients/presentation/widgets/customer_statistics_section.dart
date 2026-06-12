@@ -53,7 +53,7 @@ class CustomerStatisticsSection extends StatelessWidget {
         final orders = context.read<ClientsCubit>().orders;
         double total = orders.fold(
           0.0,
-          (sum, order) => sum + order.allOrdersPrice()
+          (sum, order) => sum + order.cartEntity.getTotalPrice()
         );
         return Row(
           children: [

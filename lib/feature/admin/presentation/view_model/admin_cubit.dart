@@ -40,20 +40,17 @@ class AdminCubit extends Cubit<AdminState> {
     }
   }
   Future<List<ProductEntity>> getProducts() async {
-    // emit(GetProductsLoading());
     final result = await _productRepo.getProducts();
     return result.fold(
       (f) {
 
         print(f.errMessage);
-        // emit(GetProductsError(f.errMessage));
         return [];
       },
       (data) {
         print('PRODUCTS LOADED => ${data.length}');
 
         products = data;
-        // emit(GetProductsSuccess());
         return products;
       },
     );
@@ -66,7 +63,6 @@ class AdminCubit extends Cubit<AdminState> {
 
     result.fold(
       (failure) {
-        // emit(GetProductsError(failure.errMessage));
       },
       (data) {
         totalSales = data.fold(
@@ -78,31 +74,34 @@ class AdminCubit extends Cubit<AdminState> {
                 (cartSum, item) => cartSum + item.totalPrice,
               ),
         );
-
-        // emit(GetProductsSuccess());
-      },
+        },
     );
   }
 
   Future<void> getOrders() async {
-    // emit(GetOrdersLoading());
     final result = await _ordersRepo.getOrders();
 
     result.fold(
           (failure) {
-        // emit(GetOrdersError(failure.errMessage));
       },
           (data) {
-        orders = data;
+            for (var order in data) {
+              for (var item in order.cartEntity.cartItems) {
+                print('----------------');
+                print(item.product.name);
+                print('unitPrice = ${item.unitPrice}');
+                print('quantity = ${item.quantity}');
+                print('totalPrice = ${item.totalPrice}');
+              }
+            }
+
+            orders = data;
         orders.map((e){
           return e.uId;
-
         });
         orders.sort(
               (a, b) => b.createdAt!.compareTo(a.createdAt!),
         );
-
-        // emit(GetOrdersSuccess(orders));
       },
     );
   }

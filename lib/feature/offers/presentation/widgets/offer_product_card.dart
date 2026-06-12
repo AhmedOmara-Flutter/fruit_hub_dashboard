@@ -209,7 +209,7 @@ class OfferProductCard extends StatelessWidget {
                     accept: () {
                       context
                           .read<OfferCubit>()
-                          .deleteOffer(offer.id ?? '');
+                          .deleteOffer(offer);
                     },
                     icon: Icons.local_offer_outlined,
                     confirmChild: BlocBuilder<OfferCubit, OfferState>(

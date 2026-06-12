@@ -98,7 +98,7 @@ class DisplayOrdersViewBody extends StatelessWidget {
                         ),
                         const SizedBox(width: 12),
                         Text(
-                          '${e.product.price} جنيه ',
+                          '${e.unitPrice} جنيه ',
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
                       ],
@@ -135,7 +135,7 @@ class DisplayOrdersViewBody extends StatelessWidget {
                         // ),
                         const SizedBox(width: 10),
                         Text(
-                          '${order.allOrdersPrice()} جنيه',
+                          '${order.cartEntity.getTotalPrice()} جنيه',
                           style: Theme.of(
                             context,
                           ).textTheme.displaySmall!.copyWith(color: Colors.black),

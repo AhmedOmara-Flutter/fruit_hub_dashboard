@@ -58,7 +58,7 @@ class RecentOrdersListView extends StatelessWidget {
             final order = recentOrders[index];
             return OrderItem(
               image: order.userEntity!.image,
-              amount: '${order.allOrdersPrice()}',
+              amount: '${order.cartEntity.getTotalPrice()}',
               status: '',
               statusColor: Colors.orange,
               customerName: order.userEntity!.userName,

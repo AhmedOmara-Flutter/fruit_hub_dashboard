@@ -114,7 +114,7 @@ class CustomerCard extends StatelessWidget {
                 icon: Icons.payments_outlined,
                 title:'${orders.fold(
                   0.0,
-                      (sum, order) => sum + order.allOrdersPrice(),
+                      (sum, order) => sum + order.cartEntity.getTotalPrice(),
                 )}',
                 subtitle: "إجمالي الشراء",
               ),

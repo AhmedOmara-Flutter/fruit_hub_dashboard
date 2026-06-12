@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class OfferEntity extends Equatable {
-  final String? id;
+  final String ?id;
   final String productId;
   final String image;
   final String name;
