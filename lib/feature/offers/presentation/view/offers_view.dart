@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/feature/offers/presentation/widgets/offers_view_body.dart';
 
+import '../../../../core/helper_function/custom_show_snake_bar.dart';
 import '../view_model/offer_cubit.dart';
 
 class OffersView extends StatefulWidget {
@@ -19,8 +20,21 @@ class _OffersViewState extends State<OffersView> {
     context.read<OfferCubit>().getOffers();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return OffersViewBody();
+    return BlocListener<OfferCubit, OfferState>(
+        listener: (context, state) {
+          if (state is DeleteOfferSuccess) {
+            Navigator.pop(context);
+          }
+
+          if (state is DeleteOfferFailure) {
+            Navigator.pop(context);
+            customShowSnakeBar(context, color: Colors.red, label: state.message);
+          }
+        },
+      child: OffersViewBody(),
+    );
   }
 }

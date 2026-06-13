@@ -56,7 +56,9 @@ class ThemeManager {
       labelLarge: StyleManager.font13Weight700,
 
       displaySmall: StyleManager.font19Weight700,
+
       bodyLarge: StyleManager.font11Weight400,
+
       bodyMedium: StyleManager.font14Weight600
 
 
