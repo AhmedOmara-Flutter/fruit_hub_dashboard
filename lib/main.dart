@@ -16,7 +16,7 @@ import 'feature/clients/data/repos/clients_repo_impl.dart';
 import 'feature/clients/presentation/view_model/clients_cubit.dart';
 import 'feature/main/presentation/view_model/main_cubit.dart';
 import 'feature/offers/data/repos/offer_repo_impl.dart';
-import 'feature/reviews/data/repos/review_repo_impl.dart';
+import 'core/repos/reviews_repo/review_repo_impl.dart';
 import 'feature/reviews/presentation/view_model/get_products_with_review/get_product_with_reviews_cubit.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
@@ -58,8 +58,6 @@ class MyApp extends StatelessWidget {
                 ProductRepoImpl(FirestoreDatabase()))),
         BlocProvider(create: (context) =>
             OrdersCubit(OrdersRepoImpl(FirestoreDatabase()))),
-
-
       ],
       child: MaterialApp(
         localizationsDelegates: [

@@ -1,27 +1,39 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
 import '../../../domain/entities/review_entity.dart';
-import '../../../domain/repos/review_repo.dart';
+import '../../../../../core/repos/reviews_repo/review_repo.dart';
 
 part 'get_reviews_state.dart';
 
 class GetReviewsCubit extends Cubit<GetReviewsState> {
   GetReviewsCubit(this._reviewRepo) : super(GetReviewsInitial());
   final ReviewRepo _reviewRepo;
+  StreamSubscription? _reviewsSubscription;
 
 
-  Future<void> getReviews({required String productId}) async {
+  void getReviews({required String productId}) {
     emit(ReviewLoading());
-    final reviews = await _reviewRepo.getReviews(productId: productId);
-    return reviews.fold(
-          (failure) {
-        emit(ReviewError(failure.errMessage));
-      },
-          (reviews) {
-        emit(ReviewSuccess(reviews));
-      },
-    );
+
+    _reviewsSubscription?.cancel();
+    _reviewsSubscription =  _reviewRepo.getReviews(productId: productId).listen((data){
+      data.fold(
+            (failure) {
+          emit(ReviewError(failure.errMessage));
+        },
+            (reviews) {
+          emit(ReviewSuccess(reviews));
+        },
+      );
+    });
+
+  }
+  @override
+  Future<void> close() {
+    _reviewsSubscription?.cancel();
+    return super.close();
   }
 
 }

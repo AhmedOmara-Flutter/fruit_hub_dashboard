@@ -1,5 +1,7 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
-import 'package:fruit_hub_dashboard/feature/reviews/domain/repos/review_repo.dart';
+import 'package:fruit_hub_dashboard/core/repos/reviews_repo/review_repo.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../../core/entities/product_entity.dart';
@@ -10,21 +12,29 @@ class GetProductWithReviewsCubit extends Cubit<GetProductWithReviewsState> {
   GetProductWithReviewsCubit(this._reviewRepo) : super(GetProductWithReviewsInitial());
   final ReviewRepo _reviewRepo;
   final List<ProductEntity> products = [];
+  StreamSubscription? _productsSubscription;
 
-  Future<void> getProductsWithReviews() async {
+  void getProductsWithReviews() {
     emit(GetProductsWithReviewsLoading());
-    final products = await _reviewRepo.getProductsWithReviews();
 
-    return products.fold(
-          (failure) {
-        emit(GetProductsWithReviewsError(failure.errMessage));
-      },
-          (products) {
-            this.products.clear();
-            this.products.addAll(products);
-        emit(GetProductsWithReviewsSuccess(products));
-      },
-    );
+    _productsSubscription?.cancel();
+    _productsSubscription = _reviewRepo.getProductsWithReviews().listen((data) {
+      data.fold(
+        (failure) {
+          emit(GetProductsWithReviewsError(failure.errMessage));
+        },
+        (products) {
+          this.products.clear();
+          this.products.addAll(products);
+          emit(GetProductsWithReviewsSuccess(products));
+        },
+      );
+    });
   }
 
+  @override
+  Future<void> close() {
+    _productsSubscription?.cancel();
+    return super.close();
+  }
 }
