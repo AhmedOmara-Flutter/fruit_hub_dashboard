@@ -11,7 +11,10 @@ import 'order_user_image.dart';
 class BuildOrderCard extends StatefulWidget {
   final OrderEntity order;
   final int index;
-  const BuildOrderCard({super.key, required this.order, required this.index});
+  final void Function()? userTap;
+
+  const BuildOrderCard(
+      {super.key, required this.order, required this.index,this.userTap});
 
   @override
   State<BuildOrderCard> createState() => _BuildOrderCardState();
@@ -43,8 +46,9 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
                OrderUserImage(
-                imageUrl: widget.order.userEntity!.image,
-              ),
+                 onTap: widget.userTap,
+                 imageUrl: widget.order.userEntity!.image,
+               ),
 
               const SizedBox(width: 12),
 

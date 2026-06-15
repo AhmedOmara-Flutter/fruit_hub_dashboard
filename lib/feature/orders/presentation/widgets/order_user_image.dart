@@ -5,20 +5,25 @@ import 'package:flutter/material.dart';
 class OrderUserImage extends StatelessWidget {
   const OrderUserImage({
     super.key,
-    required this.imageUrl,
+    required this.imageUrl, this.onTap,
+
   });
 
   final String imageUrl;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(100),
-      child: CachedNetworkImage(
-        imageUrl: imageUrl,
-        width: 60,
-        height: 60,
-        fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: onTap,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(100),
+        child: CachedNetworkImage(
+          imageUrl: imageUrl,
+          width: 60,
+          height: 60,
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }

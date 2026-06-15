@@ -1,10 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:fruit_hub_dashboard/core/repos/product_repo/product_repo.dart';
 import 'package:meta/meta.dart';
-
-import '../../domain/entities/offer_entity.dart';
-import '../../domain/repos/offer_repo.dart';
-
+import '../../../feature/offers/domain/entities/offer_entity.dart';
+import '../../../feature/offers/domain/repos/offer_repo.dart';
 part 'offers_state.dart';
 
 class OffersCubit extends Cubit<OfferState> {

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/feature/offers/presentation/widgets/offers_view_body.dart';
 
+import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../../core/helper_function/custom_show_snake_bar.dart';
-import '../view_model/offers_cubit.dart';
 
 class OffersView extends StatefulWidget {
   const OffersView({super.key});

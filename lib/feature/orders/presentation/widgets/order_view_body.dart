@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/widgets/empty_widget.dart';
 import 'package:fruit_hub_dashboard/feature/orders/presentation/widgets/build_order_card.dart';
+import 'package:fruit_hub_dashboard/feature/orders/presentation/widgets/skeletonizer_build_order_card.dart';
+
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
-import '../../../admin/presentation/view_model/admin_cubit.dart';
 
 class OrderViewBody extends StatefulWidget {
   const OrderViewBody({super.key});
@@ -39,28 +40,44 @@ class _OrderViewBodyState extends State<OrderViewBody> {
             ),
           ),
         ),),
-        BlocBuilder<AdminCubit, AdminState>(
+        BlocBuilder<OrdersCubit, OrdersState>(
           builder: (context, state) {
-            final cubit = context.watch<OrdersCubit>();
-            final orders = cubit.orders;
-            if (orders.isEmpty) {
-            SliverToBoxAdapter(
-              child:Text('worngoentgot'),
-            );
+            final orders = context.read<OrdersCubit>().orders;
+
+            if (state is GetOrdersLoadingState) {
+              return SliverList.builder(
+                itemCount: 3,
+                itemBuilder: (context, index) {
+                  return const SkeletonizerBuildOrderCard();
+                },
+              );
             }
 
+            if (state is GetOrdersErrorState) {
+              return SliverToBoxAdapter(
+                child: Center(
+                  child: Text(state.errMessage),
+                ),
+              );
+            }
+
+            if (orders.isEmpty) {
+              return const SliverToBoxAdapter(
+                child: EmptyWidget(),
+              );
+            }
 
             return SliverList.builder(
               itemCount: orders.length,
               itemBuilder: (context, index) {
                 return BuildOrderCard(
-                    index: index,
-                    order: orders[index]);
+                  index: index,
+                  order: orders[index],
+                );
               },
             );
           },
-        ),
-      ],
+        )      ],
     );
   }
 

@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/product_item.dart';
-
-import '../view_model/admin_cubit.dart';
 import 'best_seller_list_view.dart';
 
 class BestSellerCard extends StatelessWidget {

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub_dashboard/feature/my_products/presentation/view_model/my_products_cubit.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/empty_products_widget.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/product_card.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/skeletonizer_product_card.dart';
-
+import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
+import '../../../../core/cubit/products_cubit/products_cubit.dart';
 import '../../../../core/helper_function/get_dummy_products.dart';
 import '../../../offers/domain/entities/offer_entity.dart';
-import '../../../offers/presentation/view_model/offers_cubit.dart';
 
 class TapBarViewBody extends StatefulWidget {
   final String category;
@@ -22,16 +21,16 @@ class _TapBarViewBodyState extends State<TapBarViewBody> {
 
   @override
   void initState() {
-    context.read<MyProductsCubit>().getFilteredProducts(widget.category);
+    context.read<ProductsCubit>().getFilteredProducts(widget.category);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MyProductsCubit, MyProductsState>(
+    return BlocBuilder<ProductsCubit, MyProductsState>(
       builder: (context, state) {
         final products = context
-            .read<MyProductsCubit>()
+            .read<ProductsCubit>()
             .filteredProducts;
         final offers = context
             .watch<OffersCubit>()

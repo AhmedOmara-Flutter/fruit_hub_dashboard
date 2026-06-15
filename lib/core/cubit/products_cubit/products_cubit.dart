@@ -4,10 +4,10 @@ import 'package:bloc/bloc.dart';
 import 'package:fruit_hub_dashboard/core/repos/product_repo/product_repo.dart';
 import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
 import 'package:meta/meta.dart';
-part 'my_products_state.dart';
+part 'products_state.dart';
 
-class MyProductsCubit extends Cubit<MyProductsState> {
-  MyProductsCubit(this._productRepo)
+class ProductsCubit extends Cubit<MyProductsState> {
+  ProductsCubit(this._productRepo)
     : super(MyProductsInitial());
   final ProductRepo _productRepo;
   StreamSubscription? _productsSubscription;

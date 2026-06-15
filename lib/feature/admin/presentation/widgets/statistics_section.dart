@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/feature/clients/presentation/view_model/clients_cubit.dart';
-import 'package:fruit_hub_dashboard/feature/offers/presentation/view_model/offers_cubit.dart';
+import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../clients/presentation/widgets/statistics_card.dart';
+import '../../../main/presentation/view_model/main_cubit.dart';
 
 class StatisticsSection extends StatelessWidget {
   const StatisticsSection({super.key});
@@ -17,6 +18,9 @@ class StatisticsSection extends StatelessWidget {
             Expanded(
               child: StatisticsCard(
                 model: StatisticsCardModel(
+                  onTap: (){
+                    context.read<MainCubit>().changeIndex(5);
+                  },
                   color: Colors.green,
                   icon: Icons.people,
                   title: 'اجمالي العملاء',
@@ -30,6 +34,10 @@ class StatisticsSection extends StatelessWidget {
             Expanded(
               child: StatisticsCard(
                 model: StatisticsCardModel(
+                  onTap: (){
+                    context.read<MainCubit>().changeIndex(4);
+                  },
+
                   color: Colors.orange,
                   icon: Icons.receipt_long_outlined,
                   title: 'اجمالي الطلبات',
@@ -47,6 +55,9 @@ class StatisticsSection extends StatelessWidget {
             Expanded(
               child: StatisticsCard(
                 model: StatisticsCardModel(
+                  onTap: (){
+                    context.read<MainCubit>().changeIndex(6);
+                  },
                   color: Colors.purple,
                   icon: Icons.inventory_2_outlined,
                   title: 'اجمالي العروض',

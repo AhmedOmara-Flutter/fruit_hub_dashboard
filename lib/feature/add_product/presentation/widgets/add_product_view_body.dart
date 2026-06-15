@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,8 +11,6 @@ import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/presentation/widgets/background_card.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/presentation/widgets/custom_is_featured.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/presentation/widgets/custom_is_organic.dart';
-import 'package:fruit_hub_dashboard/feature/my_products/presentation/view_model/my_products_cubit.dart';
-
 import '../../../../core/widgets/custom_sub_images.dart';
 import '../../../main/presentation/view_model/main_cubit.dart';
 import '../view_model/add_product_cubit.dart';

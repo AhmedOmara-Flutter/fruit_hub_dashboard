@@ -6,6 +6,7 @@ sealed class OrdersState {}
 final class OrdersInitial extends OrdersState {}
 
 final class GetOrdersLoadingState extends OrdersState {}
+final class GetOrdersEmptyState extends OrdersState {}
 
 final class GetOrdersSuccessState extends OrdersState {}
 

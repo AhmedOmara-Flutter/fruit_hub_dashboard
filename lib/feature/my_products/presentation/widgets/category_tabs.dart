@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/tap_bar_view_body.dart';
 
-import '../view_model/my_products_cubit.dart';
+import '../../../../core/cubit/products_cubit/products_cubit.dart';
 
 class CategoryTabs extends StatefulWidget {
   const CategoryTabs({super.key});
@@ -24,13 +24,13 @@ class _CategoryTabsState extends State<CategoryTabs>
     _tabController = TabController(length: categories.length, vsync: this);
 
     // أول تحميل
-    context.read<MyProductsCubit>()
+    context.read<ProductsCubit>()
         .getFilteredProducts(categories[0]);
 
     // عند تغيير الـ tab
     _tabController.addListener(() {
       if (!_tabController.indexIsChanging) {
-        context.read<MyProductsCubit>().getFilteredProducts(
+        context.read<ProductsCubit>().getFilteredProducts(
           categories[_tabController.index],
         );
       }

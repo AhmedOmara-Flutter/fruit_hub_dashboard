@@ -5,8 +5,8 @@ import 'package:fruit_hub_dashboard/core/helper_function/custom_show_snake_bar.d
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
 
+import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../offers/domain/entities/offer_entity.dart';
-import '../../../offers/presentation/view_model/offers_cubit.dart';
 import 'add_offer_bottom_sheet.dart';
 
 class ProductActionsSection extends StatelessWidget {

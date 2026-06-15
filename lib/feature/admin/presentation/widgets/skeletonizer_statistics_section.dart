@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub_dashboard/feature/admin/presentation/view_model/admin_cubit.dart';
-import 'package:fruit_hub_dashboard/feature/clients/presentation/view_model/clients_cubit.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-
 import '../../../clients/presentation/widgets/statistics_card.dart';
 
 class SkeletonizerStatisticsSection extends StatelessWidget {

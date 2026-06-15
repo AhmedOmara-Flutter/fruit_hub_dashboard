@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../../core/helper_function/custom_show_dialog.dart';
 import '../../../../core/helper_function/custom_show_snake_bar.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../domain/entities/offer_entity.dart';
-import '../view_model/offers_cubit.dart';
 
 class OfferProductCard extends StatelessWidget {
   final OfferEntity offer;

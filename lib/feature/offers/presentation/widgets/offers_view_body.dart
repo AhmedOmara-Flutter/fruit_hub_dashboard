@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/feature/offers/presentation/widgets/skeletonizer_offer_product_card.dart';
-
+import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../../core/widgets/empty_widget.dart';
 import '../../domain/entities/offer_entity.dart';
-import '../view_model/offers_cubit.dart';
 import 'offer_product_card.dart';
 
 class OffersViewBody extends StatelessWidget {

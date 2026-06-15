@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
-import '../../../offers/presentation/view_model/offers_cubit.dart';
-import '../view_model/admin_cubit.dart';
 import '../widgets/admin_view_body.dart';
 
 class AdminView extends StatefulWidget {
