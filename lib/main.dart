@@ -17,6 +17,7 @@ import 'feature/clients/presentation/view_model/clients_cubit.dart';
 import 'feature/main/presentation/view_model/main_cubit.dart';
 import 'feature/my_products/presentation/view_model/my_products_cubit.dart';
 import 'feature/offers/data/repos/offer_repo_impl.dart';
+import 'feature/orders/presentation/view_model/orders_cubit.dart';
 import 'feature/reviews/data/repos/review_repo_impl.dart';
 import 'feature/reviews/presentation/view_model/get_products_with_review/get_product_with_reviews_cubit.dart';
 import 'firebase_options.dart';
@@ -48,9 +49,7 @@ class MyApp extends StatelessWidget {
                 )),
         BlocProvider(create: (context) =>
             AdminCubit(
-              ProductRepoImpl(FirestoreDatabase()),
-              OrdersRepoImpl(FirestoreDatabase()),
-            ),),
+              ProductRepoImpl(FirestoreDatabase()),),),
         BlocProvider(create: (context) =>
             GetProductWithReviewsCubit(ReviewRepoImpl(FirestoreDatabase()))),
         BlocProvider(create: (context) =>
@@ -62,6 +61,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) =>
             OfferCubit(OfferRepoImpl(FirestoreDatabase()),
                 ProductRepoImpl(FirestoreDatabase()))),
+        BlocProvider(create: (context) =>
+            OrdersCubit(OrdersRepoImpl(FirestoreDatabase()))),
 
 
       ],

@@ -22,12 +22,12 @@ class AdminViewBody extends StatelessWidget {
                 print('STATE => ${state.runtimeType}');
 
                 final cubit = context.read<AdminCubit>();
-                if (cubit.products.isNotEmpty || state is DashboardSuccess) {
+                if (cubit.products.isNotEmpty || state is GetProductsSuccessState) {
                   return SliverToBoxAdapter(
                     child: StatisticsSection(),
                   );
                 }
-                else if (state is DashboardError) {
+                else if (state is GetProductsErrorState) {
                   return SliverToBoxAdapter(
                     child: Text(state.errMessage),
                   );

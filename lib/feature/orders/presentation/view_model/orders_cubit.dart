@@ -1,0 +1,91 @@
+import 'dart:async';
+
+import 'package:bloc/bloc.dart';
+import 'package:meta/meta.dart';
+
+import '../../../../core/entities/order_entity.dart';
+import '../../../../core/models/top_product_model.dart';
+import '../../../../core/repos/orders_repo/orders_repo.dart';
+import '../../../../generated/assets.dart';
+
+part 'orders_state.dart';
+
+class OrdersCubit extends Cubit<OrdersState> {
+  OrdersCubit(this._ordersRepo) : super(OrdersInitial());
+  final OrdersRepo _ordersRepo;
+  double totalSales = 0;
+  StreamSubscription? _ordersSubscription;
+  List<OrderEntity> orders = [];
+  final List medals = [
+    Assets.images.medal.path,
+    Assets.images.medal1.path,
+    Assets.images.medal2.path,
+  ];
+
+
+  void getOrders() {
+    emit(GetOrdersLoadingState());
+
+    _ordersSubscription?.cancel();
+    _ordersSubscription = _ordersRepo.getOrders().listen((res) {
+      res.fold(
+        (failure) {
+          emit(GetOrdersErrorState(failure.errMessage));
+        },
+        (data) {
+          orders = data;
+
+          orders.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
+
+          totalSales = orders.fold(
+            0.0,
+            (sum, order) =>
+                sum +
+                order.cartEntity.cartItems.fold(
+                  0.0,
+                  (cartSum, item) => cartSum + item.totalPrice,
+                ),
+          );
+
+          emit(GetOrdersSuccessState());
+        },
+      );
+    });
+  }
+
+  List<OrderEntity> get recentOrders => orders.take(3).toList();
+
+  List<TopProductModel> get topProducts {
+    final Map<String, TopProductModel> products = {};
+    for (var order in orders) {
+      for (var item in order.cartEntity.cartItems) {
+        final name = item.product.name;
+        if (products.containsKey(name)) {
+          products[name] = TopProductModel(
+            name: name,
+            image: item.product.image!,
+            totalOrders: products[name]!.totalOrders + item.quantity,
+          );
+        } else {
+          products[name] = TopProductModel(
+            name: name,
+            image: item.product.image!,
+            totalOrders: item.quantity,
+          );
+        }
+      }
+    }
+
+    final result = products.values.toList();
+
+    result.sort((a, b) => b.totalOrders.compareTo(a.totalOrders));
+
+    return result;
+  }
+
+  @override
+  Future<void> close() {
+    _ordersSubscription?.cancel();
+    return super.close();
+  }
+}

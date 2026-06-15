@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/feature/admin/presentation/view_model/admin_cubit.dart';
 import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/product_item.dart';
 import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/skeletonizer_product_item.dart';
+import 'package:fruit_hub_dashboard/feature/orders/presentation/view_model/orders_cubit.dart';
 
 import '../../../../core/widgets/empty_widget.dart';
 import '../../../../generated/assets.dart';
@@ -12,11 +13,11 @@ class BestSellerListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AdminCubit, AdminState>(
+    return BlocBuilder<OrdersCubit, OrdersState>(
       builder: (context, state) {
 
-        final cubit = context.watch<AdminCubit>();
-        bool isLoading = cubit.state is  DashboardLoading;
+        final cubit = context.watch<OrdersCubit>();
+        bool isLoading = cubit.state is  GetOrdersLoadingState;
         final topProducts = cubit.topProducts;
 
         if (isLoading)
@@ -59,15 +60,4 @@ class BestSellerListView extends StatelessWidget {
     );  }
 }
 
-class TopProduct {
-  final String name;
-  final String image;
-  final int totalOrders;
 
-
-  TopProduct({
-    required this.name,
-    required this.image,
-    required this.totalOrders,
-  });
-}

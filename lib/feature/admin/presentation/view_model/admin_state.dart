@@ -4,33 +4,12 @@ part of 'admin_cubit.dart';
 sealed class AdminState {}
 
 final class AdminInitial extends AdminState {}
-final class DashboardLoading extends AdminState {}
-final class DashboardSuccess extends AdminState {}
-final class DashboardError extends AdminState {
-  final String errMessage;
-  DashboardError(this.errMessage);
-}
 
-// final class GetProductsLoading extends AdminState {}
-//
-// final class GetProductsError extends AdminState {
-//   final String errMessage;
-//
-//   GetProductsError(this.errMessage);
-// }
-//
-// final class GetProductsSuccess extends AdminState {}
-//
-// final class GetOrdersLoading extends AdminState {}
-//
-// final class GetOrdersError extends AdminState {
-//   final String errMessage;
-//
-//   GetOrdersError(this.errMessage);
-// }
-//
-// final class GetOrdersSuccess extends AdminState {
-//   final List<OrderEntity> orders;
-//
-//   GetOrdersSuccess(this.orders);
-// }
+final class GetProductsLoadingState extends AdminState {}
+final class GetProductsSuccessState extends AdminState {}
+
+final class GetProductsErrorState extends AdminState {
+  final String errMessage;
+
+  GetProductsErrorState(this.errMessage);
+}

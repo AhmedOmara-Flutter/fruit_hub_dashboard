@@ -10,6 +10,6 @@ abstract class ProductRepo {
     required Map<String, dynamic> data,
   });
   Future<void> deleteProduct(String productId);
-  Future<Either<Failure, List<ProductEntity>>> getProducts();
-  Future<Either<Failure,List<ProductEntity>>>getFilteredProducts(String category);
+  Stream<Either<Failure, List<ProductEntity>>> getProducts();
+  Stream<Either<Failure,List<ProductEntity>>>getFilteredProducts(String category);
 }

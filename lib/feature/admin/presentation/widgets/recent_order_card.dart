@@ -4,6 +4,7 @@ import 'package:fruit_hub_dashboard/core/utils/route_manager.dart';
 import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/recent_orders_list_view.dart';
 import 'package:fruit_hub_dashboard/feature/main/presentation/view_model/main_cubit.dart';
 
+import '../../../orders/presentation/view_model/orders_cubit.dart';
 import '../view_model/admin_cubit.dart';
 
 class RecentOrdersCard extends StatelessWidget {
@@ -32,7 +33,7 @@ class RecentOrdersCard extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           RecentOrdersListView(),
-          if(context.watch<AdminCubit>().orders.isNotEmpty)
+          if(context.watch<OrdersCubit>().orders.isNotEmpty)
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Material(

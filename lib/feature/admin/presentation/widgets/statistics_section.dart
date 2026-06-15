@@ -4,6 +4,7 @@ import 'package:fruit_hub_dashboard/feature/admin/presentation/view_model/admin_
 import 'package:fruit_hub_dashboard/feature/clients/presentation/view_model/clients_cubit.dart';
 
 import '../../../clients/presentation/widgets/statistics_card.dart';
+import '../../../orders/presentation/view_model/orders_cubit.dart';
 
 class StatisticsSection extends StatelessWidget {
   const StatisticsSection({super.key});
@@ -64,7 +65,7 @@ class StatisticsSection extends StatelessWidget {
                   color: Colors.blue,
                   icon: Icons.attach_money,
                   title: 'اجمالي المبيعات',
-                  subTitleNumber: ' ${context.watch<AdminCubit>().totalSales.toStringAsFixed(2)}',
+                  subTitleNumber: ' ${context.watch<OrdersCubit>().totalSales.toStringAsFixed(2)}',
                   subTitleText: 'إجمالي الإيرادات',
                 ),
               ),

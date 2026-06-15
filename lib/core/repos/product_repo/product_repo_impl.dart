@@ -42,34 +42,35 @@ class ProductRepoImpl implements ProductRepo {
   }
 
   @override
-  Future<Either<Failure, List<ProductEntity>>> getProducts() async {
+  Stream<Either<Failure, List<ProductEntity>>> getProducts() async* {
     try {
-      var result = await _databaseServices.getData(path: 'products') as List<
-          Map<String, dynamic>>;
-      List<ProductEntity> products = result.map((e) =>
-          ProductModel.fromJson(e).toEntity()).toList();
-      return Right(products);
+      await for(var (data as List<Map<String, dynamic>> )in _databaseServices.getStreamData(path: 'products') ){
+        List<ProductEntity> products = data.map((e) =>
+            ProductModel.fromJson(e).toEntity()).toList();
+        yield Right(products);
+
+      }
     } on Exception catch (e) {
-      return Left(ServerFailure(errMessage: e.toString()));
+      yield Left(ServerFailure(errMessage: e.toString()));
     }
   }
 
   @override
-  Future<Either<Failure, List<ProductEntity>>> getFilteredProducts(
-      String category,) async {
+  Stream<Either<Failure, List<ProductEntity>>> getFilteredProducts(
+      String category,) async* {
     try {
-      final result = await _databaseServices.getData(
+      await for(var (data as List<Map<String, dynamic>> )in  _databaseServices.getStreamData(
         path: 'products',
         query: {'where': 'category', 'isEqualTo': category},
-      ) as List<Map<String, dynamic>>;
-
-      List<ProductEntity> products = result
-          .map((product) => ProductModel.fromJson(product).toEntity())
-          .toList();
-      return Right(products);
+      )){
+        List<ProductEntity> products = data
+            .map((product) => ProductModel.fromJson(product).toEntity())
+            .toList();
+        yield Right(products);
+      }
     } catch (e) {
       print('error from getFilteredProducts is $e');
-      return Left(Failure(errMessage: e.toString()));
+      yield Left(Failure(errMessage: e.toString()));
     }
   }
 

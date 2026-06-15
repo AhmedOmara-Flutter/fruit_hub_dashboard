@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:fruit_hub_dashboard/core/repos/product_repo/product_repo.dart';
 import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
@@ -8,41 +10,47 @@ class MyProductsCubit extends Cubit<MyProductsState> {
   MyProductsCubit(this._productRepo)
     : super(MyProductsInitial());
   final ProductRepo _productRepo;
+  StreamSubscription? _productsSubscription;
   List<ProductEntity> filteredProducts = [];
 
-  Future<void> getProducts() async {
+  void getProducts() async {
+    _productsSubscription?.cancel();
+
     emit(GetFilteredProductsLoading());
 
-    final result = await _productRepo.getProducts();
+    _productsSubscription =  _productRepo.getProducts().listen((data){
+      data.fold(
+            (failure) => emit(GetFilteredProductsError(failure.errMessage)),
+            (products) {
+          filteredProducts = products;
 
-    result.fold(
-          (failure) => emit(GetFilteredProductsError(failure.errMessage)),
-          (products) {
-        filteredProducts = products;
-
-        if (filteredProducts.isEmpty) {
-          emit(GetFilteredProductsEmpty());
-        } else {
-          emit(GetFilteredProductsSuccess());
-        }
-      },
-    );
+          if (filteredProducts.isEmpty) {
+            emit(GetFilteredProductsEmpty());
+          } else {
+            emit(GetFilteredProductsSuccess());
+          }
+        },
+      );
+    });
   }
 
   Future<void> getFilteredProducts(String category) async {
+    _productsSubscription?.cancel();
     emit(GetFilteredProductsLoading());
-    final result = await _productRepo.getFilteredProducts(category);
-    result.fold(
-      (failure) => emit(GetFilteredProductsError(failure.errMessage)),
-      (data) {
-        filteredProducts = data;
-        if (filteredProducts.isEmpty) {
-          emit(GetFilteredProductsEmpty());
-        } else {
-          emit(GetFilteredProductsSuccess());
-        }
-      },
-    );
+    _productsSubscription= _productRepo.getFilteredProducts(category).listen((data){
+      data.fold(
+            (failure) => emit(GetFilteredProductsError(failure.errMessage)),
+            (data) {
+          filteredProducts = data;
+          if (filteredProducts.isEmpty) {
+            emit(GetFilteredProductsEmpty());
+          } else {
+            emit(GetFilteredProductsSuccess());
+          }
+        },
+      );
+    });
+
   }
 
   // Future<void> deleteProduct(String productId) async {
@@ -56,4 +64,10 @@ class MyProductsCubit extends Cubit<MyProductsState> {
   //     emit(DeleteProductError(e.toString()));
   //   }
   // }
+
+@override
+  Future<void> close() {
+    _productsSubscription?.cancel();
+    return super.close();
+  }
 }

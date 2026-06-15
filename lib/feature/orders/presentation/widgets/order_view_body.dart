@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
+import 'package:fruit_hub_dashboard/core/widgets/empty_widget.dart';
 import 'package:fruit_hub_dashboard/feature/orders/presentation/widgets/build_order_card.dart';
 
 import '../../../admin/presentation/view_model/admin_cubit.dart';
+import '../view_model/orders_cubit.dart';
 
 class OrderViewBody extends StatefulWidget {
   const OrderViewBody({super.key});
@@ -40,8 +42,14 @@ class _OrderViewBodyState extends State<OrderViewBody> {
         ),),
         BlocBuilder<AdminCubit, AdminState>(
           builder: (context, state) {
-            final cubit = context.watch<AdminCubit>();
+            final cubit = context.watch<OrdersCubit>();
             final orders = cubit.orders;
+            if (orders.isEmpty) {
+            SliverToBoxAdapter(
+              child:Text('worngoentgot'),
+            );
+            }
+
 
             return SliverList.builder(
               itemCount: orders.length,

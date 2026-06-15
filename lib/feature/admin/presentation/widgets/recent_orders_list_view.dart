@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/core/widgets/empty_widget.dart';
 import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/skeletonizer_order_item.dart';
+import 'package:fruit_hub_dashboard/feature/orders/presentation/view_model/orders_cubit.dart';
 
 import '../../../../core/helper_function/get_date_formate.dart';
 import '../../../../generated/assets.dart';
@@ -14,12 +15,12 @@ class RecentOrdersListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AdminCubit, AdminState>(
+    return BlocBuilder<OrdersCubit, OrdersState>(
       builder: (context, state) {
-        final cubit = context.watch<AdminCubit>();
+        final cubit = context.watch<OrdersCubit>();
         final recentOrders = cubit.recentOrders;
 
-        final isLoading = state is DashboardLoading;
+        final isLoading = state is GetOrdersLoadingState;
 
         if (isLoading) {
           return ListView.separated(
