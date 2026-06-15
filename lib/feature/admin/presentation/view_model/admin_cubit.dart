@@ -17,8 +17,6 @@ class AdminCubit extends Cubit<AdminState> {
   AdminCubit(this._productRepo,) : super(AdminInitial());
   final ProductRepo _productRepo;
   List<ProductEntity> products = [];
-  Map<String, UserEntity> users = {};
-
   StreamSubscription? _productsSubscription;
 
 

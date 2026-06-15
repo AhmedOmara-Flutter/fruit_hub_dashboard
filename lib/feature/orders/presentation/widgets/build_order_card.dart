@@ -23,7 +23,7 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 6),
+      margin: const EdgeInsets.symmetric(vertical: 6,horizontal: 10),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -60,7 +60,7 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
               const SizedBox(width: 8),
 
                OrderStatusBadge(
-                title: 'widget.order.status',
+                title: widget.order.status,
               ),
             ],
           ),

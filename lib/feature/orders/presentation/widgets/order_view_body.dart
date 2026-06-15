@@ -3,9 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/widgets/empty_widget.dart';
 import 'package:fruit_hub_dashboard/feature/orders/presentation/widgets/build_order_card.dart';
-
+import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../admin/presentation/view_model/admin_cubit.dart';
-import '../view_model/orders_cubit.dart';
 
 class OrderViewBody extends StatefulWidget {
   const OrderViewBody({super.key});

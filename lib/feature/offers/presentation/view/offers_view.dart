@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/feature/offers/presentation/widgets/offers_view_body.dart';
 
 import '../../../../core/helper_function/custom_show_snake_bar.dart';
-import '../view_model/offer_cubit.dart';
+import '../view_model/offers_cubit.dart';
 
 class OffersView extends StatefulWidget {
   const OffersView({super.key});
@@ -17,13 +17,13 @@ class _OffersViewState extends State<OffersView> {
 
   @override
   void initState() {
-    context.read<OfferCubit>().getOffers();
+    context.read<OffersCubit>().getOffers();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<OfferCubit, OfferState>(
+    return BlocListener<OffersCubit, OfferState>(
         listener: (context, state) {
           if (state is DeleteOfferSuccess) {
             Navigator.pop(context);

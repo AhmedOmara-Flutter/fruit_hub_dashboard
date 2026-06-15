@@ -7,7 +7,7 @@ import 'package:fruit_hub_dashboard/feature/offers/domain/entities/offer_entity.
 
 import '../../../../core/entities/product_entity.dart';
 import '../../../../core/widgets/custom_text_form_field.dart';
-import '../../../offers/presentation/view_model/offer_cubit.dart';
+import '../../../offers/presentation/view_model/offers_cubit.dart';
 
 class AddOfferBottomSheet extends StatefulWidget {
   final ProductEntity product;
@@ -166,7 +166,7 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                 },
               ),
               const SizedBox(height: 20),
-              BlocConsumer<OfferCubit, OfferState>(
+              BlocConsumer<OffersCubit, OfferState>(
                   listener: (context, state) {
                     print(state.runtimeType);
 
@@ -213,7 +213,7 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                             priceAfterDiscount: double.parse(priceAfterDiscount
                                 .text),
                           );
-                          await context.read<OfferCubit>().addOffer(offer);
+                          await context.read<OffersCubit>().addOffer(offer);
                         }
                       } : null,
                       child: Text(

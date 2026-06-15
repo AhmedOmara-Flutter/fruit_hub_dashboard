@@ -6,7 +6,7 @@ import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
 
 import '../../../offers/domain/entities/offer_entity.dart';
-import '../../../offers/presentation/view_model/offer_cubit.dart';
+import '../../../offers/presentation/view_model/offers_cubit.dart';
 import 'add_offer_bottom_sheet.dart';
 
 class ProductActionsSection extends StatelessWidget {
@@ -119,11 +119,11 @@ class ProductActionsSection extends StatelessWidget {
                 ),
                 cancel: () => Navigator.pop(context),
                 accept: () {
-                  final cubit = context.read<OfferCubit>();
+                  final cubit = context.read<OffersCubit>();
                   cubit.deleteOffer(offer!);
                 },
                 icon: Icons.local_offer_outlined,
-                confirmChild: BlocBuilder<OfferCubit, OfferState>(
+                confirmChild: BlocBuilder<OffersCubit, OfferState>(
                   builder: (context, state) {
                     final isLoading =
                     state is DeleteOfferLoading;

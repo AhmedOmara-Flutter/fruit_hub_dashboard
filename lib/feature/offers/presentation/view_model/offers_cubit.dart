@@ -5,10 +5,10 @@ import 'package:meta/meta.dart';
 import '../../domain/entities/offer_entity.dart';
 import '../../domain/repos/offer_repo.dart';
 
-part 'offer_state.dart';
+part 'offers_state.dart';
 
-class OfferCubit extends Cubit<OfferState> {
-  OfferCubit(this._offerRepo, this._productsRepo) : super(OffersInitial());
+class OffersCubit extends Cubit<OfferState> {
+  OffersCubit(this._offerRepo, this._productsRepo) : super(OffersInitial());
   final OfferRepo _offerRepo;
   final ProductRepo _productsRepo;
   List<OfferEntity> offers = [];

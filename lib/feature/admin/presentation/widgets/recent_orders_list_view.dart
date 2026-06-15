@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/core/widgets/empty_widget.dart';
 import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/skeletonizer_order_item.dart';
-import 'package:fruit_hub_dashboard/feature/orders/presentation/view_model/orders_cubit.dart';
 
+import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../core/helper_function/get_date_formate.dart';
 import '../../../../generated/assets.dart';
 import '../view_model/admin_cubit.dart';

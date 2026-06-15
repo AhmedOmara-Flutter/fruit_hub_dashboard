@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub_dashboard/core/utils/route_manager.dart';
 import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/recent_orders_list_view.dart';
 import 'package:fruit_hub_dashboard/feature/main/presentation/view_model/main_cubit.dart';
-
-import '../../../orders/presentation/view_model/orders_cubit.dart';
-import '../view_model/admin_cubit.dart';
+import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 
 class RecentOrdersCard extends StatelessWidget {
   const RecentOrdersCard({super.key});

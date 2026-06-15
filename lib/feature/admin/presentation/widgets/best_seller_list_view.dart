@@ -3,9 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/feature/admin/presentation/view_model/admin_cubit.dart';
 import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/product_item.dart';
 import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/skeletonizer_product_item.dart';
-import 'package:fruit_hub_dashboard/feature/orders/presentation/view_model/orders_cubit.dart';
-
-import '../../../../core/widgets/empty_widget.dart';
+import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../generated/assets.dart';
 
 class BestSellerListView extends StatelessWidget {

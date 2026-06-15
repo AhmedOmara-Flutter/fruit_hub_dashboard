@@ -4,7 +4,7 @@ import 'package:fruit_hub_dashboard/feature/offers/presentation/widgets/skeleton
 
 import '../../../../core/widgets/empty_widget.dart';
 import '../../domain/entities/offer_entity.dart';
-import '../view_model/offer_cubit.dart';
+import '../view_model/offers_cubit.dart';
 import 'offer_product_card.dart';
 
 class OffersViewBody extends StatelessWidget {
@@ -12,10 +12,10 @@ class OffersViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OfferCubit, OfferState>(
+    return BlocBuilder<OffersCubit, OfferState>(
       builder: (context, state) {
         List<OfferEntity> offers = context
-            .read<OfferCubit>()
+            .read<OffersCubit>()
             .offers;
         if (state is GetOffersLoading) {
           return ListView.separated(

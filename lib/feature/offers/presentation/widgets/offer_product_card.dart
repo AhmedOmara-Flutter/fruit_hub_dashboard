@@ -5,7 +5,7 @@ import '../../../../core/helper_function/custom_show_dialog.dart';
 import '../../../../core/helper_function/custom_show_snake_bar.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../domain/entities/offer_entity.dart';
-import '../view_model/offer_cubit.dart';
+import '../view_model/offers_cubit.dart';
 
 class OfferProductCard extends StatelessWidget {
   final OfferEntity offer;
@@ -196,11 +196,11 @@ class OfferProductCard extends StatelessWidget {
                   cancel: () => Navigator.pop(context),
                   accept: () {
                     context
-                        .read<OfferCubit>()
+                        .read<OffersCubit>()
                         .deleteOffer(offer);
                   },
                   icon: Icons.local_offer_outlined,
-                  confirmChild: BlocBuilder<OfferCubit, OfferState>(
+                  confirmChild: BlocBuilder<OffersCubit, OfferState>(
                     builder: (context, state) {
                       final isLoading =
                       state is DeleteOfferLoading;

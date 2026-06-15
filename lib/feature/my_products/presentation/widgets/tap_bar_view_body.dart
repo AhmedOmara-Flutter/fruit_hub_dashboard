@@ -7,7 +7,7 @@ import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/ske
 
 import '../../../../core/helper_function/get_dummy_products.dart';
 import '../../../offers/domain/entities/offer_entity.dart';
-import '../../../offers/presentation/view_model/offer_cubit.dart';
+import '../../../offers/presentation/view_model/offers_cubit.dart';
 
 class TapBarViewBody extends StatefulWidget {
   final String category;
@@ -34,7 +34,7 @@ class _TapBarViewBodyState extends State<TapBarViewBody> {
             .read<MyProductsCubit>()
             .filteredProducts;
         final offers = context
-            .watch<OfferCubit>()
+            .watch<OffersCubit>()
             .offers;
         if (state is GetFilteredProductsLoading) {
           return ListView.separated(

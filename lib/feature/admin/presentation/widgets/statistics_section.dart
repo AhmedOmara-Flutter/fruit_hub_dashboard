@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub_dashboard/feature/admin/presentation/view_model/admin_cubit.dart';
 import 'package:fruit_hub_dashboard/feature/clients/presentation/view_model/clients_cubit.dart';
-
+import 'package:fruit_hub_dashboard/feature/offers/presentation/view_model/offers_cubit.dart';
+import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../clients/presentation/widgets/statistics_card.dart';
-import '../../../orders/presentation/view_model/orders_cubit.dart';
 
 class StatisticsSection extends StatelessWidget {
   const StatisticsSection({super.key});
@@ -50,11 +49,11 @@ class StatisticsSection extends StatelessWidget {
                 model: StatisticsCardModel(
                   color: Colors.purple,
                   icon: Icons.inventory_2_outlined,
-                  title: 'اجمالي المنتجات',
+                  title: 'اجمالي العروض',
                   subTitleNumber:
-                      '${context.watch<AdminCubit>().products.length}',
+                      '${context.watch<OffersCubit>().offers.length}',
 
-                  subTitleText: 'المنتجات المتاحة',
+                  subTitleText: 'العروض المتاحة',
                 ),
               ),
             ),
