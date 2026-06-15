@@ -61,7 +61,6 @@ class ThemeManager {
 
       bodyMedium: StyleManager.font14Weight600
 
-
     ),
 
       /// input decoration theme

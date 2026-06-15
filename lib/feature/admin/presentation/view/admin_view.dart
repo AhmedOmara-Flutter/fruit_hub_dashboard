@@ -18,11 +18,12 @@ class _AdminViewState extends State<AdminView> {
     super.initState();
 
     final adminCubit = context.read<AdminCubit>();
+    final clientsCubit = context.read<ClientsCubit>();
 
     if (adminCubit.products.isEmpty &&
         adminCubit.orders.isEmpty) {
       adminCubit.loadDashboard();
-      context.read<ClientsCubit>().loadData();
+      clientsCubit.loadData();
     }  }
 
   @override

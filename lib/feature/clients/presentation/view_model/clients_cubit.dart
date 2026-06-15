@@ -17,28 +17,40 @@ class ClientsCubit extends Cubit<ClientsState> {
   List<OrderEntity> orders = [];
   List<UserEntity> filteredClients = [];
 
-  Future<void> loadData() async {
+  StreamSubscription? _clientsSubscription;
+  StreamSubscription? _ordersSubscription;
+  void loadData() {
     emit(GetClientsLoading());
 
-    final results = await Future.wait([
-      _clientsRepo.getClients(),
-      _ordersRepo.getOrders(),
-    ]);
+    _clientsSubscription?.cancel();
+    _ordersSubscription?.cancel();
 
-    results[0].fold(
-          (failure) => emit(GetClientsFailure(failure.errMessage)),
-          (data) {
-        clients = data as List<UserEntity>;
-        filteredClients = clients;
-      },
-    );
+    _clientsSubscription =
+        _clientsRepo.getClients().listen((result) {
+          result.fold(
+                (failure) {
+              emit(GetClientsFailure(failure.errMessage));
+            },
+                (data) {
+              clients = data;
+              filteredClients = data;
+              emit(GetClientsSuccess());
+            },
+          );
+        });
 
-    results[1].fold(
-          (failure) => emit(GetClientsFailure(failure.errMessage)),
-          (data) => orders = data as List<OrderEntity>,
-    );
-
-    emit(GetClientsSuccess());
+    _ordersSubscription =
+        _ordersRepo.getOrders().listen((result) {
+          result.fold(
+                (failure) {
+              emit(GetClientsFailure(failure.errMessage));
+            },
+                (data) {
+              orders = data;
+              emit(GetClientsSuccess());
+            },
+          );
+        });
   }
 
   List<OrderEntity> getOrdersForUser(String userId) {
@@ -62,6 +74,14 @@ class ClientsCubit extends Cubit<ClientsState> {
     } else {
       emit(GetClientsSuccess());
     }
+  }
+
+
+  @override
+  Future<void> close() {
+    _clientsSubscription?.cancel();
+    _ordersSubscription?.cancel();
+    return super.close();
   }
 
 }

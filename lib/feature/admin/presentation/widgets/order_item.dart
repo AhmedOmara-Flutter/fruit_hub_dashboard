@@ -7,7 +7,7 @@ import '../../../../generated/assets.dart';
 
 class OrderItem extends StatelessWidget {
   final String image;
-  final String amount;
+  final double amount;
   final String status;
   final Color statusColor;
   final String customerName;
@@ -134,7 +134,7 @@ class OrderItem extends StatelessWidget {
               const SizedBox(height: 12),
 
               Text(
-                '$amount ج.م',
+                '${amount.toStringAsFixed(2)} ج.م',
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(
                   color: AppColor.mainColor
                 ),

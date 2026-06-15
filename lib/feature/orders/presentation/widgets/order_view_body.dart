@@ -1,21 +1,92 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/feature/orders/presentation/widgets/build_order_card.dart';
 
-class OrderViewBody extends StatelessWidget {
+import '../../../admin/presentation/view_model/admin_cubit.dart';
+
+class OrderViewBody extends StatefulWidget {
   const OrderViewBody({super.key});
 
   @override
+  State<OrderViewBody> createState() => _OrderViewBodyState();
+}
+
+class _OrderViewBodyState extends State<OrderViewBody> {
+  String selectedStatus = 'الكل';
+
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: ListView.builder(
-            padding: EdgeInsets.only(left: 10, right: 10, top: 10),
-            itemBuilder: (context, index) => BuildOrderCard(),
-            itemCount: 4,
+    return CustomScrollView(
+      slivers: [
+
+        SliverToBoxAdapter(child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Container(
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Row(
+              children: [
+                _buildTab('الكل'),
+                _buildTab('انتظار'),
+                _buildTab('مؤكد'),
+                _buildTab('منتهي'),
+              ],
+            ),
           ),
+        ),),
+        BlocBuilder<AdminCubit, AdminState>(
+          builder: (context, state) {
+            final cubit = context.watch<AdminCubit>();
+            final orders = cubit.orders;
+
+            return SliverList.builder(
+              itemCount: orders.length,
+              itemBuilder: (context, index) {
+                return BuildOrderCard(
+                    index: index,
+                    order: orders[index]);
+              },
+            );
+          },
         ),
       ],
+    );
+  }
+
+  Widget _buildTab(String title) {
+    final isSelected = selectedStatus == title;
+
+    return Expanded(
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            selectedStatus = title;
+          });
+        },
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 2),
+          padding: const EdgeInsets.symmetric(vertical: 12,),
+          decoration: BoxDecoration(
+            color: isSelected ? AppColor.mainColor : Colors.transparent,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Center(
+            child: Text(
+              title,
+              style: TextStyle(
+                color: isSelected
+                    ? Colors.white
+                    : Colors.grey.shade700,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

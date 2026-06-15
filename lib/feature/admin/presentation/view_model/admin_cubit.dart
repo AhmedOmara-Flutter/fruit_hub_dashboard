@@ -1,6 +1,8 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
-import 'package:fruit_hub_dashboard/core/repos/orders_repo/orders_repo.dart';
 import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
+import 'package:fruit_hub_dashboard/core/repos/orders_repo/orders_repo.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../core/entities/order_entity.dart';
@@ -24,20 +26,13 @@ class AdminCubit extends Cubit<AdminState> {
   List<OrderEntity> orders = [];
   Map<String, UserEntity> users = {};
 
+  StreamSubscription? _ordersSubscription;
+
   Future<void> loadDashboard() async {
     emit(DashboardLoading());
 
-    try {
-      await Future.wait([
-        getProducts(),
-        getOrders(),
-        getTotalOrders(),
-      ]);
-
-      emit(DashboardSuccess());
-    } catch (e) {
-      emit(DashboardError(e.toString()));
-    }
+    await getProducts();
+    getOrders();
   }
   Future<List<ProductEntity>> getProducts() async {
     final result = await _productRepo.getProducts();
@@ -58,52 +53,35 @@ class AdminCubit extends Cubit<AdminState> {
 
   double totalSales = 0;
 
-  Future<void> getTotalOrders() async {
-    final result = await _ordersRepo.getOrders();
+  void getOrders() {
+    _ordersSubscription?.cancel();
 
-    result.fold(
-      (failure) {
-      },
-      (data) {
-        totalSales = data.fold(
-          0.0,
-          (sum, order) =>
-              sum +
-              order.cartEntity.cartItems.fold(
-                0.0,
-                (cartSum, item) => cartSum + item.totalPrice,
-              ),
-        );
+    _ordersSubscription = _ordersRepo.getOrders().listen((res) {
+      res.fold(
+            (failure) {
+          emit(DashboardError(failure.errMessage));
         },
-    );
-  }
+            (data) {
+          orders = data;
 
-  Future<void> getOrders() async {
-    final result = await _ordersRepo.getOrders();
+          orders.sort(
+                (a, b) => b.createdAt!.compareTo(a.createdAt!),
+          );
 
-    result.fold(
-          (failure) {
-      },
-          (data) {
-            for (var order in data) {
-              for (var item in order.cartEntity.cartItems) {
-                print('----------------');
-                print(item.product.name);
-                print('unitPrice = ${item.unitPrice}');
-                print('quantity = ${item.quantity}');
-                print('totalPrice = ${item.totalPrice}');
-              }
-            }
+          totalSales = orders.fold(
+            0.0,
+                (sum, order) =>
+            sum +
+                order.cartEntity.cartItems.fold(
+                  0.0,
+                      (cartSum, item) => cartSum + item.totalPrice,
+                ),
+          );
 
-            orders = data;
-        orders.map((e){
-          return e.uId;
-        });
-        orders.sort(
-              (a, b) => b.createdAt!.compareTo(a.createdAt!),
-        );
-      },
-    );
+          emit(DashboardSuccess());
+        },
+      );
+    });
   }
 
 
@@ -139,5 +117,11 @@ class AdminCubit extends Cubit<AdminState> {
     );
 
     return result;
+  }
+
+  @override
+  Future<void> close() {
+    _ordersSubscription?.cancel();
+    return super.close();
   }
 }
