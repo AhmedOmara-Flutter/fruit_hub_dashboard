@@ -14,6 +14,7 @@ class OrderModel {
   final AddressModel address;
   final List<OrderItemModel> items;
   final UserModel userModel;
+  final String status;
 
 
 
@@ -23,7 +24,7 @@ class OrderModel {
     required this.address,
      required this.items,
     required this.totalPrice,
-    required this.createdAt, required this.userModel,
+    required this.createdAt, required this.userModel, required this.status,
   });
 
   factory OrderModel.fromEntity(OrderEntity entity) {
@@ -36,6 +37,7 @@ class OrderModel {
       items: entity.cartEntity.cartItems.map((cartItem) =>
           OrderItemModel.fromEntity(cartItem)).toList(),
       userModel: UserModel.fromEntity(entity.userEntity!),
+      status: entity.status,
     );
   }
 
@@ -49,17 +51,19 @@ class OrderModel {
         cartItems: items.map((item) => item.toEntity()).toList(),
       ),
       userEntity: userModel.toEntity(),
+      status: status,
     );
   }
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     return OrderModel(
       uId: json['uId'],
       totalPrice: json['totalPrice'],
-      createdAt: (json['createdAt'] as Timestamp?)!.toDate(),
+      createdAt:(json['createdAt'] as Timestamp).toDate(),
       address: AddressModel.fromJson(json['address']),
       paymentMethod: json['paymentMethod'],
       items: List<OrderItemModel>.from(json['items'].map((item) => OrderItemModel.fromJson(item))),
       userModel: UserModel.fromJson(json['userModel']),
+      status: json['status'] ?? 'pending',
     );
   }
 
@@ -68,10 +72,11 @@ class OrderModel {
       'uId': uId,
       'paymentMethod': paymentMethod,
       'totalPrice': totalPrice,
-      'createdAt': createdAt ?? FieldValue.serverTimestamp(),
+      'createdAt': createdAt ,
       'address': address.toJson(),
       'items': items.map((item) => item.toJson()).toList(),
       'userModel': userModel.toJson(),
+      'status': status,
     };
   }
 

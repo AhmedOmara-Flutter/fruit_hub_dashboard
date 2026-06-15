@@ -10,6 +10,8 @@ class OrderEntity {
   bool? isCashOnDelivery;
   AddressEntity? addressEntity;
   UserEntity?userEntity;
+  final String status;
+
 
   OrderEntity({
     required this.cartEntity,
@@ -17,7 +19,7 @@ class OrderEntity {
     this.addressEntity,
     required this.uId,
     this.createdAt,
-    this.userEntity
+    this.userEntity,required this.status
   });
 
   String getFullAddress() {
