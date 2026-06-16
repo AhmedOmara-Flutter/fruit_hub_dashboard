@@ -4,7 +4,6 @@ import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
 class ThemeManager {
   static ThemeData lightTheme = ThemeData(
       scaffoldBackgroundColor: Colors.white,
-
     ///appBar
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.white,
@@ -14,7 +13,6 @@ class ThemeManager {
       titleTextStyle: StyleManager.font19Weight700,
       iconTheme: IconThemeData(color: Colors.black),
     ),
-
     ///elevated button
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -25,7 +23,6 @@ class ThemeManager {
         minimumSize: const Size(double.infinity, 65),
       ),
     ),
-
       ///outlined button
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -54,20 +51,15 @@ class ThemeManager {
       labelMedium: StyleManager.font16Weight600,
       //button in featured item
       labelLarge: StyleManager.font13Weight700,
-
       displaySmall: StyleManager.font19Weight700,
-
       bodyLarge: StyleManager.font11Weight400,
-
       bodyMedium: StyleManager.font14Weight600
-
     ),
 
       /// input decoration theme
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: Color(0xffF9FAFA),
-
         hintStyle: StyleManager.font11Weight400,
         labelStyle: StyleManager.font11Weight400,
         suffixIconColor: Color(0xffC9CECF),
@@ -87,10 +79,6 @@ class ThemeManager {
           borderSide: BorderSide(color: Color(0xffE6E9EA)),
           borderRadius: BorderRadius.circular(4),
         ),
-
-
       )
   );
-
-
 }

@@ -57,7 +57,7 @@ class SkeletonizerBuildOrderCard extends StatelessWidget {
       
                 const SizedBox(width: 8),
       
-                OrderStatusBadge(title: 'widget'),
+                OrderStatusBadge(title: 'widget', color: Colors.transparent,),
               ],
             ),
       

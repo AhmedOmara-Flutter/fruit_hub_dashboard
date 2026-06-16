@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_hub_dashboard/core/enums/order_enum.dart';
 
 import '../../../../core/entities/order_entity.dart';
 import '../../../../core/helper_function/get_date_formate.dart';
@@ -13,8 +14,12 @@ class BuildOrderCard extends StatefulWidget {
   final int index;
   final void Function()? userTap;
 
-  const BuildOrderCard(
-      {super.key, required this.order, required this.index,this.userTap});
+  const BuildOrderCard({
+    super.key,
+    required this.order,
+    required this.index,
+    this.userTap,
+  });
 
   @override
   State<BuildOrderCard> createState() => _BuildOrderCardState();
@@ -26,7 +31,7 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 6,horizontal: 10),
+      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -45,35 +50,33 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               OrderUserImage(
-                 onTap: widget.userTap,
-                 imageUrl: widget.order.userEntity!.image,
-               ),
+              OrderUserImage(
+                onTap: widget.userTap,
+                imageUrl: widget.order.userEntity!.image,
+              ),
 
               const SizedBox(width: 12),
 
-               OrderCustomerInfo(
+              OrderCustomerInfo(
                 customerName: widget.order.userEntity!.userName,
-                 orderId: '${widget.index + 1}'.padLeft(2, '0'),                address: widget.order.getFullAddress(),
-                products:widget.order.cartEntity.cartItems
-                    .map((item) =>
-                '${item.product.name} × ${item.quantity}')
+                orderId: '${widget.index + 1}'.padLeft(2, '0'),
+                address: widget.order.getFullAddress(),
+                products: widget.order.cartEntity.cartItems
+                    .map((item) => '${item.product.name} × ${item.quantity}')
                     .join('\n'),
               ),
-
               const SizedBox(width: 8),
-
-               OrderStatusBadge(
-                title: widget.order.status,
+              OrderStatusBadge(
+                color: widget.order.status.color,
+                title: widget.order.status.ar,
               ),
             ],
           ),
-
           const SizedBox(height: 12),
-
-           OrderSummarySection(
+          OrderSummarySection(
             time: '${getTimeOnly(widget.order.createdAt.toString())} ص',
-            totalPrice: '${widget.order.cartEntity.getTotalPrice().toStringAsFixed(2)} ج.م',
+            totalPrice:
+                '${widget.order.cartEntity.getTotalPrice().toStringAsFixed(2)} ج.م',
           ),
           const SizedBox(height: 14),
           Row(
@@ -88,9 +91,7 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
                   });
                 },
               ),
-
               const SizedBox(width: 10),
-
               OrderStatusButton(
                 title: 'انتهاء',
                 icon: Icons.done_all,
@@ -102,7 +103,7 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
                 },
               ),
             ],
-          )
+          ),
         ],
       ),
     );

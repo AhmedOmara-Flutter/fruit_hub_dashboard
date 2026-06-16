@@ -3,6 +3,7 @@ import 'package:fruit_hub_dashboard/core/entities/order_entity.dart';
 import 'package:fruit_hub_dashboard/core/models/user_model.dart';
 
 import '../entities/cart_entity.dart';
+import '../enums/order_enum.dart';
 import 'address_model.dart';
 import 'order_item_model.dart';
 
@@ -14,8 +15,7 @@ class OrderModel {
   final AddressModel address;
   final List<OrderItemModel> items;
   final UserModel userModel;
-  final String status;
-
+  final OrderStatus status;
 
 
   OrderModel({
@@ -63,7 +63,10 @@ class OrderModel {
       paymentMethod: json['paymentMethod'],
       items: List<OrderItemModel>.from(json['items'].map((item) => OrderItemModel.fromJson(item))),
       userModel: UserModel.fromJson(json['userModel']),
-      status: json['status'] ?? 'pending',
+      status:  OrderStatus.values.firstWhere(
+            (e) => e.name == (json['status'] ?? 'قيد الانتظار'),
+        orElse: () => OrderStatus.pending,
+      ),
     );
   }
 
@@ -76,7 +79,7 @@ class OrderModel {
       'address': address.toJson(),
       'items': items.map((item) => item.toJson()).toList(),
       'userModel': userModel.toJson(),
-      'status': status,
+      'status': status.name,
     };
   }
 

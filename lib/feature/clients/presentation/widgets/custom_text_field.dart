@@ -17,18 +17,19 @@ class CustomTextField extends StatelessWidget {
         onChanged: onChanged,
         readOnly: readOnly,
         onTap: onTap,
+        style: Theme.of(context).textTheme.bodyMedium,
         decoration: InputDecoration(
           hintText: 'ابحث عن...',
           prefixIcon: Icon(
             Icons.search,
             color: AppColor.mainColor.withOpacity(0.3),
           ),
-
           filled: true,
           fillColor: Colors.white,
           suffixIcon: Icon(
               Icons.filter_list_sharp
           ),
+
 
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),

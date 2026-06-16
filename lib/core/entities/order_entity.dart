@@ -3,6 +3,8 @@ import 'package:fruit_hub_dashboard/core/entities/cart_entity.dart';
 import 'package:fruit_hub_dashboard/core/entities/user_entity.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_constants.dart';
 
+import '../enums/order_enum.dart';
+
 class OrderEntity {
   final String uId;
   final DateTime? createdAt;
@@ -10,8 +12,7 @@ class OrderEntity {
   bool? isCashOnDelivery;
   AddressEntity? addressEntity;
   UserEntity?userEntity;
-  final String status;
-
+  final OrderStatus status;
 
   OrderEntity({
     required this.cartEntity,
