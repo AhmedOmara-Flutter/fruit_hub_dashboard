@@ -21,7 +21,6 @@ class _OrderViewBodyState extends State<OrderViewBody> {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-
         SliverToBoxAdapter(child: Padding(
           padding: const EdgeInsets.all(10),
           child: Container(

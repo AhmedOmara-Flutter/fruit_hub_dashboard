@@ -1,12 +1,11 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-
 import '../../../../core/entities/order_entity.dart';
 import '../../../../core/models/top_product_model.dart';
 import '../../../../core/repos/orders_repo/orders_repo.dart';
 import '../../../../generated/assets.dart';
+import '../../enums/order_enum.dart';
 
 part 'orders_state.dart';
 
@@ -87,5 +86,25 @@ class OrdersCubit extends Cubit<OrdersState> {
   Future<void> close() {
     _ordersSubscription?.cancel();
     return super.close();
+  }
+  Future<void> updateOrderStatus({
+    required String orderId,
+    required OrderStatus status,
+  }) async {
+    emit(UpdateOrderLoadingState());
+
+    final result = await _ordersRepo.updateOrderStatus(
+      orderId: orderId,
+      status: status,
+    );
+
+    result.fold(
+          (failure) {
+        emit(UpdateOrderErrorState(failure.errMessage));
+      },
+          (_) {
+        emit(UpdateOrderSuccessState());
+      },
+    );
   }
 }

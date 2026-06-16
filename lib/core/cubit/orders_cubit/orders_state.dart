@@ -15,3 +15,13 @@ final class GetOrdersErrorState extends OrdersState {
 
   GetOrdersErrorState(this.errMessage);
 }
+
+final class UpdateOrderLoadingState extends OrdersState {}
+
+final class UpdateOrderSuccessState extends OrdersState {}
+
+final class UpdateOrderErrorState extends OrdersState {
+  final String errMessage;
+
+  UpdateOrderErrorState(this.errMessage);
+}

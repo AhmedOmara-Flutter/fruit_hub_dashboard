@@ -16,6 +16,7 @@ class OrderModel {
   final List<OrderItemModel> items;
   final UserModel userModel;
   final OrderStatus status;
+  String ?id;
 
 
   OrderModel({
@@ -24,7 +25,7 @@ class OrderModel {
     required this.address,
      required this.items,
     required this.totalPrice,
-    required this.createdAt, required this.userModel, required this.status,
+    required this.createdAt, required this.userModel, required this.status, this.id,
   });
 
   factory OrderModel.fromEntity(OrderEntity entity) {
@@ -38,6 +39,7 @@ class OrderModel {
           OrderItemModel.fromEntity(cartItem)).toList(),
       userModel: UserModel.fromEntity(entity.userEntity!),
       status: entity.status,
+      id: entity.id,
     );
   }
 
@@ -52,6 +54,7 @@ class OrderModel {
       ),
       userEntity: userModel.toEntity(),
       status: status,
+      id: id,
     );
   }
   factory OrderModel.fromJson(Map<String, dynamic> json) {
@@ -67,6 +70,7 @@ class OrderModel {
             (e) => e.name == (json['status'] ?? 'قيد الانتظار'),
         orElse: () => OrderStatus.pending,
       ),
+      id: json['id'],
     );
   }
 
@@ -80,6 +84,7 @@ class OrderModel {
       'items': items.map((item) => item.toJson()).toList(),
       'userModel': userModel.toJson(),
       'status': status.name,
+      'id': id,
     };
   }
 

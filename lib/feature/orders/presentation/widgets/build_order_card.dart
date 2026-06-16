@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/core/enums/order_enum.dart';
 
+import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../core/entities/order_entity.dart';
 import '../../../../core/helper_function/get_date_formate.dart';
 import 'order_customer_info.dart';
@@ -64,6 +66,9 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
                 products: widget.order.cartEntity.cartItems
                     .map((item) => '${item.product.name} × ${item.quantity}')
                     .join('\n'),
+                price: widget.order.cartEntity.cartItems
+                    .map((item) => '${item.unitPrice} ج.م ')
+                    .join('\n'),
               ),
               const SizedBox(width: 8),
               OrderStatusBadge(
@@ -74,37 +79,72 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
           ),
           const SizedBox(height: 12),
           OrderSummarySection(
-            time: '${getTimeOnly(widget.order.createdAt.toString())} ص',
+            time: '${getTimeOnly(widget.order.createdAt.toString())} ',
             totalPrice:
                 '${widget.order.cartEntity.getTotalPrice().toStringAsFixed(2)} ج.م',
           ),
           const SizedBox(height: 14),
-          Row(
-            children: [
-              OrderStatusButton(
-                title: 'تأكيد',
-                icon: Icons.check,
-                isSelected: selectedType == 'تأكيد',
-                onTap: () {
-                  setState(() {
-                    selectedType = 'تأكيد';
-                  });
-                },
-              ),
-              const SizedBox(width: 10),
-              OrderStatusButton(
-                title: 'انتهاء',
-                icon: Icons.done_all,
-                isSelected: selectedType == 'انتهاء',
-                onTap: () {
-                  setState(() {
-                    selectedType = 'انتهاء';
-                  });
-                },
-              ),
-            ],
-          ),
-        ],
+          if (widget.order.status == OrderStatus.pending) ...[
+            const SizedBox(height: 14),
+            Row(
+              children: [
+                /// تأكيد الطلب
+                Expanded(
+                  child: OrderStatusButton(
+                    title: 'تأكيد الطلب',
+                    icon: Icons.check,
+                    color: OrderStatus.confirmed.color,
+                    onTap: () {
+                      context.read<OrdersCubit>().updateOrderStatus(
+                        orderId: widget.order.id ?? '',
+                        status: OrderStatus.confirmed,
+                      );
+                    },
+                  ),
+                ),
+
+                const SizedBox(width: 10),
+
+                /// إلغاء الطلب
+                Expanded(
+                  child: OrderStatusButton(
+                    title: 'إلغاء الطلب',
+                    icon: Icons.cancel,
+                    color: OrderStatus.cancelled.color,
+                    onTap: () {
+                      context.read<OrdersCubit>().updateOrderStatus(
+                        orderId: widget.order.id ?? '',
+                        status: OrderStatus.cancelled,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ],
+
+          /// confirmed → زر إنهاء
+          if (widget.order.status == OrderStatus.confirmed) ...[
+            const SizedBox(height: 14),
+
+            Row(
+              children: [
+                Expanded(
+                  child: OrderStatusButton(
+                    title: 'إنهاء الطلب',
+                    icon: Icons.done_all,
+                    color: OrderStatus.delivered.color,
+                    onTap: () {
+                      context.read<OrdersCubit>().updateOrderStatus(
+                        orderId: widget.order.id ?? '',
+                        status: OrderStatus.delivered,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ],        ],
       ),
     );
   }

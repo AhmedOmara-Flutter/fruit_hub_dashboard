@@ -7,6 +7,7 @@ import '../enums/order_enum.dart';
 
 class OrderEntity {
   final String uId;
+   String ?id;
   final DateTime? createdAt;
   final CartEntity cartEntity;
   bool? isCashOnDelivery;
@@ -20,7 +21,8 @@ class OrderEntity {
     this.addressEntity,
     required this.uId,
     this.createdAt,
-    this.userEntity,required this.status
+    this.userEntity,required this.status,
+     this.id
   });
 
   String getFullAddress() {

@@ -3,10 +3,16 @@ import 'package:fruit_hub_dashboard/core/errors/failure.dart';
 import 'package:fruit_hub_dashboard/core/services/database_services.dart';
 
 import '../../entities/order_entity.dart';
+import '../../enums/order_enum.dart';
 import '../../models/order_model.dart';
 
 abstract class OrdersRepo {
   Stream<Either<Failure, List<OrderEntity>>> getOrders();
+
+  Future<Either<Failure, void>> updateOrderStatus({
+    required String orderId,
+    required OrderStatus status,
+  });
 }
 
 class OrdersRepoImpl implements OrdersRepo {
@@ -27,6 +33,23 @@ class OrdersRepoImpl implements OrdersRepo {
     } catch (e) {
       print('error from get orders is ${e.toString()}');
       yield Left(Failure(errMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateOrderStatus({
+    required String orderId,
+    required OrderStatus status,
+  }) async {
+    try {
+      await _databaseServices.updateData(
+        path: 'orders',
+        data: {'status': status.name},
+        docId: orderId,
+      );
+      return const Right(null);
+    } on Exception catch (e) {
+      return Left(Failure(errMessage: e.toString()));
     }
   }
 }

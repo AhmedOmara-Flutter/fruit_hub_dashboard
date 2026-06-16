@@ -7,16 +7,18 @@ enum OrderStatus {
   cancelled,
 }
 
-
 extension OrderStatusUI on OrderStatus {
   String get ar {
     switch (this) {
       case OrderStatus.pending:
         return 'قيد الانتظار';
+
       case OrderStatus.confirmed:
-        return 'تم تاكيد';
+        return 'تم التأكيد';
+
       case OrderStatus.delivered:
         return 'تم الانتهاء';
+
       case OrderStatus.cancelled:
         return 'ملغي';
     }
@@ -26,10 +28,13 @@ extension OrderStatusUI on OrderStatus {
     switch (this) {
       case OrderStatus.pending:
         return Colors.orange;
+
       case OrderStatus.confirmed:
         return Colors.blue;
+
       case OrderStatus.delivered:
         return Colors.green;
+
       case OrderStatus.cancelled:
         return Colors.red;
     }

@@ -8,13 +8,14 @@ class OrderCustomerInfo extends StatelessWidget {
     required this.customerName,
     required this.orderId,
     required this.address,
-    required this.products,
+    required this.products, required this.price,
   });
 
   final String customerName;
   final String orderId;
   final String address;
   final String products;
+  final String price;
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +54,22 @@ class OrderCustomerInfo extends StatelessWidget {
 
           const SizedBox(height: 4),
 
-          Text(
-            products,
-            style: Theme.of(context).textTheme.titleSmall!.copyWith(
-              color: AppColor.mainColor,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                products,
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: AppColor.mainColor,
+                ),
+              ),
+              Text(
+                price,
+                style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                  color: AppColor.mainColor,
+                ),
+              ),
+            ],
           ),
         ],
       ),
