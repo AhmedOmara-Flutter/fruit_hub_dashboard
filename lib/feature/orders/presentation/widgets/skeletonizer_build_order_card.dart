@@ -51,6 +51,7 @@ class SkeletonizerBuildOrderCard extends StatelessWidget {
                 OrderCustomerInfo(
                   customerName: 'widget.order.user',
                   orderId: '00',
+                  phone: '012012121211',
                   address:' widget.order.getFullAddress()',
                   products: 'widget.order.cartEntity.cartItems',
                     price:'5555'

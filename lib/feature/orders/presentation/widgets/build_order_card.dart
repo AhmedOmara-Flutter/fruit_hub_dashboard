@@ -61,6 +61,7 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
 
               OrderCustomerInfo(
                 customerName: widget.order.userEntity!.userName,
+                phone: widget.order.userEntity!.phone,
                 orderId: '${widget.index + 1}'.padLeft(2, '0'),
                 address: widget.order.getFullAddress(),
                 products: widget.order.cartEntity.cartItems
@@ -88,7 +89,6 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
             const SizedBox(height: 14),
             Row(
               children: [
-                /// تأكيد الطلب
                 Expanded(
                   child: OrderStatusButton(
                     title: 'تأكيد الطلب',
@@ -102,10 +102,7 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
                     },
                   ),
                 ),
-
                 const SizedBox(width: 10),
-
-                /// إلغاء الطلب
                 Expanded(
                   child: OrderStatusButton(
                     title: 'إلغاء الطلب',
@@ -122,8 +119,6 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
               ],
             ),
           ],
-
-          /// confirmed → زر إنهاء
           if (widget.order.status == OrderStatus.confirmed) ...[
             const SizedBox(height: 14),
 

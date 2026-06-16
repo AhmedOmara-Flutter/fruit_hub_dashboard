@@ -8,7 +8,9 @@ class OrderCustomerInfo extends StatelessWidget {
     required this.customerName,
     required this.orderId,
     required this.address,
-    required this.products, required this.price,
+    required this.products,
+    required this.price,
+    required this.phone,
   });
 
   final String customerName;
@@ -16,6 +18,7 @@ class OrderCustomerInfo extends StatelessWidget {
   final String address;
   final String products;
   final String price;
+  final String phone;
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +46,39 @@ class OrderCustomerInfo extends StatelessWidget {
 
           const SizedBox(height: 6),
 
-          Text(
-            address,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-              color: Colors.grey.shade600,
-            ),
+          Row(
+            children: [
+              const Icon(
+                Icons.phone,
+                color: Colors.green,
+                size: 16,
+              ),
+              const SizedBox(width: 4),
+              Text(
+                phone,
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Colors.grey.shade600,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+
+          Row(
+            children: [
+              const Icon(
+                Icons.location_on,
+                color: Colors.green,
+                size: 16,
+              ),
+              const SizedBox(width: 4),
+              Text(
+                address,
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Colors.grey.shade600,
+                ),
+              ),
+            ],
           ),
 
           const SizedBox(height: 4),
