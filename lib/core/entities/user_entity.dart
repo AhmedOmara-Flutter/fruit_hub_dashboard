@@ -4,9 +4,14 @@ class UserEntity {
   final String uId;
   final String image;
   final String phone;
+  final String? fcmToken;
 
-  UserEntity({required this.userName, required this.email, required this.uId, required this.image, required this.phone});
-
-
-
+  UserEntity({
+    required this.userName,
+    required this.email,
+    required this.uId,
+    required this.image,
+    required this.phone,
+    this.fcmToken,
+  });
 }

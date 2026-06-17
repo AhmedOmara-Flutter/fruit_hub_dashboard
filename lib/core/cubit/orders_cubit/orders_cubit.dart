@@ -6,7 +6,7 @@ import '../../../../core/models/top_product_model.dart';
 import '../../../../core/repos/orders_repo/orders_repo.dart';
 import '../../../../generated/assets.dart';
 import '../../enums/order_enum.dart';
-
+import '../../notifications/notification_sender.dart';
 part 'orders_state.dart';
 
 class OrdersCubit extends Cubit<OrdersState> {
@@ -82,11 +82,6 @@ class OrdersCubit extends Cubit<OrdersState> {
     return result;
   }
 
-  @override
-  Future<void> close() {
-    _ordersSubscription?.cancel();
-    return super.close();
-  }
   Future<void> updateOrderStatus({
     required String orderId,
     required OrderStatus status,
@@ -102,9 +97,43 @@ class OrdersCubit extends Cubit<OrdersState> {
           (failure) {
         emit(UpdateOrderErrorState(failure.errMessage));
       },
-          (_) {
-        emit(UpdateOrderSuccessState());
+          (_) async {
+        try {
+          final order = orders.where((o) => o.id == orderId).firstOrNull;
+          final user = order?.userEntity;
+          final token = user?.fcmToken;
+
+          if (token != null && token.isNotEmpty) {
+            String title = "Fruit Hub 🍓";
+            String body = "";
+
+            if (status == OrderStatus.confirmed) {
+              body = "تم تأكيد طلبك 🎉";
+            } else if (status == OrderStatus.cancelled) {
+              body = "تم إلغاء طلبك ❌";
+            } else if (status == OrderStatus.delivered) {
+              body = "تم انتهاء طلبك 🚚";
+            }
+
+            await NotificationSender.send(
+              token: token,
+              title: title,
+              body: body,
+            );
+          }
+
+          emit(UpdateOrderSuccessState());
+        } catch (e) {
+          emit(UpdateOrderErrorState(e.toString()));
+        }
       },
     );
   }
+
+  @override
+  Future<void> close() {
+    _ordersSubscription?.cancel();
+    return super.close();
+  }
+
 }

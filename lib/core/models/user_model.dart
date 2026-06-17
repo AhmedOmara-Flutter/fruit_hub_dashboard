@@ -7,6 +7,7 @@ class UserModel extends UserEntity {
     required super.uId,
     required super.image,
     required super.phone,
+    super.fcmToken,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -16,6 +17,7 @@ class UserModel extends UserEntity {
       uId: json['uId'],
       image: json['image'],
       phone: json['phone'],
+      fcmToken: json['fcmToken'],
     );
   }
 
@@ -26,6 +28,7 @@ class UserModel extends UserEntity {
       uId: user.uId,
       image: user.image,
       phone: user.phone,
+      fcmToken: user.fcmToken,
     );
   }
 
@@ -36,6 +39,7 @@ class UserModel extends UserEntity {
       uId: uId,
       image: image,
       phone: phone,
+      fcmToken: fcmToken,
     );
   }
 
@@ -46,6 +50,7 @@ class UserModel extends UserEntity {
       'uId': uId,
       'image': image,
       'phone': phone,
+      'fcmToken': fcmToken,
     };
   }
 }
