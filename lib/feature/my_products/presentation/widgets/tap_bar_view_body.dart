@@ -11,7 +11,7 @@ import '../../../offers/domain/entities/offer_entity.dart';
 class TapBarViewBody extends StatefulWidget {
   final String category;
 
-  const TapBarViewBody(this.category, {super.key});
+  const  TapBarViewBody(this.category, {super.key});
 
   @override
   State<TapBarViewBody> createState() => _TapBarViewBodyState();

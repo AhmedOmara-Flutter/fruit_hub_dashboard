@@ -198,6 +198,7 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                       onPressed: canSave ? () async {
                         if (_formKey.currentState!.validate()) {
                           OfferEntity offer = OfferEntity(
+                            id: '',
                             productId: widget.product.id!,
                             discountPercentage: double.parse(discountController
                                 .text),

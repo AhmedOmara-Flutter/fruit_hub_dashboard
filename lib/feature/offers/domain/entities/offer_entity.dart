@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class OfferEntity extends Equatable {
-  final String ?id;
+  final String id;
   final String productId;
   final String image;
   final String name;
@@ -36,7 +36,7 @@ class OfferEntity extends Equatable {
   }
 
   OfferEntity({
-    this.id,
+   required this.id,
     required this.productId,
     required this.discountPercentage,
     required this.startDate,

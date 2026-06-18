@@ -14,7 +14,8 @@ class ProductRepoImpl implements ProductRepo {
 
   @override
   Future<Either<Failure, void>> addProduct(
-      ProductEntity addProductEntity) async {
+      ProductEntity addProductEntity) async
+  {
     try {
       var result = await _databaseServices.addData(
         path: 'products', data: ProductModel.fromEntity(addProductEntity).toJson(),);
@@ -57,7 +58,8 @@ class ProductRepoImpl implements ProductRepo {
 
   @override
   Stream<Either<Failure, List<ProductEntity>>> getFilteredProducts(
-      String category,) async* {
+      String category,) async*
+  {
     try {
       await for(var (data as List<Map<String, dynamic>> )in  _databaseServices.getStreamData(
         path: 'products',

@@ -18,11 +18,12 @@ class ProductEntity extends Equatable {
   final int sellingCount;
   final List<File> ?subImagesFiles;
   List<String> ?subImages;
-  final String category;
-  final String createdAt;
   double averageRating;
   int reviewsCount;
   double ratingSum;
+  final String category;
+
+  final String createdAt;
   String? offerId;
 
   ProductEntity copyWith({

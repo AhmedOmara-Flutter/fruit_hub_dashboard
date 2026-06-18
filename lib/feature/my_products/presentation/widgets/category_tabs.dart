@@ -23,11 +23,9 @@ class _CategoryTabsState extends State<CategoryTabs>
   void initState() {
     _tabController = TabController(length: categories.length, vsync: this);
 
-    // أول تحميل
     context.read<ProductsCubit>()
         .getFilteredProducts(categories[0]);
 
-    // عند تغيير الـ tab
     _tabController.addListener(() {
       if (!_tabController.indexIsChanging) {
         context.read<ProductsCubit>().getFilteredProducts(
