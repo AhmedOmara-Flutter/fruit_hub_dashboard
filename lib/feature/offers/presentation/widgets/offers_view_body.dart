@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/feature/offers/presentation/widgets/skeletonizer_offer_product_card.dart';
 import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../../core/widgets/empty_widget.dart';
-import '../../domain/entities/offer_entity.dart';
+import '../../../../core/entities/offer_entity.dart';
 import 'offer_product_card.dart';
 
 class OffersViewBody extends StatelessWidget {
@@ -13,9 +13,7 @@ class OffersViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<OffersCubit, OfferState>(
       builder: (context, state) {
-        List<OfferEntity> offers = context
-            .read<OffersCubit>()
-            .offers;
+
         if (state is GetOffersLoading) {
           return ListView.separated(
             padding: const EdgeInsets.all(12),
@@ -29,10 +27,10 @@ class OffersViewBody extends StatelessWidget {
         if (state is GeOffersSuccess) {
           return ListView.separated(
             padding: const EdgeInsets.all(12),
-            itemCount: offers.length,
+            itemCount: state.offers.length,
             separatorBuilder: (_, __) => const SizedBox(height: 5),
             itemBuilder: (context, index) {
-              return OfferProductCard(offer: offers[index]);
+              return OfferProductCard(offer:state.offers[index]);
             },
           );
         }

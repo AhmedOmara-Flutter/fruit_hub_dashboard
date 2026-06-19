@@ -1,4 +1,4 @@
-import '../../domain/entities/offer_entity.dart';
+import '../entities/offer_entity.dart';
 
 class OfferModel extends OfferEntity {
   OfferModel({

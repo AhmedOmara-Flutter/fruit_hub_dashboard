@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
-import 'package:fruit_hub_dashboard/feature/offers/domain/entities/offer_entity.dart';
-import '../../../../core/errors/failure.dart';
+import 'package:fruit_hub_dashboard/core/entities/offer_entity.dart';
+import '../../errors/failure.dart';
 
 abstract class OfferRepo {
   Future<Either<Failure, String>> addOffer(OfferEntity offer,);
 
-  Future<Either<Failure, List<OfferEntity>>> getOffers();
+  Stream<Either<Failure, List<OfferEntity>>> getOffers();
 
   Future<Either<Failure, void>> deleteOffer(String offerId,);
 

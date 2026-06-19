@@ -10,7 +10,7 @@ import 'package:fruit_hub_dashboard/feature/clients/presentation/view_model/clie
 import 'package:fruit_hub_dashboard/feature/reviews/presentation/view_model/get_products_with_review/get_product_with_reviews_cubit.dart';
 import 'package:fruit_hub_dashboard/feature/reviews/presentation/view_model/get_reviews/get_reviews_cubit.dart';
 import '../../feature/main/presentation/view_model/main_cubit.dart';
-import '../../feature/offers/data/repos/offer_repo_impl.dart';
+import '../repos/offer_repo/offer_repo_impl.dart';
 import '../../generated/l10n.dart';
 import '../cubit/offers_cubit/offers_cubit.dart';
 import '../cubit/orders_cubit/orders_cubit.dart';

@@ -1,8 +1,9 @@
+import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:fruit_hub_dashboard/core/repos/product_repo/product_repo.dart';
 import 'package:meta/meta.dart';
-import '../../../feature/offers/domain/entities/offer_entity.dart';
-import '../../../feature/offers/domain/repos/offer_repo.dart';
+import '../../entities/offer_entity.dart';
+import '../../repos/offer_repo/offer_repo.dart';
 part 'offers_state.dart';
 
 class OffersCubit extends Cubit<OfferState> {
@@ -10,6 +11,7 @@ class OffersCubit extends Cubit<OfferState> {
   final OfferRepo _offerRepo;
   final ProductRepo _productsRepo;
   List<OfferEntity> offers = [];
+  StreamSubscription? _offersSubscription;
 
   Future<void> addOffer(OfferEntity offer) async {
     emit(OffersLoading());
@@ -27,33 +29,33 @@ class OffersCubit extends Cubit<OfferState> {
         );
         print('offerId is $offerId');
        emit(OffersSuccess());
-       await getOffers();
       },
     );
   }
 
-  Future<void> getOffers() async {
+  void getOffers() {
     emit(GetOffersLoading());
-    final result = await _offerRepo.getOffers();
-    await result.fold(
-      (failure) async {
-        emit(GeOffersFailure(failure.errMessage));
-      },
-      (offers) async {
-        this.offers = offers;
-        if (offers.isEmpty) {
-          emit(GetOffersEmpty());
-        } else {
-          emit(GeOffersSuccess(offers));
-        }
-      },
-    );
+    _offersSubscription = _offerRepo.getOffers().listen((data) {
+      data.fold(
+            (failure) async {
+          emit(GeOffersFailure(failure.errMessage));
+        },
+            (offers) async {
+          this.offers = offers;
+          if (offers.isEmpty) {
+            emit(GetOffersEmpty());
+          } else {
+            emit(GeOffersSuccess(offers));
+          }
+        },
+      );
+    });
   }
 
   Future<void> deleteOffer(OfferEntity offer) async {
     emit(DeleteOfferLoading());
 
-    final result = await _offerRepo.deleteOffer(offer.id!);
+    final result = await _offerRepo.deleteOffer(offer.id);
 
     await result.fold(
           (failure) async {
@@ -69,12 +71,17 @@ class OffersCubit extends Cubit<OfferState> {
         );
 
         emit(DeleteOfferSuccess());
-        await getOffers();
       },
     );
   }
 
   void resetState() {
     emit(OffersInitial());
+  }
+
+  @override
+  Future<void> close() {
+    _offersSubscription?.cancel();
+    return super.close();
   }
 }

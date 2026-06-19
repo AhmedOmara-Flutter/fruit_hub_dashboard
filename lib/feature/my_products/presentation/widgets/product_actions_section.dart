@@ -6,7 +6,7 @@ import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
 
 import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
-import '../../../offers/domain/entities/offer_entity.dart';
+import '../../../../core/entities/offer_entity.dart';
 import 'add_offer_bottom_sheet.dart';
 
 class ProductActionsSection extends StatelessWidget {

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/core/helper_function/custom_show_snake_bar.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/build_date_picker_tile.dart';
-import 'package:fruit_hub_dashboard/feature/offers/domain/entities/offer_entity.dart';
+import 'package:fruit_hub_dashboard/core/entities/offer_entity.dart';
 import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../../core/entities/product_entity.dart';
 import '../../../../core/widgets/custom_text_form_field.dart';

@@ -6,7 +6,7 @@ import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/ske
 import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../../core/cubit/products_cubit/products_cubit.dart';
 import '../../../../core/helper_function/get_dummy_products.dart';
-import '../../../offers/domain/entities/offer_entity.dart';
+import '../../../../core/entities/offer_entity.dart';
 
 class TapBarViewBody extends StatefulWidget {
   final String category;
