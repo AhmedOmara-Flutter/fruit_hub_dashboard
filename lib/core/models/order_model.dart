@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fruit_hub_dashboard/core/entities/order_entity.dart';
+import 'package:fruit_hub_dashboard/core/models/selected_location_model.dart';
 import 'package:fruit_hub_dashboard/core/models/user_model.dart';
 
 import '../entities/cart_entity.dart';
@@ -17,6 +18,8 @@ class OrderModel {
   final UserModel userModel;
   final OrderStatus status;
   String ?id;
+  final SelectedLocationModel selectedLocation;
+
 
 
   OrderModel({
@@ -25,7 +28,7 @@ class OrderModel {
     required this.address,
      required this.items,
     required this.totalPrice,
-    required this.createdAt, required this.userModel, required this.status, this.id,
+    required this.createdAt, required this.userModel, required this.status, this.id, required this.selectedLocation,
   });
 
   factory OrderModel.fromEntity(OrderEntity entity) {
@@ -40,6 +43,7 @@ class OrderModel {
       userModel: UserModel.fromEntity(entity.userEntity!),
       status: entity.status,
       id: entity.id,
+      selectedLocation: SelectedLocationModel.fromEntity(entity.selectedLocationEntity!),
     );
   }
 
@@ -55,6 +59,8 @@ class OrderModel {
       userEntity: userModel.toEntity(),
       status: status,
       id: id,
+      selectedLocationEntity: selectedLocation.toEntity(),
+
     );
   }
   factory OrderModel.fromJson(Map<String, dynamic> json) {
@@ -71,6 +77,8 @@ class OrderModel {
         orElse: () => OrderStatus.pending,
       ),
       id: json['id'],
+      selectedLocation:  SelectedLocationModel.fromJson(json['selectedLocation']),
+
     );
   }
 
@@ -85,8 +93,7 @@ class OrderModel {
       'userModel': userModel.toJson(),
       'status': status.name,
       'id': id,
+      'selectedLocation': selectedLocation.toJson(),
     };
   }
-
-
 }

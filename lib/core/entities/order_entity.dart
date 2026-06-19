@@ -1,5 +1,6 @@
 import 'package:fruit_hub_dashboard/core/entities/address_entity.dart';
 import 'package:fruit_hub_dashboard/core/entities/cart_entity.dart';
+import 'package:fruit_hub_dashboard/core/entities/selected_location_entity.dart';
 import 'package:fruit_hub_dashboard/core/entities/user_entity.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_constants.dart';
 
@@ -14,6 +15,9 @@ class OrderEntity {
   AddressEntity? addressEntity;
   UserEntity?userEntity;
   final OrderStatus status;
+  SelectedLocationEntity ?selectedLocationEntity;
+
+
 
   OrderEntity({
     required this.cartEntity,
@@ -22,7 +26,8 @@ class OrderEntity {
     required this.uId,
     this.createdAt,
     this.userEntity,required this.status,
-     this.id
+     this.id,
+    this.selectedLocationEntity,
   });
 
   String getFullAddress() {

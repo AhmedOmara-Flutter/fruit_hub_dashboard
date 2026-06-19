@@ -6,11 +6,13 @@ class OrderSummarySection extends StatelessWidget {
   const OrderSummarySection({
     super.key,
     required this.time,
-    required this.totalPrice,
+    required this.totalPrice, required this.deliveryCost,
+
   });
 
   final String time;
-  final String totalPrice;
+  final double totalPrice;
+  final double deliveryCost;
 
   @override
   Widget build(BuildContext context) {
@@ -67,12 +69,38 @@ class OrderSummarySection extends StatelessWidget {
                   color: Colors.grey,
                 ),
               ),
-              Text(
-                totalPrice,
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: AppColor.mainColor,
-                  fontWeight: FontWeight.w800,
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${totalPrice.toStringAsFixed(2)} ج.م',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: AppColor.mainColor,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                  Text(
+                    '+${deliveryCost.toStringAsFixed(2)}',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: Colors.amber.shade800,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 4),
+                    color: Colors.grey.shade300,
+                    height: 1,
+                    width: 50,
+                  ),
+                  Text(
+                    '${(totalPrice + deliveryCost).toStringAsFixed(2)} ج.م',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: AppColor.mainColor,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+
+                ],
               ),
             ],
           ),
