@@ -29,6 +29,30 @@ class OrderEntity {
     this.selectedLocationEntity,
   });
 
+  OrderEntity copyWith({
+    String? uId,
+    String? id,
+    DateTime? createdAt,
+    CartEntity? cartEntity,
+    bool? isCashOnDelivery,
+    AddressEntity? addressEntity,
+    UserEntity? userEntity,
+    OrderStatus? status,
+    SelectedLocationEntity? selectedLocationEntity,
+  }) {
+    return OrderEntity(
+      uId: uId ?? this.uId,
+      id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
+      cartEntity: cartEntity ?? this.cartEntity,
+      isCashOnDelivery: isCashOnDelivery ?? this.isCashOnDelivery,
+      addressEntity: addressEntity ?? this.addressEntity,
+      userEntity: userEntity ?? this.userEntity,
+      status: status ?? this.status,
+      selectedLocationEntity:
+      selectedLocationEntity ?? this.selectedLocationEntity,
+    );
+  }
   String getFullAddress() {
     return '${addressEntity!.address}, ${addressEntity!.country}, ${addressEntity!.apartment}';
   }

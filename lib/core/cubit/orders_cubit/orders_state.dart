@@ -25,3 +25,10 @@ final class UpdateOrderErrorState extends OrdersState {
 
   UpdateOrderErrorState(this.errMessage);
 }
+
+final class GetFilteredOrdersEmpty extends OrdersState {}
+
+final class GetFilteredOrdersSuccess extends OrdersState {
+  final List<OrderEntity> filterProducts;
+  GetFilteredOrdersSuccess({required this.filterProducts});
+}

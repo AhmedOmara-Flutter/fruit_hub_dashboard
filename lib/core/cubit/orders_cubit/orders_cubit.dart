@@ -16,13 +16,15 @@ class OrdersCubit extends Cubit<OrdersState> {
   final OrdersRepo _ordersRepo;
   double totalSales = 0;
   StreamSubscription? _ordersSubscription;
-  List<OrderEntity> orders = [];
+  List<OrderEntity> allOrders = [];
+  List<OrderEntity> filteredOrders = [];
+  OrderStatus? currentFilter;
+
   final List medals = [
     Assets.images.medal.path,
     Assets.images.medal1.path,
     Assets.images.medal2.path,
   ];
-
 
   void getOrders() {
     emit(GetOrdersLoadingState());
@@ -34,11 +36,18 @@ class OrdersCubit extends Cubit<OrdersState> {
           emit(GetOrdersErrorState(failure.errMessage));
         },
         (data) {
-          orders = data;
+          final newOrders = List<OrderEntity>.from(data)
+            ..sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
+          allOrders = newOrders;
 
-          orders.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
-
-          totalSales = orders.fold(
+          if (currentFilter == null) {
+            filteredOrders = List.from(allOrders);
+          } else {
+            filteredOrders = allOrders
+                .where((o) => o.status == currentFilter)
+                .toList();
+          }
+          totalSales = allOrders.fold(
             0.0,
             (sum, order) =>
                 sum +
@@ -54,11 +63,21 @@ class OrdersCubit extends Cubit<OrdersState> {
     });
   }
 
-  List<OrderEntity> get recentOrders => orders.take(3).toList();
+  void filterByStatus(OrderStatus status) {
+    currentFilter = status;
+
+    filteredOrders = allOrders
+        .where((order) => order.status == status)
+        .toList();
+
+    emit(GetOrdersSuccessState());
+  }
+
+  List<OrderEntity> get recentOrders => allOrders.take(3).toList();
 
   List<TopProductModel> get topProducts {
     final Map<String, TopProductModel> products = {};
-    for (var order in orders) {
+    for (var order in allOrders) {
       for (var item in order.cartEntity.cartItems) {
         final name = item.product.name;
         if (products.containsKey(name)) {
@@ -100,19 +119,43 @@ class OrdersCubit extends Cubit<OrdersState> {
         emit(UpdateOrderErrorState(failure.errMessage));
       },
           (_) {
+        final index = allOrders.indexWhere((e) => e.id == orderId);
+        if (index != -1) {
+          final updatedOrder = allOrders[index].copyWith(status: status);
+
+          allOrders[index] = updatedOrder;
+          filteredOrders =
+              allOrders.where((o) {
+                if (currentFilter == null) return true;
+                return o.status == currentFilter;
+              }).toList();        }
+        if (currentFilter == null) {
+          showAllOrders();
+        } else {
+          filterByStatus(currentFilter!);
+        }
+
         emit(UpdateOrderSuccessState());
       },
     );
   }
 
+  void showAllOrders() {
+    currentFilter = null;
+
+    filteredOrders = List.from(allOrders);
+
+    emit(GetOrdersSuccessState());
+  }
+
   double get totalDeliveryCost {
-    return orders.fold(
+    return allOrders.fold(
       0.0,
       (sum, order) => sum + (order.selectedLocationEntity?.cost ?? 0),
     );
   }
 
-  double get totalPriceWithDelivery{
+  double get totalPriceWithDelivery {
     return totalSales + totalDeliveryCost;
   }
 

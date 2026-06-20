@@ -16,16 +16,18 @@ class _AdminViewState extends State<AdminView> {
   @override
   void initState() {
     super.initState();
+
     final ordersCubit = context.read<OrdersCubit>();
     final offersCubit = context.read<OffersCubit>();
 
-    if (offersCubit.offers.isEmpty &&
-        ordersCubit.orders.isEmpty ) {
+    if (ordersCubit.allOrders.isEmpty) {
       ordersCubit.getOrders();
+    }
+
+    if (offersCubit.offers.isEmpty) {
       offersCubit.getOffers();
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

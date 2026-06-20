@@ -6,6 +6,7 @@ import 'package:fruit_hub_dashboard/feature/orders/presentation/widgets/build_or
 import 'package:fruit_hub_dashboard/feature/orders/presentation/widgets/skeletonizer_build_order_card.dart';
 
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
+import '../../../../core/enums/order_enum.dart';
 
 class OrderViewBody extends StatefulWidget {
   const OrderViewBody({super.key});
@@ -41,7 +42,9 @@ class _OrderViewBodyState extends State<OrderViewBody> {
         ),),
         BlocBuilder<OrdersCubit, OrdersState>(
           builder: (context, state) {
-            final orders = context.read<OrdersCubit>().orders;
+            final orders = context
+                .read<OrdersCubit>()
+                .filteredOrders;
 
             if (state is GetOrdersLoadingState) {
               return SliverList.builder(
@@ -89,6 +92,26 @@ class _OrderViewBodyState extends State<OrderViewBody> {
           setState(() {
             selectedStatus = title;
           });
+
+          final cubit = context.read<OrdersCubit>();
+
+          switch (title) {
+            case 'الكل':
+              cubit.showAllOrders();
+              break;
+
+            case 'انتظار':
+              cubit.filterByStatus(OrderStatus.pending);
+              break;
+
+            case 'مؤكد':
+              cubit.filterByStatus(OrderStatus.confirmed);
+              break;
+
+            case 'منتهي':
+              cubit.filterByStatus(OrderStatus.delivered);
+              break;
+          }
         },
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 2),

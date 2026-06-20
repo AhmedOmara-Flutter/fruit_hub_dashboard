@@ -30,7 +30,7 @@ class RecentOrdersCard extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           RecentOrdersListView(),
-          if(context.watch<OrdersCubit>().orders.isNotEmpty)
+          if(context.watch<OrdersCubit>().allOrders.isNotEmpty)
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Material(
