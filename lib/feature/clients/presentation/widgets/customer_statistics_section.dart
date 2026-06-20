@@ -4,6 +4,7 @@ import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/feature/clients/presentation/widgets/statistics_card.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../view_model/clients_cubit.dart';
 
 class CustomerStatisticsSection extends StatelessWidget {
@@ -50,11 +51,7 @@ class CustomerStatisticsSection extends StatelessWidget {
           );
         }
         final clients = context.read<ClientsCubit>().clients;
-        final orders = context.read<ClientsCubit>().orders;
-        double total = orders.fold(
-          0.0,
-          (sum, order) => sum + order.cartEntity.getTotalPrice()
-        );
+        final totalPriceWithDelivery = context.read<OrdersCubit>().totalPriceWithDelivery;
         return Row(
           children: [
             const SizedBox(width: 10),
@@ -76,7 +73,7 @@ class CustomerStatisticsSection extends StatelessWidget {
                   color: Colors.red,
                   icon: Icons.attach_money,
                   title: 'اجمالي المبيعات',
-                  subTitleNumber: '${total.toStringAsFixed(0)} جنيه',
+                  subTitleNumber: '${totalPriceWithDelivery} جنيه',
                   subTitleText: 'كل المبيعات',
                 ),
               ),

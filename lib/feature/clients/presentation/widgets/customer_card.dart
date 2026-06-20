@@ -112,10 +112,9 @@ class CustomerCard extends StatelessWidget {
               ),
               CustomerInfoItem(
                 icon: Icons.payments_outlined,
-                title:'${orders.fold(
-                  0.0,
-                      (sum, order) => sum + order.cartEntity.getTotalPrice(),
-                )}',
+                title:
+                    '${orders.fold(0.0, (sum, order) => sum + order.cartEntity.getTotalPrice()) + orders.fold(0.0, (sum, order) => sum + order.selectedLocationEntity!.cost)}',
+
                 subtitle: "إجمالي الشراء",
               ),
             ],
@@ -123,34 +122,36 @@ class CustomerCard extends StatelessWidget {
 
           const SizedBox(height: 10),
           if (orders.isNotEmpty)
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.only(top: 10),
-                  padding: EdgeInsets.symmetric(vertical: 5),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(color: Colors.grey.shade300),
-                  ),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, RouteManager.displayOrders,
-                          arguments: orders);
-                    },
-                    child: Text(
-                      'عرض الطلبات', textAlign: TextAlign.center, style: Theme
-                        .of(context)
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(
-                      color: Colors.black
-                    ),),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(top: 10),
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Colors.grey.shade300),
+                    ),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          RouteManager.displayOrders,
+                          arguments: orders,
+                        );
+                      },
+                      child: Text(
+                        'عرض الطلبات',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(
+                          context,
+                        ).textTheme.titleSmall!.copyWith(color: Colors.black),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
         ],
       ),
     );

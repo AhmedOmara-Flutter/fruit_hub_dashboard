@@ -31,10 +31,10 @@ class OrdersCubit extends Cubit<OrdersState> {
     _ordersSubscription?.cancel();
     _ordersSubscription = _ordersRepo.getOrders().listen((res) {
       res.fold(
-            (failure) {
+        (failure) {
           emit(GetOrdersErrorState(failure.errMessage));
         },
-            (data) {
+        (data) {
           allOrders = List.from(data)
             ..sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
 
@@ -42,11 +42,11 @@ class OrdersCubit extends Cubit<OrdersState> {
 
           totalSales = allOrders.fold(
             0.0,
-                (sum, order) =>
-            sum +
+            (sum, order) =>
+                sum +
                 order.cartEntity.cartItems.fold(
                   0.0,
-                      (cartSum, item) => cartSum + item.totalPrice,
+                  (cartSum, item) => cartSum + item.totalPrice,
                 ),
           );
 
@@ -55,11 +55,13 @@ class OrdersCubit extends Cubit<OrdersState> {
       );
     });
   }
+
   void filterByStatus(OrderStatus status) {
     currentFilter = status;
     _applyFilter();
     emit(GetOrdersSuccessState());
   }
+
   List<OrderEntity> get recentOrders => allOrders.take(3).toList();
 
   List<TopProductModel> get topProducts {
@@ -102,25 +104,26 @@ class OrdersCubit extends Cubit<OrdersState> {
     );
 
     result.fold(
-          (failure) {
+      (failure) {
         emit(UpdateOrderErrorState(failure.errMessage));
       },
-            (_) {
-          final index = allOrders.indexWhere((e) => e.id == orderId);
+      (_) {
+        final index = allOrders.indexWhere((e) => e.id == orderId);
 
-          if (index != -1) {
-            allOrders[index] = allOrders[index].copyWith(status: status);
-          }
-
-          if (currentFilter == null) {
-            filteredOrders = List.from(allOrders);
-          } else {
-            filteredOrders =
-                allOrders.where((o) => o.status == currentFilter).toList();
-          }
-
-          emit(GetOrdersSuccessState());
+        if (index != -1) {
+          allOrders[index] = allOrders[index].copyWith(status: status);
         }
+
+        if (currentFilter == null) {
+          filteredOrders = List.from(allOrders);
+        } else {
+          filteredOrders = allOrders
+              .where((o) => o.status == currentFilter)
+              .toList();
+        }
+
+        emit(GetOrdersSuccessState());
+      },
     );
   }
 
@@ -129,14 +132,17 @@ class OrdersCubit extends Cubit<OrdersState> {
     _applyFilter();
     emit(GetOrdersSuccessState());
   }
+
   void _applyFilter() {
     if (currentFilter == null) {
       filteredOrders = List.from(allOrders);
     } else {
-      filteredOrders =
-          allOrders.where((o) => o.status == currentFilter).toList();
+      filteredOrders = allOrders
+          .where((o) => o.status == currentFilter)
+          .toList();
     }
   }
+
   double get totalDeliveryCost {
     return allOrders.fold(
       0.0,
@@ -147,7 +153,6 @@ class OrdersCubit extends Cubit<OrdersState> {
   double get totalPriceWithDelivery {
     return totalSales + totalDeliveryCost;
   }
-
 
   @override
   Future<void> close() {

@@ -62,16 +62,8 @@ class ClientsViewBody extends StatelessWidget {
                 return SliverFillRemaining(
                   hasScrollBody: false,
                   child: Stack(
-                  //  alignment: Alignment.bottomCenter,
                     children: [
                       SizedBox(child: EmptyWidget()),
-                      // Center(
-                      //   child: Container(margin: EdgeInsets.only(top: 10),
-                      //       child: Text('لا يوجد حاليا عملاء', style: Theme
-                      //           .of(context)
-                      //           .textTheme
-                      //           .labelLarge,)),
-                      //),
                     ],
                   ),
                 );
