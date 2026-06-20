@@ -25,11 +25,11 @@ class OrderCustomerInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        makePhoneCall(phone);
-      },
-      child: Expanded(
+    return Expanded(
+      child: GestureDetector(
+        onTap: () {
+          makePhoneCall(phone);
+        },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -43,16 +43,13 @@ class OrderCustomerInfo extends StatelessWidget {
             ),
       
             const SizedBox(height: 4),
-      
             Text(
               '#اوردر - $orderId',
               style: Theme.of(
                 context,
               ).textTheme.labelSmall!.copyWith(color: Colors.grey.shade600),
             ),
-      
             const SizedBox(height: 6),
-      
             Row(
               children: [
                 const Icon(Icons.phone, color: Colors.green, size: 16),
@@ -66,7 +63,6 @@ class OrderCustomerInfo extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 4),
-      
             Row(
               children: [
                 const Icon(
@@ -83,7 +79,6 @@ class OrderCustomerInfo extends StatelessWidget {
                 ),
               ],
             ),
-      
             const SizedBox(height: 4),
             Row(
               children: [
@@ -98,7 +93,6 @@ class OrderCustomerInfo extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 4),
-      
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
