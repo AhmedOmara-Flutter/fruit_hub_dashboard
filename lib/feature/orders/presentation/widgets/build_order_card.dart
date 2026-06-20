@@ -47,99 +47,106 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
           ),
         ],
       ),
-      child: Column(
+
+      child: Stack(
+        alignment: Alignment.topLeft,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Column(
             children: [
-              OrderUserImage(
-                onTap: widget.userTap,
-                imageUrl: widget.order.userEntity!.image,
-              ),
-
-              const SizedBox(width: 12),
-
-              OrderCustomerInfo(
-                customerName: widget.order.userEntity!.userName,
-                phone: widget.order.userEntity!.phone,
-                orderId: '${widget.index + 1}'.padLeft(2, '0'),
-                address: widget.order.getFullAddress(),
-                products: widget.order.cartEntity.cartItems
-                    .map((item) => '${item.product.name} × ${item.quantity}')
-                    .join('\n'),
-                price: widget.order.cartEntity.cartItems
-                    .map((item) => '${item.unitPrice} ج.م ')
-                    .join('\n'),
-              ),
-              const SizedBox(width: 8),
-              OrderStatusBadge(
-                color: widget.order.status.color,
-                title: widget.order.status.ar,
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          OrderSummarySection(
-            time: '${getTimeOnly(widget.order.createdAt.toString())} ',
-            deliveryCost: widget.order.selectedLocationEntity!.cost,
-            totalPrice: widget.order.cartEntity.getTotalPrice(),
-          ),
-          const SizedBox(height: 14),
-          if (widget.order.status == OrderStatus.pending) ...[
-            const SizedBox(height: 14),
-            Row(
-              children: [
-                Expanded(
-                  child: OrderStatusButton(
-                    title: 'تأكيد الطلب',
-                    icon: Icons.check,
-                    color: OrderStatus.confirmed.color,
-                    onTap: () {
-                      context.read<OrdersCubit>().updateOrderStatus(
-                        orderId: widget.order.id ?? '',
-                        status: OrderStatus.confirmed,
-                      );
-                    },
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  OrderUserImage(
+                    onTap: widget.userTap,
+                    imageUrl: widget.order.userEntity!.image,
                   ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: OrderStatusButton(
-                    title: 'إلغاء الطلب',
-                    icon: Icons.cancel,
-                    color: OrderStatus.cancelled.color,
-                    onTap: () {
-                      context.read<OrdersCubit>().updateOrderStatus(
-                        orderId: widget.order.id ?? '',
-                        status: OrderStatus.cancelled,
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ],
-          if (widget.order.status == OrderStatus.confirmed) ...[
-            const SizedBox(height: 14),
 
-            Row(
-              children: [
-                Expanded(
-                  child: OrderStatusButton(
-                    title: 'إنهاء الطلب',
-                    icon: Icons.done_all,
-                    color: OrderStatus.delivered.color,
-                    onTap: () {
-                      context.read<OrdersCubit>().updateOrderStatus(
-                        orderId: widget.order.id ?? '',
-                        status: OrderStatus.delivered,
-                      );
-                    },
+                  const SizedBox(width: 12),
+
+                  OrderCustomerInfo(
+                    customerName: widget.order.userEntity!.userName,
+                    phone: widget.order.userEntity!.phone,
+                    orderId: '${widget.index + 1}'.padLeft(2, '0'),
+                    address: widget.order.getFullAddress(),
+                    location: widget.order.selectedLocationEntity!.title,
+                    products: widget.order.cartEntity.cartItems
+                        .map((item) => '${item.product.name} × ${item.quantity}')
+                        .join('\n'),
+                    price: widget.order.cartEntity.cartItems
+                        .map((item) => '${item.unitPrice} ج.م ')
+                        .join('\n'),
                   ),
+                  const SizedBox(width: 8),
+                ],
+              ),
+              const SizedBox(height: 12),
+              OrderSummarySection(
+                time: '${getTimeOnly(widget.order.createdAt.toString())} ',
+                deliveryCost: widget.order.selectedLocationEntity!.cost,
+                totalPrice: widget.order.cartEntity.getTotalPrice(),
+              ),
+              const SizedBox(height: 14),
+              if (widget.order.status == OrderStatus.pending) ...[
+                const SizedBox(height: 14),
+                Row(
+                  children: [
+                    Expanded(
+                      child: OrderStatusButton(
+                        title: 'تأكيد الطلب',
+                        icon: Icons.check,
+                        color: OrderStatus.confirmed.color,
+                        onTap: () {
+                          context.read<OrdersCubit>().updateOrderStatus(
+                            orderId: widget.order.id ?? '',
+                            status: OrderStatus.confirmed,
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: OrderStatusButton(
+                        title: 'إلغاء الطلب',
+                        icon: Icons.cancel,
+                        color: OrderStatus.cancelled.color,
+                        onTap: () {
+                          context.read<OrdersCubit>().updateOrderStatus(
+                            orderId: widget.order.id ?? '',
+                            status: OrderStatus.cancelled,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ],
-            ),
-          ],        ],
+              if (widget.order.status == OrderStatus.confirmed) ...[
+                const SizedBox(height: 14),
+
+                Row(
+                  children: [
+                    Expanded(
+                      child: OrderStatusButton(
+                        title: 'إنهاء الطلب',
+                        icon: Icons.done_all,
+                        color: OrderStatus.delivered.color,
+                        onTap: () {
+                          context.read<OrdersCubit>().updateOrderStatus(
+                            orderId: widget.order.id ?? '',
+                            status: OrderStatus.delivered,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ],        ],
+          ),
+          OrderStatusBadge(
+            color: widget.order.status.color,
+            title: widget.order.status.ar,
+          ),
+        ],
       ),
     );
   }

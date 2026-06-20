@@ -2,7 +2,6 @@ import 'package:fruit_hub_dashboard/core/entities/address_entity.dart';
 import 'package:fruit_hub_dashboard/core/entities/cart_entity.dart';
 import 'package:fruit_hub_dashboard/core/entities/selected_location_entity.dart';
 import 'package:fruit_hub_dashboard/core/entities/user_entity.dart';
-import 'package:fruit_hub_dashboard/core/utils/app_constants.dart';
 
 import '../enums/order_enum.dart';
 
@@ -32,5 +31,15 @@ class OrderEntity {
 
   String getFullAddress() {
     return '${addressEntity!.address}, ${addressEntity!.country}, ${addressEntity!.apartment}';
+  }
+
+  double getTotalDeliveryCost(List<OrderEntity> orders) {
+    double total = 0;
+
+    for (final order in orders) {
+      total += order.selectedLocationEntity?.cost ?? 0;
+    }
+
+    return total;
   }
 }

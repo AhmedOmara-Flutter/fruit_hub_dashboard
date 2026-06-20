@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/utils/app_color.dart';
 
 class OrderSummarySection extends StatelessWidget {
@@ -99,7 +98,6 @@ class OrderSummarySection extends StatelessWidget {
                       fontWeight: FontWeight.w800,
                     ),
                   ),
-
                 ],
               ),
             ],

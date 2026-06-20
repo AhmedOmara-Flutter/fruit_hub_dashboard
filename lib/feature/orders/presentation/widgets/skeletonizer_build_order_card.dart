@@ -45,30 +45,30 @@ class SkeletonizerBuildOrderCard extends StatelessWidget {
                     ),
                   ),
                 ),
-      
+
                 const SizedBox(width: 12),
-      
+
                 OrderCustomerInfo(
                   customerName: 'widget.order.user',
                   orderId: '00',
                   phone: '012012121211',
-                  address:' widget.order.getFullAddress()',
+                  address: ' widget.order.getFullAddress()',
                   products: 'widget.order.cartEntity.cartItems',
-                    price:'5555'
+                  price: '5555',
+                  location: 'widget.order.',
                 ),
-      
+
                 const SizedBox(width: 8),
-      
-                OrderStatusBadge(title: 'widget', color: Colors.transparent,),
+
+                OrderStatusBadge(title: 'widget', color: Colors.transparent),
               ],
             ),
-      
+
             const SizedBox(height: 12),
-      
+
             OrderSummarySection(
               time: '{getTimeOnly} ص',
-              totalPrice:
-                  1500,
+              totalPrice: 1500,
               deliveryCost: 0.0,
             ),
             const SizedBox(height: 14),
@@ -76,7 +76,7 @@ class SkeletonizerBuildOrderCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: (){},
+                    onPressed: () {},
                     child: Text('title'),
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
@@ -90,7 +90,7 @@ class SkeletonizerBuildOrderCard extends StatelessWidget {
                 const SizedBox(width: 10),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: (){},
+                    onPressed: () {},
                     child: Text('title'),
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,

@@ -1,6 +1,8 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+
 import '../../../../core/entities/order_entity.dart';
 import '../../../../core/models/top_product_model.dart';
 import '../../../../core/repos/orders_repo/orders_repo.dart';
@@ -82,11 +84,6 @@ class OrdersCubit extends Cubit<OrdersState> {
     return result;
   }
 
-  @override
-  Future<void> close() {
-    _ordersSubscription?.cancel();
-    return super.close();
-  }
   Future<void> updateOrderStatus({
     required String orderId,
     required OrderStatus status,
@@ -106,5 +103,22 @@ class OrdersCubit extends Cubit<OrdersState> {
         emit(UpdateOrderSuccessState());
       },
     );
+  }
+
+  double get totalDeliveryCost {
+    return orders.fold(
+      0.0,
+      (sum, order) => sum + (order.selectedLocationEntity?.cost ?? 0),
+    );
+  }
+
+  double get totalPriceWithDelivery{
+    return totalSales + totalDeliveryCost;
+  }
+
+  @override
+  Future<void> close() {
+    _ordersSubscription?.cancel();
+    return super.close();
   }
 }

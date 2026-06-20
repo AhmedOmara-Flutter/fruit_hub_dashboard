@@ -64,6 +64,7 @@ class RecentOrdersListView extends StatelessWidget {
                   .map((item) =>
               '${item.product.name} × ${item.quantity}')
                   .join('\n'),
+              deliveryCost: order.selectedLocationEntity!.cost,
             );
           },
           separatorBuilder: (context, index) =>

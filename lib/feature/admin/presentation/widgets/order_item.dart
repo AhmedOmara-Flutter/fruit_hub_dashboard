@@ -13,6 +13,8 @@ class OrderItem extends StatelessWidget {
   final String customerName;
   final String time;
   final String products;
+  final double deliveryCost;
+
 
   const OrderItem({
     super.key,
@@ -23,6 +25,7 @@ class OrderItem extends StatelessWidget {
     required this.customerName,
     required this.time,
     required this.products,
+    required this.deliveryCost,
   });
 
   @override
@@ -134,7 +137,7 @@ class OrderItem extends StatelessWidget {
               const SizedBox(height: 12),
 
               Text(
-                '${amount.toStringAsFixed(2)} ج.م',
+                '${(amount + deliveryCost).toStringAsFixed(2)} ج.م',
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(
                   color: AppColor.mainColor
                 ),

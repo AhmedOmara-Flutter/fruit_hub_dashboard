@@ -75,7 +75,7 @@ class StatisticsSection extends StatelessWidget {
                   color: Colors.blue,
                   icon: Icons.attach_money,
                   title: 'اجمالي المبيعات',
-                  subTitleNumber: ' ${context.watch<OrdersCubit>().totalSales.toStringAsFixed(2)}',
+                  subTitleNumber: ' ${context.watch<OrdersCubit>().totalPriceWithDelivery}',
                   subTitleText: 'إجمالي الإيرادات',
                 ),
               ),
@@ -83,7 +83,6 @@ class StatisticsSection extends StatelessWidget {
           ],
         ),
         SizedBox(height: 10),
-
       ],
     );
   }
