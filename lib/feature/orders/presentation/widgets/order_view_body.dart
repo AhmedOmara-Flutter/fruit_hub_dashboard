@@ -16,7 +16,7 @@ class OrderViewBody extends StatefulWidget {
 }
 
 class _OrderViewBodyState extends State<OrderViewBody> {
-  String selectedStatus = 'الكل';
+  String selectedStatus = 'انتظار';
 
   @override
   Widget build(BuildContext context) {
@@ -32,20 +32,18 @@ class _OrderViewBodyState extends State<OrderViewBody> {
             ),
             child: Row(
               children: [
-                _buildTab('الكل'),
                 _buildTab('انتظار'),
                 _buildTab('مؤكد'),
                 _buildTab('منتهي'),
+                _buildTab('ملغي'),
               ],
             ),
           ),
         ),),
         BlocBuilder<OrdersCubit, OrdersState>(
           builder: (context, state) {
-            final orders = context
-                .read<OrdersCubit>()
-                .filteredOrders;
-
+            final cubit = context.watch<OrdersCubit>();
+            final orders = cubit.filteredOrders;
             if (state is GetOrdersLoadingState) {
               return SliverList.builder(
                 itemCount: 3,
@@ -96,10 +94,6 @@ class _OrderViewBodyState extends State<OrderViewBody> {
           final cubit = context.read<OrdersCubit>();
 
           switch (title) {
-            case 'الكل':
-              cubit.showAllOrders();
-              break;
-
             case 'انتظار':
               cubit.filterByStatus(OrderStatus.pending);
               break;
@@ -111,6 +105,11 @@ class _OrderViewBodyState extends State<OrderViewBody> {
             case 'منتهي':
               cubit.filterByStatus(OrderStatus.delivered);
               break;
+
+            case 'ملغي':
+              cubit.filterByStatus(OrderStatus.cancelled);
+              break;
+
           }
         },
         child: Container(
