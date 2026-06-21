@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fruit_hub_dashboard/core/helper_function/get_date_formate.dart';
 import 'package:fruit_hub_dashboard/feature/reviews/domain/entities/review_entity.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -96,7 +97,7 @@ class ReviewCard extends StatelessWidget {
 
                 /// date
                 Text(
-                  review.date ?? "",
+                  getDateFormate(review.date),
                   style: TextStyle(
                     fontSize: 11,
                     color: Colors.grey.shade500,

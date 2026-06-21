@@ -53,17 +53,17 @@ class ProductsCubit extends Cubit<MyProductsState> {
 
   }
 
-  // Future<void> deleteProduct(String productId) async {
-  //   emit(DeleteProductLoading());
-  //   try {
-  //     await _productRepo.deleteProduct(productId);
-  //     filteredProducts.removeWhere((p) => p.id == productId);
-  //
-  //     emit(DeleteProductSuccess());
-  //   } catch (e) {
-  //     emit(DeleteProductError(e.toString()));
-  //   }
-  // }
+  Future<void> deleteProduct(String productId) async {
+    emit(DeleteProductLoading());
+    try {
+      await _productRepo.deleteProduct(productId);
+      filteredProducts.removeWhere((p) => p.id == productId);
+
+      emit(DeleteProductSuccess());
+    } catch (e) {
+      emit(DeleteProductError(e.toString()));
+    }
+  }
 
 @override
   Future<void> close() {

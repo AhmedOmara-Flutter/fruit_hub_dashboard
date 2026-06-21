@@ -8,7 +8,8 @@ import '../../generated/assets.dart';
 
 class CustomImagePicker extends StatefulWidget {
   final ValueChanged<File?> onImagePicked;
-  const CustomImagePicker({super.key, required this.onImagePicked});
+  final String? initialImage;
+  const CustomImagePicker({super.key, required this.onImagePicked, this.initialImage});
 
   @override
   State<CustomImagePicker> createState() => _CustomImagePickerState();
@@ -16,7 +17,13 @@ class CustomImagePicker extends StatefulWidget {
 
 class _CustomImagePickerState extends State<CustomImagePicker> {
   File? imagePath;
+  String? networkImage;
 
+  @override
+  void initState() {
+    super.initState();
+    networkImage = widget.initialImage;
+  }
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -48,36 +55,46 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
             width: double.infinity,
             alignment: Alignment.center,
             child: imagePath != null
-                ? SizedBox(height: MediaQuery.sizeOf(context).height*0.2,child: Image.file(imagePath!))
+                ? SizedBox(
+              height: MediaQuery.sizeOf(context).height * 0.2,
+              child: Image.file(imagePath!),
+            )
+                : networkImage != null
+                ? SizedBox(
+              height: MediaQuery.sizeOf(context).height * 0.2,
+              child: Image.network(
+                networkImage!,
+                fit: BoxFit.cover,
+              ),
+            )
                 : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 20,),
-                    Icon(Icons.photo_outlined,color: AppColor.mainColor,size: 40,),
-                    SizedBox(height: 10,),
-                    Text(
-                      'اضغط لاضافه صوره',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(
-                          color:AppColor.mainColor
-
-                      ),),
-                    SizedBox(height: 20,),
-                  ],
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 20),
+                Icon(
+                  Icons.photo_outlined,
+                  color: AppColor.mainColor,
+                  size: 40,
                 ),
-          ),
+                SizedBox(height: 10),
+                Text(
+                  'اضغط لاضافه صوره',
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: AppColor.mainColor,
+                  ),
+                ),
+                SizedBox(height: 20),
+              ],
+            ),          ),
           Visibility(
             visible: imagePath != null,
             child: IconButton(
               onPressed: () {
                 imagePath = null;
+                networkImage = null;
                 widget.onImagePicked(null);
                 setState(() {});
-              },
-              icon: Icon(Icons.close, color: Colors.grey),
+              },              icon: Icon(Icons.close, color: Colors.grey),
             ),
           ),
         ],

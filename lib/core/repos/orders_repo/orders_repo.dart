@@ -13,7 +13,9 @@ abstract class OrdersRepo {
     required String orderId,
     required OrderStatus status,
   });
-}
+
+  Future<void> deleteCollection(String collectionName);
+  }
 
 class OrdersRepoImpl implements OrdersRepo {
   final DatabaseServices _databaseServices;
@@ -51,5 +53,11 @@ class OrdersRepoImpl implements OrdersRepo {
     } on Exception catch (e) {
       return Left(Failure(errMessage: e.toString()));
     }
+  }
+
+  @override
+  Future<void> deleteCollection(String collectionName)async {
+    return await _databaseServices.deleteCollection(collectionName);
+
   }
 }

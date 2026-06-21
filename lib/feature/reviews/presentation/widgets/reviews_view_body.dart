@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
+import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
+import 'package:fruit_hub_dashboard/core/widgets/empty_widget.dart';
 import 'package:fruit_hub_dashboard/feature/reviews/presentation/widgets/review_item.dart';
 import 'package:fruit_hub_dashboard/feature/reviews/presentation/widgets/skeletonizer_review_item.dart';
 import 'package:lottie/lottie.dart';
+
 import '../../../../generated/assets.dart';
 import '../view_model/get_products_with_review/get_product_with_reviews_cubit.dart';
 
@@ -16,21 +18,9 @@ class ReviewsViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: CustomScrollView(
         slivers: [
-         if(!context.watch<GetProductWithReviewsCubit>().products.isEmpty)
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: TextFormField(
-                decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search, color: Colors.grey,),
-                    hintText: 'البحث..'
-                ),
-              ),
-            ),
-          ),
           BlocBuilder<GetProductWithReviewsCubit, GetProductWithReviewsState>(
             builder: (context, state) {
               final products = context
@@ -44,27 +34,28 @@ class ReviewsViewBody extends StatelessWidget {
                 );
               }
               if (products.isEmpty) {
-                return SliverToBoxAdapter(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(height: MediaQuery
-                          .of(context)
-                          .size
-                          .height * 0.4),
-                      Lottie.asset(Assets.json.emptyCommit.path),
-                      SizedBox(height: 10,),
-
-                      Center(
-                        child: Text('لا يوجد حاليا اراء العملاء', style: Theme
-                            .of(context)
-                            .textTheme
-                            .labelLarge!.copyWith(color: AppColor.mainColor),),
-                      ),
-
-                    ],
-                  ),
-                );
+                // return SliverToBoxAdapter(
+                //   child: Column(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       SizedBox(height: MediaQuery
+                //           .of(context)
+                //           .size
+                //           .height * 0.4),
+                //       Lottie.asset(Assets.json.emptyCommit.path),
+                //       SizedBox(height: 10,),
+                //
+                //       Center(
+                //         child: Text('لا يوجد حاليا اراء العملاء', style: Theme
+                //             .of(context)
+                //             .textTheme
+                //             .labelLarge!.copyWith(color: AppColor.mainColor),),
+                //       ),
+                //
+                //     ],
+                //   ),
+                // );
+                return SliverToBoxAdapter(child: EmptyWidget());
               }
               if (state is GetProductsWithReviewsSuccess) {
                 return SliverGrid.builder(

@@ -1,13 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:fruit_hub_dashboard/core/entities/order_entity.dart';
 import 'package:fruit_hub_dashboard/feature/add_product/presentation/view/add_product_view.dart';
 import 'package:fruit_hub_dashboard/feature/clients/presentation/view/display_orders_view.dart';
 import 'package:fruit_hub_dashboard/feature/main/presentation/view/main_view.dart';
 import 'package:fruit_hub_dashboard/feature/splash/view/splash_view.dart';
-
+import '../../feature/edit_product/presentation/view/edit_product_view.dart';
 import '../entities/product_entity.dart';
-import '../../feature/reviews/domain/entities/review_entity.dart';
 import '../../feature/reviews/presentation/view/product_reviews.dart';
 
 class RouteManager {
@@ -16,6 +14,7 @@ class RouteManager {
   static const String addProductView = '/addProductView';
   static const String displayOrders = '/displayOrdersView';
   static const String productReviews = '/productReviewsView';
+  static const String editProductView = '/editProductView';
 
 }
 
@@ -34,6 +33,9 @@ class GenerateRoute {
       case RouteManager.productReviews:
         final  product= settings.arguments as ProductEntity;;
         return MaterialPageRoute(builder: (_) => ProductReviewsView(product: product,));
+        case RouteManager.editProductView:
+          final  product= settings.arguments as ProductEntity;;
+        return MaterialPageRoute(builder: (_) =>  EditProductView(product: product,));
       default:
         return _errorRoute();
     }

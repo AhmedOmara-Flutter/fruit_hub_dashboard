@@ -80,7 +80,7 @@ class ReviewItem extends StatelessWidget {
                   Icon(Icons.star, color: Colors.orange, size: 16),
                   SizedBox(width: 5,),
                   Text(
-                    '${product.averageRating}',
+                    '${product.averageRating.toStringAsFixed(2)}',
                     style: Theme.of(
                       context,
                     ).textTheme.labelSmall!.copyWith(color: Colors.orange,),

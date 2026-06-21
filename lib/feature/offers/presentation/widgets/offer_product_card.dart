@@ -181,7 +181,7 @@ class OfferProductCard extends StatelessWidget {
             // Delete button
             InkWell(
               onTap: () {
-                customShowDialog(
+                CustomShowDialog.show(
                   context,
                   title: 'حذف العرض',
                   content: Text(
@@ -199,34 +199,8 @@ class OfferProductCard extends StatelessWidget {
                         .read<OffersCubit>()
                         .deleteOffer(offer);
                   },
-                  icon: Icons.local_offer_outlined,
-                  confirmChild: BlocBuilder<OffersCubit, OfferState>(
-                    builder: (context, state) {
-                      final isLoading =
-                      state is DeleteOfferLoading;
-
-                      return isLoading
-                          ? const SizedBox(
-                        height: 18,
-                        width: 18,
-                        child:
-                        CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: Colors.white,
-                        ),
-                      )
-                          : Text(
-                        'تأكيد الحذف',
-                        textAlign: TextAlign.center,
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .titleSmall!
-                            .copyWith(
-                            color: Colors.white),
-                      );
-                    },
-                  ),
+                  flag: Icons.local_offer_outlined,
+                  color: Colors.red
                 );
               },
               borderRadius: BorderRadius.circular(8),

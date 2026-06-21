@@ -154,6 +154,18 @@ class OrdersCubit extends Cubit<OrdersState> {
     return totalSales + totalDeliveryCost;
   }
 
+  Future<void> deleteOrderCollection() async {
+    emit(DeleteLoadingState());
+
+    try {
+      await _ordersRepo.deleteCollection('orders');
+
+      emit(DeleteSuccessState());
+    } catch (e) {
+      emit(DeleteErrorState(e.toString()));
+    }
+  }
+
   @override
   Future<void> close() {
     _ordersSubscription?.cancel();

@@ -2,78 +2,99 @@
   import 'package:flutter/material.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 
-customShowDialog(
-  BuildContext context, {
-  required String title,
-      required IconData icon,
-  required Widget content,
-  void Function()? cancel,
-  void Function()? accept,
-      Widget? confirmChild,
-
-
-    }) {
-  return showDialog(
-    context: context,
-    barrierDismissible: true,
-    builder: (context) {
-      return AlertDialog(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        contentPadding: const EdgeInsets.all(20),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CircleAvatar(
-              radius: 35,
-              backgroundColor: AppColor.mainColor.withOpacity(0.08),
-              child: Icon(
-                icon,
-                color: AppColor.mainColor,
-                size: 35,
-              ),
+  class CustomShowDialog {
+    static Future<void> show(
+        BuildContext context, {
+          required String title,
+          required Widget content,
+          VoidCallback? cancel,
+          VoidCallback? accept,
+          Color color = AppColor.mainColor,
+          IconData flag = Icons.payment_rounded,
+        }) {
+      return showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
             ),
-            const SizedBox(height: 20),
-            Text(title, style: Theme.of(context).textTheme.labelLarge),
-            const SizedBox(height: 10),
-            content,
-            const SizedBox(height: 25),
-            Row(
+            contentPadding: const EdgeInsets.all(20),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: cancel,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                    ),
-                    onLongPress: () {},
-                    child: Text(
-                      'إلغاء',
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: AppColor.mainColor,
-                      ),
-                    ),
+                CircleAvatar(
+                  radius: 35,
+                  backgroundColor: color.withOpacity(0.08),
+                  child: Icon(
+                    flag,
+                    color: color,
+                    size: 35,
                   ),
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: accept,
-                    child: confirmChild ?? Text(
-                      'تأكيد',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(color: Colors.white),
-                    ),
+
+                const SizedBox(height: 20),
+
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    color: color,
                   ),
+                ),
+
+                const SizedBox(height: 10),
+
+                content,
+
+                const SizedBox(height: 25),
+
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: cancel,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          elevation: 0,
+                          side: BorderSide(
+                            color: AppColor.mainColor.withOpacity(0.3),
+                          ),
+                        ),
+                        child: Text(
+                          'إلغاء',
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            color: AppColor.mainColor,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(width: 10),
+
+                    Expanded(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: color,
+                        ),
+                        onPressed: accept,
+                        child: Text(
+                          'تأكيد',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
-        ),
+          );
+        },
       );
-    },
-  );
-}
+    }
+  }

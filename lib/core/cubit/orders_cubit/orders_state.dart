@@ -32,3 +32,12 @@ final class GetFilteredOrdersSuccess extends OrdersState {
   final List<OrderEntity> filterProducts;
   GetFilteredOrdersSuccess({required this.filterProducts});
 }
+
+final class DeleteLoadingState extends OrdersState {}
+final class DeleteSuccessState extends OrdersState {}
+final class DeleteErrorState extends OrdersState {
+  final String errMessage;
+  DeleteErrorState(this.errMessage);
+}
+
+

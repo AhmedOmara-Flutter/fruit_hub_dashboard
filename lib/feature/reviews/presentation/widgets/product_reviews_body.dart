@@ -46,7 +46,6 @@ class _ProductReviewsViewBodyState extends State<ProductReviewsViewBody> {
                   .copyWith(color: Colors.black),)
             ],),
           )),
-
           BlocBuilder<GetReviewsCubit, GetReviewsState>(
             builder: (context, state) {
 
