@@ -4,7 +4,6 @@ import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
 import 'package:fruit_hub_dashboard/core/helper_function/custom_show_dialog.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/utils/route_manager.dart';
-
 import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../../core/cubit/products_cubit/products_cubit.dart';
 import '../../../../core/entities/offer_entity.dart';

@@ -11,5 +11,4 @@ abstract class ProductRepo {
   });
   Future<void> deleteProduct(String productId);
   Stream<Either<Failure, List<ProductEntity>>> getProducts();
-  Stream<Either<Failure,List<ProductEntity>>>getFilteredProducts(String category);
 }
