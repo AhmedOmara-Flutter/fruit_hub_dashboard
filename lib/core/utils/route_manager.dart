@@ -4,9 +4,10 @@ import 'package:fruit_hub_dashboard/feature/add_product/presentation/view/add_pr
 import 'package:fruit_hub_dashboard/feature/clients/presentation/view/display_orders_view.dart';
 import 'package:fruit_hub_dashboard/feature/main/presentation/view/main_view.dart';
 import 'package:fruit_hub_dashboard/feature/splash/view/splash_view.dart';
+
 import '../../feature/edit_product/presentation/view/edit_product_view.dart';
-import '../entities/product_entity.dart';
 import '../../feature/reviews/presentation/view/product_reviews.dart';
+import '../entities/product_entity.dart';
 
 class RouteManager {
   static const String splash = '/splashView';
@@ -45,8 +46,9 @@ class GenerateRoute {
     return MaterialPageRoute(
       builder: (_) {
         return Scaffold(
-          appBar: AppBar(title: Text('Error')),
-          body: Center(child: Text('Something went wrong!')),
+          appBar: AppBar(title: Text('حدثت مشكله')),
+          body: Center(
+              child: Text('حدثت مشكله برجاء اغلاق التطبيق وتشغيله ثانيتا !')),
         );
       },
     );

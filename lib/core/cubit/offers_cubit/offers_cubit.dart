@@ -15,21 +15,19 @@ class OffersCubit extends Cubit<OfferState> {
 
   Future<void> addOffer(OfferEntity offer) async {
     emit(OffersLoading());
+
     final result = await _offerRepo.addOffer(offer);
+
     await result.fold(
-      (failure) async {
+          (failure) {
         emit(OffersFailure(failure.errMessage));
       },
-      (offerId) async {
+          (offerId) async {
         await _productsRepo.updateProductField(
           productId: offer.productId,
-          data: {
-            'offerId': offerId,
-          },
+          data: {'offerId': offerId},
         );
-        print('offerId is $offerId');
-       emit(OffersSuccess());
-      },
+        },
     );
   }
 
@@ -42,11 +40,8 @@ class OffersCubit extends Cubit<OfferState> {
         },
             (offers) async {
           this.offers = offers;
-          if (offers.isEmpty) {
-            emit(GetOffersEmpty());
-          } else {
             emit(GeOffersSuccess(offers));
-          }
+
         },
       );
     });
@@ -61,16 +56,17 @@ class OffersCubit extends Cubit<OfferState> {
           (failure) async {
         emit(DeleteOfferFailure(failure.errMessage));
       },
-          (_) async {
+          (success) async {
+        try {
+          await _productsRepo.updateProductField(
+            productId: offer.productId,
+            data: {'offerId': null},
+          );
 
-        await _productsRepo.updateProductField(
-          productId: offer.productId,
-          data: {
-            'offerId': null,
-          },
-        );
-
-        emit(DeleteOfferSuccess());
+          emit(DeleteOfferSuccess());
+        } catch (e) {
+          emit(DeleteOfferFailure(e.toString()));
+        }
       },
     );
   }

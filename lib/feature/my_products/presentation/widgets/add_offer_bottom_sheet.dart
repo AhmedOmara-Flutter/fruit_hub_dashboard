@@ -22,35 +22,39 @@ class AddOfferBottomSheet extends StatefulWidget {
 
 class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
   final _formKey = GlobalKey<FormState>();
+
   final TextEditingController discountController = TextEditingController();
   final TextEditingController priceBeforeDiscount = TextEditingController();
   final TextEditingController priceAfterDiscount = TextEditingController();
+
   DateTime? startDate;
   DateTime? endDate;
+
+  @override
+  void initState() {
+    super.initState();
+
+    priceBeforeDiscount.text = widget.product.price.toString();
+    priceAfterDiscount.text = widget.product.price.toString();
+
+    discountController.addListener(_calculatePrice);
+  }
+
+  // 🔥 clean calculation (no setState needed)
+  void _calculatePrice() {
+    final discount = double.tryParse(discountController.text) ?? 0;
+
+    final result = widget.product.price -
+        (widget.product.price * discount / 100);
+
+    priceAfterDiscount.text = result.toStringAsFixed(2);
+  }
 
   bool get canSave =>
       discountController.text.isNotEmpty &&
           startDate != null &&
           endDate != null &&
           !endDate!.isBefore(startDate!);
-
-  @override
-  void initState() {
-    super.initState();
-    priceBeforeDiscount.text = widget.product.price.toString();
-    priceAfterDiscount.text = widget.product.price.toString();
-    discountController.addListener(() {
-      final discount = double.tryParse(discountController.text) ?? 0;
-      final result = widget.product.price -
-          (widget.product.price * discount / 100);
-      priceAfterDiscount.text = result % 1 == 0
-          ? result.toInt().toString()
-          : result.toStringAsFixed(2);
-    });
-    setState(() {
-
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +64,7 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
           left: 16,
           right: 16,
           top: 11,
-          bottom: MediaQuery.of(context).viewInsets.bottom+20,
+          bottom: MediaQuery.of(context).viewInsets.bottom + 20,
         ),
         child: Form(
           key: _formKey,
@@ -68,8 +72,8 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                  'إضافة عرض جديد',
-                  style:Theme.of(context).textTheme.displaySmall
+                'إضافة عرض جديد',
+                style: Theme.of(context).textTheme.displaySmall,
               ),
 
               const SizedBox(height: 15),
@@ -77,7 +81,8 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
               CustomTextFormField(
                 controller: discountController,
                 keyboardType: TextInputType.number,
-                hintText:  'ادخل نسبة الخصم (%)',
+                hintText: 'ادخل نسبة الخصم (%)',
+                label: 'نسبة الخصم (%)',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'ادخل نسبة الخصم';
@@ -85,39 +90,36 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
 
                   final discount = double.tryParse(value);
 
-                  if (discount == null) {
-                    return 'قيمة غير صحيحة';
-                  }
-
+                  if (discount == null) return 'قيمة غير صحيحة';
                   if (discount <= 0 || discount > 100) {
                     return 'يجب أن تكون بين 1 و 100';
                   }
 
                   return null;
                 },
-                label: 'نسبة الخصم (%)',
               ),
+
               const SizedBox(height: 16),
 
               Row(
                 children: [
                   Expanded(
                     child: CustomTextFormField(
-                        readOnly: true,
-                        controller: priceBeforeDiscount,
-                        keyboardType: TextInputType.number,
-                        hintText:  'السعر قبل الخصم',
-                        label:  'السعر قبل الخصم'
+                      readOnly: true,
+                      controller: priceBeforeDiscount,
+                      keyboardType: TextInputType.number,
+                      hintText: 'السعر قبل الخصم',
+                      label: 'السعر قبل الخصم',
                     ),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
                     child: CustomTextFormField(
-                        readOnly: true,
-                        controller:priceAfterDiscount,
-                        keyboardType: TextInputType.number,
-                        hintText:  'السعر بعد الخصم',
-                        label:  'السعر بعد الخصم'
+                      readOnly: true,
+                      controller: priceAfterDiscount,
+                      keyboardType: TextInputType.number,
+                      hintText: 'السعر بعد الخصم',
+                      label: 'السعر بعد الخصم',
                     ),
                   ),
                 ],
@@ -137,9 +139,7 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                   );
 
                   if (pickedDate != null) {
-                    setState(() {
-                      startDate = pickedDate;
-                    });
+                    setState(() => startDate = pickedDate);
                   }
                 },
               ),
@@ -158,70 +158,76 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                   );
 
                   if (pickedDate != null) {
-                    setState(() {
-                      endDate = pickedDate;
-                    });
+                    setState(() => endDate = pickedDate);
                   }
                 },
               ),
+
               const SizedBox(height: 20),
+
               BlocConsumer<OffersCubit, OfferState>(
-                  listener: (context, state) {
-                    print(state.runtimeType);
+                listener: (context, state) {
+                  if (state is OffersFailure) {
+                    customShowSnakeBar(
+                      context,
+                      color: Colors.red,
+                      label: state.errMessage,
+                    );
+                  }
 
-                    if (state is OffersFailure) {
-                      customShowSnakeBar(
-                        context,
-                        color: Colors.red,
-                        label: state.errMessage,
-                      );
-                    }
-
-                    if (state is OffersSuccess) {
-                      print('SUCCESS');
-
-                      Navigator.pop(context);
-
-                      customShowSnakeBar(
-                        context,
-                        color: AppColor.mainColor,
-                        label: 'تم حفظ العرض بنجاح',
-                      );
-                    }
-                  },
+                  if (state is OffersSuccess) {
+                    customShowSnakeBar(
+                      context,
+                      color: AppColor.mainColor,
+                      label: 'تم حفظ العرض بنجاح',
+                    );
+                  }
+                },
                 builder: (context, state) {
-                  return state is OffersLoading == true
-                      ? CircularProgressIndicator(color: AppColor.mainColor,)
-                      : SizedBox(
+                  final isLoading = state is OffersLoading;
+
+                  return SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: canSave ? () async {
+                      onPressed: (!canSave || isLoading)
+                          ? null
+                          : () async {
                         if (_formKey.currentState!.validate()) {
-                          OfferEntity offer = OfferEntity(
+                          final offer = OfferEntity(
                             id: '',
                             productId: widget.product.id!,
-                            discountPercentage: double.parse(discountController
-                                .text),
-
-                            startDate: startDate ?? DateTime.now(),
-                            endDate: endDate ?? DateTime.now(),
+                            discountPercentage:
+                            double.parse(discountController.text),
+                            startDate: startDate!,
+                            endDate: endDate!,
                             image: widget.product.image ?? "",
                             name: widget.product.name,
-                            priceBeforeDiscount: double.parse(
-                                priceBeforeDiscount
-                                    .text),
-                            priceAfterDiscount: double.parse(priceAfterDiscount
-                                .text),
+                            priceBeforeDiscount:
+                            double.parse(priceBeforeDiscount.text),
+                            priceAfterDiscount:
+                            double.parse(priceAfterDiscount.text),
                           );
-                          await context.read<OffersCubit>().addOffer(offer);
+
+                          Navigator.pop(context);
+
+                          await context
+                              .read<OffersCubit>()
+                              .addOffer(offer);
                         }
-                      } : null,
-                      child: Text(
+                      },
+                      child: isLoading
+                          ? const SizedBox(
+                        height: 18,
+                        width: 18,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.white,
+                        ),
+                      )
+                          : Text(
                         'حفظ العرض',
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .labelSmall,
+                        style:
+                        Theme.of(context).textTheme.labelSmall,
                       ),
                     ),
                   );
@@ -236,10 +242,10 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
 
   @override
   void dispose() {
+    discountController.removeListener(_calculatePrice);
     discountController.dispose();
     priceBeforeDiscount.dispose();
     priceAfterDiscount.dispose();
     super.dispose();
   }
 }
-

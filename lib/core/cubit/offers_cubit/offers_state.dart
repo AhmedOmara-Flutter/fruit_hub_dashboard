@@ -12,7 +12,6 @@ final class OffersFailure extends OfferState {
 final class OffersSuccess extends OfferState {}
 
 final class GetOffersLoading extends OfferState {}
-final class GetOffersEmpty extends OfferState {}
 final class  GeOffersFailure extends OfferState {
   final String errMessage;
   GeOffersFailure(this.errMessage);

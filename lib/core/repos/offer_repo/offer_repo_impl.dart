@@ -34,6 +34,7 @@ class OfferRepoImpl implements OfferRepo {
     }
   }
 
+
   @override
   Stream<Either<Failure, List<OfferEntity>>> getOffers() async* {
     try {

@@ -23,18 +23,6 @@ class _OffersViewState extends State<OffersView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<OffersCubit, OfferState>(
-        listener: (context, state) {
-          if (state is DeleteOfferSuccess) {
-            Navigator.pop(context);
-          }
-
-          if (state is DeleteOfferFailure) {
-            Navigator.pop(context);
-            customShowSnakeBar(context, color: Colors.red, label: state.message);
-          }
-        },
-      child: OffersViewBody(),
-    );
+    return OffersViewBody();
   }
 }

@@ -7,12 +7,14 @@ import '../../../../core/entities/offer_entity.dart';
 import 'offer_product_card.dart';
 
 class OffersViewBody extends StatelessWidget {
-  OffersViewBody({super.key});
+  const OffersViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<OffersCubit, OfferState>(
       builder: (context, state) {
+        final cubit = context.read<OffersCubit>();
+        final offers = cubit.offers;
 
         if (state is GetOffersLoading) {
           return ListView.separated(
@@ -24,24 +26,24 @@ class OffersViewBody extends StatelessWidget {
             },
           );
         }
-        if (state is GeOffersSuccess) {
-          return ListView.separated(
-            padding: const EdgeInsets.all(12),
-            itemCount: state.offers.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 5),
-            itemBuilder: (context, index) {
-              return OfferProductCard(offer:state.offers[index]);
-            },
-          );
-        }
-        if (state is GetOffersEmpty) {
-          return EmptyWidget();
-        }
+
+
         if (state is GeOffersFailure) {
           return Center(child: Text(state.errMessage));
         }
-        return SizedBox.shrink();
+
+        if (offers.isEmpty) {
+          return const EmptyWidget();
+        }
+
+        return ListView.separated(
+          padding: const EdgeInsets.all(12),
+          itemCount: offers.length,
+          separatorBuilder: (_, __) => const SizedBox(height: 5),
+          itemBuilder: (context, index) {
+            return OfferProductCard(offer: offers[index]);
+          },
+        );
       },
     );
-  }
-}
+}}

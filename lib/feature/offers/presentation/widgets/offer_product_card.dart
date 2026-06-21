@@ -180,27 +180,21 @@ class OfferProductCard extends StatelessWidget {
 
             // Delete button
             InkWell(
-              onTap: () {
+              onTap: () async {
                 CustomShowDialog.show(
                   context,
                   title: 'حذف العرض',
                   content: Text(
                     'هل أنت متأكد أنك تريد حذف هذا العرض؟',
                     textAlign: TextAlign.center,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(color: Colors.grey),
                   ),
                   cancel: () => Navigator.pop(context),
-                  accept: () {
-                    context
-                        .read<OffersCubit>()
-                        .deleteOffer(offer);
+                  accept: () async {
+                    Navigator.pop(context);
+                    await context.read<OffersCubit>().deleteOffer(offer);
                   },
                   flag: Icons.local_offer_outlined,
-                  color: Colors.red
+                  color: Colors.red,
                 );
               },
               borderRadius: BorderRadius.circular(8),
