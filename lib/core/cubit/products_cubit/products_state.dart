@@ -4,6 +4,7 @@ part of 'products_cubit.dart';
 sealed class MyProductsState {}
 
 final class MyProductsInitial extends MyProductsState {}
+
 final class GetFilteredProductsLoading extends MyProductsState {}
 final class GetFilteredProductsError extends MyProductsState {
   final String errMessage;
@@ -11,6 +12,7 @@ final class GetFilteredProductsError extends MyProductsState {
 }
 final class GetFilteredProductsSuccess extends MyProductsState {}
 final class GetFilteredProductsEmpty extends MyProductsState {}
+
 final class DeleteProductLoading extends MyProductsState {}
 final class DeleteProductSuccess extends MyProductsState {}
 final class DeleteProductError extends MyProductsState {

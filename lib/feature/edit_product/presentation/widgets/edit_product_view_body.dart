@@ -11,7 +11,7 @@ import 'package:fruit_hub_dashboard/feature/edit_product/presentation/widgets/pr
 import 'package:fruit_hub_dashboard/feature/edit_product/presentation/widgets/product_settings_section.dart';
 import 'package:fruit_hub_dashboard/feature/edit_product/presentation/widgets/product_sub_images_section.dart';
 
-import '../view_model/edit_product_cubit.dart';
+import '../../../../core/cubit/products_cubit/update_product/update_product_cubit.dart';
 
 class EditProductViewBody extends StatefulWidget {
   final ProductEntity product;
@@ -66,8 +66,22 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<EditProductCubit, EditProductState>(
-      listener: (context, state) {},
+    return BlocConsumer<UpdateProductCubit, UpdateProductState>(
+      listener: (context, state) {
+        if (state is UpdateProductError) {
+          customShowSnakeBar(
+              context, color: Colors.red, label: state.errMessage);
+        }
+        if (state is UpdateProductSuccess) {
+          customShowSnakeBar(
+              context, color: Colors.green, label: 'تم التعديل بنجاح');
+          Future.delayed(const Duration(milliseconds: 300), () {
+            if (context.mounted) {
+              Navigator.pop(context);
+            }
+          });
+        }
+      },
       builder: (context, state) {
         return Stack(
           children: [
@@ -167,9 +181,9 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
                                 subImagesFiles: subImagesFiles,
                               );
 
-                              // context.read<EditProductCubit>().updateProduct(
-                              //   updatedProduct,
-                              // );
+                              context.read<UpdateProductCubit>().updateProduct(
+                                updatedProduct,
+                              );
                             },
                             child: Text(
                               'تعديل المنتج',
@@ -186,20 +200,20 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
                 ),
               ),
             ),
-            // if (state is AddProductLoading)
-            //   Positioned.fill(
-            //     child: AbsorbPointer(
-            //       absorbing: true,
-            //       child: Container(
-            //         color: Colors.black.withOpacity(0.3),
-            //         child: const Center(
-            //           child: CircularProgressIndicator(
-            //             color: Color(0xff1B5E37),
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
+            if (state is UpdateProductLoading)
+              Positioned.fill(
+                child: AbsorbPointer(
+                  absorbing: true,
+                  child: Container(
+                    color: Colors.black.withOpacity(0.3),
+                    child: const Center(
+                      child: CircularProgressIndicator(
+                        color: Color(0xff1B5E37),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
           ],
         );
       },

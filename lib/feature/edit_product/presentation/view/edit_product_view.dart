@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruit_hub_dashboard/core/repos/product_repo/product_repo_impl.dart';
+import 'package:fruit_hub_dashboard/core/repos/upload_image_repo/upload_image_repo_impl.dart';
+import 'package:fruit_hub_dashboard/core/services/database_services.dart';
+import 'package:fruit_hub_dashboard/core/services/storage_services.dart';
+
+import '../../../../core/cubit/products_cubit/update_product/update_product_cubit.dart';
 import '../../../../core/entities/product_entity.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/widgets/custom_back_button.dart';
-import '../view_model/edit_product_cubit.dart';
 import '../widgets/edit_product_view_body.dart';
 
 class EditProductView extends StatelessWidget {
@@ -13,7 +18,11 @@ class EditProductView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => EditProductCubit(),
+      create: (context) =>
+          UpdateProductCubit(
+            ProductRepoImpl(FirestoreDatabase()),
+            UploadImageRepoImpl(SupabaseStorage()),
+          ),
       child: Scaffold(
         appBar: AppBar(
           leading: CustomBackButton(),
