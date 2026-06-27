@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fruit_hub_dashboard/core/entities/order_entity.dart';
+import 'package:fruit_hub_dashboard/core/helper_function/mak_full_name.dart';
 import 'package:fruit_hub_dashboard/core/utils/route_manager.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -77,7 +78,7 @@ class CustomerCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      user.userName,
+                      makeFullName(user.userName),
                       style: Theme.of(
                         context,
                       ).textTheme.labelMedium!.copyWith(color: Colors.black),

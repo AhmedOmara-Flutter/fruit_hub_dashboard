@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/core/enums/order_enum.dart';
+import 'package:fruit_hub_dashboard/core/helper_function/mak_full_name.dart';
 
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../core/entities/order_entity.dart';
@@ -63,18 +64,20 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
 
                   const SizedBox(width: 12),
 
-                  OrderCustomerInfo(
-                    customerName: widget.order.userEntity!.userName,
-                    phone: widget.order.userEntity!.phone,
-                    orderId: '${widget.index + 1}'.padLeft(2, '0'),
-                    address: widget.order.getFullAddress(),
-                    location: widget.order.selectedLocationEntity!.title,
-                    products: widget.order.cartEntity.cartItems
-                        .map((item) => '${item.product.name} × ${item.quantity}')
-                        .join('\n'),
-                    price: widget.order.cartEntity.cartItems
-                        .map((item) => '${item.unitPrice} ج.م ')
-                        .join('\n'),
+                  Expanded(
+                    child: OrderCustomerInfo(
+                      customerName: makeFullName(widget.order.userEntity!.userName),
+                      phone: widget.order.userEntity!.phone,
+                      orderId: '${widget.index + 1}'.padLeft(2, '0'),
+                      address: widget.order.getFullAddress(),
+                      location: widget.order.selectedLocationEntity!.title,
+                      products: widget.order.cartEntity.cartItems
+                          .map((item) => '${item.product.name} × ${item.quantity}')
+                          .join('\n'),
+                      price: widget.order.cartEntity.cartItems
+                          .map((item) => '${item.unitPrice} ج.م ')
+                          .join('\n'),
+                    ),
                   ),
                   const SizedBox(width: 8),
                 ],

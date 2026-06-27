@@ -75,7 +75,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
           const SizedBox(height: 25),
 
           Text(
-            "© 2026 Fruit Hub Dashboard",
+            '© 2026 قطيف - جميع الحقوق محفوظة',
             style: TextStyle(color: Colors.grey.shade600),
           ),
         ],
@@ -138,6 +138,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                     context
                         .read<OrdersCubit>()
                         .deleteOrderCollection();
+                    Navigator.pop(context);
                   },
                   color: Colors.red,
                   flag:Icons.inventory_2,

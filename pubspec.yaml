@@ -67,10 +67,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.14.4
+
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: 'assets/images/appIcon.png'
+  image_path: "assets/images/qtefNoBackground.png"
+  remove_alpha_ios: true
 
   #flutter pub get
   #flutter pub run flutter_launcher_icons:main

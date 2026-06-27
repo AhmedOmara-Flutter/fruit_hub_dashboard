@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruit_hub_dashboard/core/helper_function/mak_full_name.dart';
 import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/skeletonizer_order_item.dart';
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../core/helper_function/get_date_formate.dart';
@@ -58,7 +59,7 @@ class RecentOrdersListView extends StatelessWidget {
               amount: order.cartEntity.getTotalPrice(),
               status: '',
               statusColor: Colors.orange,
-              customerName: order.userEntity!.userName,
+              customerName: makeFullName(order.userEntity!.userName),
               time: getTimeOnly(order.createdAt.toString()),
               products: order.cartEntity.cartItems
                   .map((item) =>

@@ -116,21 +116,25 @@ class ProductCard extends StatelessWidget {
                     hasOffer
                         ? Row(
                       children: [
-                        Text(
-                          '$oldPrice ج',
-                          style: const TextStyle(
-                            decoration: TextDecoration.lineThrough,
-                            color: Colors.grey,
-                            fontSize: 14,
+                        Flexible(
+                          child: Text(
+                            '$oldPrice ج',
+                            style: const TextStyle(
+                              decoration: TextDecoration.lineThrough,
+                              color: Colors.grey,
+                              fontSize: 14,
+                            ),
                           ),
                         ),
                         const SizedBox(width: 8),
-                        Text(
-                          '$newPrice ج',
-                          style: const TextStyle(
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
+                        Flexible(
+                          child: Text(
+                            '$newPrice ج',
+                            style: const TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
                           ),
                         ),
                       ],

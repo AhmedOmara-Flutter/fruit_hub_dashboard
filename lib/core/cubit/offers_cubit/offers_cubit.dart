@@ -75,6 +75,20 @@ class OffersCubit extends Cubit<OfferState> {
     emit(OffersInitial());
   }
 
+  Future<void> removeExpiredOffers() async {
+    final now = DateTime.now();
+
+    for (final offer in List<OfferEntity>.from(offers)) {
+      if (offer.endDate.isBefore(now)) {
+        await _offerRepo.deleteOffer(offer.id);
+
+        await _productsRepo.updateProductField(
+          productId: offer.productId,
+          data: {'offerId': null},
+        );
+      }
+    }
+  }
   @override
   Future<void> close() {
     _offersSubscription?.cancel();
