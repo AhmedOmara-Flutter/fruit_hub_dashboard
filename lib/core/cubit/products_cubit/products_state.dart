@@ -37,3 +37,10 @@ final class DeleteProductError extends ProductsState {
   final String errMessage;
   DeleteProductError(this.errMessage);
 }
+
+final class DeleteCartLoadingState extends ProductsState {}
+final class DeleteCartSuccessState extends ProductsState {}
+final class DeleteCartErrorState extends ProductsState {
+  final String errMessage;
+  DeleteCartErrorState(this.errMessage);
+}

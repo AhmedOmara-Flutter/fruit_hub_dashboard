@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruit_hub_dashboard/core/cubit/products_cubit/products_cubit.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
 
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../core/helper_function/custom_show_dialog.dart';
+import 'info_tile.dart';
 
 class SettingsViewBody extends StatefulWidget {
   const SettingsViewBody({super.key});
@@ -36,8 +38,6 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
       child: Column(
         children: [
           const SizedBox(height: 10),
-
-
           // ADMIN CARD
           _buildCard(
             title: "معلومات المدير",
@@ -45,7 +45,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
             children: const [
               InfoTile(title: "الاسم", value: "أحمد هاني عمارة"),
               Divider(),
-              InfoTile(title: "البريد الإلكتروني", value: "ahmed@gmail.com"),
+              InfoTile(title: "البريد الإلكتروني", value: "ahmedomara@gmail.com"),
               Divider(),
               InfoTile(title: "رقم التليفون", value: "01204391511"),
               Divider(),
@@ -70,7 +70,13 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
 
           const SizedBox(height: 20),
 
-          _buildDangerCard(context),
+          Row(
+            children: [
+              Expanded(child: _buildOrdersDangerCard(context)),
+              const SizedBox(width: 10),
+              Expanded(child: _buildCartDangerCard(context)),
+            ],
+          ),
 
           const SizedBox(height: 25),
 
@@ -83,7 +89,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
     );
   }
 
-  Widget _buildDangerCard(BuildContext context) {
+  Widget _buildOrdersDangerCard(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -153,7 +159,77 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
       ),
     );
   }
+  Widget _buildCartDangerCard(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.orange.shade50,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: Colors.orange.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Row(
+            children: [
+              Icon(Icons.shopping_cart_outlined, color: Colors.orange),
+              SizedBox(width: 8),
+              Text(
+                "إدارة السلة",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
 
+          const SizedBox(height: 10),
+
+          const Text(
+            "مسح جميع المنتجات من سلة المستخدمين بشكل نهائي.",
+            style: TextStyle(color: Colors.grey),
+          ),
+
+          const SizedBox(height: 15),
+
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orange,
+                padding: const EdgeInsets.all(14),
+              ),
+              onPressed: () {
+                CustomShowDialog.show(
+                  context,
+                  title: 'تأكيد مسح السلة',
+                  content: Text(
+                    'هل أنت متأكد أنك تريد حذف كل محتويات السلة؟',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(color: Colors.grey),
+                  ),
+                  cancel: () => Navigator.pop(context),
+                  accept: () {
+                   context.read<ProductsCubit>().deleteCartCollectionForUser();
+                    Navigator.pop(context);
+                  },
+                  color: Colors.orange,
+                  flag: Icons.remove_shopping_cart,
+                );
+              },
+              child: Text(
+                "مسح السلة",
+                style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
   Widget _buildCard({
     required String title,
     required IconData icon,
@@ -194,27 +270,3 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
   }
 }
 
-class InfoTile extends StatelessWidget {
-  final String title;
-  final String value;
-
-  const InfoTile({
-    super.key,
-    required this.title,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(title, style: StyleManager.font13Weight600),
-        const Spacer(),
-        Text(
-          value,
-          style: StyleManager.font16Weight600,
-        ),
-      ],
-    );
-  }
-}

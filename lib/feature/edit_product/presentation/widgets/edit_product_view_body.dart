@@ -11,6 +11,7 @@ import 'package:fruit_hub_dashboard/feature/edit_product/presentation/widgets/pr
 import 'package:fruit_hub_dashboard/feature/edit_product/presentation/widgets/product_settings_section.dart';
 import 'package:fruit_hub_dashboard/feature/edit_product/presentation/widgets/product_sub_images_section.dart';
 
+import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../../core/cubit/products_cubit/update_product/update_product_cubit.dart';
 
 class EditProductViewBody extends StatefulWidget {
@@ -160,7 +161,14 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
                                 );
                                 return;
                               }
-
+                              // if (context
+                              //     .read<OffersCubit>()
+                              //     .offers
+                              //     .isNotEmpty) {
+                              //   customShowSnakeBar(context, color: Colors.red,
+                              //       label: 'لا يمكن تعديل المنتج قبل حذف العروض');
+                              //   return;
+                              // }
                               final updatedProduct = widget.product.copyWith(
                                 name: nameController.text.trim(),
                                 code: codeController.text.trim().toLowerCase(),

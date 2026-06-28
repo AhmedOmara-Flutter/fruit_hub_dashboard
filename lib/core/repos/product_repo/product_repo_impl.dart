@@ -43,6 +43,11 @@ class ProductRepoImpl implements ProductRepo {
   }
 
   @override
+  Future<void> deleteCollection(String collectionName)async {
+    return await _databaseServices.deleteCollection(collectionName);
+  }
+
+  @override
   Stream<Either<Failure, List<ProductEntity>>> getProducts() async* {
     try {
       await for(var (data as List<Map<String, dynamic>> )in _databaseServices.getStreamData(path: 'products') ){

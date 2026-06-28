@@ -58,6 +58,5 @@ class OrdersRepoImpl implements OrdersRepo {
   @override
   Future<void> deleteCollection(String collectionName)async {
     return await _databaseServices.deleteCollection(collectionName);
-
   }
 }

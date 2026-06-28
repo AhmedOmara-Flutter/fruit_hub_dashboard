@@ -10,5 +10,6 @@ abstract class ProductRepo {
     required Map<String, dynamic> data,
   });
   Future<void> deleteProduct(String productId);
+  Future<void> deleteCollection(String collectionName);
   Stream<Either<Failure, List<ProductEntity>>> getProducts();
 }
