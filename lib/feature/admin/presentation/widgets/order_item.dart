@@ -2,11 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-
 import '../../../../generated/assets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderItem extends StatelessWidget {
-  final String image;
   final double amount;
   final String status;
   final Color statusColor;
@@ -15,10 +14,8 @@ class OrderItem extends StatelessWidget {
   final String products;
   final double deliveryCost;
 
-
   const OrderItem({
     super.key,
-    required this.image,
     required this.amount,
     required this.status,
     required this.statusColor,
@@ -31,46 +28,30 @@ class OrderItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(
-        vertical: 6,
+      margin: EdgeInsets.symmetric(
+        vertical: 6.h,
       ),
-      padding: const EdgeInsets.all(14),
+      padding: EdgeInsets.all(14.w),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: Colors.grey.shade200),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(.05),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        color: AppColor.card,
+        borderRadius: BorderRadius.circular(18.r),
+        border: Border.all(
+          color: AppColor.border,
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(200),
-            child: Container(
-              height: 70,
-              width: 70,
-              decoration:BoxDecoration(
-                shape: BoxShape.circle
-              ) ,
-              child: CachedNetworkImage(imageUrl: image,
-                fit: BoxFit.cover,
-                placeholder: (context, url) =>
-                    Skeletonizer(child: CircleAvatar(
-                      backgroundImage: AssetImage(Assets.images.img.path),
-                    ),),
-                errorWidget: (context, url, error) =>
-                    Icon(Icons.error, color: Colors.red),
-              ),
+          ClipOval(
+            child: Image.asset(
+              Assets.images.customer.path,
+              width: 68.w,
+              height: 68.h,
+              fit: BoxFit.cover,
             ),
           ),
 
-          const SizedBox(width: 12),
+          SizedBox(width: 12.w),
 
           Expanded(
             child: Column(
@@ -79,27 +60,27 @@ class OrderItem extends StatelessWidget {
                 Text(
                   customerName,
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Colors.black,
+                    color: AppColor.textPrimary,
                   ),
                 ),
 
-                const SizedBox(height: 6),
+                SizedBox(height: 6.h),
 
                 Text(
                   products,
-                  style:Theme.of(context).textTheme.titleSmall,
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
 
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h),
 
                 Row(
                   children: [
                     Icon(
                       Icons.access_time_rounded,
-                      size: 14,
-                      color: Colors.grey.shade600,
+                      size: 14.sp,
+                      color: AppColor.textSecondary,
                     ),
-                    const SizedBox(width: 4),
+                    SizedBox(width: 4.w),
                     Text(
                       time,
                       style: Theme.of(context).textTheme.titleMedium,
@@ -110,36 +91,35 @@ class OrderItem extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(width: 10),
+          SizedBox(width: 10.w),
 
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10.w,
+                  vertical: 5.h,
                 ),
                 decoration: BoxDecoration(
-                  // color: statusColor.withOpacity(.12),
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(20.r),
                 ),
                 child: Text(
                   status,
                   style: TextStyle(
-                    // color: statusColor,
                     fontWeight: FontWeight.w600,
-                    fontSize: 12,
+                    fontSize: 12.sp,
+                    color: statusColor,
                   ),
                 ),
               ),
 
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h),
 
               Text(
                 '${(amount + deliveryCost).toStringAsFixed(2)} ج.م',
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                  color: AppColor.mainColor
+                  color: AppColor.mainColor,
                 ),
               ),
             ],

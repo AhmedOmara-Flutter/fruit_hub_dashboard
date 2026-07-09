@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/tap_bar_view_body.dart';
 
@@ -14,18 +15,29 @@ class CategoryTabs extends StatefulWidget {
 
 class _CategoryTabsState extends State<CategoryTabs>
     with SingleTickerProviderStateMixin {
-
   final categories = [
-    'فواكه',
-    'خضروات',
-    'مشروبات',
-    'مكسرات',
+    'بيتزا',
+    'كريب لحوم',
+    'كريب دجاج',
+    'سندوتشات سوري',
+    'مكرونات',
+    'مشويات',
+    'حواوشي ايطالي',
+    'برجر',
+    'فطائر',
+    'اضافات',
   ];
+
   late TabController _tabController;
 
   @override
   void initState() {
-    _tabController = TabController(length: categories.length, vsync: this);
+    super.initState();
+
+    _tabController = TabController(
+      length: categories.length,
+      vsync: this,
+    );
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<ProductsCubit>().filterByCategory(categories[0]);
@@ -38,8 +50,12 @@ class _CategoryTabsState extends State<CategoryTabs>
         categories[_tabController.index],
       );
     });
+  }
 
-    super.initState();
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -48,49 +64,40 @@ class _CategoryTabsState extends State<CategoryTabs>
       length: categories.length,
       child: Column(
         children: [
+          SizedBox(height: 15.h),
           Container(
-            margin: const EdgeInsets.symmetric(vertical: 5),
-            height: 50,
+            height: 52.h,
+            margin: EdgeInsets.symmetric(horizontal: 16.w),
             child: TabBar(
+              splashFactory: NoSplash.splashFactory,
+              controller: _tabController,
               isScrollable: true,
               tabAlignment: TabAlignment.start,
-              dividerColor: Colors.transparent,
-
               indicator: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
+                color: AppColor.mainColor,
+                borderRadius: BorderRadius.circular(25.r),
               ),
-
               indicatorSize: TabBarIndicatorSize.tab,
-
-              labelColor:AppColor.mainColor ,
-              unselectedLabelColor: Colors.black87,
-
-              labelStyle: const TextStyle(
+              labelColor: Colors.white,
+              unselectedLabelColor: AppColor.textSecondary,
+              labelStyle: TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: 16,
+                fontSize: 13.sp,
               ),
-
-              unselectedLabelStyle: const TextStyle(
+              unselectedLabelStyle: TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: 12.5,
+                fontSize: 12.sp,
               ),
-
-              labelPadding: const EdgeInsets.symmetric(horizontal: 6),
-
-              splashBorderRadius: BorderRadius.circular(30),
-
+              dividerColor: Colors.transparent,
               overlayColor: WidgetStateProperty.all(Colors.transparent),
-
+              splashBorderRadius: BorderRadius.circular(25.r),
               tabs: categories.map((e) {
                 return Tab(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Colors.grey.shade100,
+
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 14.w,
+                      vertical: 8.h,
                     ),
                     child: Text(e),
                   ),
@@ -98,11 +105,13 @@ class _CategoryTabsState extends State<CategoryTabs>
               }).toList(),
             ),
           ),
+
           Expanded(
             child: Container(
-              color: Colors.grey.shade200,
+              color: AppColor.background,
               child: TabBarView(
-                physics: NeverScrollableScrollPhysics(),
+                controller: _tabController,
+                physics: const NeverScrollableScrollPhysics(),
                 children: categories.map((category) {
                   return TapBarViewBody(category);
                 }).toList(),

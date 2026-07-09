@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/app_color.dart';
 
@@ -9,70 +10,76 @@ class BackgroundCard extends StatelessWidget {
   final IconData icon;
 
   const BackgroundCard({
-    super.key, required this.child, required this.label, required this.subLabel, required this.icon,
+    super.key,
+    required this.child,
+    required this.label,
+    required this.subLabel,
+    required this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey.shade200),
+        color: AppColor.card,
+        borderRadius: BorderRadius.circular(8.r),
+        border: Border.all(
+          color: AppColor.border,
+        ),
       ),
       child: Column(
         children: [
           Container(
             width: double.infinity,
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(10.w),
             decoration: BoxDecoration(
-              color: Color(0xffFAFAFB),
+              color: AppColor.background,
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  topRight: Radius.circular(8)),
+                topLeft: Radius.circular(8.r),
+                topRight: Radius.circular(8.r),
+              ),
               border: Border.all(
-                  color: Colors.grey.shade200),
+                color: AppColor.border,
+              ),
             ),
             child: Row(
               children: [
                 Container(
-                  padding: EdgeInsets.all(6),
+                  padding: EdgeInsets.all(6.w),
                   decoration: BoxDecoration(
                     color: AppColor.mainColor,
-                    borderRadius: BorderRadius.circular(
-                        8),
-                    border: Border.all(
-                        color: Colors.grey.shade200),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
-                  child: Icon(icon,
-                      color: Colors.white, size: 18),
+                  child: Icon(
+                    icon,
+                    color: AppColor.white,
+                    size: 18.sp,
+                  ),
                 ),
-                SizedBox(width: 8,),
+                SizedBox(width: 8.w),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment
-                      .start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(label, style: Theme
-                        .of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(
+                    Text(
+                      label,
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: AppColor.textPrimary,
                         fontWeight: FontWeight.w700,
-                        color: Colors.black.withOpacity(0.8))),
-                    SizedBox(height: 4),
-                    Text(subLabel,
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .copyWith(color: Colors.grey),),
+                      ),
+                    ),
+                    SizedBox(height: 4.h),
+                    Text(
+                      subLabel,
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color: AppColor.textSecondary,
+                      ),
+                    ),
                   ],
-                )
+                ),
               ],
             ),
           ),
-          child
-
+          child,
         ],
       ),
     );

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/helper_function/custom_show_snake_bar.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/widgets/custom_button.dart';
@@ -28,21 +29,22 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
   File? image;
   List<File>? subImagesFiles;
   bool isFeatured = false;
-  bool isOrganic = false;
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
   final nameController = TextEditingController();
-  final codeController = TextEditingController();
   final priceController = TextEditingController();
   final descriptionController = TextEditingController();
-  final expirationMonthController = TextEditingController();
-  final unitAmountController = TextEditingController();
-  final numberOfCaloriesController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   List<DropdownMenuItem<String>> categories = [
-    const DropdownMenuItem(value: 'فواكه', child: Text('فواكه')),
-    const DropdownMenuItem(value: 'خضروات', child: Text('خضروات')),
-    const DropdownMenuItem(value: 'مشروبات', child: Text('مشروبات')),
-    const DropdownMenuItem(value: 'مكسرات', child: Text('مكسرات')),
+    const DropdownMenuItem(value: 'بيتزا', child: Text('بيتزا')),
+    const DropdownMenuItem(value: 'كريب لحوم', child: Text('كريب لحوم')),
+    const DropdownMenuItem(value: 'كريب دجاج', child: Text('كريب دجاج')),
+    const DropdownMenuItem(value: 'سندوتشات سوري', child: Text('سندوتشات سوري')),
+    const DropdownMenuItem(value: 'مكرونات', child: Text('مكرونات')),
+    const DropdownMenuItem(value: 'مشويات', child: Text('مشويات')),
+    const DropdownMenuItem(value: 'حواوشي ايطالي', child: Text('حواوشي ايطالي')),
+    const DropdownMenuItem(value: 'برجر', child: Text('برجر')),
+    const DropdownMenuItem(value: 'فطائر', child: Text('فطائر')),
+    const DropdownMenuItem(value: 'اضافات', child: Text('اضافات')),
   ];
   String? selectedCategory;
 
@@ -55,10 +57,9 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
               context, color: Colors.red, label: state.errMessage);
         }
         if (state is AddProductSuccess) {
-          clearForm();
           context.read<MainCubit>().changeIndex(0);
           customShowSnakeBar(
-              context, color: Colors.green, label: 'تم الاضافه بنجاح');
+              context, color:AppColor.mainColor, label: 'تم الاضافه بنجاح');
         }
       },
 
@@ -78,8 +79,11 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                         spacing: 10,
                         children: [
                           BackgroundCard(
+                            label: 'معلومات المنتج',
+                            subLabel: 'البيانات الاساسيه للمنتج',
+                            icon: Icons.local_offer_outlined,
                             child: Padding(
-                              padding: const EdgeInsets.all(10),
+                              padding: EdgeInsets.all(10.w),
                               child: Column(
                                 children: [
                                   Row(
@@ -93,26 +97,25 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                                             name = value!;
                                           },
                                           validator: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
+                                            if (value == null || value.isEmpty) {
                                               return 'الحقل مطلوب';
                                             }
                                             return null;
                                           },
                                         ),
                                       ),
-                                      SizedBox(width: 10),
+                                      SizedBox(width: 10.w),
                                       Expanded(
                                         child: CustomTextFormField(
-                                          label: 'كود المنتج',
-                                          controller: codeController,
-                                          hintText: 'اكتب كود المنتج',
+                                          label: 'سعر المنتج',
+                                          controller: priceController,
+                                          hintText: 'اكتب سعر المنتج',
+                                          keyboardType: TextInputType.number,
                                           onSaved: (value) {
-                                            code = value!.toLowerCase();
+                                            price = num.parse(value!);
                                           },
                                           validator: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
+                                            if (value == null || value.isEmpty) {
                                               return 'الحقل مطلوب';
                                             }
                                             return null;
@@ -121,34 +124,68 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(height: 10),
+
+                                  SizedBox(height: 10.h),
+
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment
-                                        .start,
                                     children: [
-                                      Text('التصنيف', style: Theme
-                                          .of(context)
-                                          .textTheme
-                                          .titleMedium!
-                                          .copyWith(
+                                      Text(
+                                        'التصنيف',
+                                        style: Theme.of(context).textTheme.titleMedium!.copyWith(
                                           color: AppColor.mainColor,
-                                          fontWeight: FontWeight.w700)),
-                                      SizedBox(width: 8),
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      SizedBox(width: 8.w),
                                       CircleAvatar(
-                                          backgroundColor: Colors.red,
-                                          radius: 2),
+                                        backgroundColor: AppColor.red,
+                                        radius: 2.r,
+                                      ),
                                     ],
                                   ),
-                                  SizedBox(height: 8),
+
+                                  SizedBox(height: 8.h),
+
                                   DropdownButtonFormField<String>(
                                     initialValue: selectedCategory,
-                                    hint: Text('اختر التصنيف', style: Theme
-                                        .of(context)
-                                        .textTheme
-                                        .titleSmall,),
+                                    hint: Text(
+                                      'اختر التصنيف',
+                                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                                        color: AppColor.textSecondary,
+                                      ),
+                                    ),
                                     items: categories,
-                                    decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
+                                    dropdownColor: AppColor.card,
+                                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                                      color: AppColor.textPrimary,
+                                    ),
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: AppColor.card,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12.r),
+                                        borderSide: BorderSide(
+                                          color: AppColor.border,
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12.r),
+                                        borderSide: BorderSide(
+                                          color: AppColor.mainColor,
+                                        ),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12.r),
+                                        borderSide: BorderSide(
+                                          color: AppColor.red,
+                                        ),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12.r),
+                                        borderSide: BorderSide(
+                                          color: AppColor.red,
+                                        ),
+                                      ),
                                     ),
                                     onChanged: (value) {
                                       setState(() {
@@ -165,107 +202,11 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                                       selectedCategory = value;
                                     },
                                   ),
-                                  SizedBox(height: 10),
-                                ],
-                              ),
-                            ),
-                            icon: Icons.local_offer_outlined,
-                            label: 'معلومات المنتج',
-                            subLabel: 'البيانات الاساسيه للمنتج',
-                          ),
-                          BackgroundCard(
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: CustomTextFormField(
-                                          label: 'سعر المنتج',
-                                          controller: priceController,
-                                          hintText: 'اكتب سعر المنتج',
-                                          onSaved: (value) {
-                                            price = num.parse(value!);
-                                          },
-                                          keyboardType: TextInputType.number,
-                                          validator: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return 'الحقل مطلوب';
-                                            }
-                                            return null;
-                                          },
-                                        ),
-                                      ),
-                                      SizedBox(width: 10),
-                                      Expanded(
-                                        child: CustomTextFormField(
-                                          label:'تاريخ الانتهاء' ,
-                                          controller: expirationMonthController,
-                                          hintText: 'اكتب تاريخ الانتهاء',
-                                          onSaved: (value) {
-                                            expirationMonth = num.parse(value!);
-                                          },
-                                          keyboardType: TextInputType.number,
-                                          validator: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return 'الحقل مطلوب';
-                                            }
-                                            return null;
-                                          },
-                                        ),
 
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 10),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: CustomTextFormField(
-                                          label: 'عدد الوحدات',
-                                          controller: unitAmountController,
-                                          hintText: 'اكتب عدد الوحدات',
-                                          onSaved: (value) {
-                                            unitAmount = num.parse(value!);
-                                          },
-                                          keyboardType: TextInputType.number,
-                                          validator: (value) {
-                                            if (value == null || value.isEmpty) {
-                                              return 'الحقل مطلوب';
-                                            }
-                                            return null;
-                                          },
-                                        ),
-                                      ),
-                                      SizedBox(width: 10),
-                                      Expanded(
-                                        child: CustomTextFormField(
-                                          label: 'عدد السعرات',
-                                          controller: numberOfCaloriesController,
-                                          hintText: 'اكتب عدد السعرات',
-                                          onSaved: (value) {
-                                            numberOfCalories = num.parse(value!);
-                                          },
-                                          keyboardType: TextInputType.number,
-                                          validator: (value) {
-                                            if (value == null || value.isEmpty) {
-                                              return 'الحقل مطلوب';
-                                            }
-                                            return null;
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  SizedBox(height: 10.h),
                                 ],
                               ),
                             ),
-                            icon: CupertinoIcons.cart,
-                            label: 'التسعير والمخزون',
-                            subLabel: 'السعر والكميه والقيم الغذائيه للمنتج',
                           ),
                           BackgroundCard(
                             label:'الصوره الرئيسيه' ,
@@ -299,6 +240,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                               ),
                             ),
                           ),
+
                           BackgroundCard(
                             icon: Icons.settings_outlined,
                             label:'اعدادات اضافيه' ,
@@ -334,18 +276,8 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                                           },
                                         ),
                                       ),
-                                      Expanded(
-                                        child: CustomIsOrganic(
-                                          isOrganic: isOrganic,
-                                          onTap: () {
-                                            setState(() {});
-                                            isOrganic = !isOrganic;
-                                          },
-                                        ),
-                                      ),
                                     ],
                                   ),
-
                                 ],
                               ),
                             ),
@@ -357,23 +289,25 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                                 if (image != null && subImagesFiles != null) {
                                   if (selectedCategory != null) {
                                     ProductEntity addProductEntity =
-                                        ProductEntity(
-                                          name: name,
-                                          code: code,
-                                          price: price,
-                                          description: description,
-                                          imageFile: image!,
-                                          isFeatured: isFeatured,
-                                          expirationMonth: expirationMonth,
-                                          unitAmount: unitAmount,
-                                          numberOfCalories: numberOfCalories,
-                                          isOrganic: isOrganic,
-                                          subImagesFiles: subImagesFiles!,
-                                          category: selectedCategory!,
-                                          createdAt: DateTime.now()
-                                              .toString(),
-
-                                        );
+                                    ProductEntity(
+                                      name: name,
+                                      code: DateTime
+                                          .now()
+                                          .millisecondsSinceEpoch
+                                          .toString(),
+                                      price: price,
+                                      description: description,
+                                      imageFile: image!,
+                                      isFeatured: isFeatured,
+                                      expirationMonth: 2,
+                                      unitAmount: 100,
+                                      numberOfCalories: 100,
+                                      isOrganic: true,
+                                      subImagesFiles: subImagesFiles!,
+                                      category: selectedCategory!,
+                                      createdAt: DateTime.now()
+                                          .toString(),
+                                    );
                                     context.read<AddProductCubit>().addProduct(
                                       addProductEntity,);
                                   } else {
@@ -400,6 +334,9 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                               style: Theme.of(context).textTheme.labelSmall,
                             ),
                           ),
+                          SizedBox(
+                            height: 15.h,
+                          )
                         ],
                       ),
                     ),
@@ -407,8 +344,6 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                 ),
               ),
             ),
-
-            /// 🔒 Overlay وقت التحميل
             if (state is AddProductLoading)
               Positioned.fill(
                 child: AbsorbPointer(
@@ -417,7 +352,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                     color: Colors.black.withOpacity(0.3),
                     child: const Center(
                       child: CircularProgressIndicator(
-                        color: Color(0xff1B5E37),
+                        color: AppColor.mainColor,
                       ),
                     ),
                   ),
@@ -429,37 +364,11 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
     );
   }
 
-  void clearForm() {
-    print('before: ${nameController.text}');
-    setState(() {
-      nameController.clear();
-    codeController.clear();
-    priceController.clear();
-    descriptionController.clear();
-    expirationMonthController.clear();
-    unitAmountController.clear();
-    numberOfCaloriesController.clear();
-    print('after: ${nameController.text}');
-     image = null;
-      subImagesFiles = null;
-      selectedCategory = null;
-      isFeatured = false;
-      isOrganic = false;
-      autoValidateMode = AutovalidateMode.disabled;
-    });
-
-    _formKey.currentState?.reset();
-  }
-
   @override
   void dispose() {
     nameController.dispose();
-    codeController.dispose();
     priceController.dispose();
     descriptionController.dispose();
-    expirationMonthController.dispose();
-    unitAmountController.dispose();
-    numberOfCaloriesController.dispose();
     super.dispose();
   }
 }

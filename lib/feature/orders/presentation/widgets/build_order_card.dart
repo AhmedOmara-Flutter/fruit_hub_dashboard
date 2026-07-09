@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/core/enums/order_enum.dart';
-import 'package:fruit_hub_dashboard/core/helper_function/mak_full_name.dart';
+import 'package:fruit_hub_dashboard/core/helper_function/make_full_name.dart';
 
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../core/entities/order_entity.dart';
@@ -59,7 +59,6 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
                 children: [
                   OrderUserImage(
                     onTap: widget.userTap,
-                    imageUrl: widget.order.userEntity!.image,
                   ),
 
                   const SizedBox(width: 12),

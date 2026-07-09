@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/helper_function/get_date_formate.dart';
+import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/feature/reviews/domain/entities/review_entity.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -9,111 +11,125 @@ import '../../../../generated/assets.dart';
 class ReviewCard extends StatelessWidget {
   final ReviewEntity review;
 
-  const ReviewCard({super.key, required this.review});
+  const ReviewCard({
+    super.key,
+    required this.review,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.symmetric(vertical: 6),
+      padding: EdgeInsets.all(10.w),
+      margin: EdgeInsets.symmetric(vertical: 6.h),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: Colors.grey.shade100),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        color: AppColor.card,
+        borderRadius: BorderRadius.circular(14.r),
+        border: Border.all(
+          color: AppColor.border,
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(50),
+            borderRadius: BorderRadius.circular(50.r),
             child: CachedNetworkImage(
               imageUrl: review.image,
-              height: 45,
-              width: 45,
+              width: 45.w,
+              height: 45.w,
               fit: BoxFit.cover,
               placeholder: (context, url) => Skeletonizer(
                 child: CircleAvatar(
-                  radius: 22,
-                  backgroundImage: AssetImage(Assets.images.img.path),
+                  radius: 22.r,
+                  backgroundImage: AssetImage(
+                    Assets.images.img.path,
+                  ),
                 ),
               ),
-              errorWidget: (context, url, error) =>
-              const Icon(Icons.error, color: Colors.red, size: 20),
+              errorWidget: (context, url, error) => Icon(
+                Icons.error_outline,
+                color: AppColor.red,
+                size: 20.sp,
+              ),
             ),
           ),
 
-          const SizedBox(width: 10),
+          SizedBox(width: 10.w),
 
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /// name + rating
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment:
+                  MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                       child: Text(
                         review.name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 14,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(
+                          color: AppColor.textPrimary,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
 
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 3),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 6.w,
+                        vertical: 3.h,
+                      ),
                       decoration: BoxDecoration(
-                        color: Colors.amber.withOpacity(0.12),
-                        borderRadius: BorderRadius.circular(20),
+                        color: AppColor.mainColor.withOpacity(.12),
+                        borderRadius:
+                        BorderRadius.circular(20.r),
                       ),
                       child: Row(
-                        children: List.generate(5, (i) {
-                          return Icon(
+                        children: List.generate(
+                          5,
+                              (i) => Icon(
                             i < review.rating
                                 ? Icons.star_rounded
                                 : Icons.star_border_rounded,
-                            size: 14,
-                            color: Colors.amber,
-                          );
-                        }),
+                            size: 14.sp,
+                            color: AppColor.mainColor,
+                          ),
+                        ),
                       ),
                     ),
                   ],
                 ),
 
-                const SizedBox(height: 4),
+                SizedBox(height: 4.h),
 
-                /// date
                 Text(
                   getDateFormate(review.date),
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: Colors.grey.shade500,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleSmall
+                      ?.copyWith(
+                    color: AppColor.textSecondary,
+                    fontSize: 11.sp,
                   ),
                 ),
 
-                const SizedBox(height: 6),
+                SizedBox(height: 6.h),
 
-                /// review text
                 Text(
                   review.reviewDescription,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 12.5,
-                    color: Colors.grey.shade700,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(
+                    color: AppColor.textSecondary,
+                    fontSize: 12.5.sp,
                     height: 1.3,
                   ),
                 ),

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
-import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/product_actions_section.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/entities/offer_entity.dart';
+import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
+import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
+import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/product_actions_section.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductEntity product;
-  final OfferEntity ?offer;
+  final OfferEntity? offer;
 
   const ProductCard({
     super.key,
-    required this.product, this.offer,
+    required this.product,
+    this.offer,
   });
 
   @override
@@ -18,19 +21,15 @@ class ProductCard extends StatelessWidget {
     final discount = offer?.discountPercentage ?? 0;
     final oldPrice = offer?.priceBeforeDiscount ?? product.price;
     final newPrice = offer?.priceAfterDiscount ?? product.price;
+
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: Colors.grey.shade200),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(.05),
-            blurRadius: 15,
-            offset: const Offset(0, 6),
-          ),
-        ],
+        color: AppColor.card,
+        borderRadius: BorderRadius.circular(18.r),
+        border: Border.all(
+          color: AppColor.border,
+        ),
       ),
       child: Column(
         children: [
@@ -40,40 +39,44 @@ class ProductCard extends StatelessWidget {
               Stack(
                 children: [
                   Container(
-                    width: 95,
-                    height: 95,
+                    width: 95.w,
+                    height: 95.w,
+                    padding: EdgeInsets.all(8.w),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(14),
-                      color: Colors.grey.shade100,
+                      color: AppColor.transparent,
+                      borderRadius: BorderRadius.circular(14.r),
+                      border: Border.all(
+                        color: AppColor.border,
+                      ),
                     ),
-                    clipBehavior: Clip.antiAlias,
                     child: Image.network(
                       product.image ?? '',
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) =>
-                      const Icon(Icons.image_not_supported),
+                      fit: BoxFit.contain,
+                      errorBuilder: (_, __, ___) => Icon(
+                        Icons.image_not_supported,
+                        color: AppColor.textSecondary,
+                        size: 32.sp,
+                      ),
                     ),
                   ),
-
-                  /// Badge Offer
                   if (hasOffer)
                     Positioned(
-                      top: 6,
-                      right: 6,
+                      top: 6.h,
+                      right: 6.w,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8.w,
+                          vertical: 4.h,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(20),
+                          color: AppColor.red,
+                          borderRadius: BorderRadius.circular(20.r),
                         ),
                         child: Text(
                           '-${discount.toInt()}%',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 11,
+                          style: TextStyle(
+                            color: AppColor.white,
+                            fontSize: 11.sp,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -82,7 +85,7 @@ class ProductCard extends StatelessWidget {
                 ],
               ),
 
-              const SizedBox(width: 16),
+              SizedBox(width: 16.w),
 
               Expanded(
                 child: Column(
@@ -92,48 +95,49 @@ class ProductCard extends StatelessWidget {
                       product.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                        color: AppColor.textPrimary,
                       ),
                     ),
 
-                    const SizedBox(height: 6),
+                    SizedBox(height: 6.h),
 
                     Text(
                       product.description,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontSize: 13,
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: AppColor.textSecondary,
                       ),
                     ),
 
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
 
-                    /// Price
                     hasOffer
                         ? Row(
                       children: [
                         Flexible(
                           child: Text(
                             '$oldPrice ج',
-                            style: const TextStyle(
-                              decoration: TextDecoration.lineThrough,
-                              color: Colors.grey,
-                              fontSize: 14,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                              color: AppColor.textSecondary,
+                              decoration:
+                              TextDecoration.lineThrough,
                             ),
                           ),
                         ),
-                        const SizedBox(width: 8),
+                        SizedBox(width: 8.w),
                         Flexible(
                           child: Text(
                             '$newPrice ج',
-                            style: const TextStyle(
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge!
+                                .copyWith(
+                              color: AppColor.red,
                             ),
                           ),
                         ),
@@ -141,10 +145,11 @@ class ProductCard extends StatelessWidget {
                     )
                         : Text(
                       '${product.price} ج',
-                      style: const TextStyle(
-                        color: Colors.green,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelLarge!
+                          .copyWith(
+                        color: AppColor.mainColor,
                       ),
                     ),
                   ],
@@ -152,31 +157,40 @@ class ProductCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 10),
+
+          SizedBox(height: 10.h),
+
           if (hasOffer)
             Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.green.withOpacity(.08),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.green.withOpacity(.2)),
+              width: double.infinity,
+              padding: EdgeInsets.all(12.w),
+              decoration: BoxDecoration(
+                color: AppColor.mainColor.withOpacity(.08),
+                borderRadius: BorderRadius.circular(12.r),
+                border: Border.all(
+                  color: AppColor.mainColor.withOpacity(.2),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '📅  من ${_formatDate(offer!.startDate)} ← إلى ${_formatDate(offer!.endDate)}',
-                      style:Theme.of(context).textTheme.titleMedium ,),
-                  ],
-                ),),
-                 const SizedBox(height: 10),
+              ),
+              child: Text(
+                '📅 من ${_formatDate(offer!.startDate)} ← إلى ${_formatDate(offer!.endDate)}',
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: AppColor.textPrimary,
+                ),
+              ),
+            ),
+
+          SizedBox(height: 10.h),
+
           ProductActionsSection(
-              product: product, hasOffer: hasOffer, offer: offer),
+            product: product,
+            hasOffer: hasOffer,
+            offer: offer,
+          ),
         ],
       ),
     );
   }
+
   String _formatDate(DateTime date) {
     return '${date.day}/${date.month}/${date.year}';
   }

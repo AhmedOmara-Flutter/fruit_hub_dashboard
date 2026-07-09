@@ -1,13 +1,9 @@
-import 'package:flutter/material.dart';
-
-import '../../../../core/utils/app_color.dart';
-import '../../../../core/entities/product_entity.dart';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/utils/app_color.dart';
 import '../../../../core/entities/product_entity.dart';
+import '../../../../core/utils/app_color.dart';
 
 class ProductReviewCard extends StatelessWidget {
   const ProductReviewCard({
@@ -20,34 +16,40 @@ class ProductReviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(14),
+      padding: EdgeInsets.all(14.w),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
+        color: AppColor.card,
+        borderRadius: BorderRadius.circular(18.r),
         border: Border.all(
-          color: Colors.grey.shade200,
+          color: AppColor.border,
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(.04),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
       ),
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: CachedNetworkImage(
-              imageUrl: product.image ?? '',
-              width: 75,
-              height: 75,
-              fit: BoxFit.cover,
+          Container(
+            width: 75.w,
+            height: 75.w,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(16.r),
+              border: Border.all(
+                color: AppColor.border,
+              ),
             ),
-          ),
-
-          const SizedBox(width: 14),
+            clipBehavior: Clip.antiAlias,
+            child: Padding(
+              padding: EdgeInsets.all(6.w),
+              child: CachedNetworkImage(
+                imageUrl: product.image ?? '',
+                fit: BoxFit.contain,
+                errorWidget: (context, url, error) => Icon(
+                  Icons.image_not_supported_outlined,
+                  color: AppColor.textSecondary,
+                  size: 30.sp,
+                ),
+              ),
+            ),
+          ),          SizedBox(width: 14.w),
 
           Expanded(
             child: Column(
@@ -58,56 +60,58 @@ class ProductReviewCard extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: AppColor.textPrimary,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
                   ),
                 ),
 
-                const SizedBox(height: 6),
+                SizedBox(height: 6.h),
 
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 4,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 4.h,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColor.mainColor.withOpacity(.08),
-                    borderRadius: BorderRadius.circular(20),
+                    color: AppColor.mainColor.withOpacity(.12),
+                    borderRadius: BorderRadius.circular(20.r),
                   ),
                   child: Text(
                     product.category,
-                    style: TextStyle(
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       color: AppColor.mainColor,
-                      fontSize: 11,
+                      fontSize: 11.sp,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
 
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
 
                 Row(
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.star_rounded,
-                      color: Colors.amber,
-                      size: 18,
+                      color: AppColor.mainColor,
+                      size: 18.sp,
                     ),
-                    const SizedBox(width: 4),
+
+                    SizedBox(width: 4.w),
 
                     Text(
                       product.averageRating.toStringAsFixed(1),
-                      style: const TextStyle(
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: AppColor.textPrimary,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
 
-                    const SizedBox(width: 10),
+                    SizedBox(width: 10.w),
 
                     Text(
                       '(${product.reviewsCount})',
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        color: AppColor.textSecondary,
                       ),
                     ),
                   ],
@@ -116,18 +120,11 @@ class ProductReviewCard extends StatelessWidget {
             ),
           ),
 
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                '${product.price} ج',
-                style: TextStyle(
-                  color: AppColor.mainColor,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
+          Text(
+            '${product.price} ج',
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+              color: AppColor.mainColor,
+            ),
           ),
         ],
       ),

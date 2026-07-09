@@ -7,23 +7,22 @@ class ProductBasicInfoSection extends StatelessWidget {
   const ProductBasicInfoSection({
     super.key,
     required this.nameController,
-    required this.codeController,
+    required this.priceController,
     required this.selectedCategory,
     required this.categories,
     required this.onCategoryChanged,
      this.onNameSaved,
-     this.onCodeSaved,
+     this.onPriceSaved,
   });
 
   final TextEditingController nameController;
-  final TextEditingController codeController;
-
+  final TextEditingController priceController;
   final String? selectedCategory;
   final List<DropdownMenuItem<String>> categories;
 
   final ValueChanged<String?> onCategoryChanged;
   final FormFieldSetter<String> ?onNameSaved;
-  final FormFieldSetter<String> ?onCodeSaved;
+  final FormFieldSetter<String>?onPriceSaved;
 
   @override
   Widget build(BuildContext context) {
@@ -52,20 +51,21 @@ class ProductBasicInfoSection extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 10),
-                Expanded(
-                  child: CustomTextFormField(
-                    label: 'كود المنتج',
-                    controller: codeController,
-                    hintText: 'اكتب كود المنتج',
-                    onSaved: onCodeSaved,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'الحقل مطلوب';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
+      Expanded(
+        child: CustomTextFormField(
+          label: 'سعر المنتج',
+          controller: priceController,
+          hintText: 'اكتب سعر المنتج',
+          keyboardType: TextInputType.number,
+          onSaved: onPriceSaved,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'الحقل مطلوب';
+            }
+            return null;
+          },
+        ),
+      ),
               ],
             ),
 

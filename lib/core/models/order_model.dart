@@ -17,18 +17,22 @@ class OrderModel {
   final List<OrderItemModel> items;
   final UserModel userModel;
   final OrderStatus status;
-  String ?id;
+  String? id;
   final SelectedLocationModel selectedLocation;
-
-
+  String? orderNote;
 
   OrderModel({
     required this.uId,
     required this.paymentMethod,
     required this.address,
-     required this.items,
+    required this.items,
     required this.totalPrice,
-    required this.createdAt, required this.userModel, required this.status, this.id, required this.selectedLocation,
+    required this.createdAt,
+    required this.userModel,
+    required this.status,
+    this.id,
+    required this.selectedLocation,
+    this.orderNote,
   });
 
   factory OrderModel.fromEntity(OrderEntity entity) {
@@ -38,12 +42,16 @@ class OrderModel {
       createdAt: DateTime.now(),
       address: AddressModel.fromEntity(entity.addressEntity!),
       totalPrice: entity.cartEntity.getTotalPrice(),
-      items: entity.cartEntity.cartItems.map((cartItem) =>
-          OrderItemModel.fromEntity(cartItem)).toList(),
+      items: entity.cartEntity.cartItems
+          .map((cartItem) => OrderItemModel.fromEntity(cartItem))
+          .toList(),
       userModel: UserModel.fromEntity(entity.userEntity!),
       status: entity.status,
       id: entity.id,
-      selectedLocation: SelectedLocationModel.fromEntity(entity.selectedLocationEntity!),
+      selectedLocation: SelectedLocationModel.fromEntity(
+        entity.selectedLocationEntity!,
+      ),
+      orderNote: entity.orderNote,
     );
   }
 
@@ -60,25 +68,30 @@ class OrderModel {
       status: status,
       id: id,
       selectedLocationEntity: selectedLocation.toEntity(),
-
+      orderNote: orderNote,
     );
   }
+
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     return OrderModel(
       uId: json['uId'],
       totalPrice: json['totalPrice'],
-      createdAt:(json['createdAt'] as Timestamp).toDate(),
+      createdAt: (json['createdAt'] as Timestamp).toDate(),
       address: AddressModel.fromJson(json['address']),
       paymentMethod: json['paymentMethod'],
-      items: List<OrderItemModel>.from(json['items'].map((item) => OrderItemModel.fromJson(item))),
+      items: List<OrderItemModel>.from(
+        json['items'].map((item) => OrderItemModel.fromJson(item)),
+      ),
       userModel: UserModel.fromJson(json['userModel']),
-      status:  OrderStatus.values.firstWhere(
-            (e) => e.name == (json['status'] ?? 'قيد الانتظار'),
+      status: OrderStatus.values.firstWhere(
+        (e) => e.name == (json['status']),
         orElse: () => OrderStatus.pending,
       ),
       id: json['id'],
-      selectedLocation:  SelectedLocationModel.fromJson(json['selectedLocation']),
-
+      selectedLocation: SelectedLocationModel.fromJson(
+        json['selectedLocation'],
+      ),
+      orderNote: json['orderNote'],
     );
   }
 
@@ -87,13 +100,14 @@ class OrderModel {
       'uId': uId,
       'paymentMethod': paymentMethod,
       'totalPrice': totalPrice,
-      'createdAt': createdAt ,
+      'createdAt': createdAt,
       'address': address.toJson(),
       'items': items.map((item) => item.toJson()).toList(),
       'userModel': userModel.toJson(),
       'status': status.name,
       'id': id,
       'selectedLocation': selectedLocation.toJson(),
+      'orderNote': orderNote,
     };
   }
 }

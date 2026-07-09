@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
 
 class ThemeManager {
-  static ThemeData lightTheme = ThemeData(
-      scaffoldBackgroundColor: Colors.white,
+  static ThemeData darkTheme = ThemeData(
+      scaffoldBackgroundColor: AppColor.background,
     ///appBar
     appBarTheme: AppBarTheme(
-      backgroundColor: Colors.white,
       scrolledUnderElevation: 0.0,
       elevation: 0,
       centerTitle: true,
@@ -14,28 +14,14 @@ class ThemeManager {
       iconTheme: IconThemeData(color: Colors.black),
     ),
     ///elevated button
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        backgroundColor: const Color(0xff1B5E37),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16)),
-        minimumSize: const Size(double.infinity, 65),
-      ),
-    ),
-      ///outlined button
-      outlinedButtonTheme: OutlinedButtonThemeData(
+      elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(horizontal: 20),
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-              side: BorderSide(color: Color(0xffDDDFDF))
-          ),
+          backgroundColor: AppColor.mainColor,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           minimumSize: const Size(double.infinity, 65),
         ),
-    ),
+      ),
 
     ///text theme
     textTheme: TextTheme(
@@ -55,30 +41,5 @@ class ThemeManager {
       bodyLarge: StyleManager.font11Weight400,
       bodyMedium: StyleManager.font14Weight600
     ),
-
-      /// input decoration theme
-      inputDecorationTheme: InputDecorationTheme(
-        filled: true,
-        fillColor: Color(0xffF9FAFA),
-        hintStyle: StyleManager.font11Weight400,
-        labelStyle: StyleManager.font11Weight400,
-        suffixIconColor: Color(0xffC9CECF),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xffE6E9EA)),
-          borderRadius: BorderRadius.circular(4),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xffE6E9EA)),
-          borderRadius: BorderRadius.circular(4),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red),
-          borderRadius: BorderRadius.circular(4),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xffE6E9EA)),
-          borderRadius: BorderRadius.circular(4),
-        ),
-      )
   );
 }

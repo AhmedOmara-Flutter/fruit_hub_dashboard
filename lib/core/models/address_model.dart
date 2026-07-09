@@ -4,18 +4,16 @@ import 'package:fruit_hub_dashboard/core/entities/address_entity.dart';
 class AddressModel extends AddressEntity {
   AddressModel({
     required super.name,
-    required super.email,
+    required super.phone,
     required super.address,
-    required super.country,
     required super.apartment,
   });
 
   factory AddressModel.fromJson(Map<String, dynamic> json) {
     return AddressModel(
       name: json['name'],
-      email: json['email'],
+      phone: json['phone'],
       address: json['address'],
-      country: json['country'],
       apartment: json['apartment'],
     );
   }
@@ -23,9 +21,8 @@ class AddressModel extends AddressEntity {
   Map<String, dynamic> toJson() {
     return {
       'name': name,
-      'email': email,
+      'phone': phone,
       'address': address,
-      'country': country,
       'apartment': apartment,
     };
   }
@@ -34,9 +31,8 @@ class AddressModel extends AddressEntity {
   factory AddressModel.fromEntity(AddressEntity entity) {
     return AddressModel(
       name: entity.name,
-      email: entity.email,
+      phone: entity.phone,
       address: entity.address,
-      country: entity.country,
       apartment: entity.apartment,
     );
   }
@@ -45,9 +41,8 @@ class AddressModel extends AddressEntity {
   AddressEntity toEntity() {
     return AddressEntity(
       name: name,
-      email: email,
+      phone: phone,
       address: address,
-      country: country,
       apartment: apartment,
     );
   }

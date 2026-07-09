@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../core/utils/app_color.dart';
 import '../../../../generated/assets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({
@@ -18,108 +18,123 @@ class ProductItem extends StatelessWidget {
   final String image;
   final String medal;
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      // margin: const EdgeInsets.symmetric(
-      //   vertical: 6,
-      // ),
-      padding: const EdgeInsets.all(14),
+      padding: EdgeInsets.all(14.w),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: Colors.grey.shade200),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(.05),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        color: AppColor.card,
+        borderRadius: BorderRadius.circular(18.r),
+        border: Border.all(
+          color: AppColor.border,
+        ),
       ),
       child: Row(
         children: [
-          Image.asset(medal, height: 30, width: 30,),
+          Image.asset(
+            medal,
+            height: 30.w,
+            width: 30.w,
+          ),
 
-          const SizedBox(width: 12),
-//todo clip photo
+          SizedBox(width: 12.w),
+
           Container(
-            width: 65,
-            height: 65,
+            width: 72.w,
+            height: 72.w,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Colors.grey.shade200),
+              borderRadius: BorderRadius.circular(18.r),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  AppColor.mainColor.withOpacity(.12),
+                  AppColor.mainColor.withOpacity(.05),
+                ],
+              ),
+              border: Border.all(
+                color: AppColor.mainColor.withOpacity(.15),
+              ),
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
+            child: Center(
               child: CachedNetworkImage(
                 imageUrl: image,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               ),
             ),
           ),
-          const SizedBox(width: 12),
+          SizedBox(width: 12.w),
 
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                productName,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .labelLarge,
-              ),
-              const SizedBox(height: 2),
-              Text(
-                '$orderCount طلب',
-                style: Theme
-                    .of(
-                  context,
-                )
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: Colors.grey),
-              ),
-            ],
-          ),
-          Spacer(),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 5,
-            ),
-            decoration: BoxDecoration(
-              color: Color(0xffF5F9F6),
-              borderRadius: BorderRadius.circular(5),
-            ),
+          Expanded(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Row(
-                  children: [
-                    Text(
-                      orderCount, style: Theme
-                        .of(context)
-                        .textTheme
-                        .displaySmall!
-                        .copyWith(
-                        color: AppColor.mainColor
-                    ),),
-                    SizedBox(width: 5,),
-                    Image.asset(Assets.images.rise.path, height: 10, width: 10,color: AppColor.mainColor,)
-
-                  ],
+                Text(
+                  productName,
+                  style: Theme.of(context).textTheme.labelLarge,
                 ),
-                Text('اجمالي الطلبات',style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                  fontSize: 11
-                ),)
+
+                SizedBox(height: 4.h),
+
+                Text(
+                  '$orderCount طلب',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: AppColor.textSecondary,
+                  ),
+                ),
               ],
             ),
-          )
+          ),
 
+          SizedBox(width: 12.w),
+
+          Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: 10.w,
+              vertical: 7.h,
+            ),
+            decoration: BoxDecoration(
+              color: AppColor.mainColor.withOpacity(.08),
+              borderRadius: BorderRadius.circular(8.r),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      orderCount,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall!
+                          .copyWith(
+                        color: AppColor.mainColor,
+                      ),
+                    ),
+                    SizedBox(width: 5.w),
+                    Image.asset(
+                      Assets.images.rise.path,
+                      height: 10.w,
+                      width: 10.w,
+                      color: AppColor.mainColor,
+                    ),
+                  ],
+                ),
+
+                SizedBox(height: 2.h),
+
+                Text(
+                  'إجمالي الطلبات',
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    fontSize: 11.sp,
+                    color: AppColor.textSecondary,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

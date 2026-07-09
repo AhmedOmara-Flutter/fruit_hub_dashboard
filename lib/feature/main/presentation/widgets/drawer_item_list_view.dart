@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../view_model/main_cubit.dart';
 import 'drawer_item.dart';
@@ -17,22 +18,27 @@ class _DrawerItemListViewState extends State<DrawerItemListView> {
     return BlocBuilder<MainCubit, MainState>(
       builder: (context, state) {
         final cubit = context.read<MainCubit>();
+
         return SliverPadding(
-          padding: const EdgeInsets.only(
-            left: 24,
-            right: 15,
-            top: 16,
-            bottom: 16,
+          padding: EdgeInsets.only(
+            left: 24.w,
+            right: 15.w,
+            top: 16.h,
+            bottom: 16.h,
           ),
           sliver: SliverList.separated(
             itemBuilder: (context, index) => GestureDetector(
-              onTap: () async{
+              onTap: () async {
                 if (cubit.selectedIndex != index) {
                   cubit.changeIndex(index);
+
                   await Future.delayed(
                     const Duration(milliseconds: 190),
                   );
-                  Navigator.pop(context);
+
+                  if (context.mounted) {
+                    Navigator.pop(context);
+                  }
                 }
               },
               child: DrawerItem(
@@ -40,7 +46,7 @@ class _DrawerItemListViewState extends State<DrawerItemListView> {
                 isActive: cubit.selectedIndex == index,
               ),
             ),
-            separatorBuilder: (context, index) => SizedBox(height: 16),
+            separatorBuilder: (_, __) => SizedBox(height: 16.h),
             itemCount: cubit.drawerItems.length,
           ),
         );

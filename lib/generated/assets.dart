@@ -17,11 +17,14 @@ class Assets {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  final AssetGenImage appIcon = const AssetGenImage(
-    'assets/images/appIcon.png',
+  final AssetGenImage appLogo = const AssetGenImage(
+    'assets/images/app_logo.png',
   );
   final SvgGenImage arrowBack = const SvgGenImage(
     'assets/images/arrow back.svg',
+  );
+  final AssetGenImage customer = const AssetGenImage(
+    'assets/images/customer.png',
   );
   final AssetGenImage gallery = const AssetGenImage(
     'assets/images/gallery.png',
@@ -34,18 +37,9 @@ class $AssetsImagesGen {
   final AssetGenImage medal2 = const AssetGenImage(
     'assets/images/medal (2).png',
   );
-  final AssetGenImage qtefNoBackground = const AssetGenImage(
-    'assets/images/qtefNoBackground.png',
-  );
   final AssetGenImage rise = const AssetGenImage('assets/images/rise.png');
-  final SvgGenImage splashBottom = const SvgGenImage(
-    'assets/images/splash_bottom.svg',
-  );
-  final SvgGenImage splashCenter = const SvgGenImage(
-    'assets/images/splash_center.svg',
-  );
-  final SvgGenImage splashTop = const SvgGenImage(
-    'assets/images/splash_top.svg',
+  final AssetGenImage splashBg = const AssetGenImage(
+    'assets/images/splash_bg.png',
   );
   final AssetGenImage subGallery = const AssetGenImage(
     'assets/images/subGallery.png',

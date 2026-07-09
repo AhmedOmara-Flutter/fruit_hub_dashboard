@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/core/cubit/products_cubit/products_cubit.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
-
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../core/helper_function/custom_show_dialog.dart';
 import 'info_tile.dart';
@@ -18,18 +15,6 @@ class SettingsViewBody extends StatefulWidget {
 class _SettingsViewBodyState extends State<SettingsViewBody> {
   String version = "0.0.0";
 
-  @override
-  void initState() {
-    super.initState();
-    _getVersion();
-  }
-
-  Future<void> _getVersion() async {
-    final info = await PackageInfo.fromPlatform();
-    setState(() {
-      version = info.version;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

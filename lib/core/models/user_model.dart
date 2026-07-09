@@ -5,7 +5,6 @@ class UserModel extends UserEntity {
     required super.userName,
     required super.email,
     required super.uId,
-    required super.image,
     required super.phone,
     super.fcmToken,
   });
@@ -15,7 +14,6 @@ class UserModel extends UserEntity {
       userName: json['userName'],
       email: json['email'],
       uId: json['uId'],
-      image: json['image'],
       phone: json['phone'],
       fcmToken: json['fcmToken'],
     );
@@ -26,7 +24,6 @@ class UserModel extends UserEntity {
       userName: user.userName,
       email: user.email,
       uId: user.uId,
-      image: user.image,
       phone: user.phone,
       fcmToken: user.fcmToken,
     );
@@ -37,7 +34,6 @@ class UserModel extends UserEntity {
       userName: userName,
       email: email,
       uId: uId,
-      image: image,
       phone: phone,
       fcmToken: fcmToken,
     );
@@ -48,7 +44,6 @@ class UserModel extends UserEntity {
       'userName': userName,
       'email': email,
       'uId': uId,
-      'image': image,
       'phone': phone,
       'fcmToken': fcmToken,
     };

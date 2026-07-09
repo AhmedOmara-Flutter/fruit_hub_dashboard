@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub_dashboard/core/helper_function/mak_full_name.dart';
+import 'package:fruit_hub_dashboard/core/helper_function/make_full_name.dart';
 import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/skeletonizer_order_item.dart';
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../core/helper_function/get_date_formate.dart';
@@ -16,9 +16,7 @@ class RecentOrdersListView extends StatelessWidget {
       builder: (context, state) {
         final cubit = context.watch<OrdersCubit>();
         final recentOrders = cubit.recentOrders;
-
         final isLoading = state is GetOrdersLoadingState;
-
         if (isLoading) {
           return ListView.separated(
             shrinkWrap: true,
@@ -55,7 +53,6 @@ class RecentOrdersListView extends StatelessWidget {
           itemBuilder: (context, index) {
             final order = recentOrders[index];
             return OrderItem(
-              image: order.userEntity!.image,
               amount: order.cartEntity.getTotalPrice(),
               status: '',
               statusColor: Colors.orange,

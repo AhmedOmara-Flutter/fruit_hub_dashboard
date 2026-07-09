@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../core/utils/app_color.dart';
 import '../../../core/utils/route_manager.dart';
+import '../../../core/utils/style_manager.dart';
 import '../../../generated/assets.dart';
 
 class SplashViewBody extends StatefulWidget {
@@ -18,10 +20,8 @@ class _SplashViewBodyState extends State<SplashViewBody>
   Timer? _timer;
 
   late AnimationController _controller;
-
   late Animation<Offset> logoSlide;
   late Animation<double> logoFade;
-
   late Animation<Offset> topSlide;
   late Animation<Offset> bottomSlide;
 
@@ -29,91 +29,133 @@ class _SplashViewBodyState extends State<SplashViewBody>
   void initState() {
     super.initState();
 
-    /// ================= ANIMATION CONTROLLER =================
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1200),
     );
 
-    /// ================= ANIMATIONS =================
-    topSlide = Tween<Offset>(
-      begin: const Offset(1, -0.5),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeOut,
-    ));
-
     logoSlide = Tween<Offset>(
       begin: const Offset(0, 0.3),
       end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeOut,
-    ));
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeOut,
+      ),
+    );
 
     logoFade = Tween<double>(
       begin: 0,
       end: 1,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeIn,
-    ));
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeIn,
+      ),
+    );
 
-    bottomSlide = Tween<Offset>(
-      begin: const Offset(0, 1),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeOut,
-    ));
-
-    /// start animation
     _controller.forward();
-
-    /// navigation
     goToHome();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-
-        /// ================= TOP =================
-        SlideTransition(
-          position: topSlide,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              SvgPicture.asset(Assets.images.splashTop.path),
-            ],
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(Assets.images.splashBg.path),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+            height: 100.h,
+            width: 100.w,
           ),
-        ),
-
-        /// ================= LOGO =================
-        FadeTransition(
-          opacity: logoFade,
-          child: SlideTransition(
-            position: logoSlide,
-            child: Image.asset(Assets.images.qtefNoBackground.path),
+          FadeTransition(
+            opacity: logoFade,
+            child: SlideTransition(
+              position: logoSlide,
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Image.asset(
+                    Assets.images.appLogo.path,
+                    height: 350.h,
+                    width: double.infinity,
+                  ),
+                  Positioned(
+                    bottom: 60.h,
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            child: Icon(
+                              Icons.star_rounded,
+                              color: AppColor.mainColor,
+                              size: 16.sp,
+                            ),
+                          ),
+                          const TextSpan(text: '  '),
+                          TextSpan(
+                            text: 'من أول لقمة تبدأ الحكاية',
+                            style: StyleManager.font14Weight600.copyWith(
+                              color: AppColor.mainColor,
+                            ),
+                          ),
+                          const TextSpan(text: '  '),
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            child: Icon(
+                              Icons.star_rounded,
+                              color: AppColor.mainColor,
+                              size: 16.sp,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-
-        /// ================= BOTTOM =================
-        SlideTransition(
-          position: bottomSlide,
-          child: SvgPicture.asset(Assets.images.splashBottom.path),
-        ),
-      ],
+          SafeArea(
+            child: Padding(
+              padding: EdgeInsets.all(20.r),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircularProgressIndicator(
+                    color: AppColor.mainColor,
+                    strokeWidth: 3.w,
+                  ),
+                  SizedBox(height: 10.h),
+                  Text(
+                    'جاري التحميل',
+                    style: StyleManager.font14Weight600.copyWith(
+                      color: AppColor.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  /// ================= NAVIGATION LOGIC =================
   void goToHome() {
     _timer = Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context,RouteManager.main);
+      Navigator.pushReplacementNamed(
+        context,
+        RouteManager.main,
+      );
+
     });
   }
 

@@ -15,6 +15,8 @@ class OrderEntity {
   UserEntity?userEntity;
   final OrderStatus status;
   SelectedLocationEntity ?selectedLocationEntity;
+  String? orderNote;
+
 
 
 
@@ -27,6 +29,7 @@ class OrderEntity {
     this.userEntity,required this.status,
      this.id,
     this.selectedLocationEntity,
+    this.orderNote,
   });
 
   OrderEntity copyWith({
@@ -39,6 +42,7 @@ class OrderEntity {
     UserEntity? userEntity,
     OrderStatus? status,
     SelectedLocationEntity? selectedLocationEntity,
+    String? orderNote,
   }) {
     return OrderEntity(
       uId: uId ?? this.uId,
@@ -51,10 +55,12 @@ class OrderEntity {
       status: status ?? this.status,
       selectedLocationEntity:
       selectedLocationEntity ?? this.selectedLocationEntity,
+      orderNote: orderNote ?? this.orderNote,
+
     );
   }
   String getFullAddress() {
-    return '${addressEntity!.address}, ${addressEntity!.country}, ${addressEntity!.apartment}';
+    return '${addressEntity!.address},${addressEntity!.apartment}';
   }
 
   double getTotalDeliveryCost(List<OrderEntity> orders) {

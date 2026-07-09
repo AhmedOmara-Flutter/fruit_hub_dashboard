@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 
 import '../view_model/main_cubit.dart';
 import '../widgets/custom_drawer.dart';
@@ -43,7 +44,7 @@ class _MainViewState extends State<MainView> {
           color: Color(0xff4EB7F2),
         ),
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0xff1B5E37),
+        backgroundColor:AppColor.mainColor,
       ),
       body: PopScope(
           canPop: false,

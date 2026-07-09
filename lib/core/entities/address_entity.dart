@@ -1,15 +1,13 @@
 class AddressEntity {
   final String name;
-  final String email;
+  final String phone;
   final String address;
-  final String country;
   final String apartment;
 
   AddressEntity({
     required this.name,
-    required this.email,
+    required this.phone,
     required this.address,
-    required this.country,
     required this.apartment,
   });
 
@@ -18,9 +16,8 @@ class AddressEntity {
     return '''
  AddressEntity(
   name: $name,
-  email: $email,
+  phone: $phone,
   address: $address,
-  country: $country,
   apartment: $apartment
 )
 ''';

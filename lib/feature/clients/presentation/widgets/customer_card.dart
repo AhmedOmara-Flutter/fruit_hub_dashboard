@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fruit_hub_dashboard/core/entities/order_entity.dart';
-import 'package:fruit_hub_dashboard/core/helper_function/mak_full_name.dart';
+import 'package:fruit_hub_dashboard/core/helper_function/make_full_name.dart';
 import 'package:fruit_hub_dashboard/core/utils/route_manager.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../core/entities/user_entity.dart';
+import '../../../../generated/assets.dart';
 import 'customer_info_item.dart';
 
 class CustomerCard extends StatelessWidget {
@@ -35,41 +36,12 @@ class CustomerCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              CircleAvatar(
-                radius: 40,
-                backgroundColor: Colors.grey.shade100,
-                child: ClipOval(
-                  child: CachedNetworkImage(
-                    imageUrl: user.image,
-                    width: 80,
-                    height: 80,
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) => Skeletonizer(
-                      enabled: true,
-                      child: Container(
-                        width: 80,
-                        height: 80,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-
-                    errorWidget: (context, url, error) => Container(
-                      width: 80,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.grey.shade200,
-                      ),
-                      child: const Icon(
-                        Icons.person,
-                        size: 35,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
+              ClipOval(
+                child: Image.asset(
+                  Assets.images.customer.path,
+                  width: 80,
+                  height: 880,
+                  fit: BoxFit.cover,
                 ),
               ),
               const SizedBox(width: 12),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../../../../core/utils/app_color.dart';
 import 'custom_drawer_header.dart';
 import 'drawer_item_list_view.dart';
 
@@ -9,11 +9,13 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: AppColor.background,
       width: MediaQuery.sizeOf(context).width * 0.75,
       child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(child: CustomDrawerHeader()),
+        slivers: const [
+          SliverToBoxAdapter(
+            child: CustomDrawerHeader(),
+          ),
           DrawerItemListView(),
         ],
       ),

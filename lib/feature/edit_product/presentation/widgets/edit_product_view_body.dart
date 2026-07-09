@@ -10,8 +10,6 @@ import 'package:fruit_hub_dashboard/feature/edit_product/presentation/widgets/pr
 import 'package:fruit_hub_dashboard/feature/edit_product/presentation/widgets/product_pricing_section.dart';
 import 'package:fruit_hub_dashboard/feature/edit_product/presentation/widgets/product_settings_section.dart';
 import 'package:fruit_hub_dashboard/feature/edit_product/presentation/widgets/product_sub_images_section.dart';
-
-import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../../core/cubit/products_cubit/update_product/update_product_cubit.dart';
 
 class EditProductViewBody extends StatefulWidget {
@@ -40,10 +38,16 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
   final numberOfCaloriesController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   List<DropdownMenuItem<String>> categories = [
-    const DropdownMenuItem(value: 'فواكه', child: Text('فواكه')),
-    const DropdownMenuItem(value: 'خضروات', child: Text('خضروات')),
-    const DropdownMenuItem(value: 'مشروبات', child: Text('مشروبات')),
-    const DropdownMenuItem(value: 'مكسرات', child: Text('مكسرات')),
+    const DropdownMenuItem(value: 'بيتزا', child: Text('بيتزا')),
+    const DropdownMenuItem(value: 'كريب لحوم', child: Text('كريب لحوم')),
+    const DropdownMenuItem(value: 'كريب دجاج', child: Text('كريب دجاج')),
+    const DropdownMenuItem(value: 'سندوتشات سوري', child: Text('سندوتشات سوري')),
+    const DropdownMenuItem(value: 'مكرونات', child: Text('مكرونات')),
+    const DropdownMenuItem(value: 'مشويات', child: Text('مشويات')),
+    const DropdownMenuItem(value: 'حواوشي ايطالي', child: Text('حواوشي ايطالي')),
+    const DropdownMenuItem(value: 'برجر', child: Text('برجر')),
+    const DropdownMenuItem(value: 'فطائر', child: Text('فطائر')),
+    const DropdownMenuItem(value: 'اضافات', child: Text('اضافات')),
   ];
   String? selectedCategory;
 
@@ -100,7 +104,7 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
                         children: [
                           ProductBasicInfoSection(
                             nameController: nameController,
-                            codeController: codeController,
+                            priceController: priceController,
                             selectedCategory: selectedCategory,
                             categories: categories,
                             onCategoryChanged: (value) {
@@ -108,14 +112,6 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
                                 selectedCategory = value;
                               });
                             },
-                          ),
-                          ProductPricingSection(
-                            priceController: priceController,
-                            expirationMonthController:
-                            expirationMonthController,
-                            unitAmountController: unitAmountController,
-                            numberOfCaloriesController:
-                            numberOfCaloriesController,
                           ),
                           ProductMainImageSection(
                             initialImage: widget.product.image,
@@ -132,15 +128,9 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
                           ProductSettingsSection(
                             descriptionController: descriptionController,
                             isFeatured: isFeatured,
-                            isOrganic: isOrganic,
                             onFeaturedChanged: () {
                               setState(() {
                                 isFeatured = !isFeatured;
-                              });
-                            },
-                            onOrganicChanged: () {
-                              setState(() {
-                                isOrganic = !isOrganic;
                               });
                             },
                           ),

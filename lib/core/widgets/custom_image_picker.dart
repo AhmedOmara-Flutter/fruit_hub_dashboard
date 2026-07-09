@@ -1,15 +1,19 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../../generated/assets.dart';
 
 class CustomImagePicker extends StatefulWidget {
   final ValueChanged<File?> onImagePicked;
   final String? initialImage;
-  const CustomImagePicker({super.key, required this.onImagePicked, this.initialImage});
+
+  const CustomImagePicker({
+    super.key,
+    required this.onImagePicked,
+    this.initialImage,
+  });
 
   @override
   State<CustomImagePicker> createState() => _CustomImagePickerState();
@@ -24,79 +28,110 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
     super.initState();
     networkImage = widget.initialImage;
   }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
         try {
-          final ImagePicker picker = ImagePicker();
-          final XFile? image = await picker.pickImage(
+          final picker = ImagePicker();
+          final image = await picker.pickImage(
             source: ImageSource.gallery,
           );
+
           if (image != null) {
             setState(() {
               imagePath = File(image.path);
-              widget.onImagePicked(imagePath!);
+              widget.onImagePicked(imagePath);
             });
           }
-        } on Exception catch (e) {
-          print(e);
+        } catch (e) {
+          debugPrint(e.toString());
         }
       },
       child: Stack(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            decoration: BoxDecoration(
-              color: Color(0xffF9FAFA),
-              borderRadius: BorderRadius.circular(8.0),
-              border: Border.all(color: Color(0xffE6E9EA)),
-            ),
             width: double.infinity,
+            padding: EdgeInsets.symmetric(vertical: 10.h),
+            decoration: BoxDecoration(
+              color: AppColor.card,
+              borderRadius: BorderRadius.circular(12.r),
+              border: Border.all(
+                color: AppColor.border,
+              ),
+            ),
             alignment: Alignment.center,
             child: imagePath != null
-                ? SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.2,
-              child: Image.file(imagePath!),
+                ? ClipRRect(
+              borderRadius: BorderRadius.circular(10.r),
+              child: SizedBox(
+                height: MediaQuery.sizeOf(context).height * .2,
+                child: Image.file(
+                  imagePath!,
+                  fit: BoxFit.cover,
+                ),
+              ),
             )
                 : networkImage != null
-                ? SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.2,
-              child: Image.network(
-                networkImage!,
-                fit: BoxFit.cover,
+                ? ClipRRect(
+              borderRadius: BorderRadius.circular(10.r),
+              child: SizedBox(
+                height: MediaQuery.sizeOf(context).height * .2,
+                child: Image.network(
+                  networkImage!,
+                  fit: BoxFit.cover,
+                ),
               ),
             )
                 : Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 Icon(
                   Icons.photo_outlined,
                   color: AppColor.mainColor,
-                  size: 40,
+                  size: 40.sp,
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 10.h),
                 Text(
-                  'اضغط لاضافه صوره',
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  'اضغط لإضافة صورة',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(
                     color: AppColor.mainColor,
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 20.h),
               ],
-            ),          ),
-          Visibility(
-            visible: imagePath != null,
-            child: IconButton(
-              onPressed: () {
-                imagePath = null;
-                networkImage = null;
-                widget.onImagePicked(null);
-                setState(() {});
-              },              icon: Icon(Icons.close, color: Colors.grey),
             ),
           ),
+          if (imagePath != null || networkImage != null)
+            Positioned(
+              top: 8.h,
+              left: 8.w,
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: AppColor.card,
+                  shape: BoxShape.circle,
+                ),
+                child: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      imagePath = null;
+                      networkImage = null;
+                      widget.onImagePicked(null);
+                    });
+                  },
+                  icon: Icon(
+                    Icons.close,
+                    color: AppColor.textSecondary,
+                    size: 20.sp,
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );

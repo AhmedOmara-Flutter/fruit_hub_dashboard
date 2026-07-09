@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fruit_hub_dashboard/core/cubit/network_cubit/network_cubit.dart';
 import 'package:fruit_hub_dashboard/core/repos/orders_repo/orders_repo.dart';
 import 'package:fruit_hub_dashboard/core/repos/reviews_repo/review_repo_impl.dart';
 import 'package:fruit_hub_dashboard/core/services/database_services.dart';
@@ -17,6 +19,7 @@ import '../cubit/orders_cubit/orders_cubit.dart';
 import '../cubit/products_cubit/products_cubit.dart';
 import '../repos/product_repo/product_repo_impl.dart';
 import '../utils/route_manager.dart';
+import '../widgets/no_internet_view.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -25,6 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) =>NetworkCubit()),
         BlocProvider(create: (context) => MainCubit()),
         BlocProvider(create: (context) =>
             ClientsCubit(ClientsRepoImpl(FirestoreDatabase()),
@@ -44,20 +48,43 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) =>
             OrdersCubit(OrdersRepoImpl(FirestoreDatabase()))),
       ],
-      child: MaterialApp(
-        localizationsDelegates: [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: S.delegate.supportedLocales,
-        locale: Locale('ar'),
-        theme: ThemeManager.lightTheme,
-        debugShowCheckedModeBanner: false,
-        onGenerateRoute: GenerateRoute.generateRoute,
-        initialRoute: RouteManager.splash,
-      ),
+        child: ScreenUtilInit(
+          designSize: const Size(393, 852),
+          minTextAdapt: true,
+          splitScreenMode: true,
+          builder: (context, child) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              locale: const Locale('ar'),
+              supportedLocales: S.delegate.supportedLocales,
+              localizationsDelegates: const [
+                S.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              theme: ThemeManager.darkTheme,
+              onGenerateRoute: GenerateRoute.generateRoute,
+              initialRoute: RouteManager.splash,
+              builder: (context, child) {
+                return BlocBuilder<NetworkCubit, NetworkState>(
+                  builder: (context, state) {
+                    return Stack(
+                      children: [
+                        child!,
+                        AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 350),
+                          child: (state is NetworkDisconnected || state is NetworkLoading)
+                              ? const NoInternetView()
+                              : const SizedBox.shrink(),
+                        ),                    ],
+                    );
+                  },
+                );
+              },
+            );
+          },
+        ),
     );
   }
 }

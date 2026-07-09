@@ -87,7 +87,7 @@ class _CustomSubImagesState extends State<CustomSubImages> {
           return GestureDetector(
             onTap: pickImages,
             child: DottedBorder(
-              color: Colors.grey,
+              color: AppColor.border,
               strokeWidth: 2,
               dashPattern: const [8, 4],
               borderType: BorderType.RRect,
@@ -95,7 +95,7 @@ class _CustomSubImagesState extends State<CustomSubImages> {
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: const Color(0xffF9FAFA),
+                  color: AppColor.card ,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(

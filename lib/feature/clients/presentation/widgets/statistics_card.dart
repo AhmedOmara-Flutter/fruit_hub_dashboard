@@ -1,20 +1,27 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
+import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 
 class StatisticsCard extends StatelessWidget {
   final StatisticsCardModel model;
 
-  const StatisticsCard({super.key, required this.model});
+  const StatisticsCard({
+    super.key,
+    required this.model,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:model.onTap,
+      onTap: model.onTap,
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(10.w),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.grey.shade200),
+          color: AppColor.card,
+          borderRadius: BorderRadius.circular(8.r),
+          border: Border.all(
+            color: AppColor.border,
+          ),
         ),
         child: Column(
           children: [
@@ -23,29 +30,39 @@ class StatisticsCard extends StatelessWidget {
               children: [
                 CircleAvatar(
                   backgroundColor: model.color,
-                  radius: 20,
-                  child: Icon(model.icon, color: Colors.white),
+                  radius: 20.r,
+                  child: Icon(
+                    model.icon,
+                    color: AppColor.white,
+                    size: 22.sp,
+                  ),
                 ),
-                SizedBox(width: 5),
+                SizedBox(width: 5.w),
                 Text(
                   model.title,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleSmall!.copyWith(color: Colors.black),
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: AppColor.textPrimary,
+                  ),
                 ),
               ],
             ),
-            SizedBox(height: 5),
+
+            SizedBox(height: 5.h),
+
             Text(
-              '${model.subTitleNumber}',
-              style: Theme.of(
-                context,
-              ).textTheme.labelSmall!.copyWith(color: Colors.black),
+              model.subTitleNumber,
+              style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                color: AppColor.textPrimary,
+              ),
             ),
-            SizedBox(height: 5),
+
+            SizedBox(height: 5.h),
+
             Text(
-              '${model.subTitleText}',
-              style: Theme.of(context).textTheme.titleSmall!,
+              model.subTitleText,
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                color: AppColor.textSecondary,
+              ),
             ),
           ],
         ),

@@ -9,21 +9,17 @@ class ProductSettingsSection extends StatelessWidget {
     super.key,
     required this.descriptionController,
     required this.isFeatured,
-    required this.isOrganic,
      this.onDescriptionSaved,
     required this.onFeaturedChanged,
-    required this.onOrganicChanged,
   });
 
   final TextEditingController descriptionController;
 
   final bool isFeatured;
-  final bool isOrganic;
 
   final FormFieldSetter<String> ?onDescriptionSaved;
 
   final VoidCallback onFeaturedChanged;
-  final VoidCallback onOrganicChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -57,12 +53,6 @@ class ProductSettingsSection extends StatelessWidget {
                   child: CustomIsFeatured(
                     isFeatured: isFeatured,
                     onTap: onFeaturedChanged,
-                  ),
-                ),
-                Expanded(
-                  child: CustomIsOrganic(
-                    isOrganic: isOrganic,
-                    onTap: onOrganicChanged,
                   ),
                 ),
               ],

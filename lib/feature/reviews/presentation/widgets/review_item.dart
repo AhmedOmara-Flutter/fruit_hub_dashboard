@@ -1,115 +1,160 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:fruit_hub_dashboard/core/utils/route_manager.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
+import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
+import 'package:fruit_hub_dashboard/core/utils/route_manager.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class ReviewItem extends StatelessWidget {
   final ProductEntity product;
 
-  const ReviewItem({super.key, required this.product});
+  const ReviewItem({
+    super.key,
+    required this.product,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: ShapeDecoration(
-        color: const Color(0xFFF3F5F7),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+      decoration: BoxDecoration(
+        color: AppColor.card,
+        borderRadius: BorderRadius.circular(8.r),
+        border: Border.all(
+          color: AppColor.border,
+        ),
       ),
       child: Column(
         children: [
           Row(
             children: [
               Container(
-                margin: EdgeInsets.all(10),
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                margin: EdgeInsets.all(10.w),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 8.w,
+                  vertical: 5.h,
+                ),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadiusGeometry.circular(4),
-                  border: Border.all(color: Colors.grey.shade300),
+                  borderRadius: BorderRadius.circular(4.r),
+                  border: Border.all(
+                    color: AppColor.border,
+                  ),
                 ),
                 child: Row(
                   children: [
                     Text(
                       '${product.reviewsCount}',
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(color: AppColor.white),
                     ),
-                    SizedBox(width: 5),
-                    Icon(Icons.message, color: Colors.grey),
+                    SizedBox(width: 5.w),
+                    Icon(
+                      Icons.message,
+                      color: AppColor.textSecondary,
+                      size: 18.sp,
+                    ),
                   ],
                 ),
               ),
             ],
           ),
-          SizedBox(height: 5),
+
+          SizedBox(height: 5.h),
+
           Column(
             children: [
               CachedNetworkImage(
-                width: 110,
-                height: 110,
+                width: 110.w,
+                height: 110.w,
                 imageUrl: product.image!,
-                placeholder: (context, url) =>
-                    const Center(child: Skeletonizer(child: SizedBox())),
+                fit: BoxFit.cover,
+                placeholder: (context, url) => const Center(
+                  child: Skeletonizer(
+                    child: SizedBox(),
+                  ),
+                ),
                 errorWidget: (context, url, error) => Center(
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    margin: EdgeInsets.symmetric(horizontal: 10.w),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: AppColor.background,
+                      borderRadius: BorderRadius.circular(4.r),
                       border: Border.all(
-                        color: Colors.grey.shade200,
-                        width: 1,
+                        color: AppColor.border,
                       ),
-                      borderRadius: BorderRadius.circular(4),
                     ),
                     child: Center(
                       child: Icon(
                         Icons.image_not_supported_outlined,
-                        size: 50,
-                        color: Colors.grey.shade300,
+                        size: 50.sp,
+                        color: AppColor.textSecondary,
                       ),
                     ),
                   ),
                 ),
-                fit: BoxFit.cover,
               ),
-              SizedBox(height: 10),
-              Text('${product.name}', style: Theme.of(context).textTheme.labelLarge),
-              SizedBox(height: 10),
+
+              SizedBox(height: 10.h),
+
+              Text(
+                product.name,
+                style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                  color: AppColor.white
+                ),
+              ),
+
+              SizedBox(height: 10.h),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.star, color: Colors.orange, size: 16),
-                  SizedBox(width: 5,),
+                  Icon(
+                    Icons.star_rounded,
+                    color: AppColor.mainColor,
+                    size: 16.sp,
+                  ),
+                  SizedBox(width: 5.w),
                   Text(
-                    '${product.averageRating.toStringAsFixed(2)}',
-                    style: Theme.of(
-                      context,
-                    ).textTheme.labelSmall!.copyWith(color: Colors.orange,),
+                    product.averageRating.toStringAsFixed(2),
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: AppColor.mainColor,
+                    ),
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+
+              SizedBox(height: 10.h),
+
               ClipRRect(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(12.r),
                 child: Material(
                   color: Colors.transparent,
                   child: InkWell(
-                    onTap: (){
-                      Navigator.pushNamed(context, RouteManager.productReviews,arguments: product);
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        RouteManager.productReviews,
+                        arguments: product,
+                      );
                     },
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 12,
-                        horizontal: 15,
+                      padding: EdgeInsets.symmetric(
+                        vertical: 12.h,
+                        horizontal: 15.w,
                       ),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey.shade300),
-                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: AppColor.border,
+                        ),
+                        borderRadius: BorderRadius.circular(12.r),
                       ),
                       child: Text(
                         'عرض جميع التعليقات',
-                        style: Theme.of(
-                          context,
-                        ).textTheme.titleSmall!.copyWith(color: Colors.black),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall
+                            ?.copyWith(
+                          color: AppColor.textPrimary,
+                        ),
                       ),
                     ),
                   ),

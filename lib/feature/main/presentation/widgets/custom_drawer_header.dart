@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../core/utils/app_color.dart';
 
 import '../../../../generated/assets.dart';
 
@@ -8,23 +10,28 @@ class CustomDrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 30),
-      color: Colors.grey.shade200,
+      padding: EdgeInsets.only(top: 30.h),
+      color: AppColor.card,
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: Colors.grey,
-          radius: 25,
-          backgroundImage: AssetImage(Assets.images.img.path),
+          radius: 25.r,
+          backgroundColor: AppColor.border,
+          backgroundImage: AssetImage(
+            Assets.images.img.path,
+          ),
         ),
         title: Text(
           'صباح الخير!..',
-          style: Theme.of(context).textTheme.labelMedium,
+          style: Theme.of(context).textTheme.labelMedium!.copyWith(
+            color: AppColor.textPrimary,
+          ),
         ),
         subtitle: Text(
-          ' احمد عماره',
+          'أحمد عماره',
           style: Theme.of(context).textTheme.labelMedium!.copyWith(
-              color: Colors.grey
-          ),      ),
+            color: AppColor.textSecondary,
+          ),
+        ),
       ),
     );
   }
