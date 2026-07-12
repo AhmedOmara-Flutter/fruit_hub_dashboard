@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
+import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../../../generated/assets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -59,8 +60,8 @@ class OrderItem extends StatelessWidget {
               children: [
                 Text(
                   customerName,
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: AppColor.textPrimary,
+                  style: StyleManager.font13Weight600.copyWith(
+                    color: AppColor.mainColor,
                   ),
                 ),
 

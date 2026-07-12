@@ -20,7 +20,7 @@ class ReviewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10.w),
-      margin: EdgeInsets.symmetric(vertical: 6.h),
+      margin: EdgeInsets.only(top: 10.h),
       decoration: BoxDecoration(
         color: AppColor.card,
         borderRadius: BorderRadius.circular(14.r),
@@ -31,26 +31,12 @@ class ReviewCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(50.r),
-            child: CachedNetworkImage(
-              imageUrl: review.image,
+          ClipOval(
+            child: Image.asset(
+              Assets.images.customer.path,
               width: 45.w,
-              height: 45.w,
+              height: 45.h,
               fit: BoxFit.cover,
-              placeholder: (context, url) => Skeletonizer(
-                child: CircleAvatar(
-                  radius: 22.r,
-                  backgroundImage: AssetImage(
-                    Assets.images.img.path,
-                  ),
-                ),
-              ),
-              errorWidget: (context, url, error) => Icon(
-                Icons.error_outline,
-                color: AppColor.red,
-                size: 20.sp,
-              ),
             ),
           ),
 

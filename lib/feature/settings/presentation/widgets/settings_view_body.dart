@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/cubit/products_cubit/products_cubit.dart';
+import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+
+import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../core/helper_function/custom_show_dialog.dart';
+import '../../../../core/utils/app_color.dart';
 import 'info_tile.dart';
 
 class SettingsViewBody extends StatefulWidget {
@@ -15,59 +21,64 @@ class SettingsViewBody extends StatefulWidget {
 class _SettingsViewBodyState extends State<SettingsViewBody> {
   String version = "0.0.0";
 
+  @override
+  void initState() {
+    super.initState();
+    _getVersion();
+  }
+
+  Future<void> _getVersion() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() {
+      version = info.version;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20.w),
       child: Column(
         children: [
-          const SizedBox(height: 10),
-          // ADMIN CARD
+          SizedBox(height: 10.h),
           _buildCard(
+            context: context,
             title: "معلومات المدير",
             icon: Icons.person,
             children: const [
-              InfoTile(title: "الاسم", value: "أحمد هاني عمارة"),
-              Divider(),
-              InfoTile(title: "البريد الإلكتروني", value: "ahmedomara@gmail.com"),
-              Divider(),
-              InfoTile(title: "رقم التليفون", value: "01204391511"),
-              Divider(),
+              InfoTile(title: "الاسم", value: "مصطفي ابراهيم"),
+              InfoTile(title: "رقم التليفون", value: "01113694883"),
               InfoTile(title: "الدور", value: "مدير"),
             ],
           ),
 
-          const SizedBox(height: 15),
+          SizedBox(height: 15.h),
 
-          // APP INFO
           _buildCard(
+            context: context,
             title: "معلومات التطبيق",
             icon: Icons.info_outline,
             children: [
               InfoTile(title: "الإصدار", value: version),
-              const Divider(),
               const InfoTile(title: "التقنية", value: "Flutter"),
-              const Divider(),
               const InfoTile(title: "الحالة", value: "نشط"),
             ],
           ),
 
-          const SizedBox(height: 20),
+          SizedBox(height: 15.h),
+          _buildOrdersDangerCard(context),
+          SizedBox(height: 15.h),
+          _buildCartDangerCard(context),
+          SizedBox(height: 15.h),
+          _buildOffersDangerCard(context),
 
-          Row(
-            children: [
-              Expanded(child: _buildOrdersDangerCard(context)),
-              const SizedBox(width: 10),
-              Expanded(child: _buildCartDangerCard(context)),
-            ],
-          ),
-
-          const SizedBox(height: 25),
+          SizedBox(height: 25.h),
 
           Text(
-            '© 2026 قطيف - جميع الحقوق محفوظة',
-            style: TextStyle(color: Colors.grey.shade600),
+            '© 2026 حكايه - جميع الحقوق محفوظة',
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+              color: AppColor.textSecondary,
+            ),
           ),
         ],
       ),
@@ -76,68 +87,109 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
 
   Widget _buildOrdersDangerCard(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(14.w),
       decoration: BoxDecoration(
-        color: Colors.red.shade50,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: Colors.red.shade200),
+        color: AppColor.card,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(
+          color: AppColor.red.withOpacity(.4),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.black.withOpacity(.12),
+            blurRadius: 8.r,
+            offset: Offset(0, 3.h),
+          ),
+        ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
-              Icon(Icons.warning_amber_rounded, color: Colors.red),
-              SizedBox(width: 8),
-              Text(
-                "منطقة خطيرة",
-                style: TextStyle(fontWeight: FontWeight.bold),
+              Container(
+                width: 48.w,
+                height: 48.w,
+                decoration: BoxDecoration(
+                  color: AppColor.red.withOpacity(.12),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.warning_amber_rounded,
+                  color: AppColor.red,
+                  size: 24.sp,
+                ),
+              ),
+
+              SizedBox(width: 12.w),
+
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "حذف الطلبات",
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: AppColor.red,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 3.h),
+                    Text(
+                      "حذف جميع الطلبات نهائيًا.",
+                      style:StyleManager.font12Weight500.copyWith(
+                        color: AppColor.textSecondary
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
-          const SizedBox(height: 10),
 
-          const Text(
-            "حذف كل الطلبات من قاعدة البيانات بشكل نهائي.",
-            style: TextStyle(color: Colors.grey),
-          ),
-
-          const SizedBox(height: 15),
+          SizedBox(height: 14.h),
 
           SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
+            height: 42.h,
+            child: ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red.shade500,
-                padding: const EdgeInsets.all(14),
+                backgroundColor: AppColor.red,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+              ),
+              icon: Icon(
+                Icons.delete_outline,
+                color: AppColor.white,
+                size: 18.sp,
+              ),
+              label: Text(
+                "حذف كل الطلبات",
+                style:StyleManager.font12Weight500.copyWith(
+                    color: AppColor.white
+                ),
               ),
               onPressed: () {
                 CustomShowDialog.show(
                   context,
-                  title: 'تاكيد الحذف',
+                  title: 'تأكيد حذف الطلبات',
                   content: Text(
                     'هل أنت متأكد أنك تريد حذف كل الطلبات؟',
                     textAlign: TextAlign.center,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(color: Colors.grey),
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: AppColor.textSecondary,
+                    ),
                   ),
                   cancel: () => Navigator.pop(context),
                   accept: () {
-                    context
-                        .read<OrdersCubit>()
-                        .deleteOrderCollection();
+                    context.read<OrdersCubit>().deleteOrderCollection();
                     Navigator.pop(context);
                   },
-                  color: Colors.red,
-                  flag:Icons.inventory_2,
+                  color: AppColor.red,
+                  flag: Icons.warning_amber_rounded,
                 );
               },
-              child:  Text("حذف كل الطلبات",style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                color: Colors.white,
-              ),),
             ),
           ),
         ],
@@ -146,41 +198,88 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
   }
   Widget _buildCartDangerCard(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(14.w),
       decoration: BoxDecoration(
-        color: Colors.orange.shade50,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: Colors.orange.shade200),
+        color: AppColor.card,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(
+          color: AppColor.accentColor.withOpacity(.4),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.black.withOpacity(.12),
+            blurRadius: 8.r,
+            offset: Offset(0, 3.h),
+          ),
+        ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
-              Icon(Icons.shopping_cart_outlined, color: Colors.orange),
-              SizedBox(width: 8),
-              Text(
-                "إدارة السلة",
-                style: TextStyle(fontWeight: FontWeight.bold),
+              Container(
+                width: 48.w,
+                height: 48.w,
+                decoration: BoxDecoration(
+                  color: AppColor.accentColor.withOpacity(.12),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.shopping_cart_outlined,
+                  color: AppColor.accentColor,
+                  size: 24.sp,
+                ),
+              ),
+
+              SizedBox(width: 12.w),
+
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "مسح السلة",
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: AppColor.accentColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 3.h),
+                    Text(
+                      "مسح جميع منتجات السلة نهائيًا.",
+                      style: StyleManager.font12Weight500.copyWith(
+                        color: AppColor.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
 
-          const SizedBox(height: 10),
-
-          const Text(
-            "مسح جميع المنتجات من سلة المستخدمين بشكل نهائي.",
-            style: TextStyle(color: Colors.grey),
-          ),
-
-          const SizedBox(height: 15),
+          SizedBox(height: 14.h),
 
           SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
+            height: 42.h,
+            child: ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orange,
-                padding: const EdgeInsets.all(14),
+                backgroundColor: AppColor.accentColor,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+              ),
+              icon: Icon(
+                Icons.delete_outline,
+                color: AppColor.white,
+                size: 18.sp,
+              ),
+              label: Text(
+                "مسح السلة",
+                style: StyleManager.font12Weight500.copyWith(
+                  color: AppColor.white,
+                ),
               ),
               onPressed: () {
                 CustomShowDialog.show(
@@ -189,26 +288,132 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                   content: Text(
                     'هل أنت متأكد أنك تريد حذف كل محتويات السلة؟',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(color: Colors.grey),
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: AppColor.textSecondary,
+                    ),
                   ),
                   cancel: () => Navigator.pop(context),
                   accept: () {
-                   context.read<ProductsCubit>().deleteCartCollectionForUser();
+                    context
+                        .read<ProductsCubit>()
+                        .deleteCartCollectionForUser();
                     Navigator.pop(context);
                   },
-                  color: Colors.orange,
+                  color: AppColor.accentColor,
                   flag: Icons.remove_shopping_cart,
                 );
               },
-              child: Text(
-                "مسح السلة",
-                style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                  color: Colors.white,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  Widget _buildOffersDangerCard(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(14.w),
+      decoration: BoxDecoration(
+        color: AppColor.card,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(
+          color: Colors.purple.withOpacity(.4),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.black.withOpacity(.12),
+            blurRadius: 8.r,
+            offset: Offset(0, 3.h),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 48.w,
+                height: 48.w,
+                decoration: BoxDecoration(
+                  color: AppColor.green.withOpacity(.12),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.local_offer_outlined,
+                  color: AppColor.green,
+                  size: 24.sp,
                 ),
               ),
+
+              SizedBox(width: 12.w),
+
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "حذف العروض",
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: AppColor.green,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 3.h),
+                    Text(
+                      "حذف جميع العروض نهائيًا.",
+                      style: StyleManager.font12Weight500.copyWith(
+                        color: AppColor.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
+          SizedBox(height: 14.h),
+
+          SizedBox(
+            width: double.infinity,
+            height: 42.h,
+            child: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColor.green,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+              ),
+              icon: Icon(
+                Icons.delete_outline,
+                color: AppColor.white,
+                size: 18.sp,
+              ),
+              label: Text(
+                "حذف كل العروض",
+                style: StyleManager.font12Weight500.copyWith(
+                  color: AppColor.white,
+                ),
+              ),
+              onPressed: () {
+                CustomShowDialog.show(
+                  context,
+                  title: 'تأكيد حذف العروض',
+                  content: Text(
+                    'هل أنت متأكد أنك تريد حذف جميع العروض؟',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: AppColor.textSecondary,
+                    ),
+                  ),
+                  cancel: () => Navigator.pop(context),
+                  accept: () {
+                    context.read<OffersCubit>().deleteAllOffers();
+                    Navigator.pop(context);
+                  },
+                  color: AppColor.green,
+                  flag: Icons.local_offer_outlined,
+                );
+              },
             ),
           ),
         ],
@@ -216,42 +421,66 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
     );
   }
   Widget _buildCard({
+    required BuildContext context,
     required String title,
     required IconData icon,
     required List<Widget> children,
   }) {
     return Container(
-      padding: const EdgeInsets.all(18),
+      padding: EdgeInsets.all(10.w),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
+        color: AppColor.card,
+        borderRadius: BorderRadius.circular(18.r),
+        border: Border.all(
+          color: AppColor.border,
+        ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 12,
-          )
+            color: AppColor.black.withOpacity(.15),
+            blurRadius: 15.r,
+            offset: Offset(0, 6.h),
+          ),
         ],
       ),
       child: Column(
         children: [
           Row(
             children: [
-              Icon(icon, color: Colors.green),
-              const SizedBox(width: 8),
+              Container(
+                padding: EdgeInsets.all(10.w),
+                decoration: BoxDecoration(
+                  color: AppColor.mainColor.withOpacity(.12),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  icon,
+                  color: AppColor.mainColor,
+                  size: 22.sp,
+                ),
+              ),
+              SizedBox(width: 12.w),
               Text(
                 title,
-                style: const TextStyle(
-                  fontSize: 16,
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  color: AppColor.textPrimary,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 12),
-          ...children,
+
+          SizedBox(height: 18.h),
+
+          Theme(
+            data: Theme.of(context).copyWith(
+              dividerColor: AppColor.border,
+            ),
+            child: Column(
+              children: children,
+            ),
+          ),
         ],
       ),
     );
   }
 }
-

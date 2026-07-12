@@ -1,5 +1,5 @@
-
-  import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 
   class CustomShowDialog {
@@ -11,91 +11,108 @@ import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
           VoidCallback? accept,
           Color color = AppColor.mainColor,
           IconData flag = Icons.payment_rounded,
+          String cancelText = 'إلغاء',
+          String acceptText = 'تأكيد',
         }) {
       return showDialog(
         context: context,
-        useRootNavigator: true,
         barrierDismissible: true,
-        builder: (context) {
-          return WillPopScope(
-            onWillPop: () async => false,
-            child: AlertDialog(
-              backgroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              contentPadding: const EdgeInsets.all(20),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CircleAvatar(
-                    radius: 35,
-                    backgroundColor: color.withOpacity(0.08),
-                    child: Icon(
-                      flag,
-                      color: color,
-                      size: 35,
-                    ),
+        builder: (_) {
+          return AlertDialog(
+            backgroundColor: AppColor.card,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24.r),
+            ),
+            contentPadding: EdgeInsets.all(22.w),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 72.w,
+                  height: 72.w,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: color.withOpacity(.12),
                   ),
-            
-                  const SizedBox(height: 20),
-            
-                  Text(
-                    title,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                      color: color,
-                    ),
+                  child: Icon(
+                    flag,
+                    size: 36.sp,
+                    color: color,
                   ),
-            
-                  const SizedBox(height: 10),
-            
-                  content,
-            
-                  const SizedBox(height: 25),
-            
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: cancel,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            elevation: 0,
-                            side: BorderSide(
-                              color: AppColor.mainColor.withOpacity(0.3),
-                            ),
+                ),
+
+                SizedBox(height: 18.h),
+
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: AppColor.textPrimary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                SizedBox(height: 10.h),
+
+                content,
+
+                SizedBox(height: 24.h),
+
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: cancel ?? () => Navigator.pop(context),
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: AppColor.card,
+                          foregroundColor: AppColor.textPrimary,
+                          side: BorderSide(
+                            color: AppColor.border,
+                            width: 1.2,
                           ),
-                          child: Text(
-                            'إلغاء',
-                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              color: AppColor.mainColor,
-                            ),
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.r),
+                          ),
+                          padding: EdgeInsets.symmetric(vertical: 15.h),
+                        ),
+                        child: Text(
+                          cancelText,
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            color: AppColor.textPrimary,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),
-            
-                      const SizedBox(width: 10),
-            
-                      Expanded(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: color,
+                    ),
+
+                    SizedBox(width: 12.w),
+
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: accept,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: color,
+                          foregroundColor: Colors.white,
+                          elevation: 2,
+                          shadowColor: color.withOpacity(.35),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.r),
                           ),
-                          onPressed: accept,
-                          child: Text(
-                            'تأكيد',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(color: Colors.white),
+                          padding: EdgeInsets.symmetric(vertical: 15.h),
+                        ),
+                        child: Text(
+                          acceptText,
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                )            ],
             ),
           );
         },

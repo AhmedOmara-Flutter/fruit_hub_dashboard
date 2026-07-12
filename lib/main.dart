@@ -14,6 +14,11 @@ void main() async {
     anonKey: 'sb_publishable_28OdrvHF22OZhJIOnmQGFQ_T98mgadn',
   );
 
-  runApp(const MyApp());
-}
+  runApp(
+    // DevicePreview(
+    //   enabled: !kReleaseMode,
+    //   builder: (context) =>
+          MyApp(),
+  )
+  ;}
 

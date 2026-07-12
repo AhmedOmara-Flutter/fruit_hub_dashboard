@@ -58,8 +58,6 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
         }
         if (state is AddProductSuccess) {
           context.read<MainCubit>().changeIndex(0);
-          customShowSnakeBar(
-              context, color:AppColor.mainColor, label: 'تم الاضافه بنجاح');
         }
       },
 

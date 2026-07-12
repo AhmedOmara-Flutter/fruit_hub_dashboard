@@ -1,0 +1,72 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
+import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
+
+class OrderNoteCardSection extends StatelessWidget {
+  const OrderNoteCardSection({
+    super.key,
+    required this.note,
+  });
+
+  final String? note;
+
+  @override
+  Widget build(BuildContext context) {
+    if (note == null || note!.trim().isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Container(
+      padding: EdgeInsets.all(14.w),
+      decoration: BoxDecoration(
+        color: AppColor.card,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(
+          color: AppColor.border,
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 34.w,
+            height: 34.w,
+            decoration: BoxDecoration(
+              color: AppColor.mainColor.withOpacity(.12),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.sticky_note_2_outlined,
+              color: AppColor.mainColor,
+              size: 16.sp,
+            ),
+          ),
+
+          SizedBox(width: 10.w),
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'ملاحظات الطلب',
+                  style: StyleManager.font13Weight600.copyWith(
+                    color: AppColor.white,
+                  ),
+                ),
+
+                SizedBox(height: 4.h),
+
+                Text(
+                  note!,
+                  style: StyleManager.font12Weight500,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

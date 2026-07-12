@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/app_color.dart';
 
@@ -9,41 +10,44 @@ class BuildDatePickerTile extends StatelessWidget {
 
   const BuildDatePickerTile({
     super.key,
-    required this.title, this.date, required this.onTap,
+    required this.title,
+    required this.date,
+    required this.onTap,
   });
-
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(12.r),
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 14,
-          vertical: 14,
+        padding: EdgeInsets.symmetric(
+          horizontal: 14.w,
+          vertical: 14.h,
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
+          color: AppColor.card,
+          borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
+            color: AppColor.border,
           ),
-          color: Colors.grey.shade50,
         ),
         child: Row(
           children: [
             Container(
-              padding: const EdgeInsets.all(10),
+              padding: EdgeInsets.all(10.w),
               decoration: BoxDecoration(
-                color: AppColor.mainColor.withOpacity(.1),
-                borderRadius: BorderRadius.circular(10),
+                color: AppColor.mainColor.withOpacity(.12),
+                borderRadius: BorderRadius.circular(10.r),
               ),
               child: Icon(
                 Icons.calendar_month_rounded,
                 color: AppColor.mainColor,
+                size: 22.sp,
               ),
             ),
 
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
 
             Expanded(
               child: Column(
@@ -51,29 +55,31 @@ class BuildDatePickerTile extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(
-                      color: Colors.grey,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: AppColor.textSecondary,
                     ),
                   ),
-                  const SizedBox(height: 4),
+
+                  SizedBox(height: 4.h),
+
                   Text(
                     date == null
                         ? 'اختر التاريخ'
                         : '${date!.day}/${date!.month}/${date!.year}',
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .titleMedium,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: AppColor.textPrimary,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
             ),
 
-            const Icon(Icons.arrow_forward_ios_rounded, size: 16),
+            Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: AppColor.textSecondary,
+              size: 16.sp,
+            ),
           ],
         ),
       ),

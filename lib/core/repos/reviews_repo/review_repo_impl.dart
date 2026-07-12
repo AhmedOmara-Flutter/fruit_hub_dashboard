@@ -47,4 +47,21 @@ class ReviewRepoImpl implements ReviewRepo {
       yield Left(ServerFailure(errMessage: e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> deleteReview({
+    required String productId,
+    required String reviewId,
+  }) async {
+    try {
+      await _databaseServices.deleteData(
+        path: 'products/$productId/reviews',
+        uId: reviewId,
+      );
+
+      return const Right(null);
+    } catch (e) {
+      return Left(ServerFailure(errMessage: e.toString()));
+    }
+  }
 }

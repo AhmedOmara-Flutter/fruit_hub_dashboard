@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/entities/offer_entity.dart';
@@ -38,27 +39,37 @@ class ProductCard extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Container(
-                    width: 95.w,
-                    height: 95.w,
-                    padding: EdgeInsets.all(8.w),
-                    decoration: BoxDecoration(
-                      color: AppColor.transparent,
-                      borderRadius: BorderRadius.circular(14.r),
-                      border: Border.all(
-                        color: AppColor.border,
-                      ),
-                    ),
-                    child: Image.network(
-                      product.image ?? '',
-                      fit: BoxFit.contain,
-                      errorBuilder: (_, __, ___) => Icon(
-                        Icons.image_not_supported,
-                        color: AppColor.textSecondary,
-                        size: 32.sp,
+              Container(
+              width: 95.w,
+                height: 95.w,
+                padding: EdgeInsets.all(8.w),
+                decoration: BoxDecoration(
+                  color: AppColor.transparent,
+                  borderRadius: BorderRadius.circular(14.r),
+                  border: Border.all(
+                    color: AppColor.border,
+                  ),
+                ),
+                child: CachedNetworkImage(
+                  imageUrl: product.image ?? '',
+                  fit: BoxFit.contain,
+                  placeholder: (context, url) => Center(
+                    child: SizedBox(
+                      width: 22.w,
+                      height: 22.w,
+                      child: const CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: AppColor.mainColor,
                       ),
                     ),
                   ),
+                  errorWidget: (context, url, error) => Icon(
+                    Icons.image_not_supported,
+                    color: AppColor.textSecondary,
+                    size: 32.sp,
+                  ),
+                ),
+              ),
                   if (hasOffer)
                     Positioned(
                       top: 6.h,

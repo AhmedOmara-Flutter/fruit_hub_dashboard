@@ -26,7 +26,7 @@ class EditProductView extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           leading: CustomBackButton(),
-          backgroundColor: AppColor.mainColor,
+          backgroundColor: AppColor.background,
           title: Text(
             'تعديل المنتج',
             style: Theme.of(

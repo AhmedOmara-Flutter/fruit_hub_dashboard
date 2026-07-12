@@ -89,6 +89,19 @@ class OffersCubit extends Cubit<OfferState> {
       }
     }
   }
+
+  Future<void> deleteAllOffers() async {
+    emit(DeleteAllOfferLoading());
+
+    try {
+      await _offerRepo.deleteCollection('offers');
+
+      emit(DeleteAllOfferSuccess());
+    } catch (e) {
+      emit(DeleteAllOfferFailure(e.toString()));
+    }
+  }
+
   @override
   Future<void> close() {
     _offersSubscription?.cancel();

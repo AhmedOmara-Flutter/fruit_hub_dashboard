@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/core/entities/user_entity.dart';
+import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/feature/clients/presentation/widgets/custom_text_field.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -21,7 +22,7 @@ class ClientsViewBody extends StatelessWidget {
             children: [
               Container(
                 width: double.infinity,
-                color: Colors.white,
+                color: AppColor.background,
                 child: Column(
                   children: [
                     SizedBox(height: 10),
@@ -32,15 +33,12 @@ class ClientsViewBody extends StatelessWidget {
                         context.read<ClientsCubit>().searchClients(value);
                       },
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 5),
                   ],
                 ),
               ),
             ],
           ),
-        ),
-        SliverToBoxAdapter(
-          child: SizedBox(height: 5,),
         ),
         BlocBuilder<ClientsCubit, ClientsState>(
           builder: (context, state) {
@@ -100,6 +98,9 @@ class ClientsViewBody extends StatelessWidget {
               itemCount: 10,
             );
           },
+        ),
+        SliverToBoxAdapter(
+          child: SizedBox(height: 15),
         ),
       ],
     );

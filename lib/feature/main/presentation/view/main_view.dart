@@ -41,10 +41,9 @@ class _MainViewState extends State<MainView> {
             _scaffoldKey.currentState!.openDrawer();
           },
           icon: Icon(Icons.menu,color: Colors.white,),
-          color: Color(0xff4EB7F2),
         ),
         automaticallyImplyLeading: false,
-        backgroundColor:AppColor.mainColor,
+        backgroundColor:AppColor.background,
       ),
       body: PopScope(
           canPop: false,

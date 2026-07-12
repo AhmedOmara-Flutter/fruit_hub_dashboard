@@ -9,7 +9,7 @@ class BestSellerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10.w),
+      padding: EdgeInsets.only(top: 10.h, left: 10.w, right: 10.w),
       decoration: BoxDecoration(
         color: AppColor.card,
         borderRadius: BorderRadius.circular(8.r),

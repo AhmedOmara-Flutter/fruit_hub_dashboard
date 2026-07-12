@@ -1,24 +1,24 @@
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fruit_hub_dashboard/core/entities/order_entity.dart';
 
+import '../../../../core/helper_function/make_call_function.dart';
 import '../../../../generated/assets.dart';
 
 class OrderUserImage extends StatelessWidget {
   const OrderUserImage({
-    super.key,
-    this.onTap,
+    super.key, required this.order,
+
 
   });
 
-  final void Function()? onTap;
-
+  final OrderEntity order;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
-      child:ClipOval(
+      onTap: () => makePhoneCall(order.userEntity!.phone),
+      child: ClipOval(
         child: Image.asset(
           Assets.images.customer.path,
           width: 60.w,

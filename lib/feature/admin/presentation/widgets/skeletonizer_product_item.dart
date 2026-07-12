@@ -1,120 +1,126 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/style_manager.dart';
 import '../../../../generated/assets.dart';
 
 class SkeletonizerProductItem extends StatelessWidget {
-  const SkeletonizerProductItem({
-    super.key,
-    required this.productName,
-    required this.orderCount,
-    required this.image,
-    required this.medal,
-  });
-
-  final String productName;
-  final String orderCount;
-  final String image;
-  final String medal;
-
+  const SkeletonizerProductItem({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Skeletonizer(
+      enabled: true,
+      effect: const ShimmerEffect(
+        baseColor: Color(0xFF2A2A2A),
+        highlightColor: Color(0xFF3A3A3A),
+        duration: Duration(milliseconds: 1200),
+      ),
       child: Container(
-        padding: const EdgeInsets.all(14),
+        padding: EdgeInsets.all(14.w),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: Colors.grey.shade200),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(.05),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
-            ),
-          ],
+          color: AppColor.card,
+          borderRadius: BorderRadius.circular(18.r),
+          border: Border.all(
+            color: AppColor.border,
+          ),
         ),
         child: Row(
           children: [
-            Image.asset(medal, height: 30, width: 30,),
+            Image.asset(
+              Assets.images.customer.path, // غيرها باسم الميدالية عندك
+              height: 30.w,
+              width: 30.w,
+            ),
 
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
+
             Container(
-              width: 65,
-              height: 65,
+              width: 65.w,
+              height: 65.w,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: Colors.grey.shade200),
+                color: AppColor.background,
+                borderRadius: BorderRadius.circular(16.r),
+                border: Border.all(
+                  color: AppColor.border,
+                ),
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.asset(image),
+                borderRadius: BorderRadius.circular(16.r),
+                child: Image.asset(
+                  Assets.images.customer.path, // غيرها بصورة منتج عندك
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-            const SizedBox(width: 12),
 
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  productName,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .labelLarge,
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  '$orderCount طلب',
-                  style: Theme
-                      .of(
-                    context,
-                  )
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(color: Colors.grey),
-                ),
-              ],
-            ),
-            Spacer(),
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 5,
-              ),
-              decoration: BoxDecoration(
-                color: Color(0xffF5F9F6),
-                borderRadius: BorderRadius.circular(5),
-              ),
+            SizedBox(width: 12.w),
+
+            Expanded(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        orderCount, style: Theme
-                          .of(context)
-                          .textTheme
-                          .displaySmall!
-                          .copyWith(
-                          color: AppColor.mainColor
-                      ),),
-                      SizedBox(width: 5,),
-                      Image.asset(Assets.images.rise.path, height: 10, width: 10,color: AppColor.mainColor,)
-
-                    ],
+                  Text(
+                    'بيتزا سوبر سوبريم',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: StyleManager.font15Weight700,
                   ),
-                  Text('اجمالي الطلبات',style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                      fontSize: 11
-                  ),)
+
+                  SizedBox(height: 6.h),
+
+                  Text(
+                    '125 طلب',
+                    style: StyleManager.font13Weight400,
+                  ),
                 ],
               ),
-            )
+            ),
 
+            SizedBox(width: 12.w),
+
+            Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.w,
+                vertical: 6.h,
+              ),
+              decoration: BoxDecoration(
+                color: AppColor.background.withOpacity(.12),
+                borderRadius: BorderRadius.circular(8.r),
+                border: Border.all(
+                  color: AppColor.border,
+                ),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        '125',
+                        style: StyleManager.font14Weight600,
+                      ),
+                      SizedBox(width: 4.w),
+                      Image.asset(
+                        Assets.images.rise.path,
+                        height: 10.h,
+                        width: 10.w,
+                        color: AppColor.mainColor,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 4.h),
+                  Text(
+                    'إجمالي الطلبات',
+                    style: StyleManager.font11Weight400,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

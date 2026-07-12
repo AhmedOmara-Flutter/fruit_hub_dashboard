@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/helper_function/custom_show_snake_bar.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/build_date_picker_tile.dart';
@@ -33,14 +34,11 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
   @override
   void initState() {
     super.initState();
-
     priceBeforeDiscount.text = widget.product.price.toString();
     priceAfterDiscount.text = widget.product.price.toString();
-
     discountController.addListener(_calculatePrice);
   }
 
-  // 🔥 clean calculation (no setState needed)
   void _calculatePrice() {
     final discount = double.tryParse(discountController.text) ?? 0;
 
@@ -73,11 +71,11 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
             children: [
               Text(
                 'إضافة عرض جديد',
-                style: Theme.of(context).textTheme.displaySmall,
+                style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                  color: AppColor.textPrimary,
+                ),
               ),
-
-              const SizedBox(height: 15),
-
+              SizedBox(height: 15.h),
               CustomTextFormField(
                 controller: discountController,
                 keyboardType: TextInputType.number,
@@ -98,9 +96,7 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                   return null;
                 },
               ),
-
-              const SizedBox(height: 16),
-
+              SizedBox(height: 16.h),
               Row(
                 children: [
                   Expanded(
@@ -112,7 +108,9 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                       label: 'السعر قبل الخصم',
                     ),
                   ),
-                  const SizedBox(width: 10),
+
+                  SizedBox(width: 10.w),
+
                   Expanded(
                     child: CustomTextFormField(
                       readOnly: true,
@@ -124,9 +122,7 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                   ),
                 ],
               ),
-
-              const SizedBox(height: 16),
-
+              SizedBox(height: 16.h),
               BuildDatePickerTile(
                 title: 'تاريخ بداية العرض',
                 date: startDate,
@@ -136,6 +132,18 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                     firstDate: DateTime.now(),
                     lastDate: DateTime(2100),
                     initialDate: DateTime.now(),
+                    builder: (context, child) {
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: ColorScheme.dark(
+                            primary: AppColor.mainColor,
+                            surface: AppColor.card,
+                            onSurface: AppColor.textPrimary,
+                          ),
+                        ),
+                        child: child!,
+                      );
+                    },
                   );
 
                   if (pickedDate != null) {
@@ -143,9 +151,7 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                   }
                 },
               ),
-
-              const SizedBox(height: 12),
-
+              SizedBox(height: 12.h),
               BuildDatePickerTile(
                 title: 'تاريخ انتهاء العرض',
                 date: endDate,
@@ -155,6 +161,18 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                     firstDate: DateTime.now(),
                     lastDate: DateTime(2100),
                     initialDate: DateTime.now(),
+                    builder: (context, child) {
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: ColorScheme.dark(
+                            primary: AppColor.mainColor,
+                            surface: AppColor.card,
+                            onSurface: AppColor.textPrimary,
+                          ),
+                        ),
+                        child: child!,
+                      );
+                    },
                   );
 
                   if (pickedDate != null) {
@@ -162,15 +180,13 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                   }
                 },
               ),
-
-              const SizedBox(height: 20),
-
+              SizedBox(height: 20.h),
               BlocConsumer<OffersCubit, OfferState>(
                 listener: (context, state) {
                   if (state is OffersFailure) {
                     customShowSnakeBar(
                       context,
-                      color: Colors.red,
+                      color: AppColor.red,
                       label: state.errMessage,
                     );
                   }
@@ -189,6 +205,15 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                   return SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.mainColor,
+                        disabledBackgroundColor: AppColor.border,
+                        foregroundColor: AppColor.white,
+                        padding: EdgeInsets.symmetric(vertical: 14.h),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                      ),
                       onPressed: (!canSave || isLoading)
                           ? null
                           : () async {
@@ -216,18 +241,20 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                         }
                       },
                       child: isLoading
-                          ? const SizedBox(
-                        height: 18,
-                        width: 18,
-                        child: CircularProgressIndicator(
+                          ? SizedBox(
+                        height: 18.sp,
+                        width: 18.sp,
+                        child: const CircularProgressIndicator(
                           strokeWidth: 2,
-                          color: Colors.white,
+                          color: AppColor.white,
                         ),
                       )
                           : Text(
                         'حفظ العرض',
-                        style:
-                        Theme.of(context).textTheme.labelSmall,
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelSmall!
+                            .copyWith(color: AppColor.white),
                       ),
                     ),
                   );

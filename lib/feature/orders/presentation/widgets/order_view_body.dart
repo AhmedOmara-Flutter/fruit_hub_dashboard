@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/widgets/empty_widget.dart';
 import 'package:fruit_hub_dashboard/feature/orders/presentation/widgets/build_order_card.dart';
@@ -20,64 +21,73 @@ class _OrderViewBodyState extends State<OrderViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Container(
-            padding: const EdgeInsets.all(4),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade100,
-              borderRadius: BorderRadius.circular(14),
-            ),
-            child: Row(
-              children: [
-                _buildTab('انتظار'),
-                _buildTab('مؤكد'),
-                _buildTab('منتهي'),
-                _buildTab('ملغي'),
-              ],
+    return Padding(
+      padding:  EdgeInsets.only(bottom: 10.h),
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.all(10.w),
+              child: Container(
+                padding: EdgeInsets.all(4.w),
+                decoration: BoxDecoration(
+                  color: AppColor.card,
+                  borderRadius: BorderRadius.circular(14.r),
+                  border: Border.all(
+                    color: AppColor.border,
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    _buildTab('انتظار'),
+                    _buildTab('مؤكد'),
+                    _buildTab('منتهي'),
+                    _buildTab('ملغي'),
+                  ],
+                ),
+              ),
             ),
           ),
-        ),),
-        BlocBuilder<OrdersCubit, OrdersState>(
-          builder: (context, state) {
-            final cubit = context.watch<OrdersCubit>();
-            final orders = cubit.filteredOrders;
-            if (state is GetOrdersLoadingState) {
+          BlocBuilder<OrdersCubit, OrdersState>(
+            builder: (context, state) {
+              final cubit = context.watch<OrdersCubit>();
+              final orders = cubit.filteredOrders;
+              if (state is GetOrdersLoadingState) {
+                return SliverList.builder(
+                  itemCount: 3,
+                  itemBuilder: (context, index) {
+                    return const SkeletonizerBuildOrderCard();
+                  },
+                );
+              }
+
+              if (state is GetOrdersErrorState) {
+                return SliverToBoxAdapter(
+                  child: Center(
+                    child: Text(state.errMessage),
+                  ),
+                );
+              }
+
+              if (orders.isEmpty) {
+                return const SliverToBoxAdapter(
+                  child: EmptyWidget(),
+                );
+              }
+
               return SliverList.builder(
-                itemCount: 3,
+                itemCount: orders.length,
                 itemBuilder: (context, index) {
-                  return const SkeletonizerBuildOrderCard();
+                  return BuildOrderCard(
+                    totalOrders: orders.length,
+                    index: index,
+                    order: orders[index],
+                  );
                 },
               );
-            }
-
-            if (state is GetOrdersErrorState) {
-              return SliverToBoxAdapter(
-                child: Center(
-                  child: Text(state.errMessage),
-                ),
-              );
-            }
-
-            if (orders.isEmpty) {
-              return const SliverToBoxAdapter(
-                child: EmptyWidget(),
-              );
-            }
-
-            return SliverList.builder(
-              itemCount: orders.length,
-              itemBuilder: (context, index) {
-                return BuildOrderCard(
-                  index: index,
-                  order: orders[index],
-                );
-              },
-            );
-          },
-        )      ],
+            },
+          )      ],
+      ),
     );
   }
 
@@ -97,36 +107,36 @@ class _OrderViewBodyState extends State<OrderViewBody> {
             case 'انتظار':
               cubit.filterByStatus(OrderStatus.pending);
               break;
-
             case 'مؤكد':
               cubit.filterByStatus(OrderStatus.confirmed);
               break;
-
             case 'منتهي':
               cubit.filterByStatus(OrderStatus.delivered);
               break;
-
             case 'ملغي':
               cubit.filterByStatus(OrderStatus.cancelled);
               break;
-
           }
         },
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 2),
-          padding: const EdgeInsets.symmetric(vertical: 12,),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 250),
+          margin: EdgeInsets.symmetric(horizontal: 2.w),
+          padding: EdgeInsets.symmetric(vertical: 12.h),
           decoration: BoxDecoration(
-            color: isSelected ? AppColor.mainColor : Colors.transparent,
-            borderRadius: BorderRadius.circular(10),
+            color: isSelected
+                ? AppColor.mainColor
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(10.r),
           ),
           child: Center(
             child: Text(
               title,
               style: TextStyle(
-                color: isSelected
-                    ? Colors.white
-                    : Colors.grey.shade700,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w600,
+                color: isSelected
+                    ? AppColor.textPrimary
+                    : AppColor.textSecondary,
               ),
             ),
           ),

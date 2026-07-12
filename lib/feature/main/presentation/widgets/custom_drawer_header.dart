@@ -17,7 +17,7 @@ class CustomDrawerHeader extends StatelessWidget {
           radius: 25.r,
           backgroundColor: AppColor.border,
           backgroundImage: AssetImage(
-            Assets.images.img.path,
+            Assets.images.img1.path,
           ),
         ),
         title: Text(
@@ -27,7 +27,7 @@ class CustomDrawerHeader extends StatelessWidget {
           ),
         ),
         subtitle: Text(
-          'أحمد عماره',
+          'مصطفي ابراهيم',
           style: Theme.of(context).textTheme.labelMedium!.copyWith(
             color: AppColor.textSecondary,
           ),

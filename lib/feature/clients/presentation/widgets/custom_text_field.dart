@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
 
 import '../../../../core/utils/app_color.dart';
 
@@ -20,35 +21,31 @@ class CustomTextField extends StatelessWidget {
         style: Theme.of(context).textTheme.bodyMedium,
         decoration: InputDecoration(
           hintText: 'ابحث عن...',
+          hintStyle: StyleManager.font13Weight600,
           prefixIcon: Icon(
             Icons.search,
-            color: AppColor.mainColor.withOpacity(0.3),
+            color: AppColor.mainColor,
           ),
           filled: true,
-          fillColor: Colors.white,
-          suffixIcon: Icon(
-              Icons.filter_list_sharp
-          ),
-
-
+          fillColor: AppColor.card,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
             borderSide: BorderSide(
-                color:  Colors.grey.shade200
+                color:  AppColor.mainColor
             ),
           ),
 
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
             borderSide:  BorderSide(
-                color:  Colors.grey.shade200
+                color:  AppColor.background
             ),
           ),
 
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
             borderSide:  BorderSide(
-                color:   Colors.grey.shade200
+                color:   AppColor.mainColor
             ),
           ),
         ),

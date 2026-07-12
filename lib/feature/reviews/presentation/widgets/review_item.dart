@@ -63,36 +63,25 @@ class ReviewItem extends StatelessWidget {
           Column(
             children: [
               CachedNetworkImage(
-                width: 110.w,
-                height: 110.w,
-                imageUrl: product.image!,
-                fit: BoxFit.cover,
-                placeholder: (context, url) => const Center(
-                  child: Skeletonizer(
-                    child: SizedBox(),
+                imageUrl: product.image ?? '',
+                fit: BoxFit.contain,
+                fadeInDuration: const Duration(milliseconds: 250),
+                placeholder: (context, url) => Center(
+                  child: SizedBox(
+                    width: 100.w,
+                    height: 100.w,
+                    child: const CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: AppColor.mainColor,
+                    ),
                   ),
                 ),
-                errorWidget: (context, url, error) => Center(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10.w),
-                    decoration: BoxDecoration(
-                      color: AppColor.background,
-                      borderRadius: BorderRadius.circular(4.r),
-                      border: Border.all(
-                        color: AppColor.border,
-                      ),
-                    ),
-                    child: Center(
-                      child: Icon(
-                        Icons.image_not_supported_outlined,
-                        size: 50.sp,
-                        color: AppColor.textSecondary,
-                      ),
-                    ),
-                  ),
+                errorWidget: (context, url, error) => Icon(
+                  Icons.image_not_supported_outlined,
+                  size: 42.sp,
+                  color: AppColor.textSecondary,
                 ),
               ),
-
               SizedBox(height: 10.h),
 
               Text(

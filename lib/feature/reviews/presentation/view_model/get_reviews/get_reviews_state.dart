@@ -19,3 +19,10 @@ final class ReviewSuccess extends GetReviewsState {
 
   ReviewSuccess(this.reviews);
 }
+
+final class DeleteReviewFailure extends GetReviewsState {
+  final String errMessage;
+  DeleteReviewFailure(this.errMessage);
+}
+
+final class DeleteReviewSuccess extends GetReviewsState {}

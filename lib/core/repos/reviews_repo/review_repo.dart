@@ -8,4 +8,8 @@ abstract class ReviewRepo {
   Stream<Either<Failure, List<ReviewEntity>>> getReviews({required String productId});
 
   Stream<Either<Failure, List<ProductEntity>>> getProductsWithReviews();
-}
+
+  Future<Either<Failure, void>> deleteReview({
+    required String productId,
+    required String reviewId,
+  });}

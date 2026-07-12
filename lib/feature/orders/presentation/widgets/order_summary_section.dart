@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../../core/utils/app_color.dart';
 
 class OrderSummarySection extends StatelessWidget {
   const OrderSummarySection({
     super.key,
     required this.time,
-    required this.totalPrice, required this.deliveryCost,
-
+    required this.totalPrice,
+    required this.deliveryCost,
   });
 
   final String time;
@@ -16,30 +18,33 @@ class OrderSummarySection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 12,
-        vertical: 10,
+      padding: EdgeInsets.symmetric(
+        horizontal: 12.w,
+        vertical: 10.h,
       ),
       decoration: BoxDecoration(
-        color: Colors.grey.shade50,
-        borderRadius: BorderRadius.circular(12),
+        color: AppColor.card,
+        borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(
+          color: AppColor.border,
+        ),
       ),
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(6),
+            padding: EdgeInsets.all(7.w),
             decoration: BoxDecoration(
-              color: Colors.grey.shade200,
+              color: AppColor.mainColor.withOpacity(.15),
               shape: BoxShape.circle,
             ),
             child: Icon(
               Icons.access_time_rounded,
-              size: 15,
-              color: Colors.grey.shade700,
+              size: 16.sp,
+              color: AppColor.mainColor,
             ),
           ),
 
-          const SizedBox(width: 8),
+          SizedBox(width: 10.w),
 
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,12 +52,15 @@ class OrderSummarySection extends StatelessWidget {
               Text(
                 'وقت الطلب',
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                  color: Colors.grey,
+                  color: AppColor.textSecondary,
                 ),
               ),
+              SizedBox(height: 2.h),
               Text(
                 time,
-                style: Theme.of(context).textTheme.titleSmall,
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: AppColor.textPrimary,
+                ),
               ),
             ],
           ),
@@ -65,40 +73,24 @@ class OrderSummarySection extends StatelessWidget {
               Text(
                 'الإجمالي',
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                  color: Colors.grey,
+                  color: AppColor.textSecondary,
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${totalPrice.toStringAsFixed(2)} ج.م',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: AppColor.mainColor,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Text(
-                    '+${deliveryCost.toStringAsFixed(2)}',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: Colors.amber.shade800,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 4),
-                    color: Colors.grey.shade300,
-                    height: 1,
-                    width: 50,
-                  ),
-                  Text(
-                    '${(totalPrice + deliveryCost).toStringAsFixed(2)} ج.م',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: AppColor.mainColor,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ],
+
+              SizedBox(height: 4.h),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 4.h),
+                width: 60.w,
+                height: 1.h,
+                color: AppColor.border,
+              ),
+
+              Text(
+                '${(totalPrice + deliveryCost).toStringAsFixed(2)} ج.م',
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: AppColor.mainColor,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),

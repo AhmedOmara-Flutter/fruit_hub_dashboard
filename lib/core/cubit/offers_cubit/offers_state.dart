@@ -27,3 +27,10 @@ class DeleteOfferFailure extends OfferState {
   final String message;
   DeleteOfferFailure(this.message);
 }
+
+class DeleteAllOfferLoading extends OfferState {}
+class DeleteAllOfferSuccess extends OfferState {}
+class DeleteAllOfferFailure extends OfferState {
+  final String message;
+  DeleteAllOfferFailure(this.message);
+}

@@ -1,223 +1,239 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
-import '../../../../core/helper_function/custom_show_dialog.dart';
-import '../../../../core/helper_function/custom_show_snake_bar.dart';
-import '../../../../core/utils/app_color.dart';
 import '../../../../core/entities/offer_entity.dart';
+import '../../../../core/helper_function/custom_show_dialog.dart';
+import '../../../../core/utils/app_color.dart';
 
 class OfferProductCard extends StatelessWidget {
   final OfferEntity offer;
 
-  const OfferProductCard({super.key, required this.offer,});
+  const OfferProductCard({super.key, required this.offer});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-    padding: const EdgeInsets.all(10),
-    decoration: BoxDecoration(
-      border: Border.all(color: Colors.grey.shade200),
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(10),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(.05),
-          blurRadius: 10,
-          offset: const Offset(0, 4),
-        ),
-      ],
-    ),
-    child: Row(
-      children: [
-        // Image
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Image.network(
-            offer.image,
-            width: 80,
-            height: 80,
-            fit: BoxFit.cover,
+      padding: EdgeInsets.all(10.w),
+      decoration: BoxDecoration(
+        color: AppColor.card,
+        borderRadius: BorderRadius.circular(10.r),
+        border: Border.all(color: AppColor.border),
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.black.withOpacity(.2),
+            blurRadius: 10.r,
+            offset: Offset(0, 4.h),
           ),
-        ),
-
-        const SizedBox(width: 12),
-
-        // Middle content
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                offer.name,
-                style: Theme.of(context)
-                    .textTheme
-                    .labelSmall!
-                    .copyWith(color: Colors.black),
-              ),
-
-              const SizedBox(height: 6),
-
-              Text(
-                "قبل الخصم: ${offer.priceBeforeDiscount.toStringAsFixed(2)} جنيه",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium!
-                    .copyWith(color: Colors.grey[700]),
-              ),
-
-              const SizedBox(height: 6),
-
-              // Start & End Dates
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // left labels + arrow
-                  Column(
-                    children: [
-                      Text(
-                        "من",
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                      const SizedBox(height: 4),
-                      const Icon(
-                        Icons.arrow_downward,
-                        size: 18,
-                        color: Colors.grey,
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        "إلى",
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ],
+        ],
+      ),
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12.r),
+            child: Container(
+              width: 90.w,
+              height: 90.h,
+              child: CachedNetworkImage(
+                imageUrl: offer.image,
+                fit: BoxFit.contain,
+                placeholder: (context, url) => Center(
+                  child: SizedBox(
+                    width: 20.w,
+                    height: 20.w,
+                    child: const CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: AppColor.mainColor,
+                    ),
                   ),
+                ),
+                errorWidget: (context, url, error) => Icon(
+                  Icons.image_not_supported_outlined,
+                  color: AppColor.textSecondary,
+                  size: 28.sp,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  offer.name,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.labelSmall!.copyWith(color: AppColor.textPrimary),
+                ),
 
-                  const SizedBox(width: 10),
+                SizedBox(height: 6.h),
 
-                  // dates
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                Text(
+                  "قبل الخصم: ${offer.priceBeforeDiscount.toStringAsFixed(2)} جنيه",
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: AppColor.textSecondary,
+                  ),
+                ),
+
+                SizedBox(height: 8.h),
+
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
                       children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.blue.withOpacity(0.08),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(
-                            _formatDate(offer.startDate),
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
+                        Text(
+                          "من",
+                          style: Theme.of(context).textTheme.bodySmall!
+                              .copyWith(color: AppColor.textSecondary),
                         ),
-
-                        const SizedBox(height: 18),
-
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.green.withOpacity(0.08),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(
-                            _formatDate(offer.endDate),
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
+                        SizedBox(height: 4.h),
+                        Icon(
+                          Icons.arrow_downward,
+                          size: 18.sp,
+                          color: AppColor.textSecondary,
+                        ),
+                        SizedBox(height: 4.h),
+                        Text(
+                          "إلى",
+                          style: Theme.of(context).textTheme.bodySmall!
+                              .copyWith(color: AppColor.textSecondary),
                         ),
                       ],
                     ),
+
+                    SizedBox(width: 10.w),
+
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10.w,
+                              vertical: 6.h,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColor.mainColor.withOpacity(.08),
+                              borderRadius: BorderRadius.circular(8.r),
+                            ),
+                            child: Text(
+                              _formatDate(offer.startDate),
+                              style: Theme.of(context).textTheme.bodyMedium!
+                                  .copyWith(color: AppColor.textPrimary),
+                            ),
+                          ),
+
+                          SizedBox(height: 18.h),
+
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10.w,
+                              vertical: 6.h,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColor.accentColor.withOpacity(.08),
+                              borderRadius: BorderRadius.circular(8.r),
+                            ),
+                            child: Text(
+                              _formatDate(offer.endDate),
+                              style: Theme.of(context).textTheme.bodyMedium!
+                                  .copyWith(color: AppColor.textPrimary),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          SizedBox(width: 10.w),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.only(bottom: 6.h),
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+                decoration: BoxDecoration(
+                  color: AppColor.mainColor.withOpacity(.12),
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                child: Text(
+                  "${offer.discountPercentage}% خصم",
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: AppColor.mainColor,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
-              )
+                ),
+              ),
+
+              Text(
+                "بعد الخصم",
+                style: Theme.of(
+                  context,
+                ).textTheme.titleSmall!.copyWith(color: AppColor.textSecondary),
+              ),
+
+              SizedBox(height: 2.h),
+
+              Text(
+                "${offer.priceAfterDiscount.toStringAsFixed(2)} جنيه",
+                style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                  color: AppColor.mainColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              SizedBox(height: 10.h),
+
+              InkWell(
+                onTap: () async {
+                  CustomShowDialog.show(
+                    context,
+                    title: 'حذف العرض',
+                    content: const Text(
+                      'هل أنت متأكد أنك تريد حذف هذا العرض؟',
+                      textAlign: TextAlign.center,
+                    ),
+                    cancel: () => Navigator.pop(context),
+                    accept: () async {
+                      Navigator.pop(context);
+                      await context.read<OffersCubit>().deleteOffer(offer);
+                    },
+                    flag: Icons.local_offer_outlined,
+                    color: AppColor.red,
+                  );
+                },
+                borderRadius: BorderRadius.circular(8.r),
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 15.w,
+                    vertical: 6.h,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColor.red.withOpacity(.12),
+                    borderRadius: BorderRadius.circular(8.r),
+                    border: Border.all(color: AppColor.red),
+                  ),
+                  child: Icon(
+                    Icons.delete_outline,
+                    color: AppColor.red,
+                    size: 20.sp,
+                  ),
+                ),
+              ),
             ],
           ),
-        ),
-
-        const SizedBox(width: 10),
-
-        // Right section
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Discount badge
-            Container(
-              margin: const EdgeInsets.only(bottom: 5),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              decoration: BoxDecoration(
-                color: Colors.green.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                "${offer.discountPercentage} % خصم",
-                style: Theme.of(context)
-                    .textTheme
-                    .titleSmall!
-                    .copyWith(color: AppColor.mainColor),
-              ),
-            ),
-
-            Text(
-              "بعد الخصم",
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
-
-            Text(
-              "${offer.priceAfterDiscount.toStringAsFixed(2)} جنيه",
-              style: Theme.of(context)
-                  .textTheme
-                  .labelSmall!
-                  .copyWith(color: AppColor.mainColor),
-            ),
-
-            const SizedBox(height: 8),
-
-            // Delete button
-            InkWell(
-              onTap: () async {
-                CustomShowDialog.show(
-                  context,
-                  title: 'حذف العرض',
-                  content: Text(
-                    'هل أنت متأكد أنك تريد حذف هذا العرض؟',
-                    textAlign: TextAlign.center,
-                  ),
-                  cancel: () => Navigator.pop(context),
-                  accept: () async {
-                    Navigator.pop(context);
-                    await context.read<OffersCubit>().deleteOffer(offer);
-                  },
-                  flag: Icons.local_offer_outlined,
-                  color: Colors.red,
-                );
-              },
-              borderRadius: BorderRadius.circular(8),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal:15,vertical: 6),
-                decoration: BoxDecoration(
-                  color: Colors.red.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.red),
-                ),
-                child: const Icon(
-                  Icons.delete_outline,
-                  color: Colors.red,
-                  size: 20,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    ),
-        );
+        ],
+      ),
+    );
   }
+
   String _formatDate(DateTime date) {
     return '${date.day}/${date.month}/${date.year}';
   }

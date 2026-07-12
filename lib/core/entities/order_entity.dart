@@ -16,6 +16,8 @@ class OrderEntity {
   final OrderStatus status;
   SelectedLocationEntity ?selectedLocationEntity;
   String? orderNote;
+  String? paymentImage;
+
 
 
 
@@ -30,6 +32,7 @@ class OrderEntity {
      this.id,
     this.selectedLocationEntity,
     this.orderNote,
+    this.paymentImage,
   });
 
   OrderEntity copyWith({
@@ -43,6 +46,7 @@ class OrderEntity {
     OrderStatus? status,
     SelectedLocationEntity? selectedLocationEntity,
     String? orderNote,
+    String? paymentImage,
   }) {
     return OrderEntity(
       uId: uId ?? this.uId,
@@ -56,6 +60,8 @@ class OrderEntity {
       selectedLocationEntity:
       selectedLocationEntity ?? this.selectedLocationEntity,
       orderNote: orderNote ?? this.orderNote,
+      paymentImage: paymentImage ?? this.paymentImage,
+
 
     );
   }

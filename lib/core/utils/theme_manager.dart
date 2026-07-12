@@ -13,6 +13,12 @@ class ThemeManager {
       titleTextStyle: StyleManager.font19Weight700,
       iconTheme: IconThemeData(color: Colors.black),
     ),
+
+    textSelectionTheme: const TextSelectionThemeData(
+      cursorColor: AppColor.mainColor,
+      selectionColor: AppColor.mainColor,
+      selectionHandleColor: AppColor.mainColor,
+    ),
     ///elevated button
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(

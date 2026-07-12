@@ -20,6 +20,8 @@ class OrderModel {
   String? id;
   final SelectedLocationModel selectedLocation;
   String? orderNote;
+  String? paymentImage;
+
 
   OrderModel({
     required this.uId,
@@ -33,6 +35,7 @@ class OrderModel {
     this.id,
     required this.selectedLocation,
     this.orderNote,
+    this.paymentImage,
   });
 
   factory OrderModel.fromEntity(OrderEntity entity) {
@@ -52,6 +55,7 @@ class OrderModel {
         entity.selectedLocationEntity!,
       ),
       orderNote: entity.orderNote,
+      paymentImage: entity.paymentImage,
     );
   }
 
@@ -69,6 +73,7 @@ class OrderModel {
       id: id,
       selectedLocationEntity: selectedLocation.toEntity(),
       orderNote: orderNote,
+      paymentImage: paymentImage,
     );
   }
 
@@ -92,6 +97,7 @@ class OrderModel {
         json['selectedLocation'],
       ),
       orderNote: json['orderNote'],
+      paymentImage: json['paymentImage'],
     );
   }
 
@@ -108,6 +114,7 @@ class OrderModel {
       'id': id,
       'selectedLocation': selectedLocation.toJson(),
       'orderNote': orderNote,
+      'paymentImage': paymentImage,
     };
   }
 }

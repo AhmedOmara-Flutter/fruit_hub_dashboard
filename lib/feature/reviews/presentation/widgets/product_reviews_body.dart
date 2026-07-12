@@ -80,6 +80,7 @@ class _ProductReviewsViewBodyState
 
           BlocBuilder<GetReviewsCubit, GetReviewsState>(
             builder: (context, state) {
+
               if (state is ReviewError) {
                 return SliverToBoxAdapter(
                   child: Center(
@@ -118,22 +119,16 @@ class _ProductReviewsViewBodyState
                   );
                 }
 
-                return SliverList.separated(
+                return SliverList.builder(
                   itemCount: reviews.length,
-                  separatorBuilder: (context, index) =>
-                      SizedBox(height: 10.h),
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(top: 10.h),
-                      child: ReviewCard(
-                        review: ReviewEntity(
-                          name: reviews[index].name,
-                          image: reviews[index].image,
-                          reviewDescription:
-                          reviews[index].reviewDescription,
-                          rating: reviews[index].rating,
-                          date: reviews[index].date,
-                        ),
+                    return ReviewCard(
+                      review: ReviewEntity(
+                        name: reviews[index].name,
+                        reviewDescription:
+                        reviews[index].reviewDescription,
+                        rating: reviews[index].rating,
+                        date: reviews[index].date,
                       ),
                     );
                   },
@@ -148,14 +143,6 @@ class _ProductReviewsViewBodyState
                   return Padding(
                     padding: EdgeInsets.only(top: 10.h),
                     child: SkeletonizerReviewCard(
-                      review: ReviewEntity(
-                        name: 'Ahmed Omara',
-                        image: Assets.images.img.path,
-                        reviewDescription:
-                        'هذا النص عبارة عن بيانات وهمية',
-                        rating: 5,
-                        date: 'اليوم',
-                      ),
                     ),
                   );
                 },

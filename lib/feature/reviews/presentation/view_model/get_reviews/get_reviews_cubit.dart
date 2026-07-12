@@ -30,6 +30,21 @@ class GetReviewsCubit extends Cubit<GetReviewsState> {
     });
 
   }
+
+  Future<void> deleteReview({
+    required String productId,
+    required String reviewId,
+  }) async {
+    final result = await _reviewRepo.deleteReview(
+      productId: productId,
+      reviewId: reviewId,
+    );
+
+    result.fold(
+          (failure) => emit(DeleteReviewFailure(failure.errMessage)),
+          (_) => emit(DeleteReviewSuccess()),
+    );
+  }
   @override
   Future<void> close() {
     _reviewsSubscription?.cancel();

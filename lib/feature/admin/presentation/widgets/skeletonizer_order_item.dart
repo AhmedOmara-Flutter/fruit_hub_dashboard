@@ -1,97 +1,78 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
+import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
+import 'package:fruit_hub_dashboard/generated/assets.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../../generated/assets.dart';
-
 class SkeletonizerOrderItem extends StatelessWidget {
-  final String image;
-  final String amount;
-  final String status;
-  final Color statusColor;
-  final String customerName;
-  final String time;
-  final String products;
-
-  const SkeletonizerOrderItem({
-    super.key,
-    required this.image,
-    required this.amount,
-    required this.status,
-    required this.statusColor,
-    required this.customerName,
-    required this.time,
-    required this.products,
-  });
+  const SkeletonizerOrderItem({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Skeletonizer(
+      enabled: true,
+      effect: const ShimmerEffect(
+        baseColor: Color(0xFF2A2A2A),
+        highlightColor: Color(0xFF3A3A3A),
+        duration: Duration(milliseconds: 1200),
+      ),
       child: Container(
-        margin: const EdgeInsets.symmetric(
-          vertical: 6,
+        margin: EdgeInsets.symmetric(
+          vertical: 6.h,
         ),
-        padding: const EdgeInsets.all(14),
+        padding: EdgeInsets.all(14.w),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: Colors.grey.shade200),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(.05),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
-            ),
-          ],
+          color: AppColor.card,
+          borderRadius: BorderRadius.circular(18.r),
+          border: Border.all(
+            color: AppColor.border,
+          ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(200),
-              child: Container(
-                height: 70,
-                width: 70,
-                decoration:BoxDecoration(
-                    shape: BoxShape.circle
-                ) ,
-                child: Image.asset(image)
+            ClipOval(
+              child: Image.asset(
+                Assets.images.customer.path,
+                width: 68.w,
+                height: 68.h,
+                fit: BoxFit.cover,
               ),
             ),
-      
-            const SizedBox(width: 12),
-      
+
+            SizedBox(width: 12.w),
+
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    customerName,
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: Colors.black,
+                    'Ahmed Mohamed',
+                    style: StyleManager.font13Weight600.copyWith(
+                      color: AppColor.mainColor,
                     ),
                   ),
-      
-                  const SizedBox(height: 6),
-      
+
+                  SizedBox(height: 6.h),
+
                   Text(
-                    products,
-                    style:Theme.of(context).textTheme.titleSmall,
+                    'كريب سوبر + بيتزا رانش + ',
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
-      
-                  const SizedBox(height: 8),
-      
+
+                  SizedBox(height: 8.h),
+
                   Row(
                     children: [
                       Icon(
                         Icons.access_time_rounded,
-                        size: 14,
-                        color: Colors.grey.shade600,
+                        size: 14.sp,
+                        color: AppColor.textSecondary,
                       ),
-                      const SizedBox(width: 4),
+                      SizedBox(width: 4.w),
                       Text(
-                        time,
+                        'منذ 5 دقائق',
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ],
@@ -99,37 +80,36 @@ class SkeletonizerOrderItem extends StatelessWidget {
                 ],
               ),
             ),
-      
-            const SizedBox(width: 10),
-      
+
+            SizedBox(width: 10.w),
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 5,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 5.h,
                   ),
                   decoration: BoxDecoration(
-                    // color: statusColor.withOpacity(.12),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(20.r),
                   ),
                   child: Text(
-                    status,
+                    '',
                     style: TextStyle(
-                      // color: statusColor,
                       fontWeight: FontWeight.w600,
-                      fontSize: 12,
+                      fontSize: 12.sp,
+                      color: Colors.orange,
                     ),
                   ),
                 ),
-      
-                const SizedBox(height: 12),
-      
+
+                SizedBox(height: 12.h),
+
                 Text(
-                  '$amount ج.م',
+                  '250.00 ج.م',
                   style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                      color: AppColor.mainColor
+                    color: AppColor.mainColor,
                   ),
                 ),
               ],

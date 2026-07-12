@@ -1,72 +1,87 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/entities/order_entity.dart';
+import 'package:fruit_hub_dashboard/core/entities/user_entity.dart';
 import 'package:fruit_hub_dashboard/core/helper_function/make_full_name.dart';
+import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/utils/route_manager.dart';
-import 'package:skeletonizer/skeletonizer.dart';
+import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
+import 'package:fruit_hub_dashboard/generated/assets.dart';
 
-import '../../../../core/entities/user_entity.dart';
-import '../../../../generated/assets.dart';
 import 'customer_info_item.dart';
 
 class CustomerCard extends StatelessWidget {
   final UserEntity user;
   final List<OrderEntity> orders;
 
-  const CustomerCard({super.key, required this.user, required this.orders});
+  const CustomerCard({
+    super.key,
+    required this.user,
+    required this.orders,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final totalAmount =
+        orders.fold(
+          0.0,
+              (sum, order) => sum + order.cartEntity.getTotalPrice(),
+        ) +
+            orders.fold(
+              0.0,
+                  (sum, order) => sum + order.selectedLocationEntity!.cost,
+            );
+
     return Container(
-      padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.only(left: 8, right: 8, bottom: 5),
+      margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+      padding: EdgeInsets.all(14.w),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade200),
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        color: AppColor.card,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(
+          color: AppColor.border,
+        ),
       ),
       child: Column(
         children: [
           Row(
             children: [
-              ClipOval(
-                child: Image.asset(
+              CircleAvatar(
+                radius: 28.r,
+                backgroundColor: AppColor.mainColor.withOpacity(.15),
+                backgroundImage: AssetImage(
                   Assets.images.customer.path,
-                  width: 80,
-                  height: 880,
-                  fit: BoxFit.cover,
                 ),
               ),
-              const SizedBox(width: 12),
+
+              SizedBox(width: 12.w),
+
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       makeFullName(user.userName),
-                      style: Theme.of(
-                        context,
-                      ).textTheme.labelMedium!.copyWith(color: Colors.black),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      user.email,
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: Colors.grey.shade500,
+                      style: StyleManager.font13Weight600.copyWith(
+                        color: AppColor.white,
                       ),
                     ),
-                    SizedBox(height: 2),
+
+                    SizedBox(height: 4.h),
+
+                    Text(
+                      user.email,
+                      style: StyleManager.font12Weight500.copyWith(
+                        color: AppColor.textSecondary,
+                      ),
+                    ),
+
+                    SizedBox(height: 2.h),
+
                     Text(
                       user.phone,
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: Colors.grey.shade500,
+                      style: StyleManager.font12Weight500.copyWith(
+                        color: AppColor.textSecondary,
                       ),
                     ),
                   ],
@@ -74,57 +89,53 @@ class CustomerCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              CustomerInfoItem(
-                icon: Icons.shopping_bag_outlined,
-                title: "${orders.length}",
-                subtitle: "طلبات",
-              ),
-              CustomerInfoItem(
-                icon: Icons.payments_outlined,
-                title:
-                    '${orders.fold(0.0, (sum, order) => sum + order.cartEntity.getTotalPrice()) + orders.fold(0.0, (sum, order) => sum + order.selectedLocationEntity!.cost)}',
 
-                subtitle: "إجمالي الشراء",
+          SizedBox(height: 14.h),
+
+          Row(
+            children: [
+              Expanded(
+                child: CustomerInfoItem(
+                  icon: Icons.shopping_bag_outlined,
+                  title: '${orders.length}',
+                  subtitle: 'طلبات',
+                ),
+              ),
+
+              SizedBox(width: 10.w),
+
+              Expanded(
+                child: CustomerInfoItem(
+                  icon: Icons.payments_outlined,
+                  title: '${totalAmount.toStringAsFixed(0)} ج.م',
+                  subtitle: 'إجمالي الشراء',
+                ),
               ),
             ],
           ),
 
-          const SizedBox(height: 10),
-          if (orders.isNotEmpty)
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(top: 10),
-                    padding: EdgeInsets.symmetric(vertical: 5),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: Colors.grey.shade300),
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          RouteManager.displayOrders,
-                          arguments: orders,
-                        );
-                      },
-                      child: Text(
-                        'عرض الطلبات',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(
-                          context,
-                        ).textTheme.titleSmall!.copyWith(color: Colors.black),
-                      ),
-                    ),
+          if (orders.isNotEmpty) ...[
+            SizedBox(height: 14.h),
+
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    RouteManager.displayOrders,
+                    arguments: orders,
+                  );
+                },
+                child: Text(
+                  'عرض الطلبات',
+                  style: StyleManager.font13Weight600.copyWith(
+                    color: Colors.white,
                   ),
                 ),
-              ],
+              ),
             ),
+          ],
         ],
       ),
     );

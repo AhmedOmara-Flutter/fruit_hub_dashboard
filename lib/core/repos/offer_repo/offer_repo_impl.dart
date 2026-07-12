@@ -51,8 +51,7 @@ class OfferRepoImpl implements OfferRepo {
   }
 
   @override
-  Future<Either<Failure, void>> updateOffer(OfferEntity offer) {
-    // TODO: implement updateOffer
-    throw UnimplementedError();
+  Future<void> deleteCollection(String collectionName)async {
+    return await _databaseServices.deleteCollection(collectionName);
   }
 }

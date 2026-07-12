@@ -30,6 +30,7 @@ class $AssetsImagesGen {
     'assets/images/gallery.png',
   );
   final AssetGenImage img = const AssetGenImage('assets/images/img.png');
+  final AssetGenImage img1 = const AssetGenImage('assets/images/img_1.png');
   final AssetGenImage medal = const AssetGenImage('assets/images/medal.png');
   final AssetGenImage medal1 = const AssetGenImage(
     'assets/images/medal (1).png',
@@ -63,9 +64,6 @@ class $AssetsJsonGen {
   const $AssetsJsonGen();
 
   final String empty = 'assets/json/empty.json';
-  final LottieGenImage emptyCommit = const LottieGenImage(
-    'assets/json/empty_commit.json',
-  );
 }
 
 class AssetGenImage {

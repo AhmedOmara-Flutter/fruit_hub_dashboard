@@ -41,7 +41,6 @@ class ProductActionsSection extends StatelessWidget {
     );
   }
 }
-
 class RemoveProductButton extends StatelessWidget {
   const RemoveProductButton({
     super.key,
@@ -61,24 +60,16 @@ class RemoveProductButton extends StatelessWidget {
             label: state.errMessage,
           );
         }
-
-        if (state is DeleteProductSuccess) {
-          customShowSnakeBar(
-            context,
-            color: AppColor.mainColor,
-            label: 'تم حذف المنتج بنجاح',
-          );
-        }
       },
       child: Expanded(
         child: Container(
           margin: EdgeInsets.only(top: 10.h),
           padding: EdgeInsets.symmetric(vertical: 10.h),
           decoration: BoxDecoration(
-            color: AppColor.red,
+            color: AppColor.red.withOpacity(0.5),
             borderRadius: BorderRadius.circular(5.r),
             border: Border.all(
-              color: AppColor.border,
+              color: AppColor.red.withOpacity(0.7),
             ),
           ),
           child: InkWell(
@@ -124,7 +115,6 @@ class RemoveOfferButton extends StatelessWidget {
     required this.offer,
     required this.product,
   });
-
   final bool hasOffer;
   final OfferEntity? offer;
   final ProductEntity product;
@@ -133,14 +123,6 @@ class RemoveOfferButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<OffersCubit, OfferState>(
       listener: (context, state) {
-        if (state is DeleteOfferSuccess) {
-          customShowSnakeBar(
-            context,
-            color: AppColor.mainColor,
-            label: 'تم حذف العرض بنجاح',
-          );
-        }
-
         if (state is DeleteOfferFailure) {
           customShowSnakeBar(
             context,
@@ -154,7 +136,8 @@ class RemoveOfferButton extends StatelessWidget {
           margin: EdgeInsets.only(top: 10.h),
           padding: EdgeInsets.symmetric(vertical: 10.h),
           decoration: BoxDecoration(
-            color: hasOffer ? AppColor.red : AppColor.card,
+            color: hasOffer ? AppColor.mainColor.withOpacity(0.8) : AppColor
+                .card,
             borderRadius: BorderRadius.circular(5.r),
             border: Border.all(
               color: AppColor.border,
@@ -185,7 +168,7 @@ class RemoveOfferButton extends StatelessWidget {
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
-                  backgroundColor: AppColor.white,
+                  backgroundColor: AppColor.background,
                   builder: (_) => AddOfferBottomSheet(
                     product: product,
                   ),
@@ -205,13 +188,11 @@ class RemoveOfferButton extends StatelessWidget {
     );
   }
 }
-
 class EditProductButton extends StatelessWidget {
   const EditProductButton({
     super.key,
     required this.product,
   });
-
   final ProductEntity product;
 
   @override
@@ -221,10 +202,10 @@ class EditProductButton extends StatelessWidget {
         margin: EdgeInsets.only(top: 10.h),
         padding: EdgeInsets.symmetric(vertical: 10.h),
         decoration: BoxDecoration(
-          color: AppColor.mainColor,
+          color: AppColor.green.withOpacity(0.5),
           borderRadius: BorderRadius.circular(5.r),
           border: Border.all(
-            color: AppColor.border,
+            color: AppColor.green.withOpacity(0.7),
           ),
         ),
         child: InkWell(

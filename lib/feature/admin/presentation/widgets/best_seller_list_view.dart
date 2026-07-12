@@ -12,9 +12,8 @@ class BestSellerListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<OrdersCubit, OrdersState>(
       builder: (context, state) {
-
         final cubit = context.watch<OrdersCubit>();
-        bool isLoading = cubit.state is  GetOrdersLoadingState;
+        bool isLoading = cubit.state is GetOrdersLoadingState;
         final topProducts = cubit.topProducts;
 
         if (isLoading)
@@ -22,23 +21,18 @@ class BestSellerListView extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 2,
-            itemBuilder: (context, index) =>SkeletonizerProductItem(
-              productName: 'topProducts',
-              orderCount:'00.00',
-              image: Assets.images.img.path,
-              medal: Assets.images.rise.path,
-
-            ),
-            separatorBuilder: (_, __) =>
-                Divider(color: Colors.grey.shade200),
+            itemBuilder: (context, index) => SkeletonizerProductItem(),
+            separatorBuilder: (_, __) => SizedBox(height: 10),
           );
 
         if (topProducts.isEmpty) {
-          return Container(margin: EdgeInsets.only(bottom: 10),
-              child: Text('لا يوجد حاليا اكثر منتجات مبيعا', style: Theme
-                  .of(context)
-                  .textTheme
-                  .labelLarge,));
+          return Container(
+            margin: EdgeInsets.only(bottom: 10),
+            child: Text(
+              'لا يوجد حاليا اكثر منتجات مبيعا',
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
+          );
         }
         return ListView.separated(
           shrinkWrap: true,
@@ -50,11 +44,9 @@ class BestSellerListView extends StatelessWidget {
             image: topProducts[index].image,
             medal: cubit.medals[index],
           ),
-          separatorBuilder: (context, index) =>
-              Divider(color: Colors.grey.shade200),
+          separatorBuilder: (context, index) => SizedBox(height: 10),
         );
       },
-    );  }
+    );
+  }
 }
-
-

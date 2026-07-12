@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../generated/assets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -72,7 +73,9 @@ class ProductItem extends StatelessWidget {
               children: [
                 Text(
                   productName,
-                  style: Theme.of(context).textTheme.labelLarge,
+                  style: StyleManager.font13Weight600.copyWith(
+                    color: AppColor.mainColor
+                  ),
                 ),
 
                 SizedBox(height: 4.h),

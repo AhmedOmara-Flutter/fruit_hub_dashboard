@@ -89,13 +89,13 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
               children: [
                 SizedBox(height: 20.h),
                 Icon(
-                  Icons.photo_outlined,
+                  Icons.add_photo_alternate_outlined,
                   color: AppColor.mainColor,
                   size: 40.sp,
                 ),
                 SizedBox(height: 10.h),
                 Text(
-                  'اضغط لإضافة صورة',
+                  'اضافة صورة',
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium

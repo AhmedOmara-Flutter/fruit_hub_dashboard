@@ -9,5 +9,6 @@ abstract class OfferRepo {
 
   Future<Either<Failure, void>> deleteOffer(String offerId,);
 
-  Future<Either<Failure, void>> updateOffer(OfferEntity offer,);
+  Future<void> deleteCollection(String collectionName);
+
 }

@@ -16,7 +16,6 @@ class _AdminViewState extends State<AdminView> {
   @override
   void initState() {
     super.initState();
-
     final ordersCubit = context.read<OrdersCubit>();
     final offersCubit = context.read<OffersCubit>();
 

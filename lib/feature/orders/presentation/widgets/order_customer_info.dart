@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/helper_function/make_call_function.dart';
 import '../../../../core/utils/app_color.dart';
@@ -25,96 +26,118 @@ class OrderCustomerInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        makePhoneCall(phone);
-      },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            customerName,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(
-              context,
-            ).textTheme.titleMedium!.copyWith(color: Colors.black87),
-          ),
 
-          const SizedBox(height: 4),
-          Text(
-            '#اوردر - $orderId',
-            style: Theme.of(
-              context,
-            ).textTheme.labelSmall!.copyWith(color: Colors.grey.shade600),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          customerName,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.titleMedium!.copyWith(
+            color: AppColor.textPrimary,
           ),
-          const SizedBox(height: 6),
-          Row(
-            children: [
-              const Icon(Icons.phone, color: Colors.green, size: 16),
-              const SizedBox(width: 4),
-              Text(
+        ),
+
+        SizedBox(height: 4.h),
+
+        Text(
+          '#اوردر - $orderId',
+          style: Theme.of(context).textTheme.labelSmall!.copyWith(
+            color: AppColor.textSecondary,
+          ),
+        ),
+
+        SizedBox(height: 6.h),
+
+        Row(
+          children: [
+            Icon(
+              Icons.phone,
+              color: AppColor.mainColor,
+              size: 16.sp,
+            ),
+            SizedBox(width: 4.w),
+            Expanded(
+              child: Text(
                 phone,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyLarge!.copyWith(color: Colors.grey.shade600),
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: AppColor.textSecondary,
+                ),
               ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          Row(
-            children: [
-              const Icon(
-                Icons.business_outlined,
-                color: Colors.green,
-                size: 16,
-              ),
-              const SizedBox(width: 4),
-              Text(
+            ),
+          ],
+        ),
+
+        SizedBox(height: 4.h),
+
+        Row(
+          children: [
+            Icon(
+              Icons.business_outlined,
+              color: AppColor.mainColor,
+              size: 16.sp,
+            ),
+            SizedBox(width: 4.w),
+            Expanded(
+              child: Text(
                 location,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyLarge!.copyWith(color: Colors.grey.shade600),
-              ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          Row(
-            children: [
-              const Icon(Icons.location_on, color: Colors.green, size: 16),
-              const SizedBox(width: 4),
-              Expanded(
-                child: Text(
-                  address,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyLarge!.copyWith(color: Colors.grey.shade600),
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: AppColor.textSecondary,
                 ),
               ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Text(
-                  products,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleSmall!.copyWith(color: AppColor.mainColor),
+            ),
+          ],
+        ),
+
+        SizedBox(height: 4.h),
+
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(
+              Icons.location_on,
+              color: AppColor.mainColor,
+              size: 16.sp,
+            ),
+            SizedBox(width: 4.w),
+            Expanded(
+              child: Text(
+                address,
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: AppColor.textSecondary,
                 ),
               ),
-              Text(
-                price,
-                style: Theme.of(
-                  context,
-                ).textTheme.labelLarge!.copyWith(color: AppColor.mainColor),
+            ),
+          ],
+        ),
+
+        SizedBox(height: 6.h),
+
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Text(
+                products,
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: AppColor.mainColor,
+                ),
               ),
-            ],
-          ),
-        ],
-      ),
+            ),
+
+            SizedBox(width: 8.w),
+
+            Text(
+              price,
+              style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                color: AppColor.mainColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
