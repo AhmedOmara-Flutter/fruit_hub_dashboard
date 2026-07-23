@@ -8,6 +8,7 @@ import 'package:fruit_hub_dashboard/core/utils/route_manager.dart';
 import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
 import 'package:fruit_hub_dashboard/generated/assets.dart';
 
+import '../../../../core/helper_function/make_call_function.dart';
 import 'customer_info_item.dart';
 
 class CustomerCard extends StatelessWidget {
@@ -78,10 +79,15 @@ class CustomerCard extends StatelessWidget {
 
                     SizedBox(height: 2.h),
 
-                    Text(
-                      user.phone,
-                      style: StyleManager.font12Weight500.copyWith(
-                        color: AppColor.textSecondary,
+                    GestureDetector(
+                      onTap: () {
+                        makePhoneCall(user.phone);
+                      },
+                      child: Text(
+                        user.phone,
+                        style: StyleManager.font12Weight500.copyWith(
+                          color: AppColor.textSecondary,
+                        ),
                       ),
                     ),
                   ],

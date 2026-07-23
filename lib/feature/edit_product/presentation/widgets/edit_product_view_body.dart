@@ -42,6 +42,7 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
     const DropdownMenuItem(value: 'بيتزا', child: Text('بيتزا')),
     const DropdownMenuItem(value: 'كريب لحوم', child: Text('كريب لحوم')),
     const DropdownMenuItem(value: 'كريب دجاج', child: Text('كريب دجاج')),
+    const DropdownMenuItem(value: 'كريب ميكس', child: Text('كريب ميكس')),
     const DropdownMenuItem(value: 'سندوتشات سوري', child: Text('سندوتشات سوري')),
     const DropdownMenuItem(value: 'مكرونات', child: Text('مكرونات')),
     const DropdownMenuItem(value: 'مشويات', child: Text('مشويات')),

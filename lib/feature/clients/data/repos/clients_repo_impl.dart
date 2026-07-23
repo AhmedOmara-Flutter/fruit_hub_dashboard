@@ -14,7 +14,10 @@ class ClientsRepoImpl implements ClientsRepo {
   Stream<Either<Failure, List<UserEntity>>> getClients() async* {
     try {
       await for (var (data as List<Map<String, dynamic>>)
-          in _databaseServices.getStreamData(path: 'users')) {
+          in _databaseServices.getStreamData(
+            path: 'users',
+            query: {'orderBy': 'userName', 'descending': false},
+          )) {
         List<UserEntity> clients = data
             .map((user) => UserModel.fromJson(user).toEntity())
             .toList();

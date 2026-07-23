@@ -78,29 +78,52 @@ class PaymentCardSection extends StatelessWidget {
               ],
             ),
           ),
-
           if (paymentImage != null) ...[
             SizedBox(height: 12.h),
-
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12.r),
-              child: CachedNetworkImage(
-                imageUrl: paymentImage!,
-                height: 180.h,
-                width: double.infinity,
-                fit: BoxFit.cover,
-                placeholder: (_, __) => Container(
+            GestureDetector(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  barrierColor: Colors.black87,
+                  builder: (_) {
+                    return Dialog(
+                      backgroundColor: Colors.transparent,
+                      insetPadding: EdgeInsets.all(16.w),
+                      child: InteractiveViewer(
+                        minScale: 1,
+                        maxScale: 4,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16.r),
+                          child: CachedNetworkImage(
+                            imageUrl: paymentImage!,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12.r),
+                child: CachedNetworkImage(
+                  imageUrl: paymentImage!,
                   height: 180.h,
-                  color: AppColor.background,
-                ),
-                errorWidget: (_, __, ___) => Container(
-                  height: 180.h,
-                  color: AppColor.background,
-                  alignment: Alignment.center,
-                  child: Icon(
-                    Icons.image_not_supported_outlined,
-                    color: AppColor.textSecondary,
-                    size: 26.sp,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  placeholder: (_, __) => Container(
+                    height: 180.h,
+                    color: AppColor.background,
+                  ),
+                  errorWidget: (_, __, ___) => Container(
+                    height: 180.h,
+                    color: AppColor.background,
+                    alignment: Alignment.center,
+                    child: Icon(
+                      Icons.image_not_supported_outlined,
+                      color: AppColor.textSecondary,
+                      size: 26.sp,
+                    ),
                   ),
                 ),
               ),

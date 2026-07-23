@@ -19,6 +19,7 @@ class _CategoryTabsState extends State<CategoryTabs>
     'بيتزا',
     'كريب لحوم',
     'كريب دجاج',
+    'كريب ميكس',
     'سندوتشات سوري',
     'مكرونات',
     'مشويات',

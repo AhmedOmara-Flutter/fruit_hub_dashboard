@@ -81,7 +81,9 @@ class ProductModel extends ProductEntity {
     return ProductModel(
       name: json['name'] ?? '',
       code: json['code'] ?? '',
-      price: (json['price'] ?? 0).toDouble(),
+      price: (json['price'] as num?)?.toDouble() ?? 0.0,
+      averageRating: (json['averageRating'] as num?)?.toDouble() ?? 0.0,
+      ratingSum: (json['ratingSum'] as num?)?.toDouble() ?? 0.0,
       description: json['description'] ?? '',
       isFeatured: json['isFeatured'] ?? false,
       image: json['image'] ?? '',
@@ -94,9 +96,7 @@ class ProductModel extends ProductEntity {
       category: json['category'] ?? '',
       createdAt: json['createdAt'] ?? '',
       id: json['id'] ?? '',
-      averageRating: (json['averageRating'] ?? 0).toDouble(),
       reviewsCount: json['reviewsCount'] ?? 0,
-      ratingSum: (json['ratingSum'] ?? 0).toDouble(),
       offerId: json['offerId'],
     );
   }

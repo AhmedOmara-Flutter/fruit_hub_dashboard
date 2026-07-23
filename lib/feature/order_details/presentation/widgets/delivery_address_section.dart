@@ -47,14 +47,6 @@ class DeliveryAddressSection extends StatelessWidget {
           SizedBox(height: 8.h),
 
           _AddressTile(
-            icon: Icons.apartment_rounded,
-            title: 'الشقة / العمارة',
-            value: address.apartment,
-          ),
-
-          SizedBox(height: 8.h),
-
-          _AddressTile(
             icon: Icons.location_on_outlined,
             title: 'العنوان',
             value: address.address,

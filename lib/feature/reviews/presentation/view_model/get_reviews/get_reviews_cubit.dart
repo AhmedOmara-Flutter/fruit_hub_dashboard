@@ -13,36 +13,33 @@ class GetReviewsCubit extends Cubit<GetReviewsState> {
   final ReviewRepo _reviewRepo;
   StreamSubscription? _reviewsSubscription;
 
-
   void getReviews({required String productId}) {
     emit(ReviewLoading());
 
     _reviewsSubscription?.cancel();
-    _reviewsSubscription =  _reviewRepo.getReviews(productId: productId).listen((data){
+    _reviewsSubscription = _reviewRepo.getReviews(productId: productId).listen((
+      data,
+    ) {
       data.fold(
-            (failure) {
+        (failure) {
           emit(ReviewError(failure.errMessage));
         },
-            (reviews) {
+        (reviews) {
           emit(ReviewSuccess(reviews));
         },
       );
     });
-
   }
+  Future<void> deleteAllReviews(String productId) async {
+    emit(DeleteAllReviewsLoading());
 
-  Future<void> deleteReview({
-    required String productId,
-    required String reviewId,
-  }) async {
-    final result = await _reviewRepo.deleteReview(
+    final result = await _reviewRepo.deleteAllReviews(
       productId: productId,
-      reviewId: reviewId,
     );
 
     result.fold(
-          (failure) => emit(DeleteReviewFailure(failure.errMessage)),
-          (_) => emit(DeleteReviewSuccess()),
+          (failure) => emit(DeleteAllReviewsFailure(failure.errMessage)),
+          (_) => emit(DeleteAllReviewsSuccess()),
     );
   }
   @override
@@ -50,5 +47,4 @@ class GetReviewsCubit extends Cubit<GetReviewsState> {
     _reviewsSubscription?.cancel();
     return super.close();
   }
-
 }

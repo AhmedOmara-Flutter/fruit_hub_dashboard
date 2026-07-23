@@ -6,7 +6,7 @@ class UserModel extends UserEntity {
     required super.email,
     required super.uId,
     required super.phone,
-    super.fcmToken,
+    required super.password,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -15,7 +15,7 @@ class UserModel extends UserEntity {
       email: json['email'],
       uId: json['uId'],
       phone: json['phone'],
-      fcmToken: json['fcmToken'],
+      password: json['password'],
     );
   }
 
@@ -25,7 +25,7 @@ class UserModel extends UserEntity {
       email: user.email,
       uId: user.uId,
       phone: user.phone,
-      fcmToken: user.fcmToken,
+      password: user.password,
     );
   }
 
@@ -35,7 +35,7 @@ class UserModel extends UserEntity {
       email: email,
       uId: uId,
       phone: phone,
-      fcmToken: fcmToken,
+      password: password,
     );
   }
 
@@ -45,7 +45,7 @@ class UserModel extends UserEntity {
       'email': email,
       'uId': uId,
       'phone': phone,
-      'fcmToken': fcmToken,
+      'password': password,
     };
   }
 }

@@ -1,10 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/utils/route_manager.dart';
+import 'package:fruit_hub_dashboard/feature/reviews/presentation/view_model/get_reviews/get_reviews_cubit.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+
+import '../../../../core/helper_function/custom_show_dialog.dart';
 
 class ReviewItem extends StatelessWidget {
   final ProductEntity product;
@@ -27,63 +31,95 @@ class ReviewItem extends StatelessWidget {
       child: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                margin: EdgeInsets.all(10.w),
-                padding: EdgeInsets.symmetric(
-                  horizontal: 8.w,
-                  vertical: 5.h,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4.r),
-                  border: Border.all(
-                    color: AppColor.border,
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(10.w),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.w,
+                      vertical: 5.h,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4.r),
+                      border: Border.all(
+                        color: AppColor.border,
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          '${product.reviewsCount}',
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(color: AppColor.white),
+                        ),
+                        SizedBox(width: 5.w),
+                        Icon(
+                          Icons.message,
+                          color: AppColor.textSecondary,
+                          size: 18.sp,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                child: Row(
-                  children: [
-                    Text(
-                      '${product.reviewsCount}',
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(color: AppColor.white),
-                    ),
-                    SizedBox(width: 5.w),
-                    Icon(
-                      Icons.message,
-                      color: AppColor.textSecondary,
-                      size: 18.sp,
-                    ),
-                  ],
-                ),
+                ],
               ),
+              // IconButton(
+              //     onPressed: () {
+              //       CustomShowDialog.show(
+              //         context,
+              //         title: "حذف جميع التعليقات",
+              //         content: const Text(
+              //           "هل أنت متأكد من حذف جميع التعليقات؟",
+              //           textAlign: TextAlign.center,
+              //         ),
+              //         cancel: () => Navigator.pop(context),
+              //         accept: () {
+              //           context.read<GetReviewsCubit>().deleteAllReviews(product.id!);
+              //           Navigator.pop(context);
+              //         },
+              //         color: AppColor.red,
+              //         flag: Icons.warning_amber_rounded,
+              //       );
+              //     },
+              //     icon: Icon(Icons.delete_outline,
+              //       color: AppColor.red,
+              //       size: 18.sp,)
+              // ),
             ],
           ),
-
           SizedBox(height: 5.h),
-
           Column(
             children: [
-              CachedNetworkImage(
-                imageUrl: product.image ?? '',
-                fit: BoxFit.contain,
-                fadeInDuration: const Duration(milliseconds: 250),
-                placeholder: (context, url) => Center(
-                  child: SizedBox(
-                    width: 100.w,
-                    height: 100.w,
-                    child: const CircularProgressIndicator(
-                      strokeWidth: 2,
-                      color: AppColor.mainColor,
+              Container(
+                height: 125.h,
+                width: 125.w,
+                child: CachedNetworkImage(
+                  imageUrl: product.image ?? '',
+                  fit: BoxFit.contain,
+                  fadeInDuration: const Duration(milliseconds: 250),
+                  placeholder: (context, url) => Center(
+                    child: SizedBox(
+                      width: 100.w,
+                      height: 100.w,
+                      child: const CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: AppColor.mainColor,
+                      ),
                     ),
                   ),
-                ),
-                errorWidget: (context, url, error) => Icon(
-                  Icons.image_not_supported_outlined,
-                  size: 42.sp,
-                  color: AppColor.textSecondary,
+                  errorWidget: (context, url, error) => Icon(
+                    Icons.image_not_supported_outlined,
+                    size: 42.sp,
+                    color: AppColor.textSecondary,
+                  ),
                 ),
               ),
               SizedBox(height: 10.h),
-
               Text(
                 product.name,
                 style: Theme.of(context).textTheme.labelLarge!.copyWith(

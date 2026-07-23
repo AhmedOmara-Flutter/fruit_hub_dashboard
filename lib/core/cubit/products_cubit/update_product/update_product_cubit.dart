@@ -17,7 +17,6 @@ class UpdateProductCubit extends Cubit<UpdateProductState> {
     emit(UpdateProductLoading());
 
     try {
-      // 1) رفع الصورة الرئيسية لو اتغيرت
       String? mainImageUrl = product.image;
 
       if (product.imageFile != null) {
@@ -35,7 +34,6 @@ class UpdateProductCubit extends Cubit<UpdateProductState> {
         );
       }
 
-      // 2) رفع الصور الفرعية الجديدة فقط
       List<String> finalSubImages = product.subImages ?? [];
 
       if (product.subImagesFiles != null &&
@@ -57,13 +55,11 @@ class UpdateProductCubit extends Cubit<UpdateProductState> {
         );
       }
 
-      // 3) بناء المنتج النهائي
       final updatedProduct = product.copyWith(
         image: mainImageUrl,
         subImages: finalSubImages,
       );
 
-      // 4) تحديث في الداتا بيز
       final result = await _productRepo.updateProductField(
         productId: updatedProduct.id!,
         data: {

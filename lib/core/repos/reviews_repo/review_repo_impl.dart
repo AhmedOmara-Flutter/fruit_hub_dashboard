@@ -49,14 +49,28 @@ class ReviewRepoImpl implements ReviewRepo {
   }
 
   @override
-  Future<Either<Failure, void>> deleteReview({
+  Future<Either<Failure, void>> deleteAllReviews({
     required String productId,
-    required String reviewId,
   }) async {
     try {
-      await _databaseServices.deleteData(
+      final reviews = await _databaseServices.getData(
         path: 'products/$productId/reviews',
-        uId: reviewId,
+      ) as List<Map<String, dynamic>>;
+
+      for (final review in reviews) {
+        await _databaseServices.deleteData(
+          path: 'products/$productId/reviews',
+          uId: review['id'],
+        );
+      }
+
+      await _databaseServices.updateData(
+        path: 'products',
+        docId: productId,
+        data: {
+          'reviewsCount': 0,
+          'averageRating': 0,
+        },
       );
 
       return const Right(null);
@@ -64,4 +78,5 @@ class ReviewRepoImpl implements ReviewRepo {
       return Left(ServerFailure(errMessage: e.toString()));
     }
   }
+
 }

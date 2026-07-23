@@ -3,13 +3,13 @@ class UserEntity {
   final String email;
   final String uId;
   final String phone;
-  final String? fcmToken;
+  final String password;
 
   UserEntity({
     required this.userName,
     required this.email,
     required this.uId,
     required this.phone,
-    this.fcmToken,
+    required this.password,
   });
 }

@@ -92,6 +92,7 @@ class ClientsViewBody extends StatelessWidget {
                         email: '--------------------------------',
                         uId: '---------------------',
                         phone: '---------------------',
+                        password: '---------------------',
                       ), orders: [],
                     ),
                   ),

@@ -48,17 +48,34 @@ class OfferEntity extends Equatable {
   });
 
   /// هل العرض شغال حاليًا؟
+  // bool get isActive {
+  //   final now = DateTime.now();
+  //
+  //   return !startDate.isAfter(now) &&
+  //       !endDate.isBefore(now);
+  // }
   bool get isActive {
     final now = DateTime.now();
 
-    return !startDate.isAfter(now) &&
-        !endDate.isBefore(now);
+    final today = DateTime(now.year, now.month, now.day);
+    final start = DateTime(startDate.year, startDate.month, startDate.day);
+    final end = DateTime(endDate.year, endDate.month, endDate.day + 1);
+
+    return !today.isBefore(start) && today.isBefore(end);
   }
   /// هل العرض انتهى؟
   bool get isExpired {
-    return DateTime.now().isAfter(endDate);
-  }
+    final today = DateTime.now();
+    final current = DateTime(today.year, today.month, today.day);
 
+    final end = DateTime(
+      endDate.year,
+      endDate.month,
+      endDate.day,
+    );
+
+    return current.isAfter(end);
+  }
   /// هل العرض لسه ما بدأش؟
   bool get isUpcoming {
     return DateTime.now().isBefore(startDate);

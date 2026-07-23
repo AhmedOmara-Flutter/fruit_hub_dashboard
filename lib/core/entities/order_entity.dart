@@ -66,7 +66,7 @@ class OrderEntity {
     );
   }
   String getFullAddress() {
-    return '${addressEntity!.address},${addressEntity!.apartment}';
+    return '${addressEntity!.address}';
   }
 
   double getTotalDeliveryCost(List<OrderEntity> orders) {
