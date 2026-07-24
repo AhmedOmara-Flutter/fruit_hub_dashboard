@@ -55,7 +55,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
     );
 
     _controller.forward();
-    goToHome();
+   // goToHome();
   }
 
   @override

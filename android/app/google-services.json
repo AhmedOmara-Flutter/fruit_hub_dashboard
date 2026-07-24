@@ -31,10 +31,10 @@
               "client_type": 3
             },
             {
-              "client_id": "483648490647-5voscerj2f0tkf36oteiemaq4vedmmus.apps.googleusercontent.com",
+              "client_id": "483648490647-1eie5lt4ddg4mfh83pr4skgmqihf404v.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.fruitHubMarket"
+                "bundle_id": "com.example.fruitHubDashboard"
               }
             }
           ]
@@ -75,10 +75,10 @@
               "client_type": 3
             },
             {
-              "client_id": "483648490647-5voscerj2f0tkf36oteiemaq4vedmmus.apps.googleusercontent.com",
+              "client_id": "483648490647-1eie5lt4ddg4mfh83pr4skgmqihf404v.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.fruitHubMarket"
+                "bundle_id": "com.example.fruitHubDashboard"
               }
             }
           ]

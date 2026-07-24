@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) =>NetworkCubit()),
+         BlocProvider(create: (context) =>NetworkCubit()),
         BlocProvider(create: (context) => MainCubit()),
         BlocProvider(create: (context) =>
             ClientsCubit(ClientsRepoImpl(FirestoreDatabase()),
