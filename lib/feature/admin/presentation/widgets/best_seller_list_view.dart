@@ -17,12 +17,11 @@ class BestSellerListView extends StatelessWidget {
         final topProducts = cubit.topProducts;
 
         if (isLoading)
-          return ListView.separated(
+          return ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: 4,
+            itemCount: 5,
             itemBuilder: (context, index) => SkeletonizerProductItem(),
-            separatorBuilder: (_, __) => SizedBox(height: 10),
           );
 
         if (topProducts.isEmpty) {

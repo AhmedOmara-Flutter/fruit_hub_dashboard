@@ -4,6 +4,8 @@ import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
 import 'package:fruit_hub_dashboard/generated/assets.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../../../core/utils/app_constants.dart';
+
 class SkeletonizerOrderItem extends StatelessWidget {
   const SkeletonizerOrderItem({super.key});
 
@@ -19,11 +21,12 @@ class SkeletonizerOrderItem extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(
           vertical: 6,
+          horizontal: 10
         ),
         padding: EdgeInsets.all(14),
         decoration: BoxDecoration(
           color: AppColor.card,
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(AppConstants.borderRadius),
           border: Border.all(
             color: AppColor.border,
           ),

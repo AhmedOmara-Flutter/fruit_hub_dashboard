@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/app_constants.dart';
 import '../../../../core/utils/style_manager.dart';
 import '../../../../generated/assets.dart';
 
@@ -17,10 +18,15 @@ class SkeletonizerProductItem extends StatelessWidget {
         duration: Duration(milliseconds: 1200),
       ),
       child: Container(
+        margin: EdgeInsets.only(
+          left: 10,
+          right: 10,
+          bottom: 10
+        ),
         padding: EdgeInsets.all(14),
         decoration: BoxDecoration(
           color: AppColor.card,
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(AppConstants.borderRadius),
           border: Border.all(
             color: AppColor.border,
           ),

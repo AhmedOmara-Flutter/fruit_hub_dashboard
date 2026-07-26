@@ -10,7 +10,7 @@ class CustomDrawerHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: 5,
+        horizontal: 10,
         vertical: 18,
       ),
       decoration: BoxDecoration(

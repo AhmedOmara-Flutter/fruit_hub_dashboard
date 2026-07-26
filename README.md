@@ -19,3 +19,12 @@
         ),
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
+
+
+
+
+      effect: const ShimmerEffect(
+        baseColor: Color(0xFF2A2A2A),
+        highlightColor: Color(0xFF3A3A3A),
+        duration: Duration(milliseconds: 1200),
+      ),

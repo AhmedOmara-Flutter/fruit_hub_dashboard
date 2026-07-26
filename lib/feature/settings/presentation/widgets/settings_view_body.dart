@@ -41,6 +41,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
       child: Column(
         children: [
           Container(
+            margin: EdgeInsets.only(top: 20),
             decoration: BoxDecoration(
               color: AppColor.card,
               shape: BoxShape.circle,
@@ -105,8 +106,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
               Expanded(child: _buildOffersDangerCard(context)),
             ],
           ),
-
-Spacer(),
+          SizedBox(height: 50),
           Text(
             '© 2026 حكايه - جميع الحقوق محفوظة',
             style: Theme.of(context).textTheme.bodySmall!.copyWith(

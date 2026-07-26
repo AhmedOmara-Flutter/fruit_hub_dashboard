@@ -129,7 +129,6 @@ class _CategoryTabsState extends State<CategoryTabs>
               }).toList(),
             ),
           ),
-
           Expanded(
             child: Container(
               color: AppColor.background,

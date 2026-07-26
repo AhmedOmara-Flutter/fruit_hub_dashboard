@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruit_hub_dashboard/core/enums/order_enum.dart';
 import 'package:fruit_hub_dashboard/core/helper_function/make_full_name.dart';
 import 'package:fruit_hub_dashboard/feature/admin/presentation/widgets/skeletonizer_order_item.dart';
 
@@ -19,14 +20,12 @@ class RecentOrdersListView extends StatelessWidget {
         final recentOrders = cubit.recentOrders;
         final isLoading = state is GetOrdersLoadingState;
           if (isLoading) {
-          return ListView.separated(
+          return ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: 1,
+            itemCount: 4,
             itemBuilder: (context, index) =>
              SkeletonizerOrderItem(),
-            separatorBuilder: (context, index) =>
-                Divider(color: Colors.grey.shade200),
           );
           }
 
@@ -50,8 +49,8 @@ class RecentOrdersListView extends StatelessWidget {
               },
               child: OrderItem(
                 amount: order.cartEntity.getTotalPrice(),
-                status: '',
-                statusColor: Colors.orange,
+                status: order.status.ar,
+                statusColor: order.status.color,
                 customerName: makeFullName(order.userEntity!.userName),
                 time: getTimeOnly(order.createdAt.toString()),
                 products: order.cartEntity.cartItems

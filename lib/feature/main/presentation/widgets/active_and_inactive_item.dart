@@ -15,9 +15,9 @@ class InActiveDrawerItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 50,
-      margin: EdgeInsets.symmetric(horizontal: 5),
+      margin: EdgeInsets.symmetric(horizontal: 10),
 
-      padding: EdgeInsets.symmetric(horizontal: 5),
+      padding: EdgeInsets.symmetric(horizontal: 15),
       alignment: Alignment.centerRight,
       child: Row(
         children: [
@@ -26,7 +26,7 @@ class InActiveDrawerItem extends StatelessWidget {
             color: AppColor.textSecondary,
             size: responsiveFontSize(context, fontSize: 18),
           ),
-          SizedBox(width: 6),
+          SizedBox(width: 10),
           Expanded(
             child: Text(
               drawerItemModel.title,
@@ -56,8 +56,8 @@ class ActiveDrawerItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 50,
-      margin: EdgeInsets.symmetric(horizontal: 5),
-      padding: EdgeInsets.symmetric(horizontal: 5),
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
         color: AppColor.mainColor,
         borderRadius: BorderRadius.circular(12),
@@ -70,7 +70,7 @@ class ActiveDrawerItem extends StatelessWidget {
             color: Colors.white,
             size: responsiveFontSize(context, fontSize: 18),
           ),
-          SizedBox(width: 6),
+          SizedBox(width: 10),
           Expanded(
             child: Text(
               drawerItemModel.title,

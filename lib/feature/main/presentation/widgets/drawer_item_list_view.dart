@@ -16,11 +16,12 @@ class _DrawerItemListViewState extends State<DrawerItemListView> {
     return BlocBuilder<MainCubit, MainState>(
       builder: (context, state) {
         final cubit = context.read<MainCubit>();
-        return Column(
-          children: List.generate(
-            cubit.drawerItems.length,
-                (index) => Padding(
-              padding: EdgeInsets.only(bottom: 30),
+        return  ListView.builder(
+          padding: EdgeInsets.zero,
+          itemCount: cubit.drawerItems.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 30),
               child: GestureDetector(
                 onTap: () => cubit.changeIndex(index),
                 child: DrawerItem(
@@ -28,8 +29,8 @@ class _DrawerItemListViewState extends State<DrawerItemListView> {
                   isActive: cubit.selectedIndex == index,
                 ),
               ),
-            ),
-          ),
+            );
+          },
         );
       },
     );

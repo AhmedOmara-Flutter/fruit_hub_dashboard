@@ -11,17 +11,12 @@ import '../../../../core/helper_function/get_dummy_products.dart';
 class TapBarViewBody extends StatelessWidget {
   final String category;
 
-  const TapBarViewBody(
-      this.category, {
-        super.key,
-      });
+  const TapBarViewBody(this.category, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductsCubit, ProductsState>(
       builder: (context, state) {
-        debugPrint(state.runtimeType.toString());
-
         final cubit = context.read<ProductsCubit>();
 
         final products = cubit.allProducts
@@ -32,15 +27,10 @@ class TapBarViewBody extends StatelessWidget {
 
         if (state is GetFilteredProductsLoading) {
           return ListView.separated(
-            padding: EdgeInsets.only(
-              left: 8,
-              right: 8,
-              top: 10,
-            ),
+            padding: EdgeInsets.all(10),
             itemBuilder: (context, index) =>
                 SkeletonizerProductCard(getDummyProduct),
-            separatorBuilder: (context, index) =>
-                SizedBox(height: 5),
+            separatorBuilder: (context, index) => SizedBox(height: 5),
             itemCount: getDummyProducts.length,
           );
         }
@@ -50,30 +40,20 @@ class TapBarViewBody extends StatelessWidget {
         }
 
         if (state is GetFilteredProductsError) {
-          return Center(
-            child: Text(state.errMessage),
-          );
+          return Center(child: Text(state.errMessage));
         }
 
-        return GridView.builder(
+        return ListView.builder(
           padding: EdgeInsets.all(10),
           itemBuilder: (context, index) {
             final product = products[index];
             final offer = offers.cast<OfferEntity?>().firstWhere(
-                  (e) => e?.productId == product.id,
+              (e) => e?.productId == product.id,
               orElse: () => null,
             );
-            return ProductCard(
-              product: product,
-              offer: offer,
-            );
+            return ProductCard(product: product, offer: offer);
           },
           itemCount: products.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 1.4),
         );
       },
     );

@@ -26,15 +26,18 @@ class ProductActionsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        SizedBox(width: 60),
         EditProductButton(product: product),
-        SizedBox(width: 5),
+        SizedBox(width: 10),
         RemoveProductButton(product: product),
-        SizedBox(width: 5),
+        SizedBox(width: 10),
         RemoveOfferButton(
           hasOffer: hasOffer,
           offer: offer,
           product: product,
         ),
+        SizedBox(width: 60),
+
       ],
     );
   }

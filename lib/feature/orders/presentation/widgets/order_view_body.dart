@@ -84,13 +84,7 @@ class _OrderViewBodyState extends State<OrderViewBody> {
                   child: EmptyWidget(),
                 );
               }
-              return SliverGrid.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 0,
-                mainAxisSpacing: 0,
-                childAspectRatio:1.7,
-              ),
+              return SliverList.builder(
                 itemCount: orders.length,
                 itemBuilder: (context, index) {
                   return BuildOrderCard(

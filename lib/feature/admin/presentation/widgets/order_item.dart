@@ -3,6 +3,7 @@ import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_constants.dart';
 import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
 import '../../../../generated/assets.dart';
+import '../../../orders/presentation/widgets/order_status_badge.dart';
 
 class OrderItem extends StatelessWidget {
   final double amount;
@@ -100,23 +101,10 @@ class OrderItem extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  status,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 12,
-                    color: statusColor,
-                  ),
-                ),
-              ),
+    OrderStatusBadge(
+    color: statusColor,
+    title: status,
+    ),
 
               SizedBox(height: 12),
 
