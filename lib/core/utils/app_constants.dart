@@ -1,3 +1,3 @@
 class AppConstants {
- // static const delivery = 50;
+ static const borderRadius = 20.0;
 }

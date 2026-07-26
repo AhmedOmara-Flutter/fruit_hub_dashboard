@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/entities/order_entity.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
@@ -18,10 +17,10 @@ class ProductsSection extends StatelessWidget {
     final items = order.cartEntity.cartItems;
 
     return Container(
-      padding: EdgeInsets.all(14.w),
+      padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: AppColor.card,
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: AppColor.border,
         ),
@@ -31,18 +30,18 @@ class ProductsSection extends StatelessWidget {
         children: [
           Text(
             'المنتجات',
-            style: StyleManager.font13Weight600.copyWith(
+            style: StyleManager.font13Weight600(context).copyWith(
               color: AppColor.white,
             ),
           ),
 
-          SizedBox(height: 12.h),
+          SizedBox(height: 12),
 
           ...List.generate(
             items.length,
                 (index) => Padding(
               padding: EdgeInsets.only(
-                bottom: index == items.length - 1 ? 0 : 8.h,
+                bottom: index == items.length - 1 ? 0 : 8,
               ),
               child: ProductItemCard(
                 item: items[index],

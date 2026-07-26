@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
 
@@ -18,10 +17,10 @@ class OrderNoteCardSection extends StatelessWidget {
     }
 
     return Container(
-      padding: EdgeInsets.all(14.w),
+      padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: AppColor.card,
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: AppColor.border,
         ),
@@ -30,8 +29,8 @@ class OrderNoteCardSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 34.w,
-            height: 34.w,
+            width: 34,
+            height: 34,
             decoration: BoxDecoration(
               color: AppColor.mainColor.withOpacity(.12),
               shape: BoxShape.circle,
@@ -39,11 +38,11 @@ class OrderNoteCardSection extends StatelessWidget {
             child: Icon(
               Icons.sticky_note_2_outlined,
               color: AppColor.mainColor,
-              size: 16.sp,
+              size: 16,
             ),
           ),
 
-          SizedBox(width: 10.w),
+          SizedBox(width: 10),
 
           Expanded(
             child: Column(
@@ -51,16 +50,16 @@ class OrderNoteCardSection extends StatelessWidget {
               children: [
                 Text(
                   'ملاحظات الطلب',
-                  style: StyleManager.font13Weight600.copyWith(
+                  style: StyleManager.font13Weight600(context).copyWith(
                     color: AppColor.white,
                   ),
                 ),
 
-                SizedBox(height: 4.h),
+                SizedBox(height: 4),
 
                 Text(
                   note!,
-                  style: StyleManager.font12Weight500,
+                  style: StyleManager.font12Weight500(context),
                 ),
               ],
             ),

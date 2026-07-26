@@ -81,39 +81,43 @@ class GenerateRoute {
 
       default:
         return _route(
-          Scaffold(
-            backgroundColor: AppColor.background,
-            body: Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.error_outline_rounded,
-                      size: 70,
-                      color: AppColor.mainColor,
+          Builder(
+            builder: (context) {
+              return Scaffold(
+                backgroundColor: AppColor.background,
+                body: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.error_outline_rounded,
+                          size: 70,
+                          color: AppColor.mainColor,
+                        ),
+                        const SizedBox(height: 20),
+                        Text(
+                          'حدثت مشكلة',
+                          style: StyleManager.font23Weight700(context).copyWith(
+                            color: AppColor.white,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          'تعذر فتح الصفحة المطلوبة.\nيرجى إعادة المحاولة مرة أخرى.',
+                          textAlign: TextAlign.center,
+                          style: StyleManager.font14Weight600(context).copyWith(
+                            color: AppColor.textSecondary,
+                            height: 1.6,
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 20),
-                    Text(
-                      'حدثت مشكلة',
-                      style: StyleManager.font23Weight700.copyWith(
-                        color: AppColor.white,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      'تعذر فتح الصفحة المطلوبة.\nيرجى إعادة المحاولة مرة أخرى.',
-                      textAlign: TextAlign.center,
-                      style: StyleManager.font14Weight600.copyWith(
-                        color: AppColor.textSecondary,
-                        height: 1.6,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
         );
     }

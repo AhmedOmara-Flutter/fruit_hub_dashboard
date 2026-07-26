@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/empty_products_widget.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/product_card.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/skeletonizer_product_card.dart';
-
 import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../../core/cubit/products_cubit/products_cubit.dart';
 import '../../../../core/entities/offer_entity.dart';
@@ -35,14 +33,14 @@ class TapBarViewBody extends StatelessWidget {
         if (state is GetFilteredProductsLoading) {
           return ListView.separated(
             padding: EdgeInsets.only(
-              left: 8.w,
-              right: 8.w,
-              top: 10.h,
+              left: 8,
+              right: 8,
+              top: 10,
             ),
             itemBuilder: (context, index) =>
                 SkeletonizerProductCard(getDummyProduct),
             separatorBuilder: (context, index) =>
-                SizedBox(height: 5.h),
+                SizedBox(height: 5),
             itemCount: getDummyProducts.length,
           );
         }
@@ -57,28 +55,25 @@ class TapBarViewBody extends StatelessWidget {
           );
         }
 
-        return ListView.separated(
-          padding: EdgeInsets.only(
-            left: 8.w,
-            right: 8.w,
-            top: 10.h,
-          ),
+        return GridView.builder(
+          padding: EdgeInsets.all(10),
           itemBuilder: (context, index) {
             final product = products[index];
-
             final offer = offers.cast<OfferEntity?>().firstWhere(
                   (e) => e?.productId == product.id,
               orElse: () => null,
             );
-
             return ProductCard(
               product: product,
               offer: offer,
             );
           },
-          separatorBuilder: (context, index) =>
-              SizedBox(height: 5.h),
           itemCount: products.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              childAspectRatio: 1.4),
         );
       },
     );

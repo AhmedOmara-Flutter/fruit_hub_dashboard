@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/enums/order_enum.dart';
 import 'package:fruit_hub_dashboard/core/helper_function/get_date_formate.dart';
 import 'package:fruit_hub_dashboard/core/helper_function/make_full_name.dart';
@@ -8,6 +7,7 @@ import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/utils/route_manager.dart';
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../core/entities/order_entity.dart';
+import '../../../../core/utils/app_constants.dart';
 import 'order_customer_info.dart';
 import 'order_status_action.dart';
 import 'order_status_badge.dart';
@@ -39,20 +39,24 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
             arguments:widget.order);
       },
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 6.h, horizontal: 10.w),
-        padding: EdgeInsets.all(14.w),
+        margin: EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+        padding: EdgeInsets.all(14),
         decoration: BoxDecoration(
           color: AppColor.card,
-          borderRadius: BorderRadius.circular(18.r),
-          border: Border.all(color: AppColor.border),
+          borderRadius: BorderRadius.circular(AppConstants.borderRadius),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(.15),
-              blurRadius: 10.r,
-              offset: Offset(0, 4.h),
+              color: AppColor.mainColor.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 7,
+              offset: const Offset(0, 1),
             ),
           ],
+          border: Border(
+            bottom: BorderSide(color: AppColor.border),
+          ),
         ),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Stack(
           alignment: Alignment.topLeft,
           children: [
@@ -62,7 +66,7 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     OrderUserImage(order: widget.order),
-                    SizedBox(width: 12.w),
+                    SizedBox(width: 12),
                     Expanded(
                       child: OrderCustomerInfo(
                         customerName: makeFullName(
@@ -86,17 +90,17 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
                             .join('\n'),
                       ),
                     ),
-                    SizedBox(width: 8.w),
+                    SizedBox(width: 8),
                   ],
                 ),
-                SizedBox(height: 12.h),
+                SizedBox(height: 12),
                 OrderSummarySection(
                   time: getTimeOnly(widget.order.createdAt.toString()),
                   deliveryCost: widget.order.selectedLocationEntity!.cost,
                   totalPrice: widget.order.cartEntity.getTotalPrice(),
                 ),
                 if (widget.order.status == OrderStatus.pending) ...[
-                  SizedBox(height: 14.h),
+                  SizedBox(height: 14),
                   Row(
                     children: [
                       Expanded(
@@ -113,7 +117,7 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
                         ),
                       ),
 
-                      SizedBox(width: 10.w),
+                      SizedBox(width: 10),
 
                       Expanded(
                         child: OrderStatusButton(
@@ -132,7 +136,7 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
                   ),
                 ],
                 if (widget.order.status == OrderStatus.confirmed) ...[
-                  SizedBox(height: 14.h),
+                  SizedBox(height: 14),
                   Row(
                     children: [
                       Expanded(

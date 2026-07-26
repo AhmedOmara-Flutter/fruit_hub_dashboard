@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../core/utils/app_color.dart';
 
 class OrderSummarySection extends StatelessWidget {
@@ -19,12 +17,12 @@ class OrderSummarySection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: 12.w,
-        vertical: 10.h,
+        horizontal: 12,
+        vertical: 10,
       ),
       decoration: BoxDecoration(
         color: AppColor.card,
-        borderRadius: BorderRadius.circular(12.r),
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: AppColor.border,
         ),
@@ -32,19 +30,19 @@ class OrderSummarySection extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            padding: EdgeInsets.all(7.w),
+            padding: EdgeInsets.all(7),
             decoration: BoxDecoration(
               color: AppColor.mainColor.withOpacity(.15),
               shape: BoxShape.circle,
             ),
             child: Icon(
               Icons.access_time_rounded,
-              size: 16.sp,
+              size: 16,
               color: AppColor.mainColor,
             ),
           ),
 
-          SizedBox(width: 10.w),
+          SizedBox(width: 10),
 
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +53,7 @@ class OrderSummarySection extends StatelessWidget {
                   color: AppColor.textSecondary,
                 ),
               ),
-              SizedBox(height: 2.h),
+              SizedBox(height: 2),
               Text(
                 time,
                 style: Theme.of(context).textTheme.titleSmall!.copyWith(
@@ -77,11 +75,11 @@ class OrderSummarySection extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 4.h),
+              SizedBox(height: 4),
               Container(
-                margin: EdgeInsets.symmetric(vertical: 4.h),
-                width: 60.w,
-                height: 1.h,
+                margin: EdgeInsets.symmetric(vertical: 4),
+                width: 60,
+                height: 1,
                 color: AppColor.border,
               ),
 

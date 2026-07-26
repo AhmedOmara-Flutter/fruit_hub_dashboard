@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -53,10 +51,10 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
         children: [
           Container(
             width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 10.h),
+            padding: EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
               color: AppColor.card,
-              borderRadius: BorderRadius.circular(12.r),
+              borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 color: AppColor.border,
               ),
@@ -64,7 +62,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
             alignment: Alignment.center,
             child: imagePath != null
                 ? ClipRRect(
-              borderRadius: BorderRadius.circular(10.r),
+              borderRadius: BorderRadius.circular(10),
               child: SizedBox(
                 height: MediaQuery.sizeOf(context).height * .2,
                 child: Image.file(
@@ -75,7 +73,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
             )
                 : networkImage != null
                 ? ClipRRect(
-              borderRadius: BorderRadius.circular(10.r),
+              borderRadius: BorderRadius.circular(10),
               child: SizedBox(
                 height: MediaQuery.sizeOf(context).height * .2,
                 child: Image.network(
@@ -87,13 +85,13 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                 : Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 20.h),
+                SizedBox(height: 20),
                 Icon(
                   Icons.add_photo_alternate_outlined,
                   color: AppColor.mainColor,
-                  size: 40.sp,
+                  size: 40,
                 ),
-                SizedBox(height: 10.h),
+                SizedBox(height: 10),
                 Text(
                   'اضافة صورة',
                   style: Theme.of(context)
@@ -103,14 +101,14 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                     color: AppColor.mainColor,
                   ),
                 ),
-                SizedBox(height: 20.h),
+                SizedBox(height: 20),
               ],
             ),
           ),
           if (imagePath != null || networkImage != null)
             Positioned(
-              top: 8.h,
-              left: 8.w,
+              top: 8,
+              left: 8,
               child: Container(
                 decoration: const BoxDecoration(
                   color: AppColor.card,
@@ -127,7 +125,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                   icon: Icon(
                     Icons.close,
                     color: AppColor.textSecondary,
-                    size: 20.sp,
+                    size: 20,
                   ),
                 ),
               ),

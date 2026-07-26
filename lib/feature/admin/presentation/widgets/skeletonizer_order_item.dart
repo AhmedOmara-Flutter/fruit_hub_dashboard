@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
 import 'package:fruit_hub_dashboard/generated/assets.dart';
@@ -19,12 +18,12 @@ class SkeletonizerOrderItem extends StatelessWidget {
       ),
       child: Container(
         margin: EdgeInsets.symmetric(
-          vertical: 6.h,
+          vertical: 6,
         ),
-        padding: EdgeInsets.all(14.w),
+        padding: EdgeInsets.all(14),
         decoration: BoxDecoration(
           color: AppColor.card,
-          borderRadius: BorderRadius.circular(18.r),
+          borderRadius: BorderRadius.circular(18),
           border: Border.all(
             color: AppColor.border,
           ),
@@ -35,13 +34,13 @@ class SkeletonizerOrderItem extends StatelessWidget {
             ClipOval(
               child: Image.asset(
                 Assets.images.customer.path,
-                width: 68.w,
-                height: 68.h,
+                width: 68,
+                height: 68,
                 fit: BoxFit.cover,
               ),
             ),
 
-            SizedBox(width: 12.w),
+            SizedBox(width: 12),
 
             Expanded(
               child: Column(
@@ -49,28 +48,28 @@ class SkeletonizerOrderItem extends StatelessWidget {
                 children: [
                   Text(
                     'Ahmed Mohamed',
-                    style: StyleManager.font13Weight600.copyWith(
+                    style: StyleManager.font13Weight600(context).copyWith(
                       color: AppColor.mainColor,
                     ),
                   ),
 
-                  SizedBox(height: 6.h),
+                  SizedBox(height: 6),
 
                   Text(
                     'كريب سوبر + بيتزا رانش + ',
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
 
-                  SizedBox(height: 8.h),
+                  SizedBox(height: 8),
 
                   Row(
                     children: [
                       Icon(
                         Icons.access_time_rounded,
-                        size: 14.sp,
+                        size: 14,
                         color: AppColor.textSecondary,
                       ),
-                      SizedBox(width: 4.w),
+                      SizedBox(width: 4),
                       Text(
                         'منذ 5 دقائق',
                         style: Theme.of(context).textTheme.titleMedium,
@@ -81,30 +80,30 @@ class SkeletonizerOrderItem extends StatelessWidget {
               ),
             ),
 
-            SizedBox(width: 10.w),
+            SizedBox(width: 10),
 
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                    vertical: 5.h,
+                    horizontal: 10,
+                    vertical: 5,
                   ),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.r),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
                     '',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: 12.sp,
+                      fontSize: 12,
                       color: Colors.orange,
                     ),
                   ),
                 ),
 
-                SizedBox(height: 12.h),
+                SizedBox(height: 12),
 
                 Text(
                   '250.00 ج.م',

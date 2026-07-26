@@ -1,8 +1,5 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../core/utils/app_color.dart';
 import '../../../core/utils/route_manager.dart';
 import '../../../core/utils/style_manager.dart';
@@ -55,7 +52,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
     );
 
     _controller.forward();
-   // goToHome();
+    goToHome();
   }
 
   @override
@@ -71,8 +68,8 @@ class _SplashViewBodyState extends State<SplashViewBody>
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(
-            height: 100.h,
-            width: 100.w,
+            height: 90,
+            width: 90,
           ),
           FadeTransition(
             opacity: logoFade,
@@ -83,11 +80,11 @@ class _SplashViewBodyState extends State<SplashViewBody>
                 children: [
                   Image.asset(
                     Assets.images.appLogo.path,
-                    height: 350.h,
+                    height: 350,
                     width: double.infinity,
                   ),
                   Positioned(
-                    bottom: 60.h,
+                    bottom: 50,
                     child: Text.rich(
                       TextSpan(
                         children: [
@@ -96,13 +93,13 @@ class _SplashViewBodyState extends State<SplashViewBody>
                             child: Icon(
                               Icons.star_rounded,
                               color: AppColor.mainColor,
-                              size: 16.sp,
+                              size: 16,
                             ),
                           ),
                           const TextSpan(text: '  '),
                           TextSpan(
                             text: 'من أول لقمة تبدأ الحكاية',
-                            style: StyleManager.font14Weight600.copyWith(
+                            style: StyleManager.font14Weight600(context).copyWith(
                               color: AppColor.mainColor,
                             ),
                           ),
@@ -112,7 +109,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
                             child: Icon(
                               Icons.star_rounded,
                               color: AppColor.mainColor,
-                              size: 16.sp,
+                              size: 16,
                             ),
                           ),
                         ],
@@ -125,18 +122,17 @@ class _SplashViewBodyState extends State<SplashViewBody>
           ),
           SafeArea(
             child: Padding(
-              padding: EdgeInsets.all(20.r),
+              padding: EdgeInsets.all(20),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   CircularProgressIndicator(
                     color: AppColor.mainColor,
-                    strokeWidth: 3.w,
                   ),
-                  SizedBox(height: 10.h),
+                  SizedBox(height: 10),
                   Text(
                     'جاري التحميل',
-                    style: StyleManager.font14Weight600.copyWith(
+                    style: StyleManager.font14Weight600(context).copyWith(
                       color: AppColor.white,
                     ),
                   ),

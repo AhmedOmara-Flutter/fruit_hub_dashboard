@@ -24,16 +24,6 @@ class EditProductView extends StatelessWidget {
             UploadImageRepoImpl(SupabaseStorage()),
           ),
       child: Scaffold(
-        appBar: AppBar(
-          leading: CustomBackButton(),
-          backgroundColor: AppColor.background,
-          title: Text(
-            'تعديل المنتج',
-            style: Theme.of(
-              context,
-            ).textTheme.displaySmall!.copyWith(color: Colors.white),
-          ),
-        ),
         body: EditProductViewBody(product: product,),
       ),
     );

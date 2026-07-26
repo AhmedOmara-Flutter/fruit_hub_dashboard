@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../core/helper_function/make_call_function.dart';
 import '../../../../core/utils/app_color.dart';
 
 class OrderCustomerInfo extends StatelessWidget {
@@ -39,7 +36,7 @@ class OrderCustomerInfo extends StatelessWidget {
           ),
         ),
 
-        SizedBox(height: 4.h),
+        SizedBox(height: 4),
 
         Text(
           '#اوردر - $orderId',
@@ -48,16 +45,16 @@ class OrderCustomerInfo extends StatelessWidget {
           ),
         ),
 
-        SizedBox(height: 6.h),
+        SizedBox(height: 6),
 
         Row(
           children: [
             Icon(
               Icons.phone,
               color: AppColor.mainColor,
-              size: 16.sp,
+              size: 16,
             ),
-            SizedBox(width: 4.w),
+            SizedBox(width: 4),
             Expanded(
               child: Text(
                 phone,
@@ -69,16 +66,16 @@ class OrderCustomerInfo extends StatelessWidget {
           ],
         ),
 
-        SizedBox(height: 4.h),
+        SizedBox(height: 4),
 
         Row(
           children: [
             Icon(
               Icons.business_outlined,
               color: AppColor.mainColor,
-              size: 16.sp,
+              size: 16,
             ),
-            SizedBox(width: 4.w),
+            SizedBox(width: 4),
             Expanded(
               child: Text(
                 location,
@@ -90,7 +87,7 @@ class OrderCustomerInfo extends StatelessWidget {
           ],
         ),
 
-        SizedBox(height: 4.h),
+        SizedBox(height: 4),
 
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,9 +95,9 @@ class OrderCustomerInfo extends StatelessWidget {
             Icon(
               Icons.location_on,
               color: AppColor.mainColor,
-              size: 16.sp,
+              size: 16,
             ),
-            SizedBox(width: 4.w),
+            SizedBox(width: 4),
             Expanded(
               child: Text(
                 address,
@@ -112,7 +109,7 @@ class OrderCustomerInfo extends StatelessWidget {
           ],
         ),
 
-        SizedBox(height: 6.h),
+        SizedBox(height: 6),
 
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,7 +123,7 @@ class OrderCustomerInfo extends StatelessWidget {
               ),
             ),
 
-            SizedBox(width: 8.w),
+            SizedBox(width: 8),
 
             Text(
               price,

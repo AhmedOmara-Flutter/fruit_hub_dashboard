@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/entities/order_entity.dart';
 
 import '../../../../core/helper_function/make_call_function.dart';
@@ -21,8 +20,8 @@ class OrderUserImage extends StatelessWidget {
       child: ClipOval(
         child: Image.asset(
           Assets.images.customer.path,
-          width: 60.w,
-          height: 60.w,
+          width: 60,
+          height: 60,
           fit: BoxFit.cover,
         ),
       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/app_color.dart';import '../../../../core/utils/app_constants.dart';
+
 import 'best_seller_list_view.dart';
 
 class BestSellerCard extends StatelessWidget {
@@ -9,32 +9,53 @@ class BestSellerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 10.h, left: 10.w, right: 10.w),
+      margin: EdgeInsets.only(
+          top: 10,
+          bottom: 10,
+          left: 10,
+      ),
       decoration: BoxDecoration(
         color: AppColor.card,
-        borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(
-          color: AppColor.border,
+        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.mainColor.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 7,
+            offset: const Offset(0, 1),
+          ),
+        ],
+        border: Border(
+          bottom: BorderSide(color: AppColor.border),
         ),
       ),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Column(
         children: [
-          Row(
-            children: [
-              Icon(
-                Icons.local_fire_department_rounded,
-                color: AppColor.mainColor,
-                size: 22.sp,
-              ),
-              SizedBox(width: 8.w),
-              Text(
-                'أفضل المنتجات مبيعًا',
-                style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                  color: AppColor.textPrimary,
+          Container(
+            padding: EdgeInsets.only(
+              top: 12,
+              left: 15,
+              right: 15,
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.local_fire_department_rounded,
+                  color: AppColor.mainColor,
+                  size: 30,
                 ),
-              ),
-            ],
-          ),          SizedBox(height: 20.h),
+                SizedBox(width: 8),
+                Text(
+                  'أفضل المنتجات مبيعًا',
+                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    color: AppColor.textPrimary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 20),
           const BestSellerListView(),
         ],
       ),

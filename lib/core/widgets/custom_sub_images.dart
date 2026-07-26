@@ -1,9 +1,7 @@
 import 'dart:io';
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../utils/app_color.dart';
 
 class CustomSubImages extends StatefulWidget {
@@ -23,13 +21,11 @@ class CustomSubImages extends StatefulWidget {
 class _CustomSubImagesState extends State<CustomSubImages> {
   final List<File> newImages = [];
   late List<String> oldImages;
-
   @override
   void initState() {
     super.initState();
     oldImages = widget.initialImages ?? [];
   }
-
   int get totalCount => oldImages.length + newImages.length;
 
   Future<void> pickImages() async {
@@ -75,7 +71,7 @@ class _CustomSubImagesState extends State<CustomSubImages> {
       physics: const NeverScrollableScrollPhysics(),
       itemCount: 4,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+        crossAxisCount: 3,
         crossAxisSpacing: 12,
         mainAxisSpacing: 12,
         childAspectRatio: 1,

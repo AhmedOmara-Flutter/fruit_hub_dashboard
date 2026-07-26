@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../generated/assets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({
@@ -22,29 +21,43 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(14.w),
+      margin: EdgeInsets.only(
+        left: 10,
+        right: 10,
+        bottom: 15
+      ),
+      padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
+
         color: AppColor.card,
-        borderRadius: BorderRadius.circular(18.r),
+        borderRadius: BorderRadius.circular(18),
         border: Border.all(
           color: AppColor.border,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.mainColor.withOpacity(.05),
+            spreadRadius: 1,
+            blurRadius: 7,
+            offset: const Offset(0, 1),
+          ),
+        ],
       ),
       child: Row(
         children: [
           Image.asset(
             medal,
-            height: 30.w,
-            width: 30.w,
+            height: 30,
+            width: 30,
           ),
 
-          SizedBox(width: 12.w),
+          SizedBox(width: 12),
 
           Container(
-            width: 72.w,
-            height: 72.w,
+            width: 72,
+            height: 72,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(18.r),
+              borderRadius: BorderRadius.circular(18),
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -64,7 +77,7 @@ class ProductItem extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: 12.w),
+          SizedBox(width: 12),
 
           Expanded(
             child: Column(
@@ -73,12 +86,12 @@ class ProductItem extends StatelessWidget {
               children: [
                 Text(
                   productName,
-                  style: StyleManager.font13Weight600.copyWith(
+                  style: StyleManager.font13Weight600(context).copyWith(
                     color: AppColor.mainColor
                   ),
                 ),
 
-                SizedBox(height: 4.h),
+                SizedBox(height: 4),
 
                 Text(
                   '$orderCount طلب',
@@ -90,16 +103,16 @@ class ProductItem extends StatelessWidget {
             ),
           ),
 
-          SizedBox(width: 12.w),
+          SizedBox(width: 12),
 
           Container(
             padding: EdgeInsets.symmetric(
-              horizontal: 10.w,
-              vertical: 7.h,
+              horizontal: 10,
+              vertical: 7,
             ),
             decoration: BoxDecoration(
               color: AppColor.mainColor.withOpacity(.08),
-              borderRadius: BorderRadius.circular(8.r),
+              borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -116,22 +129,22 @@ class ProductItem extends StatelessWidget {
                         color: AppColor.mainColor,
                       ),
                     ),
-                    SizedBox(width: 5.w),
+                    SizedBox(width: 5),
                     Image.asset(
                       Assets.images.rise.path,
-                      height: 10.w,
-                      width: 10.w,
+                      height: 10,
+                      width: 10,
                       color: AppColor.mainColor,
                     ),
                   ],
                 ),
 
-                SizedBox(height: 2.h),
+                SizedBox(height: 2),
 
                 Text(
                   'إجمالي الطلبات',
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    fontSize: 11.sp,
+                    fontSize: 11,
                     color: AppColor.textSecondary,
                   ),
                 ),

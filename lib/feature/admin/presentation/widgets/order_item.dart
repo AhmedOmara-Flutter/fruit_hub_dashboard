@@ -1,10 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
+import 'package:fruit_hub_dashboard/core/utils/app_constants.dart';
 import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 import '../../../../generated/assets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderItem extends StatelessWidget {
   final double amount;
@@ -30,15 +28,24 @@ class OrderItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(
-        vertical: 6.h,
+        vertical: 6,
+        horizontal: 10
       ),
-      padding: EdgeInsets.all(14.w),
+      padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: AppColor.card,
-        borderRadius: BorderRadius.circular(18.r),
+        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
         border: Border.all(
           color: AppColor.border,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.mainColor.withOpacity(.05),
+            spreadRadius: 1,
+            blurRadius: 7,
+            offset: const Offset(0, 1),
+          ),
+        ],
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,42 +53,40 @@ class OrderItem extends StatelessWidget {
           ClipOval(
             child: Image.asset(
               Assets.images.customer.path,
-              width: 68.w,
-              height: 68.h,
+              width: 68,
+              height: 68,
               fit: BoxFit.cover,
             ),
           ),
-
-          SizedBox(width: 12.w),
-
+          SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   customerName,
-                  style: StyleManager.font13Weight600.copyWith(
+                  style: StyleManager.font13Weight600(context).copyWith(
                     color: AppColor.mainColor,
                   ),
                 ),
 
-                SizedBox(height: 6.h),
+                SizedBox(height: 6),
 
                 Text(
                   products,
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
 
-                SizedBox(height: 8.h),
+                SizedBox(height: 8),
 
                 Row(
                   children: [
                     Icon(
                       Icons.access_time_rounded,
-                      size: 14.sp,
+                      size: 14,
                       color: AppColor.textSecondary,
                     ),
-                    SizedBox(width: 4.w),
+                    SizedBox(width: 4),
                     Text(
                       time,
                       style: Theme.of(context).textTheme.titleMedium,
@@ -91,31 +96,29 @@ class OrderItem extends StatelessWidget {
               ],
             ),
           ),
-
-          SizedBox(width: 10.w),
-
+          SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Container(
                 padding: EdgeInsets.symmetric(
-                  horizontal: 10.w,
-                  vertical: 5.h,
+                  horizontal: 10,
+                  vertical: 5,
                 ),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.r),
+                  borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
                   status,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
-                    fontSize: 12.sp,
+                    fontSize: 12,
                     color: statusColor,
                   ),
                 ),
               ),
 
-              SizedBox(height: 12.h),
+              SizedBox(height: 12),
 
               Text(
                 '${(amount + deliveryCost).toStringAsFixed(2)} ج.م',

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/entities/product_entity.dart';
 import '../../../../core/utils/app_color.dart';
@@ -19,8 +18,8 @@ class ReviewsViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: 10.w,
-        vertical: 10.h,
+        horizontal: 10,
+        vertical: 10,
       ),
       child: CustomScrollView(
         slivers: [
@@ -45,7 +44,6 @@ class ReviewsViewBody extends StatelessWidget {
                   ),
                 );
               }
-
               if (products.isEmpty) {
                 return const SliverToBoxAdapter(
                   child: EmptyWidget(),
@@ -56,10 +54,10 @@ class ReviewsViewBody extends StatelessWidget {
                 return SliverGrid.builder(
                   gridDelegate:
                   SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10.w,
-                    mainAxisSpacing: 10.h,
-                    childAspectRatio: 0.59,
+                    crossAxisCount: 5,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 0.65,
                   ),
                   itemBuilder: (context, index) => ReviewItem(
                     product: state.products[index],
@@ -72,8 +70,8 @@ class ReviewsViewBody extends StatelessWidget {
                 gridDelegate:
                 SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 10.w,
-                  mainAxisSpacing: 10.h,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
                   childAspectRatio: 0.59,
                 ),
                 itemBuilder: (context, index) =>

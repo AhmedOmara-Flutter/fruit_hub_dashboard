@@ -12,6 +12,8 @@ import 'package:fruit_hub_dashboard/feature/edit_product/presentation/widgets/pr
 import 'package:fruit_hub_dashboard/feature/edit_product/presentation/widgets/product_sub_images_section.dart';
 import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../../core/cubit/products_cubit/update_product/update_product_cubit.dart';
+import '../../../../core/utils/app_color.dart';
+import '../../../../core/widgets/custom_back_button.dart';
 
 class EditProductViewBody extends StatefulWidget {
   final ProductEntity product;
@@ -101,98 +103,136 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
                   slivers: [
                     SliverToBoxAdapter(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        spacing: 10,
                         children: [
-                          ProductBasicInfoSection(
-                            nameController: nameController,
-                            priceController: priceController,
-                            selectedCategory: selectedCategory,
-                            categories: categories,
-                            onCategoryChanged: (value) {
-                              setState(() {
-                                selectedCategory = value;
-                              });
-                            },
-                          ),
-                          ProductMainImageSection(
-                            initialImage: widget.product.image,
-                            onImagePicked: (imageFile) {
-                              this.imageFile = imageFile;
-                            },
-                          ),
-                          ProductSubImagesSection(
-                            initialImages: widget.product.subImages,
-                            onImagesPicked: (subImagesFiles) {
-                              this.subImagesFiles = subImagesFiles;
-                            },
-                          ),
-                          ProductSettingsSection(
-                            descriptionController: descriptionController,
-                            isFeatured: isFeatured,
-                            onFeaturedChanged: () {
-                              setState(() {
-                                isFeatured = !isFeatured;
-                              });
-                            },
-                          ),
-                          CustomButton(
-                            onPressed: () {
-                              if (!_formKey.currentState!.validate()) {
-                                setState(() {
-                                  autoValidateMode = AutovalidateMode.always;
-                                });
-                                return;
-                              }
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const CustomBackButton(),
+                                Row(
+                                  children: [
+                                    Icon(Icons.edit, color: AppColor.mainColor),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      "تعديل المنتج",
+                                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                                        color: AppColor.textPrimary,
+                                      ),
+                                    ),
+                                  ],
+                                ),
 
-                              if (selectedCategory == null) {
-                                customShowSnakeBar(
-                                  context,
-                                  color: Colors.red,
-                                  label: 'برجاء اختيار التصنيف',
-                                );
-                                return;
-                              }
-                              if (context
-                                  .read<OffersCubit>()
-                                  .offers
-                                  .isNotEmpty) {
-                                customShowSnakeBar(context, color: Colors.red,
-                                    label: 'لا يمكن تعديل المنتج قبل حذف العروض و السله');
-                                return;
-                              }
-
-                              final updatedProduct = widget.product.copyWith(
-                                name: nameController.text.trim(),
-                                code: codeController.text.trim().toLowerCase(),
-                                price: num.tryParse(priceController.text) ?? 0,
-                                description: descriptionController.text.trim(),
-                                expirationMonth:
-                                num.tryParse(expirationMonthController.text) ??
-                                    0,
-                                unitAmount:
-                                num.tryParse(unitAmountController.text) ?? 0,
-                                numberOfCalories:
-                                num.tryParse(numberOfCaloriesController.text) ??
-                                    0,
-                                category: selectedCategory!,
-                                isFeatured: isFeatured,
-                                isOrganic: isOrganic,
-                                imageFile: imageFile,
-                                subImagesFiles: subImagesFiles,
-                              );
-
-                              context.read<UpdateProductCubit>().updateProduct(
-                                updatedProduct,
-                              );
-                            },
-                            child: Text(
-                              'تعديل المنتج',
-                              style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .labelSmall,
+                                const SizedBox(width: 40),
+                              ],
                             ),
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    ProductBasicInfoSection(
+                                      nameController: nameController,
+                                      priceController: priceController,
+                                      selectedCategory: selectedCategory,
+                                      categories: categories,
+                                      onCategoryChanged: (value) {
+                                        setState(() {
+                                          selectedCategory = value;
+                                        });
+                                      },
+                                    ),
+                                    ProductSettingsSection(
+                                      descriptionController: descriptionController,
+                                      isFeatured: isFeatured,
+                                      onFeaturedChanged: () {
+                                        setState(() {
+                                          isFeatured = !isFeatured;
+                                        });
+                                      },
+                                    ),
+                                    ProductMainImageSection(
+                                      initialImage: widget.product.image,
+                                      onImagePicked: (imageFile) {
+                                        this.imageFile = imageFile;
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    ProductSubImagesSection(
+                                      initialImages: widget.product.subImages,
+                                      onImagesPicked: (subImagesFiles) {
+                                        this.subImagesFiles = subImagesFiles;
+                                      },
+                                    ),
+                                    SizedBox(height: 50),
+                                    CustomButton(
+                                      onPressed: () {
+                                        if (!_formKey.currentState!.validate()) {
+                                          setState(() {
+                                            autoValidateMode = AutovalidateMode.always;
+                                          });
+                                          return;
+                                        }
+                                        if (selectedCategory == null) {
+                                          customShowSnakeBar(
+                                            context,
+                                            color: Colors.red,
+                                            label: 'برجاء اختيار التصنيف',
+                                          );
+                                          return;
+                                        }
+                                        if (context
+                                            .read<OffersCubit>()
+                                            .offers
+                                            .isNotEmpty) {
+                                          customShowSnakeBar(context, color: Colors.red,
+                                              label: 'لا يمكن تعديل المنتج قبل حذف العروض و السله');
+                                          return;
+                                        }
+
+                                        final updatedProduct = widget.product.copyWith(
+                                          name: nameController.text.trim(),
+                                          code: codeController.text.trim().toLowerCase(),
+                                          price: num.tryParse(priceController.text) ?? 0,
+                                          description: descriptionController.text.trim(),
+                                          expirationMonth:
+                                          num.tryParse(expirationMonthController.text) ??
+                                              0,
+                                          unitAmount:
+                                          num.tryParse(unitAmountController.text) ?? 0,
+                                          numberOfCalories:
+                                          num.tryParse(numberOfCaloriesController.text) ??
+                                              0,
+                                          category: selectedCategory!,
+                                          isFeatured: isFeatured,
+                                          isOrganic: isOrganic,
+                                          imageFile: imageFile,
+                                          subImagesFiles: subImagesFiles,
+                                        );
+
+                                        context.read<UpdateProductCubit>().updateProduct(
+                                          updatedProduct,
+                                        );
+                                      },
+                                      child: Text(
+                                        'تعديل المنتج',
+                                        style: Theme
+                                            .of(context)
+                                            .textTheme
+                                            .labelSmall,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),

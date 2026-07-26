@@ -1,122 +1,115 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/helper_function/get_date_formate.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
+import 'package:fruit_hub_dashboard/core/utils/app_constants.dart';
+import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
 import 'package:fruit_hub_dashboard/feature/reviews/domain/entities/review_entity.dart';
-import 'package:skeletonizer/skeletonizer.dart';
-
 import '../../../../generated/assets.dart';
 
 class ReviewCard extends StatelessWidget {
-  final ReviewEntity review;
-
   const ReviewCard({
     super.key,
     required this.review,
   });
 
+  final ReviewEntity review;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10.w),
-      margin: EdgeInsets.only(top: 10.h),
+      margin: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: AppColor.card,
-        borderRadius: BorderRadius.circular(14.r),
-        border: Border.all(
-          color: AppColor.border,
+        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.mainColor.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 7,
+            offset: const Offset(0, 1),
+          ),
+        ],
+        border: Border(
+          bottom: BorderSide(color: AppColor.border),
         ),
       ),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipOval(
-            child: Image.asset(
+          CircleAvatar(
+            radius: 22,
+            backgroundColor: AppColor.background,
+            backgroundImage: AssetImage(
               Assets.images.customer.path,
-              width: 45.w,
-              height: 45.h,
-              fit: BoxFit.cover,
             ),
           ),
 
-          SizedBox(width: 10.w),
+          const SizedBox(width: 12),
 
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                /// الاسم + التاريخ
                 Row(
-                  mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                       child: Text(
                         review.name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(
-                          color: AppColor.textPrimary,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        style: StyleManager.font14Weight600(context),
                       ),
                     ),
 
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 6.w,
-                        vertical: 3.h,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColor.mainColor.withOpacity(.12),
-                        borderRadius:
-                        BorderRadius.circular(20.r),
-                      ),
-                      child: Row(
-                        children: List.generate(
-                          5,
-                              (i) => Icon(
-                            i < review.rating
-                                ? Icons.star_rounded
-                                : Icons.star_border_rounded,
-                            size: 14.sp,
-                            color: AppColor.mainColor,
-                          ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Text(
+                        getDateFormate(review.date),
+                        style: StyleManager.font11Weight400(context).copyWith(
+                          color: AppColor.textSecondary,
                         ),
                       ),
                     ),
                   ],
                 ),
 
-                SizedBox(height: 4.h),
+                const SizedBox(height: 6),
 
-                Text(
-                  getDateFormate(review.date),
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall
-                      ?.copyWith(
-                    color: AppColor.textSecondary,
-                    fontSize: 11.sp,
-                  ),
+                /// التقييم
+                Row(
+                  children: [
+                    ...List.generate(
+                      5,
+                          (index) => Icon(
+                        index < review.rating
+                            ? Icons.star_rounded
+                            : Icons.star_border_rounded,
+                        color: Colors.amber,
+                        size: 16,
+                      ),
+                    ),
+
+                    const SizedBox(width: 6),
+
+                    Text(
+                      "${review.rating}/5",
+                      style: StyleManager.font12Weight500(context),
+                    ),
+                  ],
                 ),
 
-                SizedBox(height: 6.h),
+                const SizedBox(height: 8),
 
                 Text(
                   review.reviewDescription,
-                  maxLines: 2,
+                  maxLines: 3,
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(
+                  style: StyleManager.font12Weight500(context).copyWith(
                     color: AppColor.textSecondary,
-                    fontSize: 12.5.sp,
-                    height: 1.3,
+                    height: 1.5,
                   ),
                 ),
               ],

@@ -11,13 +11,13 @@ class OrderDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: CustomBackButton(),
-        backgroundColor: AppColor.background,
-        title: Text('تفاصيل الطلب',style: Theme.of(context).textTheme.displaySmall!.copyWith(
-            color: Colors.white
-        ),),
-      ),
+      // appBar: AppBar(
+      //   leading: CustomBackButton(),
+      //   backgroundColor: AppColor.background,
+      //   title: Text('تفاصيل الطلب',style: Theme.of(context).textTheme.displaySmall!.copyWith(
+      //       color: Colors.white
+      //   ),),
+      // ),
       body: OrderDetailsViewBody(
         order: order,
       ),

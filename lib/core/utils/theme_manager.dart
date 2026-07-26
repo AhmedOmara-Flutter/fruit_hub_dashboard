@@ -3,14 +3,14 @@ import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
 
 class ThemeManager {
-  static ThemeData darkTheme = ThemeData(
+  static ThemeData darkTheme(BuildContext context)=> ThemeData(
       scaffoldBackgroundColor: AppColor.background,
     ///appBar
     appBarTheme: AppBarTheme(
       scrolledUnderElevation: 0.0,
       elevation: 0,
       centerTitle: true,
-      titleTextStyle: StyleManager.font19Weight700,
+      titleTextStyle: StyleManager.font19Weight700(context),
       iconTheme: IconThemeData(color: Colors.black),
     ),
 
@@ -32,20 +32,20 @@ class ThemeManager {
     ///text theme
     textTheme: TextTheme(
       //title in onboarding
-      titleLarge: StyleManager.font23Weight700,
+      titleLarge: StyleManager.font23Weight700(context),
       //description in onboarding
-      titleMedium: StyleManager.font13Weight600,
+      titleMedium: StyleManager.font13Weight600(context),
       // skip button in onboarding
-      titleSmall: StyleManager.font13Weight400,
+      titleSmall: StyleManager.font13Weight400(context),
       // button label
-      labelSmall: StyleManager.font16Weight700,
+      labelSmall: StyleManager.font16Weight700(context),
       //googleButton && text under button
-      labelMedium: StyleManager.font16Weight600,
+      labelMedium: StyleManager.font16Weight600(context),
       //button in featured item
-      labelLarge: StyleManager.font13Weight700,
-      displaySmall: StyleManager.font19Weight700,
-      bodyLarge: StyleManager.font11Weight400,
-      bodyMedium: StyleManager.font14Weight600
+      labelLarge: StyleManager.font13Weight700(context),
+      displaySmall: StyleManager.font19Weight700(context),
+      bodyLarge: StyleManager.font11Weight400(context),
+      bodyMedium: StyleManager.font14Weight600(context)
     ),
   );
 }

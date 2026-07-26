@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/tap_bar_view_body.dart';
-
 import '../../../../core/cubit/products_cubit/products_cubit.dart';
+import '../../../../core/utils/app_constants.dart';
 
 class CategoryTabs extends StatefulWidget {
   const CategoryTabs({super.key});
@@ -65,10 +64,35 @@ class _CategoryTabsState extends State<CategoryTabs>
       length: categories.length,
       child: Column(
         children: [
-          SizedBox(height: 15.h),
+          SizedBox(height: 2),
           Container(
-            height: 52.h,
-            margin: EdgeInsets.symmetric(horizontal: 16.w),
+            height: 70,
+            margin: EdgeInsets.only(
+                top: 10,
+                bottom: 10,
+                left: 10,
+                right: 10
+            ),
+            padding: EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 15,
+            ),
+            decoration: BoxDecoration(
+              color: AppColor.card,
+              borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColor.mainColor.withOpacity(0.5),
+                  spreadRadius: 1,
+                  blurRadius: 7,
+                  offset: const Offset(0, 1),
+                ),
+              ],
+              border: Border(
+                bottom: BorderSide(color: AppColor.border),
+              ),
+            ),
+            clipBehavior: Clip.antiAliasWithSaveLayer,
             child: TabBar(
               splashFactory: NoSplash.splashFactory,
               controller: _tabController,
@@ -76,29 +100,28 @@ class _CategoryTabsState extends State<CategoryTabs>
               tabAlignment: TabAlignment.start,
               indicator: BoxDecoration(
                 color: AppColor.mainColor,
-                borderRadius: BorderRadius.circular(25.r),
+                borderRadius: BorderRadius.circular(25),
               ),
               indicatorSize: TabBarIndicatorSize.tab,
               labelColor: Colors.white,
               unselectedLabelColor: AppColor.textSecondary,
               labelStyle: TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: 13.sp,
+                fontSize: 13,
               ),
               unselectedLabelStyle: TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: 12.sp,
+                fontSize: 12,
               ),
               dividerColor: Colors.transparent,
               overlayColor: WidgetStateProperty.all(Colors.transparent),
-              splashBorderRadius: BorderRadius.circular(25.r),
+              splashBorderRadius: BorderRadius.circular(25),
               tabs: categories.map((e) {
                 return Tab(
-
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: 14.w,
-                      vertical: 8.h,
+                      horizontal: 14,
+                      vertical: 8,
                     ),
                     child: Text(e),
                   ),

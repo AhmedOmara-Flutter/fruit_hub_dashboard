@@ -74,7 +74,7 @@ class NoInternetView extends StatelessWidget {
 
                     Text(
                       "لا يوجد اتصال بالإنترنت",
-                      style: StyleManager.font19Weight700.copyWith(
+                      style: StyleManager.font19Weight700(context).copyWith(
                         color: AppColor.textPrimary,
                       ),
                     ),
@@ -84,7 +84,7 @@ class NoInternetView extends StatelessWidget {
                     Text(
                       "تأكد من اتصالك بالإنترنت ثم حاول مرة أخرى",
                       textAlign: TextAlign.center,
-                      style: StyleManager.font13Weight400.copyWith(
+                      style: StyleManager.font13Weight400(context).copyWith(
                         color: AppColor.textSecondary,
                       ),
                     ),
@@ -134,7 +134,7 @@ class NoInternetView extends StatelessWidget {
                           return Text(
                             "سيتم إعادة الاتصال تلقائياً عند توفر الشبكة.",
                             textAlign: TextAlign.center,
-                            style: StyleManager.font11Weight400.copyWith(
+                            style: StyleManager.font11Weight400(context).copyWith(
                               color: AppColor.textSecondary,
                             ),
                           );

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/widgets/empty_widget.dart';
 import 'package:fruit_hub_dashboard/feature/orders/presentation/widgets/build_order_card.dart';
 import 'package:fruit_hub_dashboard/feature/orders/presentation/widgets/skeletonizer_build_order_card.dart';
-
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../core/enums/order_enum.dart';
+import '../../../../core/utils/app_constants.dart';
 
 class OrderViewBody extends StatefulWidget {
   const OrderViewBody({super.key});
@@ -22,21 +21,31 @@ class _OrderViewBodyState extends State<OrderViewBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(bottom: 10.h),
+      padding:  EdgeInsets.only(bottom: 10),
       child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.all(10.w),
+              padding: EdgeInsets.all(10),
               child: Container(
-                padding: EdgeInsets.all(4.w),
+                padding: EdgeInsets.all(8),
+                margin: EdgeInsets.only(top: 3),
                 decoration: BoxDecoration(
                   color: AppColor.card,
-                  borderRadius: BorderRadius.circular(14.r),
-                  border: Border.all(
-                    color: AppColor.border,
+                  borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColor.mainColor.withOpacity(0.5),
+                      spreadRadius: 1,
+                      blurRadius: 7,
+                      offset: const Offset(0, 1),
+                    ),
+                  ],
+                  border: Border(
+                    bottom: BorderSide(color: AppColor.border),
                   ),
                 ),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
                 child: Row(
                   children: [
                     _buildTab('انتظار'),
@@ -70,12 +79,18 @@ class _OrderViewBodyState extends State<OrderViewBody> {
               }
 
               if (orders.isEmpty) {
-                return const SliverToBoxAdapter(
+                return const SliverFillRemaining(
+                  hasScrollBody: false,
                   child: EmptyWidget(),
                 );
               }
-
-              return SliverList.builder(
+              return SliverGrid.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 0,
+                mainAxisSpacing: 0,
+                childAspectRatio:1.7,
+              ),
                 itemCount: orders.length,
                 itemBuilder: (context, index) {
                   return BuildOrderCard(
@@ -120,19 +135,19 @@ class _OrderViewBodyState extends State<OrderViewBody> {
         },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 250),
-          margin: EdgeInsets.symmetric(horizontal: 2.w),
-          padding: EdgeInsets.symmetric(vertical: 12.h),
+          margin: EdgeInsets.symmetric(horizontal: 2),
+          padding: EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
             color: isSelected
                 ? AppColor.mainColor
                 : Colors.transparent,
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(10),
           ),
           child: Center(
             child: Text(
               title,
               style: TextStyle(
-                fontSize: 14.sp,
+                fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: isSelected
                     ? AppColor.textPrimary

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 
 import '../view_model/main_cubit.dart';
 import '../widgets/custom_drawer.dart';
@@ -14,7 +13,7 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  // final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -22,29 +21,29 @@ class _MainViewState extends State<MainView> {
   builder: (context, state) {
     final cubit=context.read<MainCubit>();
     return Scaffold(
-      key: _scaffoldKey,
-      drawer: CustomDrawer(),
-      appBar: AppBar(
-        title: Text(
-          cubit.drawerItems[cubit.selectedIndex].title,
-          style: Theme
-              .of(context)
-              .textTheme
-              .displaySmall!
-              .copyWith(
-              color: Colors.white
-          ),
-        ),
-       centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            _scaffoldKey.currentState!.openDrawer();
-          },
-          icon: Icon(Icons.menu,color: Colors.white,),
-        ),
-        automaticallyImplyLeading: false,
-        backgroundColor:AppColor.background,
-      ),
+      // key: _scaffoldKey,
+      // drawer: CustomDrawer(),
+      // appBar:MediaQuery.sizeOf(context).width < ConfigSize.tablet? AppBar(
+      //   title: Text(
+      //     cubit.drawerItems[cubit.selectedIndex].title,
+      //     style: Theme
+      //         .of(context)
+      //         .textTheme
+      //         .displaySmall!
+      //         .copyWith(
+      //         color: Colors.white
+      //     ),
+      //   ),
+      //  centerTitle: true,
+      //   leading: IconButton(
+      //     onPressed: () {
+      //       _scaffoldKey.currentState!.openDrawer();
+      //     },
+      //     icon: Icon(Icons.menu,color: Colors.white,),
+      //   ),
+      //   automaticallyImplyLeading: false,
+      //   backgroundColor:AppColor.background,
+      // ):null,
       body: PopScope(
           canPop: false,
           onPopInvoked: (didPop) {
@@ -55,9 +54,19 @@ class _MainViewState extends State<MainView> {
               SystemNavigator.pop();
             }
           },
-        child: IndexedStack(
-          index: cubit.selectedIndex,
-          children: cubit.screens,
+        child: Row(
+          children: [
+            const SizedBox(
+              width: 280,
+              child: CustomDrawer(),
+            ),
+            Expanded(
+              child: IndexedStack(
+                index: cubit.selectedIndex,
+                children: cubit.screens,
+              ),
+            ),
+          ],
         ),
       ),
     );

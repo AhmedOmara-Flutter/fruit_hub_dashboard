@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../core/utils/app_color.dart';
 
 class BuildDatePickerTile extends StatelessWidget {
@@ -19,15 +17,15 @@ class BuildDatePickerTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(12.r),
+      borderRadius: BorderRadius.circular(12),
       child: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: 14.w,
-          vertical: 14.h,
+          horizontal: 14,
+          vertical: 14,
         ),
         decoration: BoxDecoration(
           color: AppColor.card,
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: AppColor.border,
           ),
@@ -35,19 +33,19 @@ class BuildDatePickerTile extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              padding: EdgeInsets.all(10.w),
+              padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: AppColor.mainColor.withOpacity(.12),
-                borderRadius: BorderRadius.circular(10.r),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(
                 Icons.calendar_month_rounded,
                 color: AppColor.mainColor,
-                size: 22.sp,
+                size: 22,
               ),
             ),
 
-            SizedBox(width: 12.w),
+            SizedBox(width: 12),
 
             Expanded(
               child: Column(
@@ -60,7 +58,7 @@ class BuildDatePickerTile extends StatelessWidget {
                     ),
                   ),
 
-                  SizedBox(height: 4.h),
+                  SizedBox(height: 4),
 
                   Text(
                     date == null
@@ -78,7 +76,7 @@ class BuildDatePickerTile extends StatelessWidget {
             Icon(
               Icons.arrow_forward_ios_rounded,
               color: AppColor.textSecondary,
-              size: 16.sp,
+              size: 16,
             ),
           ],
         ),

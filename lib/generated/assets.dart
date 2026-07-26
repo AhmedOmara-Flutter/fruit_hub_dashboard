@@ -38,6 +38,9 @@ class $AssetsImagesGen {
   final AssetGenImage medal2 = const AssetGenImage(
     'assets/images/medal (2).png',
   );
+  final AssetGenImage medal3 = const AssetGenImage(
+    'assets/images/medal (3).png',
+  );
   final AssetGenImage rise = const AssetGenImage('assets/images/rise.png');
   final AssetGenImage splashBg = const AssetGenImage(
     'assets/images/splash_bg.png',

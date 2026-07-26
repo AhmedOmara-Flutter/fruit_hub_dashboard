@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fruit_hub_dashboard/generated/assets.dart';
 
+import '../utils/app_color.dart';
+import '../utils/app_constants.dart';
+
 class CustomBackButton extends StatelessWidget {
   final Color? color;
 
@@ -9,28 +12,37 @@ class CustomBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(100),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: () async{
-            await Future.delayed(Duration(milliseconds: 200));
-            Navigator.pop(context);
-          },
-          child: Container(
-            height: 40,
-            width: 40,
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(100),
+    return GestureDetector(
+      onTap: () async{
+        await Future.delayed(Duration(milliseconds: 200));
+        Navigator.pop(context);
+      },
+      child: Container(
+        height: 55,
+        width: 55,
+        margin: EdgeInsets.only(
+          top: 10,
+          bottom: 10,
+        ),
+        decoration: BoxDecoration(
+          color: AppColor.card,
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: AppColor.mainColor.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 7,
+              offset: const Offset(0, 1),
             ),
-            child: Center(
-              child: SvgPicture.asset(
-                Assets.images.arrowBack.path,
-                color: Colors.white,
-              ),
-            ),
+          ],
+          border: Border(
+            bottom: BorderSide(color: AppColor.border),
+          ),
+        ),
+        child: Center(
+          child: SvgPicture.asset(
+            Assets.images.arrowBack.path,
+            color: Colors.white,
           ),
         ),
       ),

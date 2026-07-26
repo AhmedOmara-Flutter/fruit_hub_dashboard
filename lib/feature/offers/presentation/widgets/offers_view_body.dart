@@ -27,7 +27,6 @@ class OffersViewBody extends StatelessWidget {
           );
         }
 
-
         if (state is GeOffersFailure) {
           return Center(child: Text(state.errMessage));
         }

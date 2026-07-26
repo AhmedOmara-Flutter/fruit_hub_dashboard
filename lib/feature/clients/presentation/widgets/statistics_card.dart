@@ -1,6 +1,7 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
+import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
+import '../../../../core/utils/app_constants.dart';
 
 class StatisticsCard extends StatelessWidget {
   final StatisticsCardModel model;
@@ -15,53 +16,100 @@ class StatisticsCard extends StatelessWidget {
     return GestureDetector(
       onTap: model.onTap,
       child: Container(
-        padding: EdgeInsets.all(10.w),
+        margin: EdgeInsets.only(
+            top: 10,
+            bottom: 10,
+            left: 10,
+            right: 10
+        ),
         decoration: BoxDecoration(
           color: AppColor.card,
-          borderRadius: BorderRadius.circular(8.r),
-          border: Border.all(
-            color: AppColor.border,
+          borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+          boxShadow: [
+            BoxShadow(
+              color: AppColor.mainColor.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 7,
+              offset: const Offset(0, 1),
+            ),
+          ],
+          border: Border(
+            bottom: BorderSide(color: AppColor.border),
           ),
         ),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        height: 150,
+        padding: EdgeInsets.symmetric(
+          horizontal: 14,
+          vertical: 12,
+        ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            /// Header
             Row(
-              mainAxisSize: MainAxisSize.min,
               children: [
                 CircleAvatar(
-                  backgroundColor: model.color,
-                  radius: 20.r,
+                  radius: 20,
+                  backgroundColor: model.color.withOpacity(.12),
                   child: Icon(
                     model.icon,
-                    color: AppColor.white,
-                    size: 22.sp,
+                    color: model.color,
+                    size: responsiveFontSize(
+                      context,
+                      fontSize: 18,
+                    ),
                   ),
                 ),
-                SizedBox(width: 5.w),
-                Text(
-                  model.title,
-                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    color: AppColor.textPrimary,
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    model.title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: AppColor.textPrimary,
+                      fontWeight: FontWeight.w600,
+                      fontSize: responsiveFontSize(
+                        context,
+                        fontSize: 14,
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
 
-            SizedBox(height: 5.h),
+            const Spacer(),
 
+            /// Number
             Text(
               model.subTitleNumber,
-              style: Theme.of(context).textTheme.labelSmall!.copyWith(
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.displaySmall!.copyWith(
                 color: AppColor.textPrimary,
+                fontWeight: FontWeight.bold,
+                fontSize: responsiveFontSize(
+                  context,
+                  fontSize: 22,
+                ),
               ),
             ),
 
-            SizedBox(height: 5.h),
+            SizedBox(height: 15),
 
+            /// Description
             Text(
               model.subTitleText,
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: StyleManager.font12Weight500(context).copyWith(
                 color: AppColor.textSecondary,
+                fontSize: responsiveFontSize(
+                  context,
+                  fontSize: 11,
+                ),
               ),
             ),
           ],
@@ -77,7 +125,7 @@ class StatisticsCardModel {
   final String title;
   final String subTitleNumber;
   final String subTitleText;
-  final void Function()? onTap;
+  final VoidCallback? onTap;
 
   StatisticsCardModel({
     required this.color,

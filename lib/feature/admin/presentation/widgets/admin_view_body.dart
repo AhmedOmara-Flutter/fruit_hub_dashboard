@@ -11,17 +11,22 @@ class AdminViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.only(left: 10, bottom: 10),
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
               child: StatisticsSection(),
             ),
             SliverToBoxAdapter(
-              child: RecentOrdersCard(),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(flex: 2,child: RecentOrdersCard()),
+                  SizedBox(width: 10),
+                  Expanded(child: BestSellerCard()),
+                ],
+              ),
             ),
-            SliverToBoxAdapter(child: SizedBox(height: 10)),
-            SliverToBoxAdapter(child: BestSellerCard()),
           ],
         )
     );

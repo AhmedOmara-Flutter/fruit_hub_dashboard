@@ -13,14 +13,6 @@ class DisplayOrdersView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.background,
-      appBar: AppBar(
-        leading: CustomBackButton(),
-        backgroundColor: AppColor.background,
-        title: Text('عرض الطلبات',style: Theme.of(context).textTheme.displaySmall!.copyWith(
-            color: Colors.white
-        ),),
-      ),
-
       body: DisplayOrdersViewBody(orders: orders,),
     );
   }

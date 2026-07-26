@@ -10,8 +10,7 @@ class EmptyProductsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Lottie.asset(
         Assets.json.empty,
-        height: MediaQuery.sizeOf(context).height * 0.30,
-        fit: BoxFit.fill
+        fit: BoxFit.contain
     );
   }
 }

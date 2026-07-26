@@ -31,7 +31,7 @@ class RecentOrdersListView extends StatelessWidget {
           }
 
         if (recentOrders.isEmpty) {
-          return Container(margin: EdgeInsets.only(bottom: 10),
+          return Container(margin: EdgeInsets.only(bottom: 20),
               child: Text('لا يوجد حاليا طلبات حديثه', style: Theme
                   .of(context)
                   .textTheme
@@ -44,7 +44,6 @@ class RecentOrdersListView extends StatelessWidget {
           itemCount: recentOrders.length,
           itemBuilder: (context, index) {
             final order = recentOrders[index];
-
             return GestureDetector(
               onTap: (){
                 context.read<MainCubit>().changeIndex(4);

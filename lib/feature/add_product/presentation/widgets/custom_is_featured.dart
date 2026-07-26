@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/utils/app_color.dart';
 
 class CustomIsFeatured extends StatelessWidget {
@@ -20,14 +19,14 @@ class CustomIsFeatured extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.only(left: 10.w),
-            width: 24.w,
-            height: 24.w,
+            margin: EdgeInsets.only(left: 10),
+            width: 24,
+            height: 24,
             decoration: BoxDecoration(
               color: isFeatured
                   ? AppColor.mainColor
                   : AppColor.card,
-              borderRadius: BorderRadius.circular(8.r),
+              borderRadius: BorderRadius.circular(8),
               border: Border.all(
                 color: AppColor.border,
               ),
@@ -35,7 +34,7 @@ class CustomIsFeatured extends StatelessWidget {
             child: isFeatured
                 ? Icon(
               Icons.done,
-              size: 17.sp,
+              size: 17,
               color: AppColor.white,
             )
                 : null,

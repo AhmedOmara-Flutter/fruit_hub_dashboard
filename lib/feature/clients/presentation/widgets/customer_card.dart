@@ -1,61 +1,63 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/entities/order_entity.dart';
 import 'package:fruit_hub_dashboard/core/entities/user_entity.dart';
 import 'package:fruit_hub_dashboard/core/helper_function/make_full_name.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
-import 'package:fruit_hub_dashboard/core/utils/route_manager.dart';
 import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
 import 'package:fruit_hub_dashboard/generated/assets.dart';
 
 import '../../../../core/helper_function/make_call_function.dart';
+import '../../../../core/utils/app_constants.dart';
+import '../../../../core/utils/route_manager.dart';
 import 'customer_info_item.dart';
 
 class CustomerCard extends StatelessWidget {
   final UserEntity user;
   final List<OrderEntity> orders;
 
-  const CustomerCard({
-    super.key,
-    required this.user,
-    required this.orders,
-  });
+  const CustomerCard({super.key, required this.user, required this.orders});
 
   @override
   Widget build(BuildContext context) {
     final totalAmount =
         orders.fold(
           0.0,
-              (sum, order) => sum + order.cartEntity.getTotalPrice(),
+          (sum, order) => sum + order.cartEntity.getTotalPrice(),
         ) +
-            orders.fold(
-              0.0,
-                  (sum, order) => sum + order.selectedLocationEntity!.cost,
-            );
+        orders.fold(
+          0.0,
+          (sum, order) => sum + order.selectedLocationEntity!.cost,
+        );
 
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
-      padding: EdgeInsets.all(14.w),
+      padding: EdgeInsets.all(14),
+      margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: AppColor.card,
-        borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(
-          color: AppColor.border,
-        ),
+
+        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.mainColor.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 7,
+            offset: const Offset(0, 1),
+          ),
+        ],
+        border: Border(bottom: BorderSide(color: AppColor.border)),
       ),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Column(
         children: [
           Row(
             children: [
               CircleAvatar(
-                radius: 28.r,
+                radius: 28,
                 backgroundColor: AppColor.mainColor.withOpacity(.15),
-                backgroundImage: AssetImage(
-                  Assets.images.customer.path,
-                ),
+                backgroundImage: AssetImage(Assets.images.customer.path),
               ),
 
-              SizedBox(width: 12.w),
+              SizedBox(width: 12),
 
               Expanded(
                 child: Column(
@@ -63,21 +65,21 @@ class CustomerCard extends StatelessWidget {
                   children: [
                     Text(
                       makeFullName(user.userName),
-                      style: StyleManager.font13Weight600.copyWith(
-                        color: AppColor.white,
-                      ),
+                      style: StyleManager.font13Weight600(
+                        context,
+                      ).copyWith(color: AppColor.white),
                     ),
 
-                    SizedBox(height: 4.h),
+                    SizedBox(height: 4),
 
                     Text(
                       user.email,
-                      style: StyleManager.font12Weight500.copyWith(
-                        color: AppColor.textSecondary,
-                      ),
+                      style: StyleManager.font12Weight500(
+                        context,
+                      ).copyWith(color: AppColor.textSecondary),
                     ),
 
-                    SizedBox(height: 2.h),
+                    SizedBox(height: 2),
 
                     GestureDetector(
                       onTap: () {
@@ -85,18 +87,37 @@ class CustomerCard extends StatelessWidget {
                       },
                       child: Text(
                         user.phone,
-                        style: StyleManager.font12Weight500.copyWith(
-                          color: AppColor.textSecondary,
-                        ),
+                        style: StyleManager.font12Weight500(
+                          context,
+                        ).copyWith(color: AppColor.textSecondary),
                       ),
                     ),
                   ],
                 ),
               ),
+              SizedBox(width: 10),
+              if (orders.isNotEmpty) ...[
+                MaterialButton(
+                  padding: EdgeInsets.symmetric(vertical: 15,horizontal: 20),
+                  color: AppColor.mainColor,
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      RouteManager.displayOrders,
+                      arguments: orders,
+                    );
+
+                  },
+                  child: Text('عرض الطلبات',style: StyleManager.font12Weight500(context).copyWith(
+                    color: AppColor.white,
+                    fontSize: 11
+                  ),),
+                ),
+              ],
             ],
           ),
 
-          SizedBox(height: 14.h),
+          SizedBox(height: 14),
 
           Row(
             children: [
@@ -108,7 +129,7 @@ class CustomerCard extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(width: 10.w),
+              SizedBox(width: 10),
 
               Expanded(
                 child: CustomerInfoItem(
@@ -119,29 +140,6 @@ class CustomerCard extends StatelessWidget {
               ),
             ],
           ),
-
-          if (orders.isNotEmpty) ...[
-            SizedBox(height: 14.h),
-
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(
-                    context,
-                    RouteManager.displayOrders,
-                    arguments: orders,
-                  );
-                },
-                child: Text(
-                  'عرض الطلبات',
-                  style: StyleManager.font13Weight600.copyWith(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ],
         ],
       ),
     );

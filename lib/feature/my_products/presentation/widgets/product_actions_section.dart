@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
 import 'package:fruit_hub_dashboard/core/helper_function/custom_show_dialog.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/utils/route_manager.dart';
-
 import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../../core/cubit/products_cubit/products_cubit.dart';
 import '../../../../core/entities/offer_entity.dart';
@@ -29,9 +27,9 @@ class ProductActionsSection extends StatelessWidget {
     return Row(
       children: [
         EditProductButton(product: product),
-        SizedBox(width: 5.w),
+        SizedBox(width: 5),
         RemoveProductButton(product: product),
-        SizedBox(width: 5.w),
+        SizedBox(width: 5),
         RemoveOfferButton(
           hasOffer: hasOffer,
           offer: offer,
@@ -63,11 +61,11 @@ class RemoveProductButton extends StatelessWidget {
       },
       child: Expanded(
         child: Container(
-          margin: EdgeInsets.only(top: 10.h),
-          padding: EdgeInsets.symmetric(vertical: 10.h),
+          margin: EdgeInsets.only(top: 10),
+          padding: EdgeInsets.symmetric(vertical: 10),
           decoration: BoxDecoration(
             color: AppColor.red.withOpacity(0.5),
-            borderRadius: BorderRadius.circular(5.r),
+            borderRadius: BorderRadius.circular(5),
             border: Border.all(
               color: AppColor.red.withOpacity(0.7),
             ),
@@ -133,12 +131,12 @@ class RemoveOfferButton extends StatelessWidget {
       },
       child: Expanded(
         child: Container(
-          margin: EdgeInsets.only(top: 10.h),
-          padding: EdgeInsets.symmetric(vertical: 10.h),
+          margin: EdgeInsets.only(top: 10),
+          padding: EdgeInsets.symmetric(vertical: 10),
           decoration: BoxDecoration(
             color: hasOffer ? AppColor.mainColor.withOpacity(0.8) : AppColor
                 .card,
-            borderRadius: BorderRadius.circular(5.r),
+            borderRadius: BorderRadius.circular(5),
             border: Border.all(
               color: AppColor.border,
             ),
@@ -199,11 +197,11 @@ class EditProductButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        margin: EdgeInsets.only(top: 10.h),
-        padding: EdgeInsets.symmetric(vertical: 10.h),
+        margin: EdgeInsets.only(top: 10),
+        padding: EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           color: AppColor.green.withOpacity(0.5),
-          borderRadius: BorderRadius.circular(5.r),
+          borderRadius: BorderRadius.circular(5),
           border: Border.all(
             color: AppColor.green.withOpacity(0.7),
           ),

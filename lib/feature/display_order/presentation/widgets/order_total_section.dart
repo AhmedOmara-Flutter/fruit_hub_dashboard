@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/style_manager.dart';
 
@@ -19,10 +17,10 @@ class OrderTotalSection extends StatelessWidget {
     final finalTotal = total + delivery;
 
     return Container(
-      padding: EdgeInsets.all(12.w),
+      padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: AppColor.background,
-        borderRadius: BorderRadius.circular(14.r),
+        borderRadius: BorderRadius.circular(14),
         border: Border.all(
           color: AppColor.border,
         ),
@@ -34,7 +32,7 @@ class OrderTotalSection extends StatelessWidget {
             value: '${total.toStringAsFixed(2)} ج.م',
           ),
 
-          SizedBox(height: 8.h),
+          SizedBox(height: 8),
 
           _RowItem(
             title: 'التوصيل',
@@ -42,7 +40,7 @@ class OrderTotalSection extends StatelessWidget {
           ),
 
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 10.h),
+            padding: EdgeInsets.symmetric(vertical: 10),
             child: Divider(
               color: AppColor.border,
               height: 1,
@@ -53,7 +51,7 @@ class OrderTotalSection extends StatelessWidget {
             children: [
               Text(
                 'الإجمالي',
-                style: StyleManager.font13Weight600.copyWith(
+                style: StyleManager.font13Weight600(context).copyWith(
                   color: AppColor.white,
                 ),
               ),
@@ -62,7 +60,7 @@ class OrderTotalSection extends StatelessWidget {
 
               Text(
                 '${finalTotal.toStringAsFixed(2)} ج.م',
-                style: StyleManager.font15Weight700.copyWith(
+                style: StyleManager.font15Weight700(context).copyWith(
                   color: AppColor.mainColor,
                 ),
               ),
@@ -89,12 +87,12 @@ class _RowItem extends StatelessWidget {
       children: [
         Text(
           title,
-          style: StyleManager.font12Weight500,
+          style: StyleManager.font12Weight500(context),
         ),
         const Spacer(),
         Text(
           value,
-          style: StyleManager.font13Weight600.copyWith(
+          style: StyleManager.font13Weight600(context).copyWith(
             color: AppColor.white,
           ),
         ),

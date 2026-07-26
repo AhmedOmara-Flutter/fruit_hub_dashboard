@@ -68,7 +68,7 @@ class ClientsViewBody extends StatelessWidget {
 
               }
 
-              return SliverList.builder(
+              return SliverGrid.builder(
                 itemBuilder: (context, index) {
                   String uId = clients[index].uId;
                   final orders = context
@@ -79,7 +79,12 @@ class ClientsViewBody extends StatelessWidget {
                     orders: orders,
                   );
                 },
-                itemCount: clients.length,
+                itemCount: clients.length, gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                  crossAxisSpacing: 0,
+                  mainAxisSpacing: 0,
+                  childAspectRatio:2.1,
+              )
               );
             }
 

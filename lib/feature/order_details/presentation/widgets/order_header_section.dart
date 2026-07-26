@@ -1,6 +1,4 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/entities/order_entity.dart';
 import 'package:fruit_hub_dashboard/core/helper_function/get_date_formate.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
@@ -19,10 +17,10 @@ class OrderHeaderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(14.w),
+      padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: AppColor.card,
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: AppColor.border,
         ),
@@ -32,8 +30,8 @@ class OrderHeaderSection extends StatelessWidget {
           Row(
             children: [
               Container(
-                width: 42.w,
-                height: 42.w,
+                width: 42,
+                height: 42,
                 decoration: BoxDecoration(
                   color: AppColor.mainColor.withOpacity(.12),
                   shape: BoxShape.circle,
@@ -41,11 +39,11 @@ class OrderHeaderSection extends StatelessWidget {
                 child: Icon(
                   Icons.receipt_long_rounded,
                   color: AppColor.mainColor,
-                  size: 20.sp,
+                  size: 20,
                 ),
               ),
 
-              SizedBox(width: 10.w),
+              SizedBox(width: 10),
 
               Expanded(
                 child: Column(
@@ -53,7 +51,7 @@ class OrderHeaderSection extends StatelessWidget {
                   children: [
                     Text(
                       'تفاصيل الطلب',
-                      style: StyleManager.font13Weight600.copyWith(color: AppColor.white),
+                      style: StyleManager.font13Weight600(context).copyWith(color: AppColor.white),
                     ),
                   ],
                 ),
@@ -61,39 +59,39 @@ class OrderHeaderSection extends StatelessWidget {
 
               Container(
                 padding: EdgeInsets.symmetric(
-                  horizontal: 10.w,
-                  vertical: 5.h,
+                  horizontal: 10,
+                  vertical: 5,
                 ),
                 decoration: BoxDecoration(
                   color: order.status.color.withOpacity(.15),
-                  borderRadius: BorderRadius.circular(30.r),
+                  borderRadius: BorderRadius.circular(30),
                 ),
                 child: Text(
                   order.status.ar,
-                  style: StyleManager.font13Weight700.copyWith(
+                  style: StyleManager.font13Weight700(context).copyWith(
                     color: order.status.color,
                   ),
                 ),
               ),
             ],
           ),
-          SizedBox(height: 12.h),
+          SizedBox(height: 12),
           Container(
-            padding: EdgeInsets.only(right:10.w),
+            padding: EdgeInsets.only(right:10),
 
             child: Row(
               children: [
                 Icon(
                   Icons.calendar_today_outlined,
-                  size: 15.sp,
+                  size: 15,
                   color: AppColor.textSecondary,
                 ),
 
-                SizedBox(width: 4.w),
+                SizedBox(width: 4),
 
                 Text(
                   getDateFormate(order.createdAt.toString()),
-                  style: StyleManager.font12Weight500,
+                  style: StyleManager.font12Weight500(context),
                 ),
               ],
             ),

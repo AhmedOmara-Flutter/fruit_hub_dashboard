@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
 import '../../../../core/utils/app_color.dart';
 import 'drawer_item.dart';
 
@@ -14,18 +13,32 @@ class InActiveDrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: EdgeInsets.only(right: 10.w),
-      leading: Icon(
-        drawerItemModel.inactiveIcon,
-        color: AppColor.textSecondary,
-        size: 24.sp,
-      ),
-      title: Text(
-        drawerItemModel.title,
-        style: Theme.of(context).textTheme.labelMedium!.copyWith(
-          color: AppColor.textSecondary,
-        ),
+    return Container(
+      height: 50,
+      margin: EdgeInsets.symmetric(horizontal: 5),
+
+      padding: EdgeInsets.symmetric(horizontal: 5),
+      alignment: Alignment.centerRight,
+      child: Row(
+        children: [
+          Icon(
+            drawerItemModel.inactiveIcon,
+            color: AppColor.textSecondary,
+            size: responsiveFontSize(context, fontSize: 18),
+          ),
+          SizedBox(width: 6),
+          Expanded(
+            child: Text(
+              drawerItemModel.title,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                color: AppColor.textSecondary,
+                fontWeight: FontWeight.w500,
+                fontSize: responsiveFontSize(context, fontSize: 13),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -42,24 +55,34 @@ class ActiveDrawerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 50,
+      margin: EdgeInsets.symmetric(horizontal: 5),
+      padding: EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.r),
         color: AppColor.mainColor,
+        borderRadius: BorderRadius.circular(12),
       ),
-      child: ListTile(
-        contentPadding: EdgeInsets.only(right: 10.w),
-        leading: Icon(
-          drawerItemModel.activeIcon,
-          color: AppColor.white,
-          size: 30.sp,
-        ),
-        title: Text(
-          drawerItemModel.title,
-          style: Theme.of(context).textTheme.labelMedium!.copyWith(
-            color: AppColor.white,
-            fontSize: 18.sp,
+      alignment: Alignment.centerRight,
+      child: Row(
+        children: [
+          Icon(
+            drawerItemModel.activeIcon,
+            color: Colors.white,
+            size: responsiveFontSize(context, fontSize: 18),
           ),
-        ),
+          SizedBox(width: 6),
+          Expanded(
+            child: Text(
+              drawerItemModel.title,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                color: Colors.white,
+                fontSize: responsiveFontSize(context, fontSize: 13),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

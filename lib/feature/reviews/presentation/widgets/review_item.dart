@@ -1,14 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/entities/product_entity.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/utils/route_manager.dart';
-import 'package:fruit_hub_dashboard/feature/reviews/presentation/view_model/get_reviews/get_reviews_cubit.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../../core/helper_function/custom_show_dialog.dart';
+import '../../../../core/utils/app_constants.dart';
 
 class ReviewItem extends StatelessWidget {
   final ProductEntity product;
@@ -21,13 +17,28 @@ class ReviewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(
+        top: 2,
+        bottom: 10,
+        left: 10,
+      ),
       decoration: BoxDecoration(
         color: AppColor.card,
-        borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(
-          color: AppColor.border,
+        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.mainColor.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 7,
+            offset: const Offset(0, 1),
+          ),
+        ],
+        border: Border(
+          bottom: BorderSide(color: AppColor.border),
         ),
       ),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+
       child: Column(
         children: [
           Row(
@@ -36,13 +47,13 @@ class ReviewItem extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    margin: EdgeInsets.all(10.w),
+                    margin: EdgeInsets.all(10),
                     padding: EdgeInsets.symmetric(
-                      horizontal: 8.w,
-                      vertical: 5.h,
+                      horizontal: 8,
+                      vertical: 5,
                     ),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4.r),
+                      borderRadius: BorderRadius.circular(4),
                       border: Border.all(
                         color: AppColor.border,
                       ),
@@ -57,11 +68,11 @@ class ReviewItem extends StatelessWidget {
                               .titleMedium!
                               .copyWith(color: AppColor.white),
                         ),
-                        SizedBox(width: 5.w),
+                        SizedBox(width: 5),
                         Icon(
                           Icons.message,
                           color: AppColor.textSecondary,
-                          size: 18.sp,
+                          size: 18,
                         ),
                       ],
                     ),
@@ -92,20 +103,20 @@ class ReviewItem extends StatelessWidget {
               // ),
             ],
           ),
-          SizedBox(height: 5.h),
+          SizedBox(height: 5),
           Column(
             children: [
               Container(
-                height: 125.h,
-                width: 125.w,
+                height: 125,
+                width: 125,
                 child: CachedNetworkImage(
                   imageUrl: product.image ?? '',
                   fit: BoxFit.contain,
                   fadeInDuration: const Duration(milliseconds: 250),
                   placeholder: (context, url) => Center(
                     child: SizedBox(
-                      width: 100.w,
-                      height: 100.w,
+                      width: 100,
+                      height: 100,
                       child: const CircularProgressIndicator(
                         strokeWidth: 2,
                         color: AppColor.mainColor,
@@ -114,12 +125,12 @@ class ReviewItem extends StatelessWidget {
                   ),
                   errorWidget: (context, url, error) => Icon(
                     Icons.image_not_supported_outlined,
-                    size: 42.sp,
+                    size: 42,
                     color: AppColor.textSecondary,
                   ),
                 ),
               ),
-              SizedBox(height: 10.h),
+              SizedBox(height: 10),
               Text(
                 product.name,
                 style: Theme.of(context).textTheme.labelLarge!.copyWith(
@@ -127,7 +138,7 @@ class ReviewItem extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 10.h),
+              SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -135,9 +146,9 @@ class ReviewItem extends StatelessWidget {
                   Icon(
                     Icons.star_rounded,
                     color: AppColor.mainColor,
-                    size: 16.sp,
+                    size: 16,
                   ),
-                  SizedBox(width: 5.w),
+                  SizedBox(width: 5),
                   Text(
                     product.averageRating.toStringAsFixed(2),
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
@@ -147,10 +158,10 @@ class ReviewItem extends StatelessWidget {
                 ],
               ),
 
-              SizedBox(height: 10.h),
+              SizedBox(height: 10),
 
               ClipRRect(
-                borderRadius: BorderRadius.circular(12.r),
+                borderRadius: BorderRadius.circular(12),
                 child: Material(
                   color: Colors.transparent,
                   child: InkWell(
@@ -163,14 +174,14 @@ class ReviewItem extends StatelessWidget {
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(
-                        vertical: 12.h,
-                        horizontal: 15.w,
+                        vertical: 12,
+                        horizontal: 15,
                       ),
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: AppColor.border,
                         ),
-                        borderRadius: BorderRadius.circular(12.r),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
                         'عرض جميع التعليقات',

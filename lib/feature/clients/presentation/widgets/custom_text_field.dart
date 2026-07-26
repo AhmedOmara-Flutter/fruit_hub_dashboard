@@ -12,8 +12,8 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       child: TextFormField(
         onChanged: onChanged,
         readOnly: readOnly,
@@ -21,7 +21,7 @@ class CustomTextField extends StatelessWidget {
         style: Theme.of(context).textTheme.bodyMedium,
         decoration: InputDecoration(
           hintText: 'ابحث عن...',
-          hintStyle: StyleManager.font13Weight600,
+          hintStyle: StyleManager.font13Weight600(context),
           prefixIcon: Icon(
             Icons.search,
             color: AppColor.mainColor,

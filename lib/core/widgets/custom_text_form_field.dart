@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../utils/app_color.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -38,7 +36,7 @@ class CustomTextFormField extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(right: 5.w),
+                padding: EdgeInsets.only(right: 5),
                 child: Text(
                   label!,
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(
@@ -47,14 +45,14 @@ class CustomTextFormField extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 8.w),
+              SizedBox(width: 8),
               CircleAvatar(
                 backgroundColor: AppColor.red,
-                radius: 2.r,
+                radius: 2,
               ),
             ],
           ),
-        if (label != null) SizedBox(height: 8.h),
+        if (label != null) SizedBox(height: 8),
         TextFormField(
           readOnly: readOnly,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -71,34 +69,34 @@ class CustomTextFormField extends StatelessWidget {
             labelText: labelText,
             hintStyle: TextStyle(
               color: AppColor.textSecondary,
-              fontSize: 14.sp,
+              fontSize: 14,
             ),
             labelStyle: TextStyle(
               color: AppColor.textSecondary,
-              fontSize: 14.sp,
+              fontSize: 14,
             ),
             filled: true,
             fillColor: AppColor.card,
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.r),
+              borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
                 color: AppColor.border,
               ),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.r),
+              borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
                 color: AppColor.mainColor,
               ),
             ),
             errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.r),
+              borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
                 color: AppColor.red,
               ),
             ),
             focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.r),
+              borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
                 color: AppColor.red,
               ),

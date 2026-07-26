@@ -12,13 +12,6 @@ class ProductReviewsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: CustomBackButton(),
-        backgroundColor: AppColor.background,
-        title: Text('عرض التعليقات',style: Theme.of(context).textTheme.displaySmall!.copyWith(
-            color: Colors.white
-        ),),
-      ),
       body: ProductReviewsViewBody(product: product,),
     );
   }

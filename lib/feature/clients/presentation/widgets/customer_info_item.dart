@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/style_manager.dart';
 
@@ -20,12 +18,12 @@ class CustomerInfoItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: 12.w,
-        vertical: 10.h,
+        horizontal: 12,
+        vertical: 10,
       ),
       decoration: BoxDecoration(
         color: AppColor.card,
-        borderRadius: BorderRadius.circular(12.r),
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: AppColor.border,
         ),
@@ -33,8 +31,8 @@ class CustomerInfoItem extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 38.w,
-            height: 38.w,
+            width: 38,
+            height: 38,
             decoration: BoxDecoration(
               color: AppColor.mainColor.withOpacity(.15),
               shape: BoxShape.circle,
@@ -42,11 +40,11 @@ class CustomerInfoItem extends StatelessWidget {
             child: Icon(
               icon,
               color: AppColor.mainColor,
-              size: 20.sp,
+              size: 20,
             ),
           ),
 
-          SizedBox(width: 10.w),
+          SizedBox(width: 10),
 
           Expanded(
             child: Column(
@@ -56,16 +54,16 @@ class CustomerInfoItem extends StatelessWidget {
                   title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: StyleManager.font13Weight600.copyWith(
+                  style: StyleManager.font13Weight600(context).copyWith(
                     color: AppColor.white,
                   ),
                 ),
 
-                SizedBox(height: 2.h),
+                SizedBox(height: 2),
 
                 Text(
                   subtitle,
-                  style: StyleManager.font11Weight400.copyWith(
+                  style: StyleManager.font11Weight400(context).copyWith(
                     color: AppColor.textSecondary,
                   ),
                 ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/entities/order_entity.dart';
 import 'package:fruit_hub_dashboard/core/helper_function/make_call_function.dart';
 import 'package:fruit_hub_dashboard/core/helper_function/make_full_name.dart';
@@ -20,10 +19,10 @@ class CustomerInfoSection extends StatelessWidget {
     final user = order.userEntity!;
 
     return Container(
-      padding: EdgeInsets.all(14.w),
+      padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: AppColor.card,
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: AppColor.border,
         ),
@@ -33,24 +32,24 @@ class CustomerInfoSection extends StatelessWidget {
         children: [
           Text(
             'بيانات العميل',
-            style: StyleManager.font13Weight600.copyWith(
+            style: StyleManager.font13Weight600(context).copyWith(
               color: AppColor.white,
             ),
           ),
 
-          SizedBox(height: 12.h),
+          SizedBox(height: 12),
 
           Row(
             children: [
               CircleAvatar(
-                radius: 24.r,
+                radius: 24,
                 backgroundColor: AppColor.card,
                 backgroundImage: AssetImage(
                   Assets.images.customer.path,
                 ),
               ),
 
-              SizedBox(width: 10.w),
+              SizedBox(width: 10),
 
               Expanded(
                 child: Column(
@@ -58,14 +57,14 @@ class CustomerInfoSection extends StatelessWidget {
                   children: [
                     Text(
                       makeFullName(user.userName),
-                      style: StyleManager.font15Weight700,
+                      style: StyleManager.font15Weight700(context),
                     ),
 
-                    SizedBox(height: 2.h),
+                    SizedBox(height: 2),
 
                     Text(
                       user.email,
-                      style: StyleManager.font12Weight500,
+                      style: StyleManager.font12Weight500(context),
                     ),
                   ],
                 ),
@@ -73,7 +72,7 @@ class CustomerInfoSection extends StatelessWidget {
             ],
           ),
 
-          SizedBox(height: 14.h),
+          SizedBox(height: 14),
 
           _InfoTile(
             icon: Icons.phone_rounded,
@@ -82,7 +81,7 @@ class CustomerInfoSection extends StatelessWidget {
             onTap: () => makePhoneCall(user.phone),
           ),
 
-          SizedBox(height: 10.h),
+          SizedBox(height: 10),
 
           _InfoTile(
             icon: Icons.person_outline_rounded,
@@ -112,15 +111,15 @@ class _InfoTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(12.r),
+      borderRadius: BorderRadius.circular(12),
       child: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: 12.w,
-          vertical: 10.h,
+          horizontal: 12,
+          vertical: 10,
         ),
         decoration: BoxDecoration(
           color: AppColor.card,
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: AppColor.border,
           ),
@@ -128,8 +127,8 @@ class _InfoTile extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              width: 34.w,
-              height: 34.w,
+              width: 34,
+              height: 34,
               decoration: BoxDecoration(
                 color: AppColor.mainColor.withOpacity(.15),
                 shape: BoxShape.circle,
@@ -137,11 +136,11 @@ class _InfoTile extends StatelessWidget {
               child: Icon(
                 icon,
                 color: AppColor.mainColor,
-                size: 17.sp,
+                size: 17,
               ),
             ),
 
-            SizedBox(width: 10.w),
+            SizedBox(width: 10),
 
             Expanded(
               child: Column(
@@ -149,14 +148,14 @@ class _InfoTile extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: StyleManager.font11Weight400,
+                    style: StyleManager.font11Weight400(context),
                   ),
 
-                  SizedBox(height: 2.h),
+                  SizedBox(height: 2),
 
                   Text(
                     value,
-                    style: StyleManager.font13Weight600.copyWith(
+                    style: StyleManager.font13Weight600(context).copyWith(
                       color: AppColor.white,
                     ),
                   ),

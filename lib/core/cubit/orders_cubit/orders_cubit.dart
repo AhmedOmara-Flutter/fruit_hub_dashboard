@@ -23,6 +23,8 @@ class OrdersCubit extends Cubit<OrdersState> {
     Assets.images.medal.path,
     Assets.images.medal1.path,
     Assets.images.medal2.path,
+    Assets.images.medal3.path,
+    Assets.images.medal3.path,
   ];
 
   void getOrders() {

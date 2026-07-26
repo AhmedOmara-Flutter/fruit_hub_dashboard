@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
 
@@ -17,10 +16,10 @@ class PaymentCardSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(14.w),
+      padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: AppColor.card,
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: AppColor.border,
         ),
@@ -30,21 +29,21 @@ class PaymentCardSection extends StatelessWidget {
         children: [
           Text(
             'طريقة الدفع',
-            style: StyleManager.font13Weight600.copyWith(
+            style: StyleManager.font13Weight600(context).copyWith(
               color: AppColor.white,
             ),
           ),
 
-          SizedBox(height: 12.h),
+          SizedBox(height: 12),
 
           Container(
             padding: EdgeInsets.symmetric(
-              horizontal: 10.w,
-              vertical: 10.h,
+              horizontal: 10,
+              vertical: 10,
             ),
             decoration: BoxDecoration(
               color: AppColor.card,
-              borderRadius: BorderRadius.circular(12.r),
+              borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 color: AppColor.border,
               ),
@@ -52,8 +51,8 @@ class PaymentCardSection extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  width: 34.w,
-                  height: 34.w,
+                  width: 34,
+                  height: 34,
                   decoration: BoxDecoration(
                     color: Colors.green.withOpacity(.12),
                     shape: BoxShape.circle,
@@ -61,16 +60,16 @@ class PaymentCardSection extends StatelessWidget {
                   child: Icon(
                     Icons.payments_outlined,
                     color: Colors.green,
-                    size: 16.sp,
+                    size: 16,
                   ),
                 ),
 
-                SizedBox(width: 10.w),
+                SizedBox(width: 10),
 
                 Expanded(
                   child: Text(
                     paymentMethod,
-                    style: StyleManager.font12Weight500.copyWith(
+                    style: StyleManager.font12Weight500(context).copyWith(
                       color: AppColor.white,
                     ),
                   ),
@@ -79,7 +78,7 @@ class PaymentCardSection extends StatelessWidget {
             ),
           ),
           if (paymentImage != null) ...[
-            SizedBox(height: 12.h),
+            SizedBox(height: 12),
             GestureDetector(
               onTap: () {
                 showDialog(
@@ -88,12 +87,12 @@ class PaymentCardSection extends StatelessWidget {
                   builder: (_) {
                     return Dialog(
                       backgroundColor: Colors.transparent,
-                      insetPadding: EdgeInsets.all(16.w),
+                      insetPadding: EdgeInsets.all(16),
                       child: InteractiveViewer(
                         minScale: 1,
                         maxScale: 4,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16.r),
+                          borderRadius: BorderRadius.circular(16),
                           child: CachedNetworkImage(
                             imageUrl: paymentImage!,
                             fit: BoxFit.contain,
@@ -105,24 +104,24 @@ class PaymentCardSection extends StatelessWidget {
                 );
               },
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(12.r),
+                borderRadius: BorderRadius.circular(12),
                 child: CachedNetworkImage(
                   imageUrl: paymentImage!,
-                  height: 180.h,
+                  height: 180,
                   width: double.infinity,
                   fit: BoxFit.cover,
                   placeholder: (_, __) => Container(
-                    height: 180.h,
+                    height: 180,
                     color: AppColor.background,
                   ),
                   errorWidget: (_, __, ___) => Container(
-                    height: 180.h,
+                    height: 180,
                     color: AppColor.background,
                     alignment: Alignment.center,
                     child: Icon(
                       Icons.image_not_supported_outlined,
                       color: AppColor.textSecondary,
-                      size: 26.sp,
+                      size: 26,
                     ),
                   ),
                 ),

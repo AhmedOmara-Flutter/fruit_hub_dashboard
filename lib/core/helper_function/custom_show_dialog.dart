@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 
   class CustomShowDialog {
@@ -22,27 +21,27 @@ import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
             backgroundColor: AppColor.card,
             elevation: 0,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24.r),
+              borderRadius: BorderRadius.circular(24),
             ),
-            contentPadding: EdgeInsets.all(22.w),
+            contentPadding: EdgeInsets.all(22),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  width: 72.w,
-                  height: 72.w,
+                  width: 72,
+                  height: 72,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: color.withOpacity(.12),
                   ),
                   child: Icon(
                     flag,
-                    size: 36.sp,
+                    size: 36,
                     color: color,
                   ),
                 ),
 
-                SizedBox(height: 18.h),
+                SizedBox(height: 18),
 
                 Text(
                   title,
@@ -53,11 +52,11 @@ import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
                   ),
                 ),
 
-                SizedBox(height: 10.h),
+                SizedBox(height: 10),
 
                 content,
 
-                SizedBox(height: 24.h),
+                SizedBox(height: 24),
 
                 Row(
                   children: [
@@ -73,9 +72,9 @@ import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
                           ),
                           elevation: 0,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16.r),
+                            borderRadius: BorderRadius.circular(16),
                           ),
-                          padding: EdgeInsets.symmetric(vertical: 15.h),
+                          padding: EdgeInsets.symmetric(vertical: 15),
                         ),
                         child: Text(
                           cancelText,
@@ -87,7 +86,7 @@ import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
                       ),
                     ),
 
-                    SizedBox(width: 12.w),
+                    SizedBox(width: 12),
 
                     Expanded(
                       child: ElevatedButton(
@@ -98,9 +97,9 @@ import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
                           elevation: 2,
                           shadowColor: color.withOpacity(.35),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16.r),
+                            borderRadius: BorderRadius.circular(16),
                           ),
-                          padding: EdgeInsets.symmetric(vertical: 15.h),
+                          padding: EdgeInsets.symmetric(vertical: 15),
                         ),
                         child: Text(
                           acceptText,

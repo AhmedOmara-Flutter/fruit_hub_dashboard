@@ -1,13 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/entities/order_entity.dart';
-import 'package:fruit_hub_dashboard/core/helper_function/get_date_formate.dart';
-import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
-import 'package:skeletonizer/skeletonizer.dart';
-
-import '../../../../core/enums/order_enum.dart';
-import '../../../orders/presentation/widgets/order_status_badge.dart';
+import '../../../../core/utils/app_color.dart';
+import '../../../../core/widgets/custom_back_button.dart';
 import 'display_order_card.dart';
 
 class DisplayOrdersViewBody extends StatelessWidget {
@@ -17,16 +11,51 @@ class DisplayOrdersViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      padding: EdgeInsets.all(10.w),
-      itemCount: orders.length,
-      separatorBuilder: (_, __) => SizedBox(height: 14.h),
-      itemBuilder: (context, index) {
-        return DisplayOrderCard(
-          order: orders[index],
-          orderNumber: orders.length - index,
-        );
-      },
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const CustomBackButton(),
+              Row(
+                children: [
+                  Icon(Icons.display_settings, color: AppColor.mainColor),
+                  const SizedBox(width: 8),
+                  Text(
+                    "عرض الطلبات",
+                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                      color: AppColor.textPrimary,
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(width: 40),
+            ],
+          ),
+        ),
+
+        Expanded(
+          child: GridView.builder(
+            padding: EdgeInsets.all(10),
+            itemCount: orders.length,
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: 3,
+    crossAxisSpacing: 0,
+    mainAxisSpacing: 0,
+    childAspectRatio:1.15,
+    ),
+            itemBuilder: (context, index) {
+              return DisplayOrderCard(
+                order: orders[index],
+                orderNumber: orders.length - index,
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

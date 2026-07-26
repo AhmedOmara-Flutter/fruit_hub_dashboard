@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/entities/order_entity.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
@@ -18,10 +17,10 @@ class DeliveryAddressSection extends StatelessWidget {
     final location = order.selectedLocationEntity!;
 
     return Container(
-      padding: EdgeInsets.all(14.w),
+      padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: AppColor.card,
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: AppColor.border,
         ),
@@ -31,12 +30,12 @@ class DeliveryAddressSection extends StatelessWidget {
         children: [
           Text(
             'عنوان التوصيل',
-            style: StyleManager.font13Weight600.copyWith(
+            style: StyleManager.font13Weight600(context).copyWith(
               color: AppColor.white,
             ),
           ),
 
-          SizedBox(height: 12.h),
+          SizedBox(height: 12),
 
           _AddressTile(
             icon: Icons.map_outlined,
@@ -44,7 +43,7 @@ class DeliveryAddressSection extends StatelessWidget {
             value: location.title,
           ),
 
-          SizedBox(height: 8.h),
+          SizedBox(height: 8),
 
           _AddressTile(
             icon: Icons.location_on_outlined,
@@ -72,12 +71,12 @@ class _AddressTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: 10.w,
-        vertical: 10.h,
+        horizontal: 10,
+        vertical: 10,
       ),
       decoration: BoxDecoration(
         color: AppColor.card,
-        borderRadius: BorderRadius.circular(12.r),
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: AppColor.border,
         ),
@@ -85,8 +84,8 @@ class _AddressTile extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 34.w,
-            height: 34.w,
+            width: 34,
+            height: 34,
             decoration: BoxDecoration(
               color: AppColor.mainColor.withOpacity(.12),
               shape: BoxShape.circle,
@@ -94,11 +93,11 @@ class _AddressTile extends StatelessWidget {
             child: Icon(
               icon,
               color: AppColor.mainColor,
-              size: 16.sp,
+              size: 16,
             ),
           ),
 
-          SizedBox(width: 10.w),
+          SizedBox(width: 10),
 
           Expanded(
             child: Column(
@@ -106,14 +105,14 @@ class _AddressTile extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: StyleManager.font11Weight400,
+                  style: StyleManager.font11Weight400(context),
                 ),
 
-                SizedBox(height: 2.h),
+                SizedBox(height: 2),
 
                 Text(
                   value,
-                  style: StyleManager.font12Weight500.copyWith(
+                  style: StyleManager.font12Weight500(context).copyWith(
                     color: AppColor.white,
                   ),
                 ),

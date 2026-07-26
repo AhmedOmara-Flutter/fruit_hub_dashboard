@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_hub_dashboard/core/helper_function/custom_show_snake_bar.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/feature/my_products/presentation/widgets/build_date_picker_tile.dart';
@@ -75,7 +74,7 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                   color: AppColor.textPrimary,
                 ),
               ),
-              SizedBox(height: 15.h),
+              SizedBox(height: 15),
               CustomTextFormField(
                 controller: discountController,
                 keyboardType: TextInputType.number,
@@ -96,7 +95,7 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                   return null;
                 },
               ),
-              SizedBox(height: 16.h),
+              SizedBox(height: 16),
               Row(
                 children: [
                   Expanded(
@@ -109,7 +108,7 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                     ),
                   ),
 
-                  SizedBox(width: 10.w),
+                  SizedBox(width: 10),
 
                   Expanded(
                     child: CustomTextFormField(
@@ -122,7 +121,7 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                   ),
                 ],
               ),
-              SizedBox(height: 16.h),
+              SizedBox(height: 16),
               BuildDatePickerTile(
                 title: 'تاريخ بداية العرض',
                 date: startDate,
@@ -151,7 +150,7 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                   }
                 },
               ),
-              SizedBox(height: 12.h),
+              SizedBox(height: 12),
               BuildDatePickerTile(
                 title: 'تاريخ انتهاء العرض',
                 date: endDate,
@@ -180,7 +179,7 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                   }
                 },
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 20),
               BlocConsumer<OffersCubit, OfferState>(
                 listener: (context, state) {
                   if (state is OffersFailure) {
@@ -209,9 +208,9 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                         backgroundColor: AppColor.mainColor,
                         disabledBackgroundColor: AppColor.border,
                         foregroundColor: AppColor.white,
-                        padding: EdgeInsets.symmetric(vertical: 14.h),
+                        padding: EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.r),
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                       onPressed: (!canSave || isLoading)
@@ -242,8 +241,8 @@ class _AddOfferBottomSheetState extends State<AddOfferBottomSheet> {
                       },
                       child: isLoading
                           ? SizedBox(
-                        height: 18.sp,
-                        width: 18.sp,
+                        height: 18,
+                        width: 18,
                         child: const CircularProgressIndicator(
                           strokeWidth: 2,
                           color: AppColor.white,

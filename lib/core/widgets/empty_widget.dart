@@ -10,7 +10,14 @@ class EmptyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Lottie.asset(Assets.json.empty),
+      child: SizedBox(
+        width: 700,
+        height: 700,
+        child: Lottie.asset(
+          Assets.json.empty,
+          fit: BoxFit.contain,
+        ),
+      ),
     );
   }
 }
