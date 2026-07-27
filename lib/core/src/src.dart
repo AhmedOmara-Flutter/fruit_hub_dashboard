@@ -61,24 +61,23 @@ class MyApp extends StatelessWidget {
           theme: ThemeManager.darkTheme(context),
           onGenerateRoute: GenerateRoute.generateRoute,
           initialRoute: RouteManager.splash,
-          // builder: (context, child) {
-          //   return BlocBuilder<NetworkCubit, NetworkState>(
-          //     builder: (context, state) {
-          //       return Stack(
-          //         children: [
-          //           child!,
-          //           AnimatedSwitcher(
-          //             duration: const Duration(milliseconds: 350),
-          //             child: (state is NetworkDisconnected || state is NetworkLoading)
-          //                 ? const NoInternetView()
-          //                 : const SizedBox.shrink(),
-          //           ),                    ],
-          //       );
-          //     },
-          //   );
-          // },
+          builder: (context, child) {
+            return BlocBuilder<NetworkCubit, NetworkState>(
+              builder: (context, state) {
+                return Stack(
+                  children: [
+                    child!,
+                    AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 350),
+                      child: (state is NetworkDisconnected || state is NetworkLoading)
+                          ? const NoInternetView()
+                          : const SizedBox.shrink(),
+                    ),                    ],
+                );
+              },
+            );
+          },
         )
-
     );
   }
 }

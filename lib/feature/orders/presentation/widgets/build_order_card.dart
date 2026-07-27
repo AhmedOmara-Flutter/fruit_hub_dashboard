@@ -46,7 +46,7 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
           borderRadius: BorderRadius.circular(AppConstants.borderRadius),
           boxShadow: [
             BoxShadow(
-              color: AppColor.mainColor.withOpacity(0.5),
+              color: AppColor.mainColor.withOpacity(AppConstants.borderColor),
               spreadRadius: 1,
               blurRadius: 7,
               offset: const Offset(0, 1),

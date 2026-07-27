@@ -4,6 +4,7 @@ import 'package:fruit_hub_dashboard/core/helper_function/get_date_formate.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
 import '../../../../core/enums/order_enum.dart';
+import '../../../../core/utils/app_constants.dart';
 import '../../../orders/presentation/widgets/order_status_badge.dart';
 import 'display_product_item.dart';
 import 'order_total_section.dart';
@@ -24,9 +25,20 @@ class DisplayOrderCard extends StatelessWidget {
       padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: AppColor.card,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppColor.border),
+        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.mainColor.withOpacity(AppConstants.borderColor),
+            spreadRadius: 1,
+            blurRadius: 7,
+            offset: const Offset(0, 1),
+          ),
+        ],
+        border: Border(
+          bottom: BorderSide(color: AppColor.border),
+        ),
       ),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Stack(
         children: [
           Column(

@@ -5,7 +5,6 @@ import 'package:fruit_hub_dashboard/core/helper_function/make_full_name.dart';
 import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/utils/style_manager.dart';
 import 'package:fruit_hub_dashboard/generated/assets.dart';
-
 import '../../../../core/helper_function/make_call_function.dart';
 import '../../../../core/utils/app_constants.dart';
 import '../../../../core/utils/route_manager.dart';
@@ -38,7 +37,7 @@ class CustomerCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppConstants.borderRadius),
         boxShadow: [
           BoxShadow(
-            color: AppColor.mainColor.withOpacity(0.5),
+            color: AppColor.mainColor.withOpacity(AppConstants.borderColor),
             spreadRadius: 1,
             blurRadius: 7,
             offset: const Offset(0, 1),
