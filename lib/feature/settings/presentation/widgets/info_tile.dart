@@ -39,9 +39,7 @@ class InfoTile extends StatelessWidget {
               ),
             ),
           ),
-
           SizedBox(width: 12),
-
           Expanded(
             flex: 4,
             child: Text(
