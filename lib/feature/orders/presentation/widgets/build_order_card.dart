@@ -7,6 +7,7 @@ import 'package:fruit_hub_dashboard/core/utils/app_color.dart';
 import 'package:fruit_hub_dashboard/core/utils/route_manager.dart';
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../core/entities/order_entity.dart';
+import '../../../../core/services/print_service.dart';
 import '../../../../core/utils/app_constants.dart';
 import 'order_customer_info.dart';
 import 'order_status_action.dart';
@@ -108,13 +109,13 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
                           title: 'تأكيد الطلب',
                           icon: Icons.check,
                           color: OrderStatus.confirmed.color,
-                          onTap: () {
-                            context.read<OrdersCubit>().updateOrderStatus(
+                          onTap: () async {
+                            await context.read<OrdersCubit>().updateOrderStatus(
                               orderId: widget.order.id ?? '',
                               status: OrderStatus.confirmed,
                             );
-                          },
-                        ),
+                            await PrintService.printOrder(widget.order);
+                          },                        ),
                       ),
 
                       SizedBox(width: 10),
@@ -144,7 +145,7 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
                           title: 'إنهاء الطلب',
                           icon: Icons.done_all,
                           color: OrderStatus.delivered.color,
-                          onTap: () {
+                          onTap: () async{
                             context.read<OrdersCubit>().updateOrderStatus(
                               orderId: widget.order.id ?? '',
                               status: OrderStatus.delivered,
